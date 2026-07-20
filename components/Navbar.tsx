@@ -34,12 +34,19 @@ export default function Navbar() {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, sectionId: string) => {
     setIsOpen(false);
-    if (pathname === "/") {
+    // Only intercept and smooth scroll if clicking a link for the CURRENT active page
+    if (pathname === href) {
       const elem = document.getElementById(sectionId);
       if (elem) {
         e.preventDefault();
         window.scrollTo({
           top: elem.offsetTop - 80,
+          behavior: "smooth",
+        });
+      } else if (href === "/") {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
           behavior: "smooth",
         });
       }
