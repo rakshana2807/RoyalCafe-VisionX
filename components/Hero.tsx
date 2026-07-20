@@ -57,7 +57,7 @@ export default function Hero() {
             <Link href="/live-status" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-primary/5 shadow-sm hover:border-primary/20 transition-colors">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-xs sm:text-sm font-medium text-foreground/80">
-                Live Capacity: <span className="font-semibold text-emerald-600">32% (Low)</span>
+                Live Capacity: <span className="font-semibold text-emerald-600">62% (Available)</span>
               </span>
             </Link>
 
@@ -65,7 +65,7 @@ export default function Hero() {
             <Link href="/work-study" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-primary/5 shadow-sm hover:border-primary/20 transition-colors">
               <Check className="h-4 w-4 text-emerald-500" />
               <span className="text-xs sm:text-sm font-medium text-foreground/80">
-                Fast Wi-Fi: <span className="font-semibold text-primary">Active</span>
+                Fast Wi-Fi<span className="font-semibold text-primary"></span>
               </span>
             </Link>
 

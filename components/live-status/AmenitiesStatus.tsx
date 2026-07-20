@@ -29,7 +29,7 @@ export default function AmenitiesStatus() {
   return (
     <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header */}
         <div className="max-w-3xl mx-auto text-center mb-12 animate-fade-in">
           <h2 className="text-3xl sm:text-4xl font-bold font-serif text-primary">
@@ -50,7 +50,7 @@ export default function AmenitiesStatus() {
                 <div className="h-14 w-14 rounded-full bg-primary/5 flex items-center justify-center mb-4 border border-primary/10">
                   <Icon className="h-6 w-6 text-primary stroke-[1.5]" />
                 </div>
-                
+
                 {/* Title label */}
                 <span className="text-xs sm:text-sm font-bold font-serif text-primary leading-tight">
                   {item.title}

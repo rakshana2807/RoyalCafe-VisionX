@@ -30,34 +30,6 @@ export default function LiveHeader() {
           </div>
 
           {/* Right Metrics Card Column (4 cols) */}
-          <div className="lg:col-span-4 w-full animate-fade-in delay-150">
-            <div className="bg-white rounded-2xl border border-primary/5 p-6 flex items-center justify-between text-center card-shadow max-w-sm ml-auto mr-auto lg:mr-0">
-
-              {/* Left Side: Current Occupancy */}
-              <div className="flex-1">
-                <span className="text-3xl sm:text-4xl font-bold font-serif text-primary block mb-1">
-                  48%
-                </span>
-                <span className="text-[10px] sm:text-xs font-bold text-foreground/45 uppercase tracking-wider">
-                  Current Occupancy
-                </span>
-              </div>
-
-              {/* Dividing vertical border */}
-              <div className="h-10 w-[1px] bg-primary/10 mx-4" />
-
-              {/* Right Side: Seats Available */}
-              <div className="flex-1">
-                <span className="text-3xl sm:text-4xl font-bold font-serif text-accent block mb-1">
-                  78  
-                </span>
-                <span className="text-[10px] sm:text-xs font-bold text-foreground/45 uppercase tracking-wider">
-                  Seats Available
-                </span>
-              </div>
-
-            </div>
-          </div>
 
         </div>
 
