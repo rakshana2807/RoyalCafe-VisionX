@@ -35,13 +35,31 @@ export default function ReviewForm() {
     return errs;
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const errs = validate();
     setErrors(errs);
 
     if (Object.keys(errs).length === 0) {
-      setIsSubmitted(true);
+      try {
+        await fetch("/api/reviews", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fullName: formData.fullName,
+            email: formData.email,
+            rating,
+            reviewTitle: formData.reviewTitle,
+            comment: formData.reviewMessage,
+            visitDate: formData.visitDate,
+            purpose: formData.purpose,
+          }),
+        });
+        setIsSubmitted(true);
+      } catch (err) {
+        console.error("Failed to submit review:", err);
+        setIsSubmitted(true);
+      }
     }
   };
 

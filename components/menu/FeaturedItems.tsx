@@ -1,9 +1,26 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import { Star, Sparkles, Clock } from "lucide-react";
+import { Star, Sparkles, Clock, ShoppingBag } from "lucide-react";
+import { useBooking } from "@/context/BookingContext";
 
 export default function FeaturedItems() {
+  const { addMenuItem } = useBooking();
+  const [added, setAdded] = useState(false);
+
+  const handleAddFeatured = () => {
+    addMenuItem({
+      id: "featured_pistachio_cold_brew",
+      name: "Signature Pistachio Cream Cold Brew",
+      category: "Coffee",
+      price: 175,
+      image: "/pistachio-cold-brew.png",
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
   return (
     <section className="py-12 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -83,8 +100,14 @@ export default function FeaturedItems() {
               </div>
 
               {/* CTA Action Button */}
-              <button className="w-full inline-flex items-center justify-center px-8 py-4 border border-transparent text-base font-semibold rounded-xl text-white bg-accent hover:bg-accent/95 shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all duration-250 cursor-pointer">
-                Include in Booking
+              <button
+                onClick={handleAddFeatured}
+                className={`w-full inline-flex items-center justify-center gap-2 px-8 py-4 border border-transparent text-base font-semibold rounded-xl text-white shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all duration-250 cursor-pointer uppercase tracking-wider ${
+                  added ? "bg-emerald-600" : "bg-accent hover:bg-accent/95"
+                }`}
+              >
+                <ShoppingBag className="h-5 w-5" />
+                {added ? "✓ Added to Booking" : "Include in Booking"}
               </button>
             </div>
 

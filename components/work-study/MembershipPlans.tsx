@@ -2,9 +2,18 @@
 
 import { useState } from "react";
 import { Check, Info } from "lucide-react";
+import { useBooking } from "@/context/BookingContext";
 
 export default function MembershipPlans() {
   const [activePlanType, setActivePlanType] = useState<"wifi" | "daily">("wifi");
+  const [addedPass, setAddedPass] = useState<string | null>(null);
+  const { setWifiPass } = useBooking();
+
+  const handleSelectPass = (name: string, duration: string, price: number) => {
+    setWifiPass({ name, duration, price });
+    setAddedPass(name);
+    setTimeout(() => setAddedPass(null), 2500);
+  };
 
   return (
     <section id="passes" className="py-12 bg-background text-foreground">
@@ -89,10 +98,14 @@ export default function MembershipPlans() {
             </div>
 
             <button
-              onClick={() => alert("Student Pass added to checkout!")}
-              className="w-full py-4 px-6 border border-transparent text-xs font-bold rounded-full text-white bg-[#EA5A0C] hover:bg-[#EA5A0C]/90 transition-all shadow-md cursor-pointer uppercase tracking-wider text-center"
+              onClick={() => handleSelectPass("Student Pass", "1 Hour", 39)}
+              className={`w-full py-4 px-6 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center ${
+                addedPass === "Student Pass"
+                  ? "bg-emerald-600"
+                  : "bg-[#EA5A0C] hover:bg-[#EA5A0C]/90"
+              }`}
             >
-              Buy Student Pass
+              {addedPass === "Student Pass" ? "✓ Added to Booking" : "Buy Student Pass"}
             </button>
           </div>
 
@@ -137,10 +150,14 @@ export default function MembershipPlans() {
             </div>
 
             <button
-              onClick={() => alert("Work Pass added to checkout!")}
-              className="w-full py-4 px-6 border border-transparent text-xs font-bold rounded-full text-white bg-[#EA5A0C] hover:bg-[#EA5A0C]/90 transition-all shadow-md cursor-pointer uppercase tracking-wider text-center"
+              onClick={() => handleSelectPass("Work Pass", "1 Hour", 49)}
+              className={`w-full py-4 px-6 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center ${
+                addedPass === "Work Pass"
+                  ? "bg-emerald-600"
+                  : "bg-[#EA5A0C] hover:bg-[#EA5A0C]/90"
+              }`}
             >
-              Buy Work Pass
+              {addedPass === "Work Pass" ? "✓ Added to Booking" : "Buy Work Pass"}
             </button>
           </div>
 

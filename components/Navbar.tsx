@@ -2,15 +2,51 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Menu, X, Coffee } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { Menu, X, Coffee, User, LogOut, ShieldCheck } from "lucide-react";
+
+interface UserState {
+  id: string;
+  name: string;
+  email: string;
+  phone?: string;
+  role?: string;
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [currentUser, setCurrentUser] = useState<UserState | null>(null);
   const pathname = usePathname();
+  const router = useRouter();
+
+  const syncUser = () => {
+    try {
+      const stored = localStorage.getItem("user");
+      if (stored) {
+        setCurrentUser(JSON.parse(stored));
+      } else {
+        setCurrentUser(null);
+      }
+    } catch {
+      setCurrentUser(null);
+    }
+  };
 
   useEffect(() => {
+    syncUser();
+
+    // Check profile API on mount
+    fetch("/api/auth/profile")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.user) {
+          setCurrentUser(data.user);
+          localStorage.setItem("user", JSON.stringify(data.user));
+        }
+      })
+      .catch(() => {});
+
     const handleScroll = () => {
       if (window.scrollY > 20) {
         setIsScrolled(true);
@@ -18,9 +54,28 @@ export default function Navbar() {
         setIsScrolled(false);
       }
     };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("auth-state-change", syncUser);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("auth-state-change", syncUser);
+    };
   }, []);
+
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+      localStorage.removeItem("user");
+      setCurrentUser(null);
+      window.dispatchEvent(new Event("auth-state-change"));
+      setIsOpen(false);
+      router.push("/");
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+  };
 
   const navLinks = [
     { name: "Home", href: "/", sectionId: "home" },
@@ -34,7 +89,6 @@ export default function Navbar() {
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, sectionId: string) => {
     setIsOpen(false);
-    // Only intercept and smooth scroll if clicking a link for the CURRENT active page
     if (pathname === href) {
       const elem = document.getElementById(sectionId);
       if (elem) {
@@ -93,15 +147,67 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden sm:block">
-            <Link
-              href="/book"
-              onClick={(e) => handleNavClick(e, "/book", "book")}
-              className="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-sm font-semibold rounded-lg text-white bg-primary hover:bg-primary/95 shadow-sm transition-all duration-250 hover:scale-[1.02] active:scale-[0.98]"
-            >
-              Book Desk
-            </Link>
+          {/* Desktop Auth State / CTA Buttons */}
+          <div className="hidden sm:flex items-center gap-3">
+            {currentUser ? (
+              <div className="flex items-center gap-3">
+                {currentUser.role === "admin" && (
+                  <Link
+                    href="/admin"
+                    className="text-xs font-bold text-accent hover:text-primary bg-accent/10 px-3 py-1.5 rounded-lg border border-accent/20 flex items-center gap-1.5 transition-all"
+                  >
+                    <ShieldCheck className="w-3.5 h-3.5" /> Admin
+                  </Link>
+                )}
+
+                <div className="flex items-center gap-2 px-3 py-1.5 bg-primary/10 rounded-lg text-primary text-xs font-bold">
+                  <User className="w-4 h-4 text-accent" />
+                  <span>{currentUser.name}</span>
+                </div>
+
+                <button
+                  onClick={handleLogout}
+                  className="p-2 rounded-lg text-foreground/70 hover:text-red-600 hover:bg-red-50 transition-all cursor-pointer"
+                  title="Logout"
+                >
+                  <LogOut className="w-4 h-4" />
+                </button>
+
+                <Link
+                  href="/book"
+                  onClick={(e) => handleNavClick(e, "/book", "book")}
+                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-xs font-semibold rounded-lg text-white bg-primary hover:bg-primary/95 shadow-sm transition-all duration-250 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Book Desk
+                </Link>
+              </div>
+            ) : (
+              <div className="flex items-center gap-2">
+                <Link
+                  href="/login"
+                  className={`text-xs font-semibold transition-colors px-3 py-2 rounded-lg ${
+                    pathname === "/login"
+                      ? "text-primary font-bold bg-primary/10"
+                      : "text-foreground/80 hover:text-primary hover:bg-primary/5"
+                  }`}
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  className="text-xs font-semibold px-3.5 py-2 rounded-lg text-primary border border-primary/20 hover:bg-primary/5 transition-all"
+                >
+                  Register
+                </Link>
+                <Link
+                  href="/book"
+                  onClick={(e) => handleNavClick(e, "/book", "book")}
+                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-xs font-semibold rounded-lg text-white bg-primary hover:bg-primary/95 shadow-sm transition-all duration-250 hover:scale-[1.02] active:scale-[0.98]"
+                >
+                  Book Desk
+                </Link>
+              </div>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -134,7 +240,49 @@ export default function Navbar() {
               {link.name}
             </Link>
           ))}
-          <div className="pt-4 border-t border-primary/10 px-4 sm:hidden">
+
+          <div className="pt-4 border-t border-primary/10 px-4 space-y-2 sm:hidden">
+            {currentUser ? (
+              <>
+                <div className="flex items-center gap-2 px-4 py-2 bg-primary/10 rounded-lg text-primary text-sm font-bold">
+                  <User className="w-4 h-4 text-accent" />
+                  <span>{currentUser.name}</span>
+                </div>
+                {currentUser.role === "admin" && (
+                  <Link
+                    href="/admin"
+                    onClick={() => setIsOpen(false)}
+                    className="block w-full text-center px-4 py-2.5 text-sm font-bold text-accent bg-accent/10 rounded-lg border border-accent/20"
+                  >
+                    Admin Dashboard
+                  </Link>
+                )}
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-center px-5 py-2.5 text-base font-semibold rounded-lg text-red-600 border border-red-200 hover:bg-red-50 transition-all cursor-pointer"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full text-center px-5 py-2.5 text-base font-semibold rounded-lg text-primary border border-primary/20 hover:bg-primary/5 transition-all"
+                >
+                  Login
+                </Link>
+                <Link
+                  href="/register"
+                  onClick={() => setIsOpen(false)}
+                  className="block w-full text-center px-5 py-2.5 text-base font-semibold rounded-lg text-primary border border-primary/20 hover:bg-primary/5 transition-all"
+                >
+                  Register
+                </Link>
+              </>
+            )}
+
             <Link
               href="/book"
               onClick={(e) => handleNavClick(e, "/book", "book")}

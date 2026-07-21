@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Star, Clock, Heart, Flame } from "lucide-react";
+import { Star, Clock, Heart, Flame, ShoppingBag } from "lucide-react";
 import { MenuItem } from "@/data/menuData";
+import { useBooking } from "@/context/BookingContext";
 
 interface MenuCardProps {
   item: MenuItem;
@@ -12,8 +13,16 @@ interface MenuCardProps {
 export default function MenuCard({ item }: MenuCardProps) {
   const [isLiked, setIsLiked] = useState(false);
   const [added, setAdded] = useState(false);
+  const { addMenuItem } = useBooking();
 
   const handleAdd = () => {
+    addMenuItem({
+      id: item.id,
+      name: item.name,
+      category: item.category,
+      price: item.price,
+      image: item.image,
+    });
     setAdded(true);
     setTimeout(() => setAdded(false), 2000);
   };
@@ -119,13 +128,20 @@ export default function MenuCard({ item }: MenuCardProps) {
           {/* Action Button */}
           <button
             onClick={handleAdd}
-            className={`w-full py-2.5 px-4 text-xs font-bold rounded-full transition-all shadow-sm cursor-pointer uppercase tracking-wider text-center ${
+            className={`w-full py-2.5 px-4 text-xs font-bold rounded-full transition-all shadow-sm cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
               added
                 ? "bg-emerald-600 text-white"
                 : "bg-white border border-primary/20 text-primary hover:bg-[#2A1506] hover:text-white hover:border-transparent"
             }`}
           >
-            {added ? "Added to Order ✓" : "Include in Booking"}
+            {added ? (
+              "✓ Added to Booking"
+            ) : (
+              <>
+                <ShoppingBag className="h-3.5 w-3.5" />
+                Include in Booking
+              </>
+            )}
           </button>
         </div>
       </div>

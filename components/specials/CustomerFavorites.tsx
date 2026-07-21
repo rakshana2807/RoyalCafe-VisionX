@@ -1,59 +1,88 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
+import { useBooking } from "@/context/BookingContext";
 
 export default function CustomerFavorites() {
+  const { addMenuItem } = useBooking();
+  const [addedId, setAddedId] = useState<string | null>(null);
+
   const favorites = [
     {
-      id: "#1",
+      id: "fav_pistachio_brew",
       name: "Pistachio Cold Brew",
-      price: "₹220",
+      price: 220,
+      priceFormatted: "₹220",
       image: "/pistachio-cold-brew.png",
+      category: "Coffee",
     },
     {
-      id: "#2",
+      id: "fav_flat_white",
       name: "Artisan Flat White",
-      price: "₹180",
+      price: 180,
+      priceFormatted: "₹180",
       image: "/flat-white.png",
+      category: "Coffee",
     },
     {
-      id: "#3",
+      id: "fav_avocado_toast",
       name: "Sourdough Avocado",
-      price: "₹250",
+      price: 250,
+      priceFormatted: "₹250",
       image: "/poached-eggs.png",
+      category: "Breakfast",
     },
     {
-      id: "#4",
+      id: "fav_club_sandwich",
       name: "Gourmet Club Sandwich",
-      price: "₹200",
+      price: 200,
+      priceFormatted: "₹200",
       image: "/macarons.png",
+      category: "Sandwiches",
     },
     {
-      id: "#5",
+      id: "fav_bagel_cream",
       name: "Bagel with Cream",
-      price: "₹175",
+      price: 175,
+      priceFormatted: "₹175",
       image: "/flat-white-pastry.png",
+      category: "Breakfast",
     },
     {
-      id: "#6",
+      id: "fav_cheesecake",
       name: "Slice of Cheesecake",
-      price: "₹190",
+      price: 190,
+      priceFormatted: "₹190",
       image: "/macarons.png",
+      category: "Desserts",
     },
   ];
+
+  const handleAdd = (item: (typeof favorites)[0]) => {
+    addMenuItem({
+      id: item.id,
+      name: item.name,
+      category: item.category,
+      price: item.price,
+      image: item.image,
+    });
+    setAddedId(item.id);
+    setTimeout(() => setAddedId(null), 2000);
+  };
 
   return (
     <section className="py-12 bg-background text-foreground text-left">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header matching Figma */}
+        {/* Section Header */}
         <div className="text-center mb-8">
           <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#5A2E0C]">
             Customer Favorites
           </h2>
         </div>
 
-        {/* 6 Favorites Grid (3 cols x 2 rows) matching Figma */}
+        {/* 6 Favorites Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {favorites.map((item, idx) => (
             <div
@@ -75,8 +104,8 @@ export default function CustomerFavorites() {
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex justify-between items-center text-xs font-semibold text-foreground/50 mb-1">
-                    <span>{item.id}</span>
-                    <span className="font-bold font-serif text-[#5A2E0C] text-base">{item.price}</span>
+                    <span>#{idx + 1}</span>
+                    <span className="font-bold font-serif text-[#5A2E0C] text-base">{item.priceFormatted}</span>
                   </div>
 
                   <h3 className="text-base font-bold font-serif text-primary mb-4">
@@ -85,10 +114,12 @@ export default function CustomerFavorites() {
                 </div>
 
                 <button
-                  onClick={() => alert(`${item.name} added to booking!`)}
-                  className="w-full py-2.5 px-4 border border-transparent text-xs font-bold rounded-full text-white bg-[#2A1506] hover:bg-[#2A1506]/90 transition-all shadow-md cursor-pointer uppercase tracking-wider text-center"
+                  onClick={() => handleAdd(item)}
+                  className={`w-full py-2.5 px-4 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center ${
+                    addedId === item.id ? "bg-emerald-600" : "bg-[#2A1506] hover:bg-[#2A1506]/90"
+                  }`}
                 >
-                  Include in Booking
+                  {addedId === item.id ? "✓ Added to Booking" : "Include in Booking"}
                 </button>
               </div>
 

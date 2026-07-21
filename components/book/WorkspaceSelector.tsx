@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useBooking } from "@/context/BookingContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -26,6 +27,7 @@ import {
 
 export default function WorkspaceSelector() {
   const router = useRouter();
+  const { menuItems, wifiPass, foodTotal, wifiTotal, clearBooking } = useBooking();
 
   // Date setup: Today's date in YYYY-MM-DD
   const todayObj = new Date();
@@ -87,46 +89,123 @@ export default function WorkspaceSelector() {
   const relaxTax = relaxBasePrice * 0.05;
   const relaxGrandTotal = relaxBasePrice + relaxTax;
 
-  // Handlers for submission to /payment
-  const handleStudySubmit = (e: React.FormEvent) => {
+  // Handlers for submission connected to backend /api/booking
+  const handleStudySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isStudyDateFullyBooked) return;
 
-    const queryParams = new URLSearchParams({
-      bookingType: "Study Workspace",
-      workspace: studyForm.workspaceName,
-      seat: studyForm.seat,
-      zone: studyForm.purpose,
-      date: formatDateDDMMYYYY(studyForm.resDate),
-      time: studyForm.arrivalTime,
-      duration: studyForm.duration,
-      guests: studyForm.guests,
-      purpose: studyForm.purpose,
-      amount: studyGrandTotal.toFixed(0),
-    }).toString();
+    const bookingFee = studyBasePrice;
+    const grandTotal = bookingFee + foodTotal + wifiTotal + Math.round((bookingFee + foodTotal + wifiTotal) * 0.05);
 
-    router.push(`/payment?${queryParams}`);
+    try {
+      const res = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: studyForm.fullName,
+          mobile: studyForm.mobile,
+          email: studyForm.email,
+          seatType: "Study Workspace",
+          seatNumber: studyForm.workspaceName,
+          date: formatDateDDMMYYYY(studyForm.resDate),
+          arrivalTime: studyForm.arrivalTime,
+          duration: studyForm.duration,
+          guests: studyForm.guests,
+          purpose: studyForm.purpose,
+          amount: bookingFee,
+          // Cart / Context data
+          menuItems,
+          wifiPass,
+          foodTotal,
+          wifiTotal,
+          bookingFee,
+          grandTotal,
+        }),
+      });
+
+      const data = await res.json();
+      const bookingId = data?.booking?.bookingId || "";
+
+      const queryParams = new URLSearchParams({
+        bookingId,
+        bookingType: "Study Workspace",
+        workspace: studyForm.workspaceName,
+        seat: studyForm.seat,
+        zone: studyForm.purpose,
+        date: formatDateDDMMYYYY(studyForm.resDate),
+        time: studyForm.arrivalTime,
+        duration: studyForm.duration,
+        guests: studyForm.guests,
+        purpose: studyForm.purpose,
+        amount: grandTotal.toFixed(0),
+      }).toString();
+
+      clearBooking();
+      router.push(`/payment?${queryParams}`);
+    } catch (err) {
+      console.error("Booking API error:", err);
+      router.push(`/payment?amount=${grandTotal.toFixed(0)}`);
+    }
   };
 
-  const handleRelaxSubmit = (e: React.FormEvent) => {
+  const handleRelaxSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (isRelaxDateFullyBooked) return;
 
-    const queryParams = new URLSearchParams({
-      bookingType: "Café Reservation",
-      workspace: `${relaxForm.tableType} (${relaxForm.seatingArea})`,
-      seat: relaxForm.tableType,
-      zone: relaxForm.seatingArea,
-      date: formatDateDDMMYYYY(relaxForm.resDate),
-      time: relaxForm.arrivalTime,
-      duration: "Table Booking",
-      guests: relaxForm.guests,
-      purpose: relaxForm.occasion,
-      specialRequests: relaxForm.specialRequests,
-      amount: relaxGrandTotal.toFixed(0),
-    }).toString();
+    const bookingFee = relaxBasePrice;
+    const grandTotal = bookingFee + foodTotal + wifiTotal + Math.round((bookingFee + foodTotal + wifiTotal) * 0.05);
 
-    router.push(`/payment?${queryParams}`);
+    try {
+      const res = await fetch("/api/booking", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          fullName: relaxForm.fullName,
+          mobile: relaxForm.mobile,
+          email: relaxForm.email,
+          seatType: "Café Reservation",
+          seatNumber: `${relaxForm.tableType} (${relaxForm.seatingArea})`,
+          date: formatDateDDMMYYYY(relaxForm.resDate),
+          arrivalTime: relaxForm.arrivalTime,
+          duration: "Table Booking",
+          guests: relaxForm.guests,
+          purpose: relaxForm.occasion,
+          specialRequests: relaxForm.specialRequests,
+          amount: bookingFee,
+          // Cart / Context data
+          menuItems,
+          wifiPass,
+          foodTotal,
+          wifiTotal,
+          bookingFee,
+          grandTotal,
+        }),
+      });
+
+      const data = await res.json();
+      const bookingId = data?.booking?.bookingId || "";
+
+      const queryParams = new URLSearchParams({
+        bookingId,
+        bookingType: "Café Reservation",
+        workspace: `${relaxForm.tableType} (${relaxForm.seatingArea})`,
+        seat: relaxForm.tableType,
+        zone: relaxForm.seatingArea,
+        date: formatDateDDMMYYYY(relaxForm.resDate),
+        time: relaxForm.arrivalTime,
+        duration: "Table Booking",
+        guests: relaxForm.guests,
+        purpose: relaxForm.occasion,
+        specialRequests: relaxForm.specialRequests,
+        amount: grandTotal.toFixed(0),
+      }).toString();
+
+      clearBooking();
+      router.push(`/payment?${queryParams}`);
+    } catch (err) {
+      console.error("Booking API error:", err);
+      router.push(`/payment?amount=${grandTotal.toFixed(0)}`);
+    }
   };
 
   return (

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import BookingProviderWrapper from "@/components/BookingProviderWrapper";
 
 export const metadata: Metadata = {
   title: "RoyalCafe Connect | Your Perfect Coffee & Workspace",
@@ -24,8 +25,11 @@ export default function RootLayout({
       className="scroll-smooth h-full antialiased"
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        {children}
+        <BookingProviderWrapper>
+          {children}
+        </BookingProviderWrapper>
       </body>
     </html>
   );
 }
+

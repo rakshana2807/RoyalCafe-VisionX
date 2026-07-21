@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Coffee, ArrowRight, UtensilsCrossed } from "lucide-react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -37,9 +37,57 @@ export default function MenuPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [sortOption, setSortOption] = useState("Recommended");
+  const [menuItemsList, setMenuItemsList] = useState<MenuItem[]>(MENU_ITEMS);
+
+  useEffect(() => {
+    async function loadMenu() {
+      try {
+        const res = await fetch("/api/menu");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && data.menu && data.menu.length > 0) {
+            // Map MongoDB menu document schema to MenuItem frontend interface
+            const formatted: MenuItem[] = data.menu.map((m: {
+              _id?: string;
+              id?: string;
+              itemName?: string;
+              name?: string;
+              price: number;
+              description: string;
+              image: string;
+              category: string;
+              isBestSeller?: boolean;
+              isChefsSpecial?: boolean;
+              rating?: number;
+              reviewsCount?: string;
+            }) => ({
+              id: m._id || m.id || Math.random().toString(),
+              name: m.itemName || m.name || "Menu Item",
+              price: m.price,
+              priceFormatted: `₹${m.price}`,
+              description: m.description,
+              image: m.image,
+              category: m.category,
+              filterType: "Coffee",
+              isVeg: true,
+              prepTime: "5 mins",
+              rating: m.rating || 4.8,
+              reviewsCount: m.reviewsCount || "20+ reviews",
+              isBestSeller: m.isBestSeller,
+              isChefsSpecial: m.isChefsSpecial,
+            }));
+            setMenuItemsList(formatted);
+          }
+        }
+      } catch (err) {
+        console.error("Failed to load menu from backend API:", err);
+      }
+    }
+    loadMenu();
+  }, []);
 
   // Filtering Logic (Combines Category & Search Query)
-  let filteredItems = MENU_ITEMS.filter((item: MenuItem) => {
+  let filteredItems = menuItemsList.filter((item: MenuItem) => {
     // 1. Search Query Filter
     if (searchTerm.trim() !== "") {
       const query = searchTerm.toLowerCase();
