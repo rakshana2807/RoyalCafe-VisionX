@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import BookingProviderWrapper from "@/components/BookingProviderWrapper";
+import BookingProviderWrapper from "@/components/shared/BookingProviderWrapper";
 
 export const metadata: Metadata = {
   title: "RoyalCafe Connect | Your Perfect Coffee & Workspace",

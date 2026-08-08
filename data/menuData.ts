@@ -15,6 +15,8 @@ export interface MenuItem {
   isBestSeller?: boolean;
   isNew?: boolean;
   isChefsSpecial?: boolean;
+  inStock?: boolean;
+  isSpecial?: boolean;
 }
 
 export const MENU_CATEGORIES = [

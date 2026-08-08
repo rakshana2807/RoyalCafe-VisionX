@@ -21,58 +21,277 @@ export interface BookingMenuItem {
 }
 
 export interface BookingWifiPass {
+  id?: string;
   name: string;
   duration: string;
   price: number;
 }
 
-export interface BookingState {
-  bookingItems: BookingMenuItem[];
-  menuItems: BookingMenuItem[]; // Alias for backward compatibility
-  wifiPass: BookingWifiPass | null;
+export interface SelectedSeatDetails {
+  id?: string;
+  number?: string;
+  seatNumber: string;
+  zone: string;
+  seatType: string;
+  area?: string;
 }
+
+export interface ReservationDetails {
+  fullName: string;
+  mobile: string;
+  email: string;
+  resDate: string;
+  arrivalTime: string;
+  duration: string;
+  seatingArea: string;
+  tableType: string;
+  guests: string;
+  occasion: string;
+  specialRequests: string;
+  bookingType: "study" | "relax";
+}
+
+export interface RoyalCafeBookingStorage {
+  selectedSeat: SelectedSeatDetails | null;
+  customer: {
+    fullName: string;
+    email: string;
+    phone: string;
+  };
+  reservation: {
+    date: string;
+    arrivalTime: string;
+    duration: string;
+    numberOfPeople: string;
+    tableType: string;
+    occasion: string;
+    specialRequest: string;
+  };
+  menuItems: {
+    id: string;
+    name: string;
+    image: string;
+    price: number;
+    quantity: number;
+    subtotal: number;
+  }[];
+  wifiPass: {
+    id?: string;
+    name: string;
+    duration: string;
+    price: number;
+  } | null;
+  payment: {
+    foodTotal: number;
+    wifiTotal: number;
+    reservationFee: number;
+    gst: number;
+    grandTotal: number;
+  };
+}
+
+export const TABLE_TYPES = [
+  "Single Seater",
+  "2 Seater",
+  "4 Seater",
+  "Lounge",
+  "Private Booths (6 Seater)",
+  "Booths (10 Seater)",
+  "Kids Zone",
+  "Elder Friendly",
+];
+
+export const DEFAULT_RESERVATION_DETAILS: ReservationDetails = {
+  fullName: "",
+  mobile: "",
+  email: "",
+  resDate: new Date().toISOString().split("T")[0],
+  arrivalTime: "09:30 AM",
+  duration: "2 Hours",
+  seatingArea: "Indoor Seating",
+  tableType: "2 Seater",
+  guests: "2",
+  occasion: "Casual Visit",
+  specialRequests: "",
+  bookingType: "relax",
+};
 
 interface BookingContextValue {
   bookingItems: BookingMenuItem[];
   menuItems: BookingMenuItem[]; // Alias
   wifiPass: BookingWifiPass | null;
+  selectedSeat: SelectedSeatDetails | null;
+  reservationDetails: ReservationDetails;
   addMenuItem: (item: Omit<BookingMenuItem, "quantity">) => void;
   removeMenuItem: (id: string) => void;
   updateQty: (id: string, delta: 1 | -1) => void;
   setWifiPass: (pass: BookingWifiPass | null) => void;
+  setSelectedSeat: (seat: SelectedSeatDetails | null) => void;
+  updateReservationDetails: (details: Partial<ReservationDetails>) => void;
   clearBooking: () => void;
   foodTotal: number;
   wifiTotal: number;
+  bookingFee: number;
+  gst: number;
   grandTotal: number;
-  totalPrice: number; // Alias for grandTotal
+  totalPrice: number; // Alias
 }
 
-// ─── Context ────────────────────────────────────────────────────────────────
+// ─── Context & Storage Key ──────────────────────────────────────────────────
 
 const BookingContext = createContext<BookingContextValue | null>(null);
 
-const STORAGE_KEY = "royalcafe_booking_cart";
+const PRIMARY_KEY = "royalcafe_booking";
 
-function loadFromStorage(): { bookingItems: BookingMenuItem[]; wifiPass: BookingWifiPass | null } {
-  if (typeof window === "undefined") return { bookingItems: [], wifiPass: null };
+function loadFromStorage(): {
+  bookingItems: BookingMenuItem[];
+  wifiPass: BookingWifiPass | null;
+  selectedSeat: SelectedSeatDetails | null;
+  reservationDetails: ReservationDetails;
+} {
+  if (typeof window === "undefined") {
+    return {
+      bookingItems: [],
+      wifiPass: null,
+      selectedSeat: null,
+      reservationDetails: DEFAULT_RESERVATION_DETAILS,
+    };
+  }
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { bookingItems: [], wifiPass: null };
-    const parsed = JSON.parse(raw);
-    const bookingItems = parsed.bookingItems || parsed.menuItems || [];
-    const wifiPass = parsed.wifiPass || null;
-    return { bookingItems, wifiPass };
-  } catch {
-    return { bookingItems: [], wifiPass: null };
+    const raw = localStorage.getItem(PRIMARY_KEY);
+    if (!raw) {
+      return {
+        bookingItems: [],
+        wifiPass: null,
+        selectedSeat: null,
+        reservationDetails: DEFAULT_RESERVATION_DETAILS,
+      };
+    }
+    const parsed = JSON.parse(raw) as Partial<RoyalCafeBookingStorage>;
+
+    const customer = (parsed.customer || {}) as Partial<RoyalCafeBookingStorage["customer"]>;
+    const reservation = (parsed.reservation || {}) as Partial<RoyalCafeBookingStorage["reservation"]>;
+
+    const selectedSeat: SelectedSeatDetails | null = parsed.selectedSeat
+      ? {
+          id: (parsed.selectedSeat as any).id,
+          number: (parsed.selectedSeat as any).number,
+          seatNumber: parsed.selectedSeat.seatNumber || (parsed.selectedSeat as any).number || "",
+          zone: parsed.selectedSeat.zone,
+          seatType: parsed.selectedSeat.seatType,
+          area: (parsed.selectedSeat as any).area,
+        }
+      : null;
+
+    const reservationDetails: ReservationDetails = {
+      ...DEFAULT_RESERVATION_DETAILS,
+      fullName: customer.fullName || "",
+      email: customer.email || "",
+      mobile: customer.phone || "",
+      resDate: reservation.date || DEFAULT_RESERVATION_DETAILS.resDate,
+      arrivalTime: reservation.arrivalTime || DEFAULT_RESERVATION_DETAILS.arrivalTime,
+      duration: reservation.duration || DEFAULT_RESERVATION_DETAILS.duration,
+      guests: reservation.numberOfPeople || DEFAULT_RESERVATION_DETAILS.guests,
+      tableType: selectedSeat?.seatType || reservation.tableType || DEFAULT_RESERVATION_DETAILS.tableType,
+      seatingArea: selectedSeat?.zone || DEFAULT_RESERVATION_DETAILS.seatingArea,
+      occasion: reservation.occasion || DEFAULT_RESERVATION_DETAILS.occasion,
+      specialRequests: reservation.specialRequest || DEFAULT_RESERVATION_DETAILS.specialRequests,
+    };
+
+    const bookingItems: BookingMenuItem[] = Array.isArray(parsed.menuItems)
+      ? parsed.menuItems.map((m: any) => ({
+          id: m.id || m.name,
+          name: m.name,
+          category: m.category || "Menu",
+          price: Number(m.price) || 0,
+          quantity: Number(m.quantity) || 1,
+          image: m.image || "/flat-white.png",
+        }))
+      : [];
+
+    const wifiPass: BookingWifiPass | null = parsed.wifiPass
+      ? {
+          id: parsed.wifiPass.id,
+          name: parsed.wifiPass.name,
+          duration: parsed.wifiPass.duration,
+          price: Number(parsed.wifiPass.price) || 0,
+        }
+      : null;
+
+    return { bookingItems, wifiPass, selectedSeat, reservationDetails };
+  } catch (err) {
+    console.warn("Corrupted royalcafe_booking in localStorage — clearing safely.", err);
+    localStorage.removeItem(PRIMARY_KEY);
+    return {
+      bookingItems: [],
+      wifiPass: null,
+      selectedSeat: null,
+      reservationDetails: DEFAULT_RESERVATION_DETAILS,
+    };
   }
 }
 
-function saveToStorage(state: { bookingItems: BookingMenuItem[]; wifiPass: BookingWifiPass | null }) {
+function saveToStorage(
+  items: BookingMenuItem[],
+  pass: BookingWifiPass | null,
+  seat: SelectedSeatDetails | null,
+  res: ReservationDetails,
+  totals: { foodTotal: number; wifiTotal: number; bookingFee: number; gst: number; grandTotal: number }
+) {
   if (typeof window === "undefined") return;
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  } catch {
-    // ignore
+    const payload: RoyalCafeBookingStorage = {
+      selectedSeat: seat
+        ? {
+            id: seat.id,
+            number: seat.number,
+            seatNumber: seat.seatNumber,
+            zone: seat.zone,
+            seatType: seat.seatType,
+            area: seat.area,
+          }
+        : null,
+      customer: {
+        fullName: res.fullName,
+        email: res.email,
+        phone: res.mobile,
+      },
+      reservation: {
+        date: res.resDate,
+        arrivalTime: res.arrivalTime,
+        duration: res.duration,
+        numberOfPeople: res.guests,
+        tableType: seat?.seatType || res.tableType,
+        occasion: res.occasion,
+        specialRequest: res.specialRequests,
+      },
+      menuItems: items.map((i) => ({
+        id: i.id,
+        name: i.name,
+        image: i.image,
+        price: i.price,
+        quantity: i.quantity,
+        subtotal: i.price * i.quantity,
+      })),
+      wifiPass: pass
+        ? {
+            id: pass.id || pass.name.toLowerCase().replace(/\s+/g, "_"),
+            name: pass.name,
+            duration: pass.duration,
+            price: pass.price,
+          }
+        : null,
+      payment: {
+        foodTotal: totals.foodTotal,
+        wifiTotal: totals.wifiTotal,
+        reservationFee: totals.bookingFee,
+        gst: totals.gst,
+        grandTotal: totals.grandTotal,
+      },
+    };
+    localStorage.setItem(PRIMARY_KEY, JSON.stringify(payload));
+  } catch (err) {
+    console.warn("Failed to write to localStorage:", err);
   }
 }
 
@@ -81,26 +300,48 @@ function saveToStorage(state: { bookingItems: BookingMenuItem[]; wifiPass: Booki
 export function BookingProvider({ children }: { children: ReactNode }) {
   const [bookingItems, setBookingItems] = useState<BookingMenuItem[]>([]);
   const [wifiPass, setWifiPassState] = useState<BookingWifiPass | null>(null);
+  const [selectedSeat, setSelectedSeatState] = useState<SelectedSeatDetails | null>(null);
+  const [reservationDetails, setReservationDetails] = useState<ReservationDetails>(
+    DEFAULT_RESERVATION_DETAILS
+  );
   const [hydrated, setHydrated] = useState(false);
 
-  // Hydrate from localStorage once on mount (client side)
+  // Hydrate from localStorage once on mount
   useEffect(() => {
     const saved = loadFromStorage();
     setBookingItems(saved.bookingItems);
     setWifiPassState(saved.wifiPass);
+    setSelectedSeatState(saved.selectedSeat);
+    setReservationDetails(saved.reservationDetails);
     setHydrated(true);
   }, []);
 
-  // Persist to localStorage whenever state changes after initial hydration
+  // ── Derived Calculations ─────────────────────────────────────────────────
+  const foodTotal = bookingItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0
+  );
+  const wifiTotal = wifiPass?.price ?? 0;
+  const bookingFee = 29; // Reservation Fee = 29
+  const subtotalBeforeTax = foodTotal + wifiTotal + bookingFee;
+  const gst = Math.round(subtotalBeforeTax * 0.02);
+  const grandTotal = subtotalBeforeTax + gst;
+
+  // Persist to localStorage whenever any field changes after initial hydration
   useEffect(() => {
     if (!hydrated) return;
-    saveToStorage({ bookingItems, wifiPass });
-  }, [bookingItems, wifiPass, hydrated]);
+    saveToStorage(bookingItems, wifiPass, selectedSeat, reservationDetails, {
+      foodTotal,
+      wifiTotal,
+      bookingFee,
+      gst,
+      grandTotal,
+    });
+  }, [bookingItems, wifiPass, selectedSeat, reservationDetails, foodTotal, wifiTotal, bookingFee, gst, grandTotal, hydrated]);
 
   // ── Actions ─────────────────────────────────────────────────────────────
 
   const addMenuItem = useCallback((item: Omit<BookingMenuItem, "quantity">) => {
-    console.log("Adding Item:", item);
     setBookingItems((prev) => {
       const idx = prev.findIndex((m) => m.id === item.id || m.name === item.name);
       if (idx !== -1) {
@@ -129,40 +370,56 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const setWifiPass = useCallback((pass: BookingWifiPass | null) => {
-    console.log("Setting WiFi Pass:", pass);
     setWifiPassState(pass);
   }, []);
+
+  const setSelectedSeat = useCallback((seat: SelectedSeatDetails | null) => {
+    setSelectedSeatState(seat);
+    if (seat) {
+      setReservationDetails((prev) => ({
+        ...prev,
+        tableType: seat.seatType || prev.tableType,
+        seatingArea: seat.zone || prev.seatingArea,
+      }));
+    }
+  }, []);
+
+  const updateReservationDetails = useCallback(
+    (details: Partial<ReservationDetails>) => {
+      setReservationDetails((prev) => ({ ...prev, ...details }));
+    },
+    []
+  );
 
   const clearBooking = useCallback(() => {
     setBookingItems([]);
     setWifiPassState(null);
+    setSelectedSeatState(null);
+    setReservationDetails(DEFAULT_RESERVATION_DETAILS);
     if (typeof window !== "undefined") {
-      localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(PRIMARY_KEY);
     }
   }, []);
-
-  // ── Derived Totals ───────────────────────────────────────────────────────
-
-  const foodTotal = bookingItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
-    0
-  );
-  const wifiTotal = wifiPass?.price ?? 0;
-  const grandTotal = foodTotal + wifiTotal;
 
   return (
     <BookingContext.Provider
       value={{
         bookingItems,
-        menuItems: bookingItems, // Alias
+        menuItems: bookingItems,
         wifiPass,
+        selectedSeat,
+        reservationDetails,
         addMenuItem,
         removeMenuItem,
         updateQty,
         setWifiPass,
+        setSelectedSeat,
+        updateReservationDetails,
         clearBooking,
         foodTotal,
         wifiTotal,
+        bookingFee,
+        gst,
         grandTotal,
         totalPrice: grandTotal,
       }}
@@ -181,3 +438,5 @@ export function useBooking(): BookingContextValue {
   }
   return ctx;
 }
+
+export const useBookingContext = useBooking;
