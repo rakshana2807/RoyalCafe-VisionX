@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function CustomerFavorites() {
-  const { addMenuItem } = useBooking();
-  const [addedId, setAddedId] = useState<string | null>(null);
+  const router = useRouter();
+  const { bookingItems, addMenuItem } = useBooking();
 
   const favorites = [
     {
@@ -59,16 +62,26 @@ export default function CustomerFavorites() {
     },
   ];
 
+  const isAlreadyInBooking = (item: (typeof favorites)[0]) =>
+    bookingItems.some((b) => b.id === item.id || b.name === item.name);
+
   const handleAdd = (item: (typeof favorites)[0]) => {
-    addMenuItem({
-      id: item.id,
-      name: item.name,
-      category: item.category,
-      price: item.price,
-      image: item.image,
-    });
-    setAddedId(item.id);
-    setTimeout(() => setAddedId(null), 2000);
+    if (isAlreadyInBooking(item)) {
+      if (!isAuthenticated()) {
+        const msg = encodeURIComponent("Please login to your RoyalCafeConnect account to book a workspace.");
+        router.push(`/login?redirect=/book&message=${msg}`);
+      } else {
+        router.push("/book");
+      }
+    } else {
+      addMenuItem({
+        id: item.id,
+        name: item.name,
+        category: item.category,
+        price: item.price,
+        image: item.image,
+      });
+    }
   };
 
   return (
@@ -115,11 +128,18 @@ export default function CustomerFavorites() {
 
                 <button
                   onClick={() => handleAdd(item)}
-                  className={`w-full py-2.5 px-4 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center ${
-                    addedId === item.id ? "bg-emerald-600" : "bg-[#2A1506] hover:bg-[#2A1506]/90"
+                  className={`w-full py-2.5 px-4 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
+                    isAlreadyInBooking(item) ? "bg-[#8C4A21] hover:bg-[#3D2314]" : "bg-[#2A1506] hover:bg-[#2A1506]/90"
                   }`}
                 >
-                  {addedId === item.id ? "✓ Added to Booking" : "Include in Booking"}
+                  {isAlreadyInBooking(item) ? (
+                    <>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                      Go to Bookings
+                    </>
+                  ) : (
+                    "Include in Booking"
+                  )}
                 </button>
               </div>
 

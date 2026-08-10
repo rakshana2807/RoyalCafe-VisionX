@@ -2,11 +2,14 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { ArrowRight } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function ComboDeals() {
-  const { addMenuItem } = useBooking();
-  const [addedName, setAddedName] = useState<string | null>(null);
+  const router = useRouter();
+  const { bookingItems, addMenuItem } = useBooking();
 
   const combos = [
     {
@@ -38,16 +41,26 @@ export default function ComboDeals() {
     },
   ];
 
+  const isAlreadyInBooking = (combo: (typeof combos)[0]) =>
+    bookingItems.some((b) => b.id === combo.id || b.name === combo.name);
+
   const handleAddCombo = (combo: (typeof combos)[0]) => {
-    addMenuItem({
-      id: combo.id,
-      name: combo.name,
-      category: combo.category,
-      price: combo.price,
-      image: combo.image,
-    });
-    setAddedName(combo.name);
-    setTimeout(() => setAddedName(null), 2000);
+    if (isAlreadyInBooking(combo)) {
+      if (!isAuthenticated()) {
+        const msg = encodeURIComponent("Please login to your RoyalCafeConnect account to book a workspace.");
+        router.push(`/login?redirect=/book&message=${msg}`);
+      } else {
+        router.push("/book");
+      }
+    } else {
+      addMenuItem({
+        id: combo.id,
+        name: combo.name,
+        category: combo.category,
+        price: combo.price,
+        image: combo.image,
+      });
+    }
   };
 
   return (
@@ -97,11 +110,18 @@ export default function ComboDeals() {
 
                 <button
                   onClick={() => handleAddCombo(combo)}
-                  className={`w-full py-3 px-5 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center ${
-                    addedName === combo.name ? "bg-emerald-600" : "bg-[#2A1506] hover:bg-[#2A1506]/90"
+                  className={`w-full py-3 px-5 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
+                    isAlreadyInBooking(combo) ? "bg-[#8C4A21] hover:bg-[#3D2314]" : "bg-[#2A1506] hover:bg-[#2A1506]/90"
                   }`}
                 >
-                  {addedName === combo.name ? "✓ Added to Booking" : "Include in Booking"}
+                  {isAlreadyInBooking(combo) ? (
+                    <>
+                      <ArrowRight className="h-3.5 w-3.5" />
+                      Go to Bookings
+                    </>
+                  ) : (
+                    "Include in Booking"
+                  )}
                 </button>
               </div>
 

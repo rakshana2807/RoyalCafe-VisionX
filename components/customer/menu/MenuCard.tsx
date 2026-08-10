@@ -2,29 +2,42 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Star, Clock, Heart, Flame, ShoppingBag } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Star, Clock, Heart, Flame, ShoppingBag, ArrowRight } from "lucide-react";
 import { MenuItem } from "@/data/menuData";
 import { useBooking } from "@/context/BookingContext";
+import { isAuthenticated } from "@/lib/auth";
 
 interface MenuCardProps {
   item: MenuItem;
 }
 
 export default function MenuCard({ item }: MenuCardProps) {
+  const router = useRouter();
   const [isLiked, setIsLiked] = useState(false);
-  const [added, setAdded] = useState(false);
-  const { addMenuItem } = useBooking();
+  const { bookingItems, addMenuItem } = useBooking();
 
-  const handleAdd = () => {
-    addMenuItem({
-      id: item.id,
-      name: item.name,
-      category: item.category,
-      price: item.price,
-      image: item.image,
-    });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+  const isAlreadyInBooking = bookingItems.some(
+    (b) => b.id === item.id || b.name === item.name
+  );
+
+  const handleClick = () => {
+    if (isAlreadyInBooking) {
+      if (!isAuthenticated()) {
+        const msg = encodeURIComponent("Please login to your RoyalCafeConnect account to book a workspace.");
+        router.push(`/login?redirect=/book&message=${msg}`);
+      } else {
+        router.push("/book");
+      }
+    } else {
+      addMenuItem({
+        id: item.id,
+        name: item.name,
+        category: item.category,
+        price: item.price,
+        image: item.image,
+      });
+    }
   };
 
   return (
@@ -127,15 +140,18 @@ export default function MenuCard({ item }: MenuCardProps) {
 
           {/* Action Button */}
           <button
-            onClick={handleAdd}
+            onClick={handleClick}
             className={`w-full py-2.5 px-4 text-xs font-bold rounded-full transition-all shadow-sm cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
-              added
-                ? "bg-emerald-600 text-white"
+              isAlreadyInBooking
+                ? "bg-[#8C4A21] text-white border border-[#8C4A21] hover:bg-[#3D2314]"
                 : "bg-white border border-primary/20 text-primary hover:bg-[#2A1506] hover:text-white hover:border-transparent"
             }`}
           >
-            {added ? (
-              "✓ Added to Booking"
+            {isAlreadyInBooking ? (
+              <>
+                <ArrowRight className="h-3.5 w-3.5" />
+                Go to Bookings
+              </>
             ) : (
               <>
                 <ShoppingBag className="h-3.5 w-3.5" />

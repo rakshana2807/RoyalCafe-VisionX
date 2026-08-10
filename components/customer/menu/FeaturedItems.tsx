@@ -2,23 +2,39 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Star, Sparkles, Clock, ShoppingBag } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Star, Sparkles, Clock, ShoppingBag, ArrowRight } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function FeaturedItems() {
-  const { addMenuItem } = useBooking();
-  const [added, setAdded] = useState(false);
+  const router = useRouter();
+  const { bookingItems, addMenuItem } = useBooking();
+
+  const featuredId = "featured_pistachio_cold_brew";
+  const featuredName = "Signature Pistachio Cream Cold Brew";
+
+  const isAlreadyInBooking = bookingItems.some(
+    (b) => b.id === featuredId || b.name === featuredName
+  );
 
   const handleAddFeatured = () => {
-    addMenuItem({
-      id: "featured_pistachio_cold_brew",
-      name: "Signature Pistachio Cream Cold Brew",
-      category: "Coffee",
-      price: 175,
-      image: "/pistachio-cold-brew.png",
-    });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+    if (isAlreadyInBooking) {
+      if (!isAuthenticated()) {
+        const msg = encodeURIComponent("Please login to your RoyalCafeConnect account to book a workspace.");
+        router.push(`/login?redirect=/book&message=${msg}`);
+      } else {
+        router.push("/book");
+      }
+    } else {
+      addMenuItem({
+        id: featuredId,
+        name: featuredName,
+        category: "Coffee",
+        price: 175,
+        image: "/pistachio-cold-brew.png",
+      });
+    }
   };
 
   return (
@@ -103,11 +119,20 @@ export default function FeaturedItems() {
               <button
                 onClick={handleAddFeatured}
                 className={`w-full inline-flex items-center justify-center gap-2 px-8 py-4 border border-transparent text-base font-semibold rounded-xl text-white shadow-md hover:scale-[1.01] active:scale-[0.99] transition-all duration-250 cursor-pointer uppercase tracking-wider ${
-                  added ? "bg-emerald-600" : "bg-accent hover:bg-accent/95"
+                  isAlreadyInBooking ? "bg-[#8C4A21] hover:bg-[#3D2314]" : "bg-accent hover:bg-accent/95"
                 }`}
               >
-                <ShoppingBag className="h-5 w-5" />
-                {added ? "✓ Added to Booking" : "Include in Booking"}
+                {isAlreadyInBooking ? (
+                  <>
+                    <ArrowRight className="h-5 w-5" />
+                    Go to Bookings
+                  </>
+                ) : (
+                  <>
+                    <ShoppingBag className="h-5 w-5" />
+                    Include in Booking
+                  </>
+                )}
               </button>
             </div>
 

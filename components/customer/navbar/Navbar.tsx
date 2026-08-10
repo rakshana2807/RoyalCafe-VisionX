@@ -70,6 +70,17 @@ export default function Navbar() {
     };
   }, []);
 
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
   const handleLogout = () => {
     localStorage.removeItem("role");
     localStorage.removeItem("email");
@@ -269,9 +280,10 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden fixed inset-x-0 top-[72px] bg-background/98 backdrop-blur-lg shadow-xl transition-all duration-300 ease-in-out border-b border-primary/10 overflow-hidden ${
-          isOpen ? "max-h-[500px] opacity-100 py-4" : "max-h-0 opacity-0 py-0"
+        className={`lg:hidden fixed inset-x-0 top-[72px] bg-background/98 backdrop-blur-lg shadow-xl transition-all duration-300 ease-in-out border-b border-primary/10 overflow-y-auto overscroll-contain max-h-[calc(100dvh-72px)] ${
+          isOpen ? "opacity-100 py-4" : "opacity-0 pointer-events-none max-h-0 py-0"
         }`}
+        style={{ WebkitOverflowScrolling: "touch" }}
       >
         <div className="px-4 pt-2 pb-4 space-y-2">
           {navLinks.map((link) => (

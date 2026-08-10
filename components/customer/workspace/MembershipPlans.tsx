@@ -1,18 +1,29 @@
 "use client";
 
 import { useState } from "react";
-import { Check, Info } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { Check, Info, ArrowRight } from "lucide-react";
 import { useBooking } from "@/context/BookingContext";
+import { isAuthenticated } from "@/lib/auth";
 
 export default function MembershipPlans() {
+  const router = useRouter();
   const [activePlanType, setActivePlanType] = useState<"wifi" | "daily">("wifi");
-  const [addedPass, setAddedPass] = useState<string | null>(null);
-  const { setWifiPass } = useBooking();
+  const { wifiPass, setWifiPass } = useBooking();
+
+  const isSelectedPass = (name: string) => wifiPass?.name === name;
 
   const handleSelectPass = (name: string, duration: string, price: number) => {
-    setWifiPass({ name, duration, price });
-    setAddedPass(name);
-    setTimeout(() => setAddedPass(null), 2500);
+    if (isSelectedPass(name)) {
+      if (!isAuthenticated()) {
+        const msg = encodeURIComponent("Please login to your RoyalCafeConnect account to book a workspace.");
+        router.push(`/login?redirect=/book&message=${msg}`);
+      } else {
+        router.push("/book");
+      }
+    } else {
+      setWifiPass({ name, duration, price });
+    }
   };
 
   return (
@@ -99,13 +110,20 @@ export default function MembershipPlans() {
 
             <button
               onClick={() => handleSelectPass("Student Pass", "1 Hour", 39)}
-              className={`w-full py-4 px-6 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center ${
-                addedPass === "Student Pass"
-                  ? "bg-emerald-600"
+              className={`w-full py-4 px-6 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
+                isSelectedPass("Student Pass")
+                  ? "bg-[#8C4A21] hover:bg-[#3D2314]"
                   : "bg-[#EA5A0C] hover:bg-[#EA5A0C]/90"
               }`}
             >
-              {addedPass === "Student Pass" ? "✓ Added to Booking" : "Buy Student Pass"}
+              {isSelectedPass("Student Pass") ? (
+                <>
+                  <ArrowRight className="h-4 w-4" />
+                  Go to Bookings
+                </>
+              ) : (
+                "Buy Student Pass"
+              )}
             </button>
           </div>
 
@@ -151,13 +169,20 @@ export default function MembershipPlans() {
 
             <button
               onClick={() => handleSelectPass("Work Pass", "1 Hour", 49)}
-              className={`w-full py-4 px-6 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center ${
-                addedPass === "Work Pass"
-                  ? "bg-emerald-600"
+              className={`w-full py-4 px-6 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
+                isSelectedPass("Work Pass")
+                  ? "bg-[#8C4A21] hover:bg-[#3D2314]"
                   : "bg-[#EA5A0C] hover:bg-[#EA5A0C]/90"
               }`}
             >
-              {addedPass === "Work Pass" ? "✓ Added to Booking" : "Buy Work Pass"}
+              {isSelectedPass("Work Pass") ? (
+                <>
+                  <ArrowRight className="h-4 w-4" />
+                  Go to Bookings
+                </>
+              ) : (
+                "Buy Work Pass"
+              )}
             </button>
           </div>
 
