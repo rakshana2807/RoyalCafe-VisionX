@@ -1,5 +1,12 @@
 "use client";
-
+import { supabase } from "@/lib/supabase";
+import {
+  isSpaceAvailable,
+  createSupabaseBooking,
+  parseDurationHours,
+  CreateBookingInput,
+} from "@/lib/reservation";
+import { getAuthenticatedUser } from "@/lib/auth";
 import React, {
   createContext,
   useContext,
@@ -29,6 +36,7 @@ export interface BookingWifiPass {
 
 export interface SelectedSeatDetails {
   id?: string;
+  workspaceCode?: string;
   number?: string;
   seatNumber: string;
   zone: string;
@@ -129,6 +137,13 @@ interface BookingContextValue {
   setSelectedSeat: (seat: SelectedSeatDetails | null) => void;
   updateReservationDetails: (details: Partial<ReservationDetails>) => void;
   clearBooking: () => void;
+  checkAvailability: (
+    spaceId: string,
+    bookingDate: string,
+    startTime: string,
+    endTime: string
+  ) => Promise<boolean>;
+  createBooking: (params?: Partial<import("@/lib/reservation").CreateBookingInput>) => Promise<any>;
   foodTotal: number;
   wifiTotal: number;
   bookingFee: number;
@@ -401,6 +416,39 @@ export function BookingProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const checkAvailability = useCallback(
+    async (spaceId: string, bookingDate: string, startTime: string, endTime: string) => {
+      return await isSpaceAvailable(spaceId, bookingDate, startTime, endTime);
+    },
+    []
+  );
+
+  const createBooking = useCallback(
+    async (overrideParams?: Partial<CreateBookingInput>) => {
+      const user = getAuthenticatedUser();
+
+      const spaceId = selectedSeat?.id || reservationDetails.tableType || "Window Seat 01";
+      const durationHours = parseDurationHours(reservationDetails.duration);
+
+      const bookingInput: CreateBookingInput = {
+        userId: user?.id || "",
+        userEmail: user?.email || "",
+        spaceId: spaceId,
+        bookingDate: reservationDetails.resDate,
+        startTime: reservationDetails.arrivalTime,
+        durationHours: durationHours,
+        numberOfPeople: parseInt(reservationDetails.guests, 10) || 1,
+        totalAmount: grandTotal,
+        paymentStatus: "paid",
+        specialRequest: reservationDetails.specialRequests || undefined,
+        ...overrideParams,
+      };
+
+      return await createSupabaseBooking(bookingInput);
+    },
+    [selectedSeat, reservationDetails, grandTotal]
+  );
+
   return (
     <BookingContext.Provider
       value={{
@@ -416,6 +464,8 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         setSelectedSeat,
         updateReservationDetails,
         clearBooking,
+        checkAvailability,
+        createBooking,
         foodTotal,
         wifiTotal,
         bookingFee,

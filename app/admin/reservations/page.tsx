@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { supabase } from "@/lib/supabase";
 import {
   Calendar,
   Clock,
@@ -27,6 +28,8 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+
+
 export type WorkspaceType =
   | "Café Table"
   | "Workstation"
@@ -39,10 +42,12 @@ export type WorkspaceType =
 export type BookingStatus =
   | "Confirmed"
   | "Checked In"
-  | "Checked Out";
+  | "Checked Out"
+  | "Cancelled";
 
 export interface ReservationRow {
   bookingId: string;
+  dbId?: string;
   userName: string;
   userEmail: string;
   userPhone: string;
@@ -56,60 +61,11 @@ export interface ReservationRow {
   paymentStatus: "Paid" | "Pending" | "Refunded";
 }
 
-// 52 Realistic Demo Bookings (Final state is "Checked Out")
+// 52 Realistic Demo Bookings (Fallback state)
 const DEMO_RESERVATIONS: ReservationRow[] = [
   { bookingId: "BK-1001", userName: "Rahul Sharma", userEmail: "rahul@gmail.com", userPhone: "+91 98765 43210", deskId: "W-08", arrivalTime: "09:30 AM", date: "07 Aug 2026", duration: "4 Hours", workspaceType: "Workstation", status: "Checked In", amount: "₹499", paymentStatus: "Paid" },
   { bookingId: "BK-1002", userName: "Sarah Jenkins", userEmail: "sarah.j@gmail.com", userPhone: "+91 98123 45678", deskId: "C-02", arrivalTime: "10:00 AM", date: "07 Aug 2026", duration: "2 Hours", workspaceType: "Café Table", status: "Confirmed", amount: "₹350", paymentStatus: "Paid" },
   { bookingId: "BK-1003", userName: "Anita Desai", userEmail: "anita.desai@company.com", userPhone: "+91 97654 32109", deskId: "M-05", arrivalTime: "11:00 AM", date: "07 Aug 2026", duration: "Half Day", workspaceType: "Meeting Room", status: "Checked In", amount: "₹1,250", paymentStatus: "Paid" },
-  { bookingId: "BK-1004", userName: "Vikram Patel", userEmail: "vikram.p@yahoo.com", userPhone: "+91 96543 21098", deskId: "P-03", arrivalTime: "11:30 AM", date: "07 Aug 2026", duration: "Full Day", workspaceType: "Private Cabin", status: "Confirmed", amount: "₹1,800", paymentStatus: "Paid" },
-  { bookingId: "BK-1005", userName: "Elena Rostova", userEmail: "elena.r@design.io", userPhone: "+91 95432 10987", deskId: "S-04", arrivalTime: "08:30 AM", date: "07 Aug 2026", duration: "2 Hours", workspaceType: "Study Space", status: "Checked Out", amount: "₹300", paymentStatus: "Paid" },
-  { bookingId: "BK-1006", userName: "Michael Chang", userEmail: "m.chang@tech.com", userPhone: "+91 94321 09876", deskId: "D-01", arrivalTime: "01:00 PM", date: "07 Aug 2026", duration: "1 Hour", workspaceType: "Hot Desk", status: "Checked Out", amount: "₹200", paymentStatus: "Paid" },
-  { bookingId: "BK-1007", userName: "Priya Nair", userEmail: "priya.nair@startup.in", userPhone: "+91 93210 98765", deskId: "W-04", arrivalTime: "02:00 PM", date: "07 Aug 2026", duration: "4 Hours", workspaceType: "Workstation", status: "Confirmed", amount: "₹499", paymentStatus: "Paid" },
-  { bookingId: "BK-1008", userName: "David Miller", userEmail: "david.m@finance.com", userPhone: "+91 92109 87654", deskId: "P-01", arrivalTime: "02:30 PM", date: "07 Aug 2026", duration: "Half Day", workspaceType: "Private Cabin", status: "Checked In", amount: "₹1,100", paymentStatus: "Paid" },
-  { bookingId: "BK-1009", userName: "Aarav Gupta", userEmail: "aarav.g@gmail.com", userPhone: "+91 91098 76543", deskId: "C-08", arrivalTime: "03:00 PM", date: "07 Aug 2026", duration: "2 Hours", workspaceType: "Café Table", status: "Confirmed", amount: "₹350", paymentStatus: "Paid" },
-  { bookingId: "BK-1010", userName: "Sophia Al-Mansoor", userEmail: "sophia.a@consulting.org", userPhone: "+91 90987 65432", deskId: "M-02", arrivalTime: "03:30 PM", date: "07 Aug 2026", duration: "2 Hours", workspaceType: "Meeting Room", status: "Confirmed", amount: "₹950", paymentStatus: "Paid" },
-  { bookingId: "BK-1011", userName: "Rohan Kapoor", userEmail: "rohan.k@workspace.io", userPhone: "+91 89876 54321", deskId: "Q-02", arrivalTime: "08:00 AM", date: "07 Aug 2026", duration: "3 Hours", workspaceType: "Quiet Zone", status: "Checked Out", amount: "₹450", paymentStatus: "Paid" },
-  { bookingId: "BK-1012", userName: "Emily Watson", userEmail: "emily.w@creative.co", userPhone: "+91 88765 43210", deskId: "D-05", arrivalTime: "04:30 PM", date: "07 Aug 2026", duration: "1 Hour", workspaceType: "Hot Desk", status: "Confirmed", amount: "₹200", paymentStatus: "Paid" },
-  { bookingId: "BK-1013", userName: "Arjun Verma", userEmail: "arjun.v@devs.net", userPhone: "+91 87654 32109", deskId: "W-12", arrivalTime: "09:00 AM", date: "06 Aug 2026", duration: "Full Day", workspaceType: "Workstation", status: "Checked Out", amount: "₹799", paymentStatus: "Paid" },
-  { bookingId: "BK-1014", userName: "Jessica Taylor", userEmail: "jess.taylor@global.com", userPhone: "+91 86543 21098", deskId: "P-04", arrivalTime: "10:30 AM", date: "06 Aug 2026", duration: "Half Day", workspaceType: "Private Cabin", status: "Checked Out", amount: "₹1,200", paymentStatus: "Paid" },
-  { bookingId: "BK-1015", userName: "Karan Mehta", userEmail: "karan.m@ventures.in", userPhone: "+91 85432 10987", deskId: "M-01", arrivalTime: "11:30 AM", date: "06 Aug 2026", duration: "2 Hours", workspaceType: "Meeting Room", status: "Checked Out", amount: "₹950", paymentStatus: "Paid" },
-  { bookingId: "BK-1016", userName: "Chloe Bennett", userEmail: "chloe.b@designstudio.com", userPhone: "+91 84321 09876", deskId: "Q-04", arrivalTime: "01:30 PM", date: "06 Aug 2026", duration: "4 Hours", workspaceType: "Quiet Zone", status: "Checked Out", amount: "₹550", paymentStatus: "Paid" },
-  { bookingId: "BK-1017", userName: "Siddharth Rao", userEmail: "siddharth.r@ai.org", userPhone: "+91 83210 98765", deskId: "S-01", arrivalTime: "02:00 PM", date: "06 Aug 2026", duration: "2 Hours", workspaceType: "Study Space", status: "Checked Out", amount: "₹300", paymentStatus: "Paid" },
-  { bookingId: "BK-1018", userName: "Meera Fernandez", userEmail: "meera.f@consultancy.co", userPhone: "+91 82109 87654", deskId: "C-05", arrivalTime: "03:30 PM", date: "06 Aug 2026", duration: "1 Hour", workspaceType: "Café Table", status: "Checked Out", amount: "₹250", paymentStatus: "Paid" },
-  { bookingId: "BK-1019", userName: "Alexei Volkov", userEmail: "alexei.v@traders.com", userPhone: "+91 81098 76543", deskId: "D-03", arrivalTime: "04:00 PM", date: "06 Aug 2026", duration: "2 Hours", workspaceType: "Hot Desk", status: "Checked Out", amount: "₹350", paymentStatus: "Paid" },
-  { bookingId: "BK-1020", userName: "Tanya Sen", userEmail: "tanya.sen@media.in", userPhone: "+91 80987 65432", deskId: "W-02", arrivalTime: "05:00 PM", date: "06 Aug 2026", duration: "2 Hours", workspaceType: "Workstation", status: "Checked Out", amount: "₹399", paymentStatus: "Paid" },
-  { bookingId: "BK-1021", userName: "Daniel Kim", userEmail: "daniel.k@seoul.kr", userPhone: "+91 79876 54321", deskId: "P-02", arrivalTime: "09:00 AM", date: "05 Aug 2026", duration: "Full Day", workspaceType: "Private Cabin", status: "Checked Out", amount: "₹1,800", paymentStatus: "Paid" },
-  { bookingId: "BK-1022", userName: "Ananya Roy", userEmail: "ananya.r@writers.org", userPhone: "+91 78765 43210", deskId: "Q-01", arrivalTime: "10:00 AM", date: "05 Aug 2026", duration: "Half Day", workspaceType: "Quiet Zone", status: "Checked Out", amount: "₹600", paymentStatus: "Paid" },
-  { bookingId: "BK-1023", userName: "Gautam Singhania", userEmail: "gautam.s@equity.in", userPhone: "+91 77654 32109", deskId: "M-04", arrivalTime: "11:00 AM", date: "05 Aug 2026", duration: "3 Hours", workspaceType: "Meeting Room", status: "Checked Out", amount: "₹1,400", paymentStatus: "Paid" },
-  { bookingId: "BK-1024", userName: "Nisha Agarwal", userEmail: "nisha.a@legal.co", userPhone: "+91 76543 21098", deskId: "S-03", arrivalTime: "01:00 PM", date: "05 Aug 2026", duration: "2 Hours", workspaceType: "Study Space", status: "Checked Out", amount: "₹300", paymentStatus: "Paid" },
-  { bookingId: "BK-1025", userName: "Lucas Silva", userEmail: "lucas.s@rio.br", userPhone: "+91 75432 10987", deskId: "C-01", arrivalTime: "02:30 PM", date: "05 Aug 2026", duration: "2 Hours", workspaceType: "Café Table", status: "Checked Out", amount: "₹350", paymentStatus: "Paid" },
-  { bookingId: "BK-1026", userName: "Ritu Chawla", userEmail: "ritu.c@edu.in", userPhone: "+91 74321 09876", deskId: "W-09", arrivalTime: "03:30 PM", date: "05 Aug 2026", duration: "4 Hours", workspaceType: "Workstation", status: "Checked Out", amount: "₹499", paymentStatus: "Paid" },
-  { bookingId: "BK-1027", userName: "Oliver Brown", userEmail: "oliver.b@uktech.co.uk", userPhone: "+91 73210 98765", deskId: "D-06", arrivalTime: "04:30 PM", date: "05 Aug 2026", duration: "2 Hours", workspaceType: "Hot Desk", status: "Checked Out", amount: "₹350", paymentStatus: "Paid" },
-  { bookingId: "BK-1028", userName: "Kavita Reddy", userEmail: "kavita.r@health.org", userPhone: "+91 72109 87654", deskId: "P-05", arrivalTime: "09:30 AM", date: "04 Aug 2026", duration: "Full Day", workspaceType: "Private Cabin", status: "Checked Out", amount: "₹1,800", paymentStatus: "Paid" },
-  { bookingId: "BK-1029", userName: "Zainab Khan", userEmail: "zainab.k@dubai.ae", userPhone: "+91 71098 76543", deskId: "M-03", arrivalTime: "11:00 AM", date: "04 Aug 2026", duration: "2 Hours", workspaceType: "Meeting Room", status: "Checked Out", amount: "₹950", paymentStatus: "Paid" },
-  { bookingId: "BK-1030", userName: "Manish Joshi", userEmail: "manish.j@analytics.io", userPhone: "+91 70987 65432", deskId: "Q-03", arrivalTime: "01:00 PM", date: "04 Aug 2026", duration: "3 Hours", workspaceType: "Quiet Zone", status: "Checked Out", amount: "₹450", paymentStatus: "Paid" },
-  { bookingId: "BK-1031", userName: "Hannah Abbott", userEmail: "hannah.a@oxford.ac.uk", userPhone: "+91 69876 54321", deskId: "S-05", arrivalTime: "02:00 PM", date: "04 Aug 2026", duration: "4 Hours", workspaceType: "Study Space", status: "Checked Out", amount: "₹500", paymentStatus: "Paid" },
-  { bookingId: "BK-1032", userName: "Varun Bajaj", userEmail: "varun.b@auto.in", userPhone: "+91 68765 43210", deskId: "C-04", arrivalTime: "03:00 PM", date: "04 Aug 2026", duration: "1 Hour", workspaceType: "Café Table", status: "Checked Out", amount: "₹200", paymentStatus: "Paid" },
-  { bookingId: "BK-1033", userName: "Grace Hopper", userEmail: "grace.h@computing.org", userPhone: "+91 67654 32109", deskId: "W-05", arrivalTime: "04:00 PM", date: "04 Aug 2026", duration: "2 Hours", workspaceType: "Workstation", status: "Checked Out", amount: "₹399", paymentStatus: "Paid" },
-  { bookingId: "BK-1034", userName: "Sameer Nanda", userEmail: "sameer.n@logistics.com", userPhone: "+91 66543 21098", deskId: "D-02", arrivalTime: "10:00 AM", date: "03 Aug 2026", duration: "Full Day", workspaceType: "Hot Desk", status: "Checked Out", amount: "₹650", paymentStatus: "Paid" },
-  { bookingId: "BK-1035", userName: "Fatima Syed", userEmail: "fatima.s@biotech.org", userPhone: "+91 65432 10987", deskId: "P-06", arrivalTime: "11:30 AM", date: "03 Aug 2026", duration: "Half Day", workspaceType: "Private Cabin", status: "Checked Out", amount: "₹1,100", paymentStatus: "Paid" },
-  { bookingId: "BK-1036", userName: "Yash Bardhan", userEmail: "yash.b@gaming.in", userPhone: "+91 64321 09876", deskId: "Q-05", arrivalTime: "02:00 PM", date: "03 Aug 2026", duration: "4 Hours", workspaceType: "Quiet Zone", status: "Checked Out", amount: "₹550", paymentStatus: "Paid" },
-  { bookingId: "BK-1037", userName: "Isobel Crawford", userEmail: "isobel.c@edinburgh.uk", userPhone: "+91 63210 98765", deskId: "M-06", arrivalTime: "03:00 PM", date: "03 Aug 2026", duration: "2 Hours", workspaceType: "Meeting Room", status: "Checked Out", amount: "₹950", paymentStatus: "Paid" },
-  { bookingId: "BK-1038", userName: "Deepak Soni", userEmail: "deepak.s@jewels.in", userPhone: "+91 62109 87654", deskId: "C-06", arrivalTime: "04:30 PM", date: "03 Aug 2026", duration: "2 Hours", workspaceType: "Café Table", status: "Checked Out", amount: "₹350", paymentStatus: "Paid" },
-  { bookingId: "BK-1039", userName: "Clara Schumann", userEmail: "clara.s@music.de", userPhone: "+91 61098 76543", deskId: "S-06", arrivalTime: "09:00 AM", date: "02 Aug 2026", duration: "3 Hours", workspaceType: "Study Space", status: "Checked Out", amount: "₹400", paymentStatus: "Paid" },
-  { bookingId: "BK-1040", userName: "Pranav Pillai", userEmail: "pranav.p@kerala.in", userPhone: "+91 60987 65432", deskId: "W-10", arrivalTime: "10:30 AM", date: "02 Aug 2026", duration: "Half Day", workspaceType: "Workstation", status: "Checked Out", amount: "₹599", paymentStatus: "Paid" },
-  { bookingId: "BK-1041", userName: "Nathalie Dubois", userEmail: "nathalie.d@paris.fr", userPhone: "+91 59876 54321", deskId: "P-07", arrivalTime: "12:00 PM", date: "02 Aug 2026", duration: "Full Day", workspaceType: "Private Cabin", status: "Checked Out", amount: "₹1,800", paymentStatus: "Paid" },
-  { bookingId: "BK-1042", userName: "Aditya Hegde", userEmail: "aditya.h@mysore.in", userPhone: "+91 58765 43210", deskId: "D-04", arrivalTime: "02:00 PM", date: "02 Aug 2026", duration: "2 Hours", workspaceType: "Hot Desk", status: "Checked Out", amount: "₹350", paymentStatus: "Paid" },
-  { bookingId: "BK-1043", userName: "Zara Thorne", userEmail: "zara.t@fashion.co", userPhone: "+91 57654 32109", deskId: "C-03", arrivalTime: "03:30 PM", date: "02 Aug 2026", duration: "1 Hour", workspaceType: "Café Table", status: "Checked Out", amount: "₹200", paymentStatus: "Paid" },
-  { bookingId: "BK-1044", userName: "Harish Saxena", userEmail: "harish.s@infra.com", userPhone: "+91 56543 21098", deskId: "M-07", arrivalTime: "04:30 PM", date: "02 Aug 2026", duration: "2 Hours", workspaceType: "Meeting Room", status: "Checked Out", amount: "₹950", paymentStatus: "Paid" },
-  { bookingId: "BK-1045", userName: "Sophia Loren", userEmail: "sophia.l@roma.it", userPhone: "+91 55432 10987", deskId: "Q-06", arrivalTime: "09:30 AM", date: "01 Aug 2026", duration: "4 Hours", workspaceType: "Quiet Zone", status: "Checked Out", amount: "₹550", paymentStatus: "Paid" },
-  { bookingId: "BK-1046", userName: "Bhavesh Jain", userEmail: "bhavesh.j@solar.in", userPhone: "+91 54321 09876", deskId: "W-11", arrivalTime: "11:00 AM", date: "01 Aug 2026", duration: "Full Day", workspaceType: "Workstation", status: "Checked Out", amount: "₹799", paymentStatus: "Paid" },
-  { bookingId: "BK-1047", userName: "Emma Stone", userEmail: "emma.s@hollywood.com", userPhone: "+91 53210 98765", deskId: "P-08", arrivalTime: "01:00 PM", date: "01 Aug 2026", duration: "Half Day", workspaceType: "Private Cabin", status: "Checked Out", amount: "₹1,200", paymentStatus: "Paid" },
-  { bookingId: "BK-1048", userName: "Rishabh Tripathi", userEmail: "rishabh.t@varanasi.in", userPhone: "+91 52109 87654", deskId: "S-07", arrivalTime: "02:30 PM", date: "01 Aug 2026", duration: "2 Hours", workspaceType: "Study Space", status: "Checked Out", amount: "₹300", paymentStatus: "Paid" },
-  { bookingId: "BK-1049", userName: "Laura Palmer", userEmail: "laura.p@twinpeaks.org", userPhone: "+91 51098 76543", deskId: "C-07", arrivalTime: "04:00 PM", date: "01 Aug 2026", duration: "2 Hours", workspaceType: "Café Table", status: "Checked Out", amount: "₹350", paymentStatus: "Paid" },
-  { bookingId: "BK-1050", userName: "Kartik Aryan", userEmail: "kartik.a@cinema.in", userPhone: "+91 50987 65432", deskId: "D-07", arrivalTime: "05:00 PM", date: "01 Aug 2026", duration: "1 Hour", workspaceType: "Hot Desk", status: "Checked Out", amount: "₹200", paymentStatus: "Paid" },
-  { bookingId: "BK-1051", userName: "Mia Wallace", userEmail: "mia.w@pulp.com", userPhone: "+91 49876 54321", deskId: "Q-07", arrivalTime: "10:00 AM", date: "31 Jul 2026", duration: "3 Hours", workspaceType: "Quiet Zone", status: "Checked Out", amount: "₹450", paymentStatus: "Paid" },
-  { bookingId: "BK-1052", userName: "Dev Patel", userEmail: "dev.p@actor.co.uk", userPhone: "+91 48765 43210", deskId: "W-07", arrivalTime: "02:00 PM", date: "31 Jul 2026", duration: "4 Hours", workspaceType: "Workstation", status: "Checked Out", amount: "₹499", paymentStatus: "Paid" }
 ];
 
 export default function AdminReservationsPage() {
@@ -134,16 +90,165 @@ export default function AdminReservationsPage() {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const handleStatusChange = (bookingId: string, newStatus: BookingStatus) => {
-    setReservations((prev) =>
-      prev.map((r) => (r.bookingId === bookingId ? { ...r, status: newStatus } : r))
-    );
-    showToast(`Booking ${bookingId} updated to ${newStatus}`);
+  useEffect(() => {
+    async function fetchSupabaseBookings() {
+      try {
+        const { data, error } = await supabase
+          .from("bookings")
+          .select(`
+            id,
+            user_id,
+            space_id,
+            booking_date,
+            start_time,
+            end_time,
+            duration_hours,
+            number_of_people,
+            total_amount,
+            status,
+            payment_status,
+            created_at,
+            updated_at,
+            spaces (
+              id,
+              workspace_code,
+              name,
+              type
+            ),
+            profiles (
+              id,
+              full_name,
+              email,
+              phone
+            )
+          `)
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          console.error("Error fetching Supabase bookings:", error);
+          return;
+        }
+
+        if (data && data.length > 0) {
+          const convert24to12 = (t: string) => {
+            if (!t) return "10:00 AM";
+            const parts = t.split(":");
+            let h = parseInt(parts[0], 10);
+            const m = parts[1] || "00";
+            const period = h >= 12 ? "PM" : "AM";
+            h = h % 12 || 12;
+            return `${String(h).padStart(2, "0")}:${m} ${period}`;
+          };
+
+          const mapped: ReservationRow[] = data.map((b: any) => {
+            const spaceObj = Array.isArray(b.spaces) ? b.spaces[0] : b.spaces;
+            const spaceName = spaceObj?.name || "Window Seat 01";
+            const spaceCode = spaceObj?.workspace_code || spaceName;
+            const spaceType = spaceObj?.type || "seat";
+
+            let wsType: WorkspaceType = "Workstation";
+            if (spaceName.includes("Meeting") || spaceType === "meeting") wsType = "Meeting Room";
+            else if (spaceName.includes("Study") || spaceType === "study") wsType = "Study Space";
+            else if (spaceName.includes("Window") || spaceType === "seat") wsType = "Café Table";
+
+            let uiStatus: BookingStatus = "Confirmed";
+            const st = (b.status || "").toLowerCase().trim();
+            if (st === "checked_in" || st === "checked in") {
+              uiStatus = "Checked In";
+            } else if (st === "checked_out" || st === "checked out") {
+              uiStatus = "Checked Out";
+            } else if (st === "cancelled" || st === "canceled") {
+              uiStatus = "Cancelled";
+            } else {
+              uiStatus = "Confirmed";
+            }
+
+            const prof = Array.isArray(b.profiles) ? b.profiles[0] : b.profiles;
+            const profEmail = prof?.email || "";
+            const profName = prof?.full_name?.trim();
+            const displayName = b.customer_name?.trim() || profName || "Guest User";
+
+            return {
+              bookingId: b.id.slice(0, 8).toUpperCase(),
+              dbId: b.id,
+              userName: displayName,
+              userEmail: profEmail || "guest@royalcafe.com",
+              userPhone: prof?.phone || "+91 98765 43210",
+              deskId: `${spaceName} (${spaceCode})`,
+              arrivalTime: convert24to12(b.start_time),
+              date: b.booking_date,
+              duration: `${b.duration_hours} Hour${b.duration_hours > 1 ? "s" : ""}`,
+              workspaceType: wsType,
+              status: uiStatus,
+              amount: `₹${b.total_amount}`,
+              paymentStatus: b.payment_status === "paid" ? "Paid" : "Pending",
+            };
+          });
+
+          setReservations(mapped);
+        }
+      } catch (err) {
+        console.error("Failed to load reservations from Supabase:", err);
+      }
+    }
+    fetchSupabaseBookings();
+  }, []);
+
+  const handleStatusChange = async (bookingId: string, newStatus: BookingStatus, dbId?: string) => {
+    const dbStatus = newStatus === "Checked In" ? "checked_in" : "checked_out";
+    const targetId = dbId || bookingId;
+
+    try {
+      const { error } = await supabase
+        .from("bookings")
+        .update({
+          status: dbStatus,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", targetId);
+
+      if (error) {
+        console.error("Failed to update status in Supabase:", error);
+        showToast("Failed to update status in database.");
+        return;
+      }
+
+      setReservations((prev) =>
+        prev.map((r) => ((r.dbId === targetId || r.bookingId === bookingId) ? { ...r, status: newStatus } : r))
+      );
+      showToast(`Booking ${bookingId} updated to ${newStatus}`);
+    } catch (err) {
+      console.error("Error in status change:", err);
+      showToast("Error updating booking status.");
+    }
   };
 
-  const handleCancelBooking = (bookingId: string) => {
-    setReservations((prev) => prev.filter((r) => r.bookingId !== bookingId));
-    showToast(`Booking ${bookingId} cancelled`);
+  const handleCancelBooking = async (bookingId: string, dbId?: string) => {
+    const targetId = dbId || bookingId;
+
+    try {
+      const { error } = await supabase
+        .from("bookings")
+        .update({
+          status: "cancelled",
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", targetId);
+
+      if (error) {
+        console.error("Failed to cancel booking in Supabase:", error);
+        showToast("Failed to cancel booking in database.");
+        return;
+      }
+
+      setReservations((prev) =>
+        prev.map((r) => ((r.dbId === targetId || r.bookingId === bookingId) ? { ...r, status: "Cancelled" } : r))
+      );
+      showToast(`Booking ${bookingId} cancelled`);
+    } catch (err) {
+      console.error("Error cancelling booking:", err);
+      showToast("Error cancelling booking.");
+    }
   };
 
   // Priority Rank mapping: Confirmed (1) > Checked In (2) > Checked Out (3)
@@ -294,6 +399,8 @@ export default function AdminReservationsPage() {
         return "bg-emerald-500/15 text-emerald-800 border-emerald-500/30";
       case "Checked Out":
         return "bg-slate-500/15 text-slate-700 border-slate-500/30";
+      case "Cancelled":
+        return "bg-rose-500/15 text-rose-800 border-rose-500/30";
     }
   };
 
@@ -502,7 +609,7 @@ export default function AdminReservationsPage() {
                             <>
                               <button
                                 type="button"
-                                onClick={() => handleStatusChange(row.bookingId, "Checked In")}
+                                onClick={() => handleStatusChange(row.bookingId, "Checked In", row.dbId)}
                                 className="px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
                                 title="Check In Guest"
                               >
@@ -511,7 +618,7 @@ export default function AdminReservationsPage() {
                               </button>
                               <button
                                 type="button"
-                                onClick={() => handleCancelBooking(row.bookingId)}
+                                onClick={() => handleCancelBooking(row.bookingId, row.dbId)}
                                 className="p-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs border border-rose-200 transition-all cursor-pointer flex items-center justify-center"
                                 title="Cancel Reservation"
                               >
@@ -524,7 +631,7 @@ export default function AdminReservationsPage() {
                           {row.status === "Checked In" && (
                             <button
                               type="button"
-                              onClick={() => handleStatusChange(row.bookingId, "Checked Out")}
+                              onClick={() => handleStatusChange(row.bookingId, "Checked Out", row.dbId)}
                               className="px-3.5 py-1.5 rounded-xl bg-amber-700 hover:bg-amber-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
                               title="Check Out Guest"
                             >
@@ -538,6 +645,14 @@ export default function AdminReservationsPage() {
                             <span className="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200 inline-flex items-center gap-1 opacity-80">
                               <CheckCircle2 className="w-3.5 h-3.5 text-slate-600" />
                               Checked Out
+                            </span>
+                          )}
+
+                          {/* Cancelled Disabled Badge */}
+                          {row.status === "Cancelled" && (
+                            <span className="px-3 py-1.5 rounded-xl bg-rose-50 text-rose-700 font-bold text-xs border border-rose-200 inline-flex items-center gap-1 opacity-80">
+                              <XCircle className="w-3.5 h-3.5 text-rose-600" />
+                              Cancelled
                             </span>
                           )}
 

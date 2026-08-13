@@ -25,7 +25,7 @@ export default function BookPage() {
     return (
       <div className="min-h-screen flex flex-col bg-[#FAF4ED]">
         <Navbar />
-        <main className="flex-grow flex items-center justify-center p-8">
+        <main className="grow flex items-center justify-center p-8">
           <div className="text-center space-y-3">
             <div className="w-10 h-10 border-4 border-[#8C4A21] border-t-transparent rounded-full animate-spin mx-auto" />
             <p className="text-xs font-bold text-[#3D2314]">Verifying authentication state...</p>
@@ -40,7 +40,7 @@ export default function BookPage() {
     <>
       <Navbar />
 
-      <main className="w-full flex-grow bg-background">
+      <main className="w-full grow bg-background">
         {/* Title Header */}
         <Hero />
 

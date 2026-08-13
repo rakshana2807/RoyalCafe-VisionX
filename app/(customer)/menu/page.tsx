@@ -8,8 +8,8 @@ import MenuHero from "@/components/customer/menu/MenuHero";
 import FeaturedItems from "@/components/customer/menu/FeaturedItems";
 import MenuCard from "@/components/customer/menu/MenuCard";
 import MenuCTA from "@/components/customer/menu/MenuCTA";
-import { MENU_ITEMS, MenuItem } from "@/data/menuData";
-
+import { MenuItem } from "@/data/menuData";
+import { getMenuItems } from "@/lib/menu";
 const CATEGORIES = [
   "All",
   "Coffee",
@@ -37,9 +37,26 @@ export default function MenuPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("All");
   const [sortOption, setSortOption] = useState("Recommended");
-  const [menuItemsList, setMenuItemsList] = useState<MenuItem[]>(MENU_ITEMS);
+const [menuItemsList, setMenuItemsList] = useState<MenuItem[]>([]);
+const [loading, setLoading] = useState(true);
 
+useEffect(() => {
+  async function fetchMenuItems() {
+    try {
+      setLoading(true);
 
+      const items = await getMenuItems();
+
+      setMenuItemsList(items);
+    } catch (error) {
+      console.error("Failed to load menu items:", error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  fetchMenuItems();
+}, []);
 
   // Filtering Logic (Combines Category & Search Query)
   let filteredItems = menuItemsList.filter((item: MenuItem) => {
@@ -137,13 +154,30 @@ export default function MenuPage() {
     setActiveCategory("All");
     setSortOption("Recommended");
   };
+if (loading) {
+  return (
+    <>
+      <main className="w-full grow bg-background">
+        <div className="min-h-[60vh] flex items-center justify-center">
+          <div className="text-center">
+            <Coffee className="h-10 w-10 text-accent mx-auto mb-4 animate-bounce" />
+            <p className="text-sm text-foreground/70">
+              Loading RoyalCafe menu...
+            </p>
+          </div>
+        </div>
+      </main>
 
+      <Footer />
+    </>
+  );
+}
   return (
     <>
       {/* Floating Global Navbar */}
       <Navbar />
 
-      <main className="w-full flex-grow bg-background">
+      <main className="w-full grow bg-background">
         {/* Simplified Hero Section with Search, Sort, and ONE Category Bar */}
         <MenuHero
           searchTerm={searchTerm}

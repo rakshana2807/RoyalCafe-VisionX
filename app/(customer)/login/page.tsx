@@ -9,6 +9,8 @@ import Navbar from "@/components/customer/navbar/Navbar";
 import Footer from "@/components/customer/footer/Footer";
 import { ADMIN_SECRET_PIN } from "@/lib/constants";
 
+import { supabase } from "@/lib/supabase";
+
 function LoginFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -50,24 +52,20 @@ function LoginFormContent() {
     setErrors({});
 
     try {
+      const emailVal = userEmail.trim();
+
       const userObj = {
+        id: `usr-${Date.now()}`,
+        name: emailVal.split("@")[0] || "User",
+        email: emailVal,
         role: "user",
-        email: userEmail.trim(),
       };
 
       // Store requested objects and role keys in localStorage
       localStorage.setItem("role", "user");
-      localStorage.setItem("email", userEmail.trim());
+      localStorage.setItem("email", emailVal);
       localStorage.setItem("user", JSON.stringify(userObj));
-      localStorage.setItem(
-        "royalcafe_user",
-        JSON.stringify({
-          id: `usr-${Date.now()}`,
-          name: userEmail.split("@")[0] || "User",
-          email: userEmail.trim(),
-          role: "user",
-        })
-      );
+      localStorage.setItem("royalcafe_user", JSON.stringify(userObj));
       window.dispatchEvent(new Event("auth-state-change"));
 
       setToastMessage("User login successful! Redirecting...");

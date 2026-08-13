@@ -20,8 +20,9 @@ import {
 } from "lucide-react";
 import Navbar from "@/components/customer/navbar/Navbar";
 import Footer from "@/components/customer/footer/Footer";
-import { isAuthenticated } from "@/lib/auth";
-
+import { isAuthenticated, getAuthenticatedUser } from "@/lib/auth";
+import { createSupabaseBooking, parseDurationHours, resolveSpaceId } from "@/lib/reservation";
+import { supabase } from "@/lib/supabase";
 import { useBooking } from "@/context/BookingContext";
 
 function PaymentContent() {
@@ -40,32 +41,60 @@ function PaymentContent() {
   const workspace = searchParams.get("workspace") || "Quiet Study Zone";
   const seat = searchParams.get("seat") || "Desk #12";
   const date = searchParams.get("date") || "19/07/2026";
+  const rawDate = searchParams.get("rawDate") || new Date().toISOString().split("T")[0];
   const time = searchParams.get("time") || "02:00 PM";
   const duration = searchParams.get("duration") || "2 Hours";
   const guests = searchParams.get("guests") || "1 Person";
   const purpose = searchParams.get("purpose") || "Work";
+  const specialRequests = searchParams.get("specialRequests") || "";
   const grandTotal = parseFloat(searchParams.get("amount") || "368");
 
   const [paymentMethod, setPaymentMethod] = useState<"card" | "apple" | "upi" | "cash">("card");
   const [isProcessing, setIsProcessing] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const handlePay = (e: React.FormEvent) => {
+  const handlePay = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsProcessing(true);
+    setErrorMessage(null);
 
-    const bookingId = `RCC-2026-${Math.floor(100000 + Math.random() * 900000)}`;
-    const paymentId = `PAY-${Math.floor(10000000 + Math.random() * 90000000)}`;
-
-    setTimeout(() => {
+    const user = getAuthenticatedUser();
+    if (!user) {
+      setErrorMessage("Please login before creating a booking.");
       setIsProcessing(false);
+      return;
+    }
 
-      // Save to localStorage for profile and admin views
+    const displayBookingId = `RCC-2026-${Math.floor(100000 + Math.random() * 900000)}`;
+    const paymentId = `PAY-${Math.floor(10000000 + Math.random() * 90000000)}`;
+    const guestsCount = parseInt(guests, 10) || 1;
+    const durationHours = parseDurationHours(duration);
+
+    try {
+      // Create confirmed row in Supabase bookings table
+      const supabaseRecord = await createSupabaseBooking({
+        userId: user.id,
+        userName: user.name,
+        userEmail: user.email,
+        userPhone: user.phone,
+        spaceId: resolveSpaceId(workspace || seat || bookingType),
+        bookingDate: rawDate,
+        startTime: time,
+        durationHours: durationHours,
+        numberOfPeople: guestsCount,
+        totalAmount: grandTotal,
+        paymentStatus: paymentMethod === "cash" ? "unpaid" : "paid",
+        specialRequest: specialRequests || purpose,
+      });
+
+      // Save to localStorage for profile and admin views as fallback/UI state
       const newBookingRecord = {
-        bookingId,
+        bookingId: displayBookingId,
+        supabaseId: supabaseRecord?.id,
         paymentId,
-        userName: "Rahul Sharma",
-        userEmail: "rahul@gmail.com",
-        userPhone: "+91 98765 43210",
+        userName: user.name || "Customer",
+        userEmail: user.email,
+        userPhone: user.phone || "+91 98765 43210",
         workspace,
         workspaceType: bookingType,
         seat,
@@ -76,7 +105,7 @@ function PaymentContent() {
         purpose,
         amount: grandTotal,
         status: "Confirmed",
-        paymentStatus: "Paid",
+        paymentStatus: paymentMethod === "cash" ? "Unpaid" : "Paid",
         createdAt: new Date().toISOString(),
       };
 
@@ -87,7 +116,6 @@ function PaymentContent() {
         const existingAdminRes = JSON.parse(localStorage.getItem("rcc_admin_reservations") || "[]");
         localStorage.setItem("rcc_admin_reservations", JSON.stringify([newBookingRecord, ...existingAdminRes]));
 
-        // Update live seat status map if seat desk ID is provided
         const deskMatch = seat.match(/(W-\d+|T-[A-Z0-9-]+|L-SS-\d+|L-2S-\d+)/i);
         if (deskMatch) {
           const seatId = deskMatch[1];
@@ -98,8 +126,10 @@ function PaymentContent() {
       }
 
       clearBooking();
+
       const params = new URLSearchParams({
-        bookingId,
+        bookingId: displayBookingId,
+        supabaseBookingId: supabaseRecord?.id || "",
         paymentId,
         bookingType,
         workspace,
@@ -110,9 +140,17 @@ function PaymentContent() {
         guests,
         purpose,
         amount: grandTotal.toFixed(0),
+        status: "confirmed",
+        paymentStatus: paymentMethod === "cash" ? "unpaid" : "paid",
       });
+
       router.push(`/booking-confirmation?${params.toString()}`);
-    }, 1500);
+    } catch (err: any) {
+      console.error("Payment & Booking insertion error:", err);
+      setErrorMessage(err.message || "Unable to create booking. Please try again.");
+    } finally {
+      setIsProcessing(false);
+    }
   };
 
   return (
@@ -145,6 +183,12 @@ function PaymentContent() {
               </div>
               <Lock className="h-6 w-6 text-emerald-600" />
             </div>
+
+            {errorMessage && (
+              <div className="p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs font-semibold flex items-center gap-2">
+                <span>⚠️ {errorMessage}</span>
+              </div>
+            )}
 
             {/* Select Method */}
             <div className="space-y-3">

@@ -11,6 +11,7 @@ function BookingConfirmationContent() {
   const searchParams = useSearchParams();
 
   const bookingId = searchParams.get("bookingId") || "RCC-2026-000145";
+  const supabaseBookingId = searchParams.get("supabaseBookingId");
   const paymentId = searchParams.get("paymentId") || "PAY-98765432";
   const bookingType = searchParams.get("bookingType") || "Study Workspace";
   const workspace = searchParams.get("workspace") || "Quiet Study Zone";
@@ -21,6 +22,10 @@ function BookingConfirmationContent() {
   const guests = searchParams.get("guests") || "1 Person";
   const purpose = searchParams.get("purpose") || "Work";
   const amount = searchParams.get("amount") || "368";
+  const status = searchParams.get("status") || "confirmed";
+  const paymentStatus = searchParams.get("paymentStatus") || "paid";
+
+  const isPaid = paymentStatus.toLowerCase() === "paid";
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-28 text-left">
@@ -34,13 +39,13 @@ function BookingConfirmationContent() {
         {/* Title */}
         <div className="space-y-2">
           <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full uppercase tracking-wider">
-            <ShieldCheck className="h-3.5 w-3.5" /> Payment Confirmed
+            <ShieldCheck className="h-3.5 w-3.5" /> {isPaid ? "Payment Confirmed" : "Reservation Locked"}
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold font-serif text-[#5A2E0C]">
             Reservation Confirmed!
           </h1>
           <p className="text-xs sm:text-sm text-foreground/75 font-sans max-w-md mx-auto">
-            Your reservation at RoyalCafe Connect has been successfully processed and locked in.
+            Your reservation at RoyalCafe Connect has been successfully registered and locked into our database.
           </p>
         </div>
 
@@ -51,11 +56,17 @@ function BookingConfirmationContent() {
             <span className="font-bold text-accent uppercase tracking-wider">{bookingType}</span>
           </div>
           <div className="flex justify-between border-b border-primary/10 pb-3">
-            <span className="text-foreground/50 uppercase tracking-wider">Booking ID:</span>
+            <span className="text-foreground/50 uppercase tracking-wider">Booking Reference:</span>
             <span className="font-mono font-bold text-[#5A2E0C] text-sm">{bookingId}</span>
           </div>
+          {supabaseBookingId && (
+            <div className="flex justify-between border-b border-primary/10 pb-3">
+              <span className="text-foreground/50 uppercase tracking-wider">Database Ref (UUID):</span>
+              <span className="font-mono text-[11px] font-bold text-foreground/70">{supabaseBookingId.slice(0, 18)}...</span>
+            </div>
+          )}
           <div className="flex justify-between border-b border-primary/10 pb-3">
-            <span className="text-foreground/50 uppercase tracking-wider">Payment ID:</span>
+            <span className="text-foreground/50 uppercase tracking-wider">Payment Ref:</span>
             <span className="font-mono font-bold text-accent">{paymentId}</span>
           </div>
           <div className="flex justify-between">
@@ -76,14 +87,16 @@ function BookingConfirmationContent() {
           </div>
           <div className="flex justify-between">
             <span className="text-foreground/50">Booking Status:</span>
-            <span className="font-bold text-emerald-600">Confirmed</span>
+            <span className="font-bold text-emerald-600 capitalize">{status}</span>
           </div>
           <div className="flex justify-between">
             <span className="text-foreground/50">Payment Status:</span>
-            <span className="font-bold text-emerald-600">Paid &amp; Verified</span>
+            <span className={`font-bold ${isPaid ? "text-emerald-600" : "text-amber-600"}`}>
+              {isPaid ? "Paid & Verified" : "Pay at Counter"}
+            </span>
           </div>
           <div className="flex justify-between text-sm font-bold text-primary border-t border-primary/10 pt-3">
-            <span>Total Amount Paid:</span>
+            <span>Total Amount:</span>
             <span className="text-[#EA5A0C] font-serif text-lg">₹{amount}</span>
           </div>
         </div>

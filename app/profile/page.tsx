@@ -4,6 +4,9 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/customer/navbar/Navbar";
 import Footer from "@/components/customer/footer/Footer";
+import { supabase } from "@/lib/supabase";
+import { getAuthenticatedUser } from "@/lib/auth";
+import { ensureValidUuid } from "@/lib/reservation";
 import {
   User,
   Mail,
@@ -96,7 +99,7 @@ export default function UserProfilePage() {
   const [selectedBookingDetails, setSelectedBookingDetails] = useState<UserBooking | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  // Demo User Bookings Data
+  // User Bookings Data
   const [bookings, setBookings] = useState<UserBooking[]>([
     {
       id: "BK-1001",

@@ -23,6 +23,8 @@ import {
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { supabase } from "@/lib/supabase";
+
 export type WorkspaceType =
   | "Desk"
   | "Workstation"
@@ -34,10 +36,12 @@ export type WorkspaceType =
 export type BookingStatus =
   | "Confirmed"
   | "Checked In"
-  | "Checked Out";
+  | "Checked Out"
+  | "Cancelled";
 
 export interface ReservationRow {
   bookingId: string;
+  dbId?: string;
   userName: string;
   userEmail: string;
   deskId: string;
@@ -71,116 +75,6 @@ const INITIAL_RESERVATIONS: ReservationRow[] = [
     workspaceType: "Café Table",
     status: "Confirmed",
   },
-  {
-    bookingId: "BK-1003",
-    userName: "Anita Desai",
-    userEmail: "anita.desai@company.com",
-    deskId: "M-05",
-    arrivalTime: "11:00 AM",
-    date: "07 Aug 2026",
-    duration: "Half Day",
-    workspaceType: "Meeting Room",
-    status: "Checked In",
-  },
-  {
-    bookingId: "BK-1004",
-    userName: "Vikram Patel",
-    userEmail: "vikram.p@yahoo.com",
-    deskId: "P-03",
-    arrivalTime: "11:30 AM",
-    date: "07 Aug 2026",
-    duration: "Full Day",
-    workspaceType: "Private Cabin",
-    status: "Confirmed",
-  },
-  {
-    bookingId: "BK-1005",
-    userName: "Elena Rostova",
-    userEmail: "elena.r@design.io",
-    deskId: "S-04",
-    arrivalTime: "08:30 AM",
-    date: "07 Aug 2026",
-    duration: "2 Hours",
-    workspaceType: "Study Space",
-    status: "Checked Out",
-  },
-  {
-    bookingId: "BK-1006",
-    userName: "Michael Chang",
-    userEmail: "m.chang@tech.com",
-    deskId: "D-01",
-    arrivalTime: "01:00 PM",
-    date: "07 Aug 2026",
-    duration: "1 Hour",
-    workspaceType: "Desk",
-    status: "Checked Out",
-  },
-  {
-    bookingId: "BK-1007",
-    userName: "Priya Nair",
-    userEmail: "priya.nair@startup.in",
-    deskId: "W-04",
-    arrivalTime: "02:00 PM",
-    date: "07 Aug 2026",
-    duration: "4 Hours",
-    workspaceType: "Workstation",
-    status: "Confirmed",
-  },
-  {
-    bookingId: "BK-1008",
-    userName: "David Miller",
-    userEmail: "david.m@finance.com",
-    deskId: "P-01",
-    arrivalTime: "02:30 PM",
-    date: "07 Aug 2026",
-    duration: "Half Day",
-    workspaceType: "Private Cabin",
-    status: "Checked In",
-  },
-  {
-    bookingId: "BK-1009",
-    userName: "Aarav Gupta",
-    userEmail: "aarav.g@gmail.com",
-    deskId: "C-08",
-    arrivalTime: "03:00 PM",
-    date: "07 Aug 2026",
-    duration: "2 Hours",
-    workspaceType: "Café Table",
-    status: "Confirmed",
-  },
-  {
-    bookingId: "BK-1010",
-    userName: "Sophia Al-Mansoor",
-    userEmail: "sophia.a@consulting.org",
-    deskId: "M-02",
-    arrivalTime: "03:30 PM",
-    date: "07 Aug 2026",
-    duration: "2 Hours",
-    workspaceType: "Meeting Room",
-    status: "Confirmed",
-  },
-  {
-    bookingId: "BK-1011",
-    userName: "Rohan Kapoor",
-    userEmail: "rohan.k@workspace.io",
-    deskId: "S-02",
-    arrivalTime: "08:00 AM",
-    date: "07 Aug 2026",
-    duration: "3 Hours",
-    workspaceType: "Study Space",
-    status: "Checked Out",
-  },
-  {
-    bookingId: "BK-1012",
-    userName: "Emily Watson",
-    userEmail: "emily.w@creative.co",
-    deskId: "D-05",
-    arrivalTime: "04:30 PM",
-    date: "07 Aug 2026",
-    duration: "1 Hour",
-    workspaceType: "Desk",
-    status: "Confirmed",
-  },
 ];
 
 export default function TodayReservationsTable() {
@@ -192,18 +86,154 @@ export default function TodayReservationsTable() {
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("asc");
   const [toast, setToast] = useState<string | null>(null);
 
-  const handleStatusChange = (bookingId: string, newStatus: BookingStatus) => {
-    setReservations((prev) =>
-      prev.map((item) => (item.bookingId === bookingId ? { ...item, status: newStatus } : item))
-    );
-    setToast(`Booking ${bookingId} updated to ${newStatus}`);
-    setTimeout(() => setToast(null), 3000);
+  React.useEffect(() => {
+    async function fetchSupabaseBookings() {
+      try {
+        const { data, error } = await supabase
+          .from("bookings")
+          .select(`
+            id,
+            user_id,
+            space_id,
+            booking_date,
+            start_time,
+            end_time,
+            duration_hours,
+            number_of_people,
+            total_amount,
+            status,
+            payment_status,
+            created_at,
+            updated_at,
+            spaces (
+              id,
+              name,
+              type
+            ),
+            profiles (
+              id,
+              full_name,
+              email,
+              phone
+            )
+          `)
+          .order("created_at", { ascending: false });
+
+        if (error) {
+          console.error("Error fetching Supabase bookings for dashboard:", error);
+          return;
+        }
+
+        if (data && data.length > 0) {
+          const convert24to12 = (t: string) => {
+            if (!t) return "10:00 AM";
+            const parts = t.split(":");
+            let h = parseInt(parts[0], 10);
+            const m = parts[1] || "00";
+            const period = h >= 12 ? "PM" : "AM";
+            h = h % 12 || 12;
+            return `${String(h).padStart(2, "0")}:${m} ${period}`;
+          };
+
+          const mapped: ReservationRow[] = data.map((b: any) => {
+            const spaceName = b.spaces?.name || (b.space_id?.includes("cfe4") ? "Window Seat 01" : b.space_id?.includes("3732") ? "Study Desk 01" : "Meeting Room");
+            const spaceType = b.spaces?.type || "Workstation";
+            let wsType: WorkspaceType = "Workstation";
+            if (spaceName.includes("Meeting") || spaceType === "meeting") wsType = "Meeting Room";
+            else if (spaceName.includes("Study") || spaceType === "study") wsType = "Study Space";
+            else if (spaceName.includes("Window") || spaceType === "seat") wsType = "Café Table";
+
+            let uiStatus: BookingStatus = "Confirmed";
+            const st = (b.status || "").toLowerCase().trim();
+            if (st === "checked_in" || st === "checked in") {
+              uiStatus = "Checked In";
+            } else if (st === "checked_out" || st === "checked out") {
+              uiStatus = "Checked Out";
+            } else if (st === "cancelled" || st === "canceled") {
+              uiStatus = "Cancelled";
+            } else {
+              uiStatus = "Confirmed";
+            }
+
+            const prof = Array.isArray(b.profiles) ? b.profiles[0] : b.profiles;
+            const profEmail = prof?.email || "";
+            const profName = prof?.full_name?.trim();
+            const displayName = b.customer_name?.trim() || profName || "Guest User";
+
+            return {
+              bookingId: b.id.slice(0, 8).toUpperCase(),
+              dbId: b.id,
+              userName: displayName,
+              userEmail: profEmail || "guest@royalcafe.com",
+              deskId: spaceName,
+              arrivalTime: convert24to12(b.start_time),
+              date: b.booking_date,
+              duration: `${b.duration_hours} Hour${b.duration_hours > 1 ? "s" : ""}`,
+              workspaceType: wsType,
+              status: uiStatus,
+            };
+          });
+
+          setReservations(mapped);
+        }
+      } catch (err) {
+        console.error("Failed to load dashboard reservations:", err);
+      }
+    }
+    fetchSupabaseBookings();
+  }, []);
+
+  const handleStatusChange = async (bookingId: string, newStatus: BookingStatus, dbId?: string) => {
+    const dbStatus = newStatus === "Checked In" ? "checked_in" : "checked_out";
+    const targetId = dbId || bookingId;
+
+    try {
+      const { error } = await supabase
+        .from("bookings")
+        .update({ status: dbStatus, updated_at: new Date().toISOString() })
+        .eq("id", targetId);
+
+      if (error) {
+        console.error("Error updating dashboard status in Supabase:", error);
+        setToast("Failed to update status in database.");
+        setTimeout(() => setToast(null), 3000);
+        return;
+      }
+
+      setReservations((prev) =>
+        prev.map((item) => ((item.dbId === targetId || item.bookingId === bookingId) ? { ...item, status: newStatus } : item))
+      );
+      setToast(`Booking ${bookingId} updated to ${newStatus}`);
+      setTimeout(() => setToast(null), 3000);
+    } catch (err) {
+      console.error("Error updating dashboard status:", err);
+    }
   };
 
-  const handleCancelBooking = (bookingId: string) => {
-    setReservations((prev) => prev.filter((item) => item.bookingId !== bookingId));
-    setToast(`Booking ${bookingId} cancelled`);
-    setTimeout(() => setToast(null), 3000);
+  const handleCancelBooking = async (bookingId: string, dbId?: string) => {
+    const targetId = dbId || bookingId;
+
+    try {
+      const { error } = await supabase
+        .from("bookings")
+        .update({ status: "cancelled", updated_at: new Date().toISOString() })
+        .eq("id", targetId);
+
+      if (error) {
+        console.error("Error cancelling dashboard booking in Supabase:", error);
+        setToast("Failed to cancel booking in database.");
+        setTimeout(() => setToast(null), 3000);
+        return;
+      }
+
+      setReservations((prev) =>
+        prev.map((item) => ((item.dbId === targetId || item.bookingId === bookingId) ? { ...item, status: "Cancelled" } : item))
+      );
+      setToast(`Booking ${bookingId} cancelled`);
+      setTimeout(() => setToast(null), 3000);
+    } catch (err) {
+      console.error("Error cancelling dashboard booking:", err);
+    }
   };
 
   // Status Priority Rank mapping: Confirmed (1) > Checked In (2) > Checked Out (3)
@@ -543,7 +573,7 @@ export default function TodayReservationsTable() {
                           <>
                             <button
                               type="button"
-                              onClick={() => handleStatusChange(row.bookingId, "Checked In")}
+                              onClick={() => handleStatusChange(row.bookingId, "Checked In", row.dbId)}
                               className="px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
                               title="Check In Guest"
                             >
@@ -552,7 +582,7 @@ export default function TodayReservationsTable() {
                             </button>
                             <button
                               type="button"
-                              onClick={() => handleCancelBooking(row.bookingId)}
+                              onClick={() => handleCancelBooking(row.bookingId, row.dbId)}
                               className="px-2.5 py-1.5 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs border border-rose-200 transition-all cursor-pointer flex items-center gap-1"
                               title="Cancel Booking"
                             >
@@ -566,7 +596,7 @@ export default function TodayReservationsTable() {
                         {row.status === "Checked In" && (
                           <button
                             type="button"
-                            onClick={() => handleStatusChange(row.bookingId, "Checked Out")}
+                            onClick={() => handleStatusChange(row.bookingId, "Checked Out", row.dbId)}
                             className="px-3.5 py-1.5 rounded-xl bg-amber-700 hover:bg-amber-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
                             title="Check Out Guest"
                           >
@@ -580,6 +610,14 @@ export default function TodayReservationsTable() {
                           <span className="px-3 py-1 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200 inline-flex items-center gap-1 opacity-80">
                             <CheckCircle2 className="w-3.5 h-3.5 text-slate-600" />
                             Checked Out
+                          </span>
+                        )}
+
+                        {/* Cancelled state badge */}
+                        {row.status === "Cancelled" && (
+                          <span className="px-3 py-1 rounded-xl bg-rose-50 text-rose-700 font-bold text-xs border border-rose-200 inline-flex items-center gap-1 opacity-80">
+                            <XCircle className="w-3.5 h-3.5 text-rose-600" />
+                            Cancelled
                           </span>
                         )}
                       </div>
@@ -603,7 +641,6 @@ export default function TodayReservationsTable() {
         {dashboardReservations.length > 0 ? (
           dashboardReservations.map((row) => {
             const wsBadge = getWorkspaceBadge(row.workspaceType);
-            const isInactive = row.status === "Checked Out";
 
             return (
               <div
@@ -673,7 +710,7 @@ export default function TodayReservationsTable() {
                     <>
                       <button
                         type="button"
-                        onClick={() => handleStatusChange(row.bookingId, "Checked In")}
+                        onClick={() => handleStatusChange(row.bookingId, "Checked In", row.dbId)}
                         className="flex-1 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1"
                       >
                         <UserCheck className="w-3.5 h-3.5" />
@@ -681,7 +718,7 @@ export default function TodayReservationsTable() {
                       </button>
                       <button
                         type="button"
-                        onClick={() => handleCancelBooking(row.bookingId)}
+                        onClick={() => handleCancelBooking(row.bookingId, row.dbId)}
                         className="py-2 px-3 rounded-xl bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs border border-rose-200 transition-all flex items-center justify-center gap-1"
                       >
                         <XCircle className="w-3.5 h-3.5" />
@@ -693,7 +730,7 @@ export default function TodayReservationsTable() {
                   {row.status === "Checked In" && (
                     <button
                       type="button"
-                      onClick={() => handleStatusChange(row.bookingId, "Checked Out")}
+                      onClick={() => handleStatusChange(row.bookingId, "Checked Out", row.dbId)}
                       className="w-full py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1"
                     >
                       <LogOut className="w-3.5 h-3.5" />
@@ -705,6 +742,13 @@ export default function TodayReservationsTable() {
                     <span className="w-full py-2 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200 flex items-center justify-center gap-1 opacity-80">
                       <CheckCircle2 className="w-3.5 h-3.5 text-slate-600" />
                       Checked Out
+                    </span>
+                  )}
+
+                  {row.status === "Cancelled" && (
+                    <span className="w-full py-2 rounded-xl bg-rose-50 text-rose-700 font-bold text-xs border border-rose-200 flex items-center justify-center gap-1 opacity-80">
+                      <XCircle className="w-3.5 h-3.5 text-rose-600" />
+                      Cancelled
                     </span>
                   )}
                 </div>
