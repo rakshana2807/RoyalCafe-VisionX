@@ -78,7 +78,7 @@ const INITIAL_RESERVATIONS: ReservationRow[] = [
 ];
 
 export default function TodayReservationsTable() {
-  const [reservations, setReservations] = useState<ReservationRow[]>(INITIAL_RESERVATIONS);
+  const [reservations, setReservations] = useState<ReservationRow[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("All");
   const [workspaceFilter, setWorkspaceFilter] = useState<string>("All");
