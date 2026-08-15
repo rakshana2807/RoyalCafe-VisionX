@@ -14,7 +14,7 @@ export default function BookPage() {
 
   useEffect(() => {
     if (!isAuthenticated()) {
-      const msg = encodeURIComponent("Please login to your RoyalCafeConnect account to book a workspace.");
+      const msg = encodeURIComponent("Please login to your RoyalCafeConnect account to reserve a seat.");
       router.replace(`/login?redirect=/book&message=${msg}`);
     } else {
       setIsCheckingAuth(false);
@@ -48,7 +48,6 @@ export default function BookPage() {
         <WorkspaceSelector />
       </main>
 
-      <Footer />
     </>
   );
 }

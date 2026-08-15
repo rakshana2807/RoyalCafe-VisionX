@@ -32,24 +32,24 @@ function getSeatStyle(
   }
   switch (status) {
     case "selected":
-      return "bg-[#2563EB] text-white border-2 border-blue-300 shadow-[0_0_15px_rgba(37,99,235,0.75)] ring-4 ring-blue-500/30 scale-105 cursor-pointer z-10 animate-pulse transition-all duration-300";
+      return "bg-[#D2B48C]/80  text-white border-2 border-blue-300 shadow-[0_0_15px_rgba(37,99,235,0.75)] ring-4 ring-white-500/30 scale-105 cursor-pointer z-10 animate-pulse transition-all duration-300";
     case "available":
-      return "bg-[#22C55E] hover:bg-[#16A34A] text-white cursor-pointer hover:scale-105 hover:shadow-[0_0_12px_rgba(34,197,94,0.5)] transition-all shadow-xs";
+      return "bg-[#D2B48C]/80  hover:bg-[#D2B48C]/80  text-white cursor-pointer hover:scale-105  transition-all shadow-xs";
     case "reserved":
-      return "bg-[#F97316] hover:bg-[#EA580C] text-white cursor-pointer hover:scale-105 border border-orange-600 shadow-xs transition-all";
+      return "bg-[#D2B48C]/80  hover:bg-[#D2B48C]/80  text-white cursor-pointer hover:scale-105 border border-white-600 shadow-xs transition-all";
     case "occupied":
-      return "bg-[#EF4444] hover:bg-[#DC2626] text-white cursor-pointer hover:scale-105 border border-red-600 shadow-xs transition-all";
+      return "bg-[#D2B48C]/80  hover:bg-[#D2B48C]/80  text-white cursor-pointer hover:scale-105 border border-white-600 shadow-xs transition-all";
     case "maintenance":
-      return "bg-[#6B7280] text-white cursor-pointer hover:scale-105 opacity-90 border border-gray-600 shadow-xs transition-all";
+      return "bg-[#D2B48C]/80  text-white cursor-pointer hover:scale-105 opacity-90 border border-gray-600 shadow-xs transition-all";
     case "disabled":
-      return "bg-[#374151] text-white cursor-not-allowed opacity-80 border border-gray-800 shadow-xs";
+      return "bg-[#D2B48C]/80  text-white cursor-not-allowed opacity-80 border border-gray-800 shadow-xs";
     default:
       return "bg-[#94A3B8] text-white";
   }
 }
 
 export default function SeatMap({
-  activeZone = "All Areas",
+  activeZone = "All Seats",
   selectedSeatId,
   onSelectSeat,
   seatStatusMap,
@@ -194,12 +194,12 @@ export default function SeatMap({
               <span
                 className={`w-2 h-2 rounded-full ${
                   effectiveStatus === "available"
-                    ? "bg-emerald-400"
+                    ? "bg-amber-400"
                     : effectiveStatus === "reserved"
                     ? "bg-amber-400"
                     : effectiveStatus === "occupied"
-                    ? "bg-rose-400"
-                    : "bg-slate-400"
+                    ? "bg-amber-400"
+                    : "bg-amber-400"
                 }`}
               />
               <span className="capitalize font-extrabold">{effectiveStatus}</span>
@@ -219,24 +219,7 @@ export default function SeatMap({
   return (
     <div className="w-full overflow-x-auto bg-[#F4EFEB] rounded-[32px] p-5 sm:p-8 border border-primary/10 shadow-lg text-left font-sans space-y-4">
       {/* Blueprint Status Legend Bar */}
-      <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 p-3.5 rounded-2xl bg-[#EAE0D5] border border-primary/10 text-xs font-bold text-[#2A1506]">
-        <div className="flex items-center gap-2">
-          <span className="w-3.5 h-3.5 rounded-full bg-[#22C55E] border border-emerald-600 shadow-xs inline-block" />
-          <span>🟢 Available</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-3.5 h-3.5 rounded-full bg-[#F97316] border border-orange-600 shadow-xs inline-block" />
-          <span>🟡 Reserved</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-3.5 h-3.5 rounded-full bg-[#EF4444] border border-red-600 shadow-xs inline-block" />
-          <span>🔴 Occupied</span>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="w-3.5 h-3.5 rounded-full bg-[#6B7280] border border-gray-600 shadow-xs inline-block" />
-          <span>⚪ Maintenance</span>
-        </div>
-      </div>
+      
 
       {/* Scroll Hint for Mobile */}
       <span className="text-[10px] font-extrabold text-foreground/40 uppercase block text-center mb-4 lg:hidden">

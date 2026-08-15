@@ -4,6 +4,7 @@ import {
   isSpaceAvailable,
   createSupabaseBooking,
   parseDurationHours,
+  calculateWorkspacePrice,
   CreateBookingInput,
 } from "@/lib/reservation";
 import { getAuthenticatedUser } from "@/lib/auth";
@@ -337,7 +338,10 @@ export function BookingProvider({ children }: { children: ReactNode }) {
     0
   );
   const wifiTotal = wifiPass?.price ?? 0;
-  const bookingFee = 29; // Reservation Fee = 29
+  const durationHrs = parseDurationHours(reservationDetails.duration);
+  const guestsNum = parseInt(reservationDetails.guests, 10) || 1;
+  const effectiveType = selectedSeat?.seatType || reservationDetails.tableType || "2 Seater";
+  const bookingFee = calculateWorkspacePrice(effectiveType, durationHrs, guestsNum);
   const subtotalBeforeTax = foodTotal + wifiTotal + bookingFee;
   const gst = Math.round(subtotalBeforeTax * 0.02);
   const grandTotal = subtotalBeforeTax + gst;

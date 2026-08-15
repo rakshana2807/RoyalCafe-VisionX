@@ -259,7 +259,7 @@ export default function AuthPage() {
                     RoyalCafe<span className="text-accent">Connect</span>
                   </span>
                   <span className="text-[11px] uppercase tracking-widest text-white/60 font-medium">
-                    Premium Workspace &amp; Cafe
+                    Premium Seating &amp; Cafe
                   </span>
                 </div>
               </Link>

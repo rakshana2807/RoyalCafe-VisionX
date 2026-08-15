@@ -40,9 +40,7 @@ export default function ReviewsPage() {
         <CTA />
 
       </main>
-
-      {/* Global Footer */}
-      <Footer />
+ <Footer />
     </>
   );
 }

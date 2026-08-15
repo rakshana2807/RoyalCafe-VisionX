@@ -14,7 +14,7 @@ export default function LiveHeader() {
             <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-emerald-600">
-                Live Workspace Status
+                Live Seating Status
               </span>
             </div>
 
@@ -25,7 +25,7 @@ export default function LiveHeader() {
 
             {/* Description */}
             <p className="text-base sm:text-lg text-foreground/80 leading-relaxed max-w-2xl font-sans">
-              Real-time occupancy tracking and premium workspace amenities. Find your perfect spot for deep focus or collaborative sessions.
+              Real-time occupancy tracking and premium cafe amenities. Find your perfect spot for deep focus or collaborative sessions.
             </p>
           </div>
 

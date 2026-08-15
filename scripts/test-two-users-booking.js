@@ -68,6 +68,7 @@ async function createSupabaseBooking(input) {
 
   const payload = {
     user_id: profile.id,
+    customer_name: profile.full_name || input.userName || "Customer",
     space_id: input.spaceId,
     booking_date: input.bookingDate,
     start_time: input.startTime || "10:00:00",
@@ -81,7 +82,10 @@ async function createSupabaseBooking(input) {
   };
 
   const { data, error } = await supabase.from("bookings").insert(payload).select().single();
-  if (error) throw error;
+  if (error) {
+    console.error("Insert Error:", error);
+    throw error;
+  }
   return { ...data, profile };
 }
 

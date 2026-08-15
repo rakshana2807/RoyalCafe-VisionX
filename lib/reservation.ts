@@ -21,7 +21,6 @@ const DEFAULT_DEMO_SPACES: WorkspaceObject[] = [
 
 /**
  * Asynchronously resolves any workspace selection or seat code to the actual Supabase spaces database record.
- * Never throws "Unable to load workspaces from database".
  */
 export async function resolveWorkspaceObject(workspaceOrSeat: string): Promise<WorkspaceObject> {
   const inputStr = workspaceOrSeat ? String(workspaceOrSeat).trim() : "";
@@ -89,22 +88,70 @@ export async function resolveWorkspaceObject(workspaceOrSeat: string): Promise<W
     }
   }
 
-  // Default fallback to first space
-  const first = allSpaces[0] || DEFAULT_DEMO_SPACES[0];
-  return {
-    id: first.id,
-    workspaceCode: first.name,
-    name: first.name,
-    type: first.type,
-  };
+  throw new Error(`Unable to resolve single exact workspace from selection: ${inputStr}`);
+}
+
+/**
+ * Resolves a generic workspace type or exact ID to an array of matching Supabase space IDs.
+ */
+export async function resolveSpaceIdsAsync(workspaceOrSeat: string): Promise<string[]> {
+  const inputStr = workspaceOrSeat ? String(workspaceOrSeat).trim() : "";
+  if (!inputStr) throw new Error("No workspace provided");
+
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+  let allSpaces: any[] = [];
+  try {
+    const { data } = await supabase.from("spaces").select("id, name, type, description");
+    if (data && data.length > 0) {
+      allSpaces = data;
+    }
+  } catch (err) {
+    console.warn("Could not load spaces from database, using fallback demo spaces:", err);
+  }
+
+  if (allSpaces.length === 0) {
+    allSpaces = DEFAULT_DEMO_SPACES;
+  }
+
+  if (uuidRegex.test(inputStr)) return [inputStr];
+
+  // 2. Exact match on custom ID stored in description (e.g., "#Q01-1")
+  const matchedByCustomId = allSpaces.find((s) => s.description === inputStr);
+  if (matchedByCustomId) return [matchedByCustomId.id];
+
+  const lower = inputStr.toLowerCase();
+
+  const matchedByName = allSpaces.filter((s) => s.name.toLowerCase() === lower);
+  if (matchedByName.length > 0) return matchedByName.map((s) => s.id);
+
+  const matchedPartial = allSpaces.filter(
+    (s) => s.name.toLowerCase().includes(lower) || lower.includes(s.name.toLowerCase())
+  );
+  if (matchedPartial.length > 0) return matchedPartial.map((s) => s.id);
+
+  const matchedType = allSpaces.filter((s) => {
+    if (!s.type) return false;
+    const t = s.type.toLowerCase();
+    if (lower.includes("single") && t.includes("single")) return true;
+    if (lower.includes("2 seater") && (t.includes("2") || t.includes("study"))) return true;
+    if (lower.includes("4 seater") && t.includes("4")) return true;
+    if (lower.includes("booth") && t.includes("booth")) return true;
+    if (lower.includes("meeting") && t.includes("meeting")) return true;
+    return t === lower || lower.includes(t) || t.includes(lower);
+  });
+
+  if (matchedType.length > 0) return matchedType.map((s) => s.id);
+
+  throw new Error(`Unable to resolve any workspaces matching selection: ${inputStr}`);
 }
 
 /**
  * Async helper to get workspace ID UUID
  */
 export async function resolveSpaceIdAsync(workspaceOrSeat: string): Promise<string> {
-  const ws = await resolveWorkspaceObject(workspaceOrSeat);
-  return ws.id;
+  const ids = await resolveSpaceIdsAsync(workspaceOrSeat);
+  return ids[0];
 }
 
 /**
@@ -198,7 +245,10 @@ export function calculateEndTime24(startTime24: string, durationHours: number): 
   let hrs = parseInt(parts[0], 10) || 0;
   let mins = parseInt(parts[1], 10) || 0;
 
-  const totalMinutes = hrs * 60 + mins + Math.round(durationHours * 60);
+  // Exact floating point math for hours
+  const addMins = Math.round(durationHours * 60);
+  const totalMinutes = hrs * 60 + mins + addMins;
+  
   const endHrs = Math.floor(totalMinutes / 60) % 24;
   const endMins = totalMinutes % 60;
 
@@ -217,25 +267,18 @@ export async function isSpaceAvailable(
   startTime: string,
   endTime: string
 ): Promise<boolean> {
-  const targetSpaceId = await resolveSpaceIdAsync(spaceId);
+  const targetSpaceIds = await resolveSpaceIdsAsync(spaceId);
   const start24 = convert12to24(startTime);
   const end24 = convert12to24(endTime);
 
   const { data: conflicts, error } = await supabase
     .from("bookings")
     .select("id, space_id, booking_date, start_time, end_time, status")
-    .eq("space_id", targetSpaceId)
+    .in("space_id", targetSpaceIds)
     .eq("booking_date", bookingDate)
     .in("status", ["confirmed", "checked_in"])
     .lt("start_time", end24)
     .gt("end_time", start24);
-
-  console.log("SELECTED WORKSPACE:", spaceId);
-  console.log("TARGET SPACE ID:", targetSpaceId);
-  console.log("BOOKING DATE:", bookingDate);
-  console.log("START TIME:", start24);
-  console.log("END TIME:", end24);
-  console.log("CONFLICT:", conflicts && conflicts.length > 0 ? conflicts[0] : null);
 
   if (error) {
     console.error("Availability check failed:", {
@@ -247,11 +290,91 @@ export async function isSpaceAvailable(
     throw new Error("Unable to check workspace availability.");
   }
 
-  if (conflicts && conflicts.length > 0) {
-    return false;
+  const conflictedSpaceIds = new Set(conflicts?.map(c => c.space_id) || []);
+  const isAnyAvailable = targetSpaceIds.some(id => !conflictedSpaceIds.has(id));
+
+  return isAnyAvailable;
+}
+
+export interface AlternativeSlot {
+  startTime: string;
+  endTime: string;
+  label: string;
+  isAvailable: boolean;
+}
+
+/**
+ * Suggests alternative available continuous time slots when a requested slot is occupied.
+ */
+export async function getAlternativeSlots(
+  spaceId: string,
+  bookingDate: string,
+  requestedStartTime: string,
+  durationHours: number
+): Promise<AlternativeSlot[]> {
+  const slots: AlternativeSlot[] = [];
+  const start24 = convert12to24(requestedStartTime);
+  const parts = start24.split(":");
+  let reqHr = parseInt(parts[0], 10) || 9;
+
+  // Offsets to check around the requested time
+  const offsets = [-2, -1, 1, 2, 3, 4];
+
+  for (const offset of offsets) {
+    let testHr = reqHr + offset;
+    if (testHr < 8 || testHr + durationHours > 22) continue; // Operating bounds (8 AM - 10 PM)
+    
+    const testStart24 = `${String(testHr).padStart(2, "0")}:00:00`;
+    const testEnd24 = calculateEndTime24(testStart24, durationHours);
+    const testStart12 = convert24to12(testStart24);
+    const testEnd12 = convert24to12(testEnd24);
+
+    try {
+      const avail = await isSpaceAvailable(spaceId, bookingDate, testStart12, testEnd12);
+      if (avail) {
+        slots.push({
+          startTime: testStart12,
+          endTime: testEnd12,
+          label: `${testStart12} - ${testEnd12}`,
+          isAvailable: true,
+        });
+      }
+    } catch {
+      // Ignore check errors for alternatives
+    }
+
+    if (slots.length >= 3) break; // Return max 3 alternatives
   }
 
-  return true;
+  return slots;
+}
+
+/**
+ * Calculate dynamic workspace reservation price based on space type, duration, and guest count.
+ */
+export function calculateWorkspacePrice(
+  tableType: string,
+  durationHours: number,
+  guestsCount: number = 1
+): number {
+  let ratePerHour = 29;
+  const typeLower = (tableType || "").toLowerCase();
+
+  if (typeLower.includes("single") || typeLower.includes("hot desk")) {
+    ratePerHour = 25;
+  } else if (typeLower.includes("2 seater") || typeLower.includes("study")) {
+    ratePerHour = 45;
+  } else if (typeLower.includes("4 seater") || typeLower.includes("dedicated")) {
+    ratePerHour = 85;
+  } else if (typeLower.includes("lounge") || typeLower.includes("vip")) {
+    ratePerHour = 120;
+  } else if (typeLower.includes("booth") || typeLower.includes("cabin") || typeLower.includes("boardroom")) {
+    ratePerHour = 180;
+  }
+
+  const duration = Math.max(1, durationHours || 1);
+  const guests = Math.max(1, guestsCount || 1);
+  return Math.round(ratePerHour * duration * Math.min(guests, 2));
 }
 
 export interface CreateBookingInput {
@@ -417,20 +540,32 @@ export async function createSupabaseBooking(input: CreateBookingInput) {
     throw new Error("Unable to create booking: Could not resolve or create customer profile.");
   }
 
-  const targetSpaceId = await resolveSpaceIdAsync(input.spaceId);
+  const targetSpaceIds = await resolveSpaceIdsAsync(input.spaceId);
   const start24 = convert12to24(input.startTime);
   const duration = Number(input.durationHours) || 1;
   const end24 = calculateEndTime24(start24, duration);
 
-  // 2. Availability / Overlap Check
-  const available = await isSpaceAvailable(
-    targetSpaceId,
-    input.bookingDate,
-    start24,
-    end24
-  );
+  // 2. Availability / Overlap Check and Assign Available Space
+  const { data: conflicts, error: checkError } = await supabase
+    .from("bookings")
+    .select("space_id")
+    .in("space_id", targetSpaceIds)
+    .eq("booking_date", input.bookingDate)
+    .in("status", ["confirmed", "checked_in"])
+    .lt("start_time", end24)
+    .gt("end_time", start24);
 
-  
+  if (checkError) {
+    console.error("Pre-booking availability check failed:", checkError);
+    throw new Error("Unable to verify workspace availability before booking.");
+  }
+
+  const conflictedSpaceIds = new Set(conflicts?.map(c => c.space_id) || []);
+  const availableSpaceId = targetSpaceIds.find(id => !conflictedSpaceIds.has(id));
+
+  if (!availableSpaceId) {
+    throw new Error("The selected workspace type is fully booked for this time period.");
+  }
 
   // 3. Construct Payload
   const customerName = input.userName?.trim() || profile.full_name || "Customer";
@@ -438,7 +573,7 @@ export async function createSupabaseBooking(input: CreateBookingInput) {
   const payload: any = {
     user_id: profile.id,
     customer_name: customerName,
-    space_id: targetSpaceId,
+    space_id: availableSpaceId,
     booking_date: input.bookingDate,
     start_time: start24,
     end_time: end24,
@@ -452,32 +587,49 @@ export async function createSupabaseBooking(input: CreateBookingInput) {
 
   console.log("SUPABASE BOOKING PAYLOAD", payload);
 
-  // 4. Perform database insert
-  let { data, error } = await supabase
-    .from("bookings")
-    .insert(payload)
-    .select("*")
-    .single();
-
-  if (error && (error.message?.includes("customer_name") || error.code === "PGRST204")) {
-    delete payload.customer_name;
-    const retry = await supabase.from("bookings").insert(payload).select("*").single();
-    data = retry.data;
-    error = retry.error;
-  }
+  // 4. Perform database atomic insert using RPC
+  let { data, error } = await supabase.rpc("book_space_safe", {
+    p_user_id: profile.id,
+    p_customer_name: customerName,
+    p_space_id: availableSpaceId,
+    p_booking_date: input.bookingDate,
+    p_start_time: start24,
+    p_end_time: end24,
+    p_duration_hours: duration,
+    p_number_of_people: Number(input.numberOfPeople) || 1,
+    p_total_amount: Number(input.totalAmount) || 0,
+    p_status: input.status || "confirmed",
+    p_payment_status: input.paymentStatus || "paid",
+    p_special_request: input.specialRequest || null
+  });
 
   if (error) {
-    console.error("SUPABASE BOOKING INSERT FAILED", {
-      code: error.code,
-      message: error.message,
-      details: error.details,
-      hint: error.hint,
-      payload,
-    });
-    throw new Error(
-      error.message || "Unable to create booking. Please try again."
-    );
+    console.error("Booking RPC error:", error);
+    throw new Error("Unable to create booking due to a database error.");
   }
 
-  return data;
+  // Handle explicit concurrency rejection from RPC
+  if (data && data.success === false) {
+    if (data.error === 'SPACE_ALREADY_BOOKED') {
+      throw new Error("This workspace was just booked by another user. Please choose another available time.");
+    }
+    throw new Error(data.error || "Unable to create booking.");
+  }
+
+  // Successful booking returns the ID
+  const bookingId = data.booking_id;
+  
+  // Fetch the full record to return identically to the old .insert().select().single()
+  const { data: finalRecord, error: fetchErr } = await supabase
+    .from("bookings")
+    .select("*")
+    .eq("id", bookingId)
+    .single();
+
+  if (fetchErr) {
+    console.error("Failed to fetch new booking record:", fetchErr);
+    throw new Error("Booking succeeded but failed to retrieve record.");
+  }
+
+  return { ...finalRecord, profile };
 }

@@ -3,13 +3,13 @@ import "./globals.css";
 import BookingProviderWrapper from "@/components/shared/BookingProviderWrapper";
 
 export const metadata: Metadata = {
-  title: "RoyalCafe Connect | Your Perfect Coffee & Workspace",
-  description: "The absolute environment for focus, collaboration, and relaxation. Experience premium quality coffee and discover the great working slot for productivity.",
+  title: "RoyalCafe Connect | Your Perfect Coffee & Seating",
+  description: "A premium cafe seating booking platform",
   keywords: ["cafe workspace", "coworking cafe", "remote work cafe", "study space", "premium coffee", "fast wifi cafe"],
   authors: [{ name: "RoyalCafe Connect" }],
   openGraph: {
-    title: "RoyalCafe Connect | Your Perfect Coffee & Workspace",
-    description: "The absolute environment for focus, collaboration, and relaxation. Experience premium quality coffee and discover the great working slot for productivity.",
+    title: "RoyalCafe Connect | Your Perfect Coffee & Seating",
+    description: "A premium cafe seating booking platform",
     type: "website",
   },
 };

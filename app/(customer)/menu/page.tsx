@@ -166,10 +166,7 @@ if (loading) {
             </p>
           </div>
         </div>
-      </main>
-
-      <Footer />
-    </>
+      </main>    </>
   );
 }
   return (
@@ -252,9 +249,6 @@ if (loading) {
         <MenuCTA />
 
       </main>
-
-      {/* Footer */}
-      <Footer />
     </>
   );
 }

@@ -69,7 +69,7 @@ export default function BookingCTA({ selectedSeat }: BookingCTAProps) {
                 onClick={handleBookClick}
                 className="w-full sm:w-auto inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-xs font-bold uppercase tracking-wider rounded-full text-white bg-[#2A1506] hover:bg-[#EA5A0C] transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
               >
-                {selectedSeat ? `Book Seat #${selectedSeat.number}` : "Book Available Workspace"}
+                {selectedSeat ? `Reserve Seat #${selectedSeat.number}` : "Reserve Available Seat"}
               </button>
               
               <Link

@@ -13,8 +13,8 @@ function BookingConfirmationContent() {
   const bookingId = searchParams.get("bookingId") || "RCC-2026-000145";
   const supabaseBookingId = searchParams.get("supabaseBookingId");
   const paymentId = searchParams.get("paymentId") || "PAY-98765432";
-  const bookingType = searchParams.get("bookingType") || "Study Workspace";
-  const workspace = searchParams.get("workspace") || "Quiet Study Zone";
+  const bookingType = searchParams.get("bookingType") || "Study Seat";
+  const workspace = searchParams.get("workspace") || "Quiet Study Area";
   const seat = searchParams.get("seat") || "Desk #12";
   const date = searchParams.get("date") || "19/07/2026";
   const time = searchParams.get("time") || "02:00 PM";
@@ -156,7 +156,7 @@ export default function BookingConfirmationPage() {
           <BookingConfirmationContent />
         </Suspense>
       </main>
-      <Footer />
+     
     </>
   );
 }

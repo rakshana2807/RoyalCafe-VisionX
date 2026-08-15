@@ -15,14 +15,13 @@ export default function WorkStudyPage() {
         {/* Hero Section & Work Suitability Score Grid */}
         <Hero />
 
-        {/* Workspace Plans & Passes Section */}
+        {/* Seating Plans & Passes Section */}
         <MembershipPlans />
 
-        {/* Workspace FAQ */}
+        {/* Seating FAQ */}
         <FAQ />
       </main>
 
-      <Footer />
     </>
   );
 }

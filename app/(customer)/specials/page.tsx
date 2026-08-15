@@ -33,8 +33,6 @@ export default function SpecialsPage() {
         {/* Offer Terms & Conditions Accordion */}
         <TermsAccordion />
       </main>
-
-      <Footer />
     </>
   );
 }

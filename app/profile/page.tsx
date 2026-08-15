@@ -55,7 +55,7 @@ export interface UserBooking {
   guests: number;
   amount: number;
   paymentStatus: "Paid" | "Pending";
-  status: "Confirmed" | "Checked In" | "Checked Out";
+  status: "Confirmed" | "Checked In" | "Checked Out" | "Cancelled";
   image: string;
 }
 
@@ -99,65 +99,7 @@ export default function UserProfilePage() {
   const [selectedBookingDetails, setSelectedBookingDetails] = useState<UserBooking | null>(null);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-  // User Bookings Data
-  const [bookings, setBookings] = useState<UserBooking[]>([
-    {
-      id: "BK-1001",
-      deskId: "W-02",
-      workspaceType: "Workstation",
-      cafeName: "RoyalCafe Connect - Cyber City",
-      date: "Today, 07 Aug 2026",
-      time: "02:30 PM",
-      duration: "4 Hours",
-      guests: 1,
-      amount: 499,
-      paymentStatus: "Paid",
-      status: "Confirmed",
-      image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80",
-    },
-    {
-      id: "BK-1002",
-      deskId: "T-04",
-      workspaceType: "Café Table",
-      cafeName: "RoyalCafe Connect - Indiranagar",
-      date: "Tomorrow, 08 Aug 2026",
-      time: "10:00 AM",
-      duration: "2 Hours",
-      guests: 2,
-      amount: 350,
-      paymentStatus: "Paid",
-      status: "Confirmed",
-      image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=600&q=80",
-    },
-    {
-      id: "BK-0982",
-      deskId: "P-01",
-      workspaceType: "Private Cabin",
-      cafeName: "RoyalCafe Connect - Cyber City",
-      date: "02 Aug 2026",
-      time: "09:00 AM",
-      duration: "Full Day",
-      guests: 1,
-      amount: 1800,
-      paymentStatus: "Paid",
-      status: "Checked Out",
-      image: "https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=600&q=80",
-    },
-    {
-      id: "BK-0975",
-      deskId: "M-02",
-      workspaceType: "Meeting Room",
-      cafeName: "RoyalCafe Connect - Cyber City",
-      date: "25 Jul 2026",
-      time: "02:00 PM",
-      duration: "Half Day",
-      guests: 6,
-      amount: 1250,
-      paymentStatus: "Paid",
-      status: "Checked Out",
-      image: "https://images.unsplash.com/photo-1517502884422-41eaead166d4?auto=format&fit=crop&w=600&q=80",
-    },
-  ]);
+  const [bookings, setBookings] = useState<UserBooking[]>([]);
 
   // Demo User Payment History
   const [payments] = useState<UserPayment[]>([
@@ -169,10 +111,12 @@ export default function UserProfilePage() {
 
   // Load Logged In User Data from LocalStorage
   useEffect(() => {
+    let currentUser: any = null;
     try {
       const stored = localStorage.getItem("royalcafe_user") || localStorage.getItem("user");
       if (stored) {
         const parsed = JSON.parse(stored);
+        currentUser = parsed;
         setUserInfo((prev) => ({
           ...prev,
           name: parsed.name || parsed.email?.split("@")[0] || prev.name,
@@ -183,6 +127,55 @@ export default function UserProfilePage() {
     } catch {
       // Keep fallbacks
     }
+
+    async function fetchUserBookings() {
+      const authUser = getAuthenticatedUser() || currentUser;
+      if (!authUser || !authUser.id) return;
+      
+      try {
+        const { data, error } = await supabase
+          .from("bookings")
+          .select('*, spaces(name, type, workspace_code)')
+          .eq("user_id", authUser.id)
+          .order("created_at", { ascending: false });
+          
+        if (error) throw error;
+        
+        if (data && data.length > 0) {
+          const mappedBookings: UserBooking[] = data.map((b: any) => {
+            const spaceObj = Array.isArray(b.spaces) ? b.spaces[0] : b.spaces;
+            const spaceName = spaceObj?.name || "Window Seat 01";
+            const spaceCode = spaceObj?.workspace_code || spaceName;
+            const spaceType = spaceObj?.type || "seat";
+            
+            let statusEnum: any = "Confirmed";
+            if (b.status === "checked_in") statusEnum = "Checked In";
+            if (b.status === "checked_out") statusEnum = "Checked Out";
+            if (b.status === "cancelled") statusEnum = "Cancelled";
+            
+            return {
+              id: b.id.substring(0, 8),
+              deskId: spaceCode,
+              workspaceType: spaceType,
+              cafeName: "RoyalCafe Main Branch",
+              date: b.booking_date,
+              time: b.start_time,
+              duration: `${b.duration_hours} Hour(s)`,
+              guests: b.number_of_people || 1,
+              amount: b.total_amount,
+              paymentStatus: b.payment_status === "paid" ? "Paid" : "Pending",
+              status: statusEnum,
+              image: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&q=80",
+            };
+          });
+          setBookings(mappedBookings);
+        }
+      } catch (err) {
+        console.error("Failed to fetch user bookings:", err);
+      }
+    }
+    
+    fetchUserBookings();
   }, []);
 
   const showToast = (msg: string) => {
@@ -226,7 +219,7 @@ export default function UserProfilePage() {
     (b) => b.status === "Confirmed" || b.status === "Checked In"
   );
   const completedBookingsList = bookings.filter(
-    (b) => b.status === "Checked Out"
+    (b) => b.status === "Checked Out" || b.status === "Cancelled"
   );
 
   return (
@@ -643,7 +636,7 @@ export default function UserProfilePage() {
                       onClick={() => router.push("/book")}
                       className="px-5 py-2.5 rounded-2xl bg-[#8C4A21] text-white font-bold text-xs"
                     >
-                      Book a Workspace Now
+                      Book a Seat Now
                     </button>
                   </div>
                 )}
@@ -658,7 +651,7 @@ export default function UserProfilePage() {
                     <Clock className="w-5 h-5 text-[#8C4A21]" /> Booking History
                   </h2>
                   <p className="text-xs text-[#7A5A43]">
-                    Archived past reservations and completed workspace visits.
+                    Archived past reservations and completed seating visits.
                   </p>
                 </div>
 
@@ -781,7 +774,7 @@ export default function UserProfilePage() {
                   <div className="pt-2 border-t border-amber-500/30 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs text-amber-100">
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>15% Discount on All Workspace Bookings</span>
+                      <span>15% Discount on All Seating Bookings</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -871,7 +864,7 @@ export default function UserProfilePage() {
                     <Heart className="w-5 h-5 text-rose-600" /> Saved Favorites
                   </h2>
                   <p className="text-xs text-[#7A5A43]">
-                    Quickly re-book your favorite café locations, workspaces, and menu treats.
+                    Quickly re-book your favorite café locations, seating options, and menu treats.
                   </p>
                 </div>
 

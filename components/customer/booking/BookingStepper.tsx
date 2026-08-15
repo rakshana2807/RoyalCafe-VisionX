@@ -9,7 +9,7 @@ interface StepperProps {
 
 export default function BookingStepper({ currentStep, onStepClick }: StepperProps) {
   const steps = [
-    { num: 1, label: "Select Workspace" },
+    { num: 1, label: "Seat Selection" },
     { num: 2, label: "Date & Time" },
     { num: 3, label: "Select Seat" },
     { num: 4, label: "Review Booking" },

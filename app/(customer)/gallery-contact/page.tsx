@@ -3,8 +3,7 @@
 import Navbar from "@/components/customer/navbar/Navbar";
 import Footer from "@/components/customer/footer/Footer";
 import Hero from "@/components/customer/gallery/Hero";
-import GalleryGrid from "@/components/customer/gallery/GalleryGrid";
-import VirtualTour from "@/components/customer/gallery/VirtualTour";
+import GalleryGrid from "@/components/customer/gallery/GalleryGrid"; 
 import Features from "@/components/customer/gallery/Features";
 import LocationMap from "@/components/customer/gallery/LocationMap";
 import VisitInfo from "@/components/customer/gallery/VisitInfo";
@@ -24,10 +23,7 @@ export default function GalleryContactPage() {
         <Hero />
 
         {/* Filterable Image Grid (High Resolution Cafe Photos) */}
-        <GalleryGrid />
-
-        {/* Interactive 360 Virtual Tour Mock / Preview */}
-        <VirtualTour />
+        <GalleryGrid /> 
 
         {/* Key Features & Amenities Grid */}
         <Features />
@@ -50,9 +46,7 @@ export default function GalleryContactPage() {
         {/* Final Page CTA */}
         <CTA />
       </main>
-
-      {/* Global Footer */}
-      <Footer />
+ <Footer />
     </>
   );
 }

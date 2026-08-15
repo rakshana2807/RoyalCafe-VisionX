@@ -126,12 +126,7 @@ export default function Footer() {
                 </Link>
               </li>
             </ul>
-            <Link
-              href="/book"
-              className="inline-flex items-center justify-center px-5 py-2.5 border border-transparent text-xs font-semibold rounded-lg text-white bg-accent hover:bg-accent/95 shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-all"
-            >
-              Book Desk Now
-            </Link>
+            
           </div>
 
         </div>

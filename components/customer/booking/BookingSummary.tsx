@@ -245,7 +245,7 @@ export default function BookingSummary({
                     No WiFi Pass Selected
                   </p>
                   <p className="text-[10px] text-foreground/45">
-                    100 Mbps dedicated workspace internet
+                    100 Mbps dedicated high-speed internet
                   </p>
                 </div>
               </div>

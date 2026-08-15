@@ -6,11 +6,11 @@ import { Coffee, GraduationCap, Laptop, ArrowRight } from "lucide-react";
 
 export default function OfferCard() {
   return (
-    <section id="menu" className="py-20 bg-background/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="menu"  className=" bg-background/50">
+      <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-12 text-left">
-          <h2 className="text-3xl sm:text-4xl font-bold font-serif text-foreground mb-2">
+        <div className="mb-4 text-left">
+          <h2 className="text-3xl sm:text-4xl font-bold font-serif text-foreground mb-1">
             Curated for You
           </h2>
           <p className="text-sm sm:text-base text-foreground/75">

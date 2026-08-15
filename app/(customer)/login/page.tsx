@@ -226,7 +226,7 @@ function LoginFormContent() {
             className="space-y-5 text-left"
           >
             <div className="p-3.5 rounded-2xl bg-primary/5 border border-primary/10 text-xs text-foreground/80">
-              <span className="font-bold text-primary block mb-0.5">User Workspace Portal</span>
+              <span className="font-bold text-primary block mb-0.5">User Seating Portal</span>
               Enter your email address to log in. No password required.
             </div>
 
@@ -400,7 +400,6 @@ export default function LoginPage() {
         </Suspense>
       </main>
 
-      <Footer />
     </div>
   );
 }

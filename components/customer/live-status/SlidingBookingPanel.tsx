@@ -259,7 +259,7 @@ export default function SlidingBookingPanel({
 
     setTimeout(() => {
       if (!isAuthenticated()) {
-        const msg = encodeURIComponent("Please login to your RoyalCafeConnect account to book a workspace.");
+        const msg = encodeURIComponent("Please login to your RoyalCafeConnect account to reserve a seat.");
         router.push(`/login?redirect=/book&message=${msg}`);
       } else {
         router.push("/book");
@@ -289,7 +289,7 @@ export default function SlidingBookingPanel({
                 RoyalCafe Connect
               </span>
               <h2 className="text-xl font-bold font-serif tracking-tight text-amber-50">
-                Workspace Booking &amp; Time
+                Seat Reservation &amp; Time
               </h2>
             </div>
           </div>
@@ -320,7 +320,7 @@ export default function SlidingBookingPanel({
 
             <div className="flex items-center justify-between pt-1">
               <span className="text-[11px] font-extrabold text-[#8C4A21] uppercase tracking-wider">
-                WORKSPACE TYPE
+                SEATING TYPE
               </span>
               <span className="text-xs font-bold text-[#3D2314]">
                 {selectedSeat.seatType || selectedSeat.area}
@@ -351,7 +351,7 @@ export default function SlidingBookingPanel({
             <div className="bg-amber-500/10 p-3.5 rounded-2xl border border-amber-500/30 space-y-1 text-xs">
               <div className="flex items-center gap-2 text-amber-900 font-bold">
                 <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
-                <span>This workspace is unavailable at the selected time, but you can choose another available slot.</span>
+                <span>This seating option is currently unavailable at the selected time, but you can choose another available slot.</span>
               </div>
               <p className="text-[11px] text-amber-800">
                 Current Booking: <strong className="font-mono">{selectedSeat.reservedTime || "02:00 PM - 05:00 PM"}</strong>
@@ -363,7 +363,7 @@ export default function SlidingBookingPanel({
             <div className="bg-rose-500/10 p-3.5 rounded-2xl border border-rose-500/30 space-y-1 text-xs">
               <div className="flex items-center gap-2 text-rose-900 font-bold">
                 <AlertTriangle className="w-4 h-4 text-rose-700 shrink-0" />
-                <span>This workspace is currently in use. Select a later available time slot.</span>
+                <span>This seat is currently in use. Select a later available time slot.</span>
               </div>
               <p className="text-[11px] text-rose-800">
                 Expected Checkout: <strong className="font-mono">{selectedSeat.occupiedUntil || "06:30 PM"}</strong>
@@ -375,13 +375,13 @@ export default function SlidingBookingPanel({
             <div className="bg-slate-500/10 p-3.5 rounded-2xl border border-slate-500/30 text-xs text-slate-800 space-y-1">
               <div className="font-bold flex items-center gap-2">
                 <Info className="w-4 h-4 text-slate-700" />
-                <span>This workspace is currently under maintenance.</span>
+                <span>This seat is currently under maintenance.</span>
               </div>
-              <p className="text-[11px] text-slate-600">Please choose an alternative workspace below.</p>
+              <p className="text-[11px] text-slate-600">Please choose an alternative seating option below.</p>
             </div>
           )}
 
-          {/* SECTION 1: AVAILABLE TIME SLOTS FOR THIS WORKSPACE */}
+          {/* SECTION 1: AVAILABLE TIME SLOTS FOR THIS SEAT */}
           {(!isOriginallyAvailable || selectedSlotOverride !== null) && !isMaintenance && (
             <div className="space-y-3 p-4 bg-[#FAF4ED] rounded-2xl border border-[#DFCDBE]">
               <div className="flex items-center justify-between border-b border-[#DFCDBE]/60 pb-2">
@@ -633,7 +633,7 @@ export default function SlidingBookingPanel({
                   <span className="font-mono text-[#8C4A21]">07 Aug 2026</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#7A5A43]">Workspace Desk:</span>
+                  <span className="text-[#7A5A43]">Seat / Table:</span>
                   <span className="font-mono font-bold text-[#3D2314]">{selectedSeat.id} ({selectedSeat.seatType || selectedSeat.area})</span>
                 </div>
                 <div className="flex justify-between">
@@ -652,10 +652,10 @@ export default function SlidingBookingPanel({
             </div>
           )}
 
-          {/* SECTION 2: AVAILABLE WORKSPACE ALTERNATIVES */}
+          {/* SECTION 2: ALTERNATIVE SEATING OPTIONS */}
           <div className="space-y-2.5 pt-2">
             <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#7A5A43] block flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5 text-[#8C4A21]" /> Other Available Workspaces
+              <Zap className="w-3.5 h-3.5 text-[#8C4A21]" /> Other Available Seating
             </span>
             <div className="space-y-2 text-xs">
               {DEMO_ALTERNATIVES.map((alt) => (
@@ -717,10 +717,10 @@ export default function SlidingBookingPanel({
                 className="w-full py-4 px-6 rounded-full font-extrabold text-xs uppercase tracking-wider text-slate-500 bg-slate-200 border border-slate-300 cursor-not-allowed text-center"
               >
                 {isReserved
-                  ? "Select a Time Slot or Alternative Desk"
+                  ? "Select a Time Slot or Alternative Seat"
                   : isOccupied
-                    ? "Select a Later Time Slot or Desk"
-                    : "Workspace Under Maintenance"}
+                    ? "Select a Later Time Slot or Seat"
+                    : "Seat Under Maintenance"}
               </button>
               <p className="text-[11px] text-[#8C4A21] font-bold text-center">
                 * Select an available time slot above or choose another desk to continue.
