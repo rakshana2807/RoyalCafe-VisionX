@@ -87,42 +87,14 @@ export default function TodayReservationsTable() {
   const [toast, setToast] = useState<string | null>(null);
 
   React.useEffect(() => {
-    async function fetchSupabaseBookings() {
+    async function fetchLocalBookings() {
       try {
         const { data, error } = await supabase
-          .from("bookings")
-          .select(`
-            id,
-            user_id,
-            space_id,
-            booking_date,
-            start_time,
-            end_time,
-            duration_hours,
-            number_of_people,
-            total_amount,
-            status,
-            payment_status,
-            created_at,
-            updated_at,
-            spaces (
-              id,
-              name,
-              type
-            ),
-            profiles (
-              id,
-              full_name,
-              email,
-              phone
-            )
-          `)
-          .order("created_at", { ascending: false });
+          .from('reservation')
+          .select(`*, profiles(email, full_name)`)
+          .order('created_at', { ascending: false });
 
-        if (error) {
-          console.error("Error fetching Supabase bookings for dashboard:", error);
-          return;
-        }
+        if (error) throw error;
 
         if (data && data.length > 0) {
           const convert24to12 = (t: string) => {
@@ -135,13 +107,17 @@ export default function TodayReservationsTable() {
             return `${String(h).padStart(2, "0")}:${m} ${period}`;
           };
 
+          // Sort is already done by Supabase
+
           const mapped: ReservationRow[] = data.map((b: any) => {
-            const spaceName = b.spaces?.name || (b.space_id?.includes("cfe4") ? "Window Seat 01" : b.space_id?.includes("3732") ? "Study Desk 01" : "Meeting Room");
-            const spaceType = b.spaces?.type || "Workstation";
+            const spaceName = b.seat_code || b.seat_name || "Unknown Workspace";
+            let spaceType: string = "Workstation";
             let wsType: WorkspaceType = "Workstation";
-            if (spaceName.includes("Meeting") || spaceType === "meeting") wsType = "Meeting Room";
-            else if (spaceName.includes("Study") || spaceType === "study") wsType = "Study Space";
-            else if (spaceName.includes("Window") || spaceType === "seat") wsType = "Café Table";
+            if (spaceName.includes("Meeting") || spaceType === "meeting" || spaceType === "Meeting Room" || spaceType === "boardroom") wsType = "Meeting Room";
+            else if (spaceName.includes("Study") || spaceType === "study" || spaceType.includes("study") || spaceName.includes("Quiet")) wsType = "Study Space";
+            else if (spaceName.includes("Window") || spaceType === "seat" || spaceType === "single-table") wsType = "Café Table";
+            else if (spaceType.includes("hot desk")) wsType = "Desk";
+            else if (spaceType.includes("booth")) wsType = "Private Cabin";
 
             let uiStatus: BookingStatus = "Confirmed";
             const st = (b.status || "").toLowerCase().trim();
@@ -155,7 +131,7 @@ export default function TodayReservationsTable() {
               uiStatus = "Confirmed";
             }
 
-            const prof = Array.isArray(b.profiles) ? b.profiles[0] : b.profiles;
+            const prof = b.profiles;
             const profEmail = prof?.email || "";
             const profName = prof?.full_name?.trim();
             const displayName = b.customer_name?.trim() || profName || "Guest User";
@@ -180,7 +156,7 @@ export default function TodayReservationsTable() {
         console.error("Failed to load dashboard reservations:", err);
       }
     }
-    fetchSupabaseBookings();
+    fetchLocalBookings();
   }, []);
 
   const handleStatusChange = async (bookingId: string, newStatus: BookingStatus, dbId?: string) => {
@@ -188,17 +164,7 @@ export default function TodayReservationsTable() {
     const targetId = dbId || bookingId;
 
     try {
-      const { error } = await supabase
-        .from("bookings")
-        .update({ status: dbStatus, updated_at: new Date().toISOString() })
-        .eq("id", targetId);
-
-      if (error) {
-        console.error("Error updating dashboard status in Supabase:", error);
-        setToast("Failed to update status in database.");
-        setTimeout(() => setToast(null), 3000);
-        return;
-      }
+      await supabase.from('reservation').update({ status: dbStatus }).eq('id', targetId);
 
       setReservations((prev) =>
         prev.map((item) => ((item.dbId === targetId || item.bookingId === bookingId) ? { ...item, status: newStatus } : item))
@@ -214,17 +180,7 @@ export default function TodayReservationsTable() {
     const targetId = dbId || bookingId;
 
     try {
-      const { error } = await supabase
-        .from("bookings")
-        .update({ status: "cancelled", updated_at: new Date().toISOString() })
-        .eq("id", targetId);
-
-      if (error) {
-        console.error("Error cancelling dashboard booking in Supabase:", error);
-        setToast("Failed to cancel booking in database.");
-        setTimeout(() => setToast(null), 3000);
-        return;
-      }
+      await supabase.from('reservation').update({ status: 'cancelled' }).eq('id', targetId);
 
       setReservations((prev) =>
         prev.map((item) => ((item.dbId === targetId || item.bookingId === bookingId) ? { ...item, status: "Cancelled" } : item))

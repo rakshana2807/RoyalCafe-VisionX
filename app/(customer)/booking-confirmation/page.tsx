@@ -11,7 +11,7 @@ function BookingConfirmationContent() {
   const searchParams = useSearchParams();
 
   const bookingId = searchParams.get("bookingId") || "RCC-2026-000145";
-  const supabaseBookingId = searchParams.get("supabaseBookingId");
+  const systemBookingId = searchParams.get("systemBookingId");
   const paymentId = searchParams.get("paymentId") || "PAY-98765432";
   const bookingType = searchParams.get("bookingType") || "Study Seat";
   const workspace = searchParams.get("workspace") || "Quiet Study Area";
@@ -59,10 +59,10 @@ function BookingConfirmationContent() {
             <span className="text-foreground/50 uppercase tracking-wider">Booking Reference:</span>
             <span className="font-mono font-bold text-[#5A2E0C] text-sm">{bookingId}</span>
           </div>
-          {supabaseBookingId && (
-            <div className="flex justify-between border-b border-primary/10 pb-3">
-              <span className="text-foreground/50 uppercase tracking-wider">Database Ref (UUID):</span>
-              <span className="font-mono text-[11px] font-bold text-foreground/70">{supabaseBookingId.slice(0, 18)}...</span>
+          {systemBookingId && (
+            <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+              <span className="text-sm font-medium text-foreground/60">System ID</span>
+              <span className="font-mono text-[11px] font-bold text-foreground/70">{systemBookingId.slice(0, 18)}...</span>
             </div>
           )}
           <div className="flex justify-between border-b border-primary/10 pb-3">

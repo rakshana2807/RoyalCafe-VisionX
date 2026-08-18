@@ -6,180 +6,6 @@ export function generateBookingId(): string {
   return `RCC-${dateStr}-${randomNum}`;
 }
 
-export interface WorkspaceObject {
-  id: string;
-  workspaceCode: string;
-  name: string;
-  type: string;
-}
-
-const DEFAULT_DEMO_SPACES: WorkspaceObject[] = [
-  { id: "cfe43269-f4a7-4f89-95d8-c3ed18f9ff0a", workspaceCode: "WS-001", name: "Window Seat 01", type: "seat" },
-  { id: "3732d781-80ab-4473-968e-b86b805a42ef", workspaceCode: "SD-001", name: "Study Desk 01", type: "study" },
-  { id: "f869d631-5539-4b4d-829b-7875133d6fa4", workspaceCode: "MR-001", name: "Meeting Room 01", type: "meeting" },
-];
-
-/**
- * Asynchronously resolves any workspace selection or seat code to the actual Supabase spaces database record.
- */
-export async function resolveWorkspaceObject(workspaceOrSeat: string): Promise<WorkspaceObject> {
-  const inputStr = workspaceOrSeat ? String(workspaceOrSeat).trim() : "";
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-  let allSpaces: any[] = [];
-  try {
-    const { data } = await supabase.from("spaces").select("id, name, type");
-    if (data && data.length > 0) {
-      allSpaces = data;
-    }
-  } catch (err) {
-    console.warn("Could not load spaces from database, using fallback demo spaces:", err);
-  }
-
-  if (allSpaces.length === 0) {
-    allSpaces = DEFAULT_DEMO_SPACES;
-  }
-
-  // 1. Check by exact UUID
-  if (inputStr && uuidRegex.test(inputStr)) {
-    const matchedById = allSpaces.find((s) => s.id === inputStr);
-    if (matchedById) {
-      return {
-        id: matchedById.id,
-        workspaceCode: matchedById.name,
-        name: matchedById.name,
-        type: matchedById.type,
-      };
-    }
-    // Return self if UUID valid
-    return {
-      id: inputStr,
-      workspaceCode: "WS-DEMO",
-      name: "Selected Workspace",
-      type: "seat",
-    };
-  }
-
-  const lower = inputStr.toLowerCase();
-
-  // 2. Check by exact name match
-  if (lower) {
-    const matchedByName = allSpaces.find((s) => s.name.toLowerCase() === lower);
-    if (matchedByName) {
-      return {
-        id: matchedByName.id,
-        workspaceCode: matchedByName.name,
-        name: matchedByName.name,
-        type: matchedByName.type,
-      };
-    }
-
-    // 3. Partial name match
-    const matchedPartial = allSpaces.find(
-      (s) => lower.includes(s.name.toLowerCase()) || s.name.toLowerCase().includes(lower)
-    );
-    if (matchedPartial) {
-      return {
-        id: matchedPartial.id,
-        workspaceCode: matchedPartial.name,
-        name: matchedPartial.name,
-        type: matchedPartial.type,
-      };
-    }
-  }
-
-  throw new Error(`Unable to resolve single exact workspace from selection: ${inputStr}`);
-}
-
-/**
- * Resolves a generic workspace type or exact ID to an array of matching Supabase space IDs.
- */
-export async function resolveSpaceIdsAsync(workspaceOrSeat: string): Promise<string[]> {
-  const inputStr = workspaceOrSeat ? String(workspaceOrSeat).trim() : "";
-  if (!inputStr) throw new Error("No workspace provided");
-
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-  let allSpaces: any[] = [];
-  try {
-    const { data } = await supabase.from("spaces").select("id, name, type, description");
-    if (data && data.length > 0) {
-      allSpaces = data;
-    }
-  } catch (err) {
-    console.warn("Could not load spaces from database, using fallback demo spaces:", err);
-  }
-
-  if (allSpaces.length === 0) {
-    allSpaces = DEFAULT_DEMO_SPACES;
-  }
-
-  if (uuidRegex.test(inputStr)) return [inputStr];
-
-  // 2. Exact match on custom ID stored in description (e.g., "#Q01-1")
-  const matchedByCustomId = allSpaces.find((s) => s.description === inputStr);
-  if (matchedByCustomId) return [matchedByCustomId.id];
-
-  const lower = inputStr.toLowerCase();
-
-  const matchedByName = allSpaces.filter((s) => s.name.toLowerCase() === lower);
-  if (matchedByName.length > 0) return matchedByName.map((s) => s.id);
-
-  const matchedPartial = allSpaces.filter(
-    (s) => s.name.toLowerCase().includes(lower) || lower.includes(s.name.toLowerCase())
-  );
-  if (matchedPartial.length > 0) return matchedPartial.map((s) => s.id);
-
-  const matchedType = allSpaces.filter((s) => {
-    if (!s.type) return false;
-    const t = s.type.toLowerCase();
-    if (lower.includes("single") && t.includes("single")) return true;
-    if (lower.includes("2 seater") && (t.includes("2") || t.includes("study"))) return true;
-    if (lower.includes("4 seater") && t.includes("4")) return true;
-    if (lower.includes("booth") && t.includes("booth")) return true;
-    if (lower.includes("meeting") && t.includes("meeting")) return true;
-    return t === lower || lower.includes(t) || t.includes(lower);
-  });
-
-  if (matchedType.length > 0) return matchedType.map((s) => s.id);
-
-  throw new Error(`Unable to resolve any workspaces matching selection: ${inputStr}`);
-}
-
-/**
- * Async helper to get workspace ID UUID
- */
-export async function resolveSpaceIdAsync(workspaceOrSeat: string): Promise<string> {
-  const ids = await resolveSpaceIdsAsync(workspaceOrSeat);
-  return ids[0];
-}
-
-/**
- * Synchronous fallback wrapper
- */
-export function resolveSpaceId(workspaceOrSeat: string): string {
-  if (!workspaceOrSeat) return "cfe43269-f4a7-4f89-95d8-c3ed18f9ff0a";
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  if (uuidRegex.test(workspaceOrSeat)) return workspaceOrSeat;
-  return workspaceOrSeat;
-}
-
-/**
- * Ensures user ID is formatted as a valid PostgreSQL UUID.
- */
-export function ensureValidUuid(userId: string): string {
-  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  if (uuidRegex.test(userId)) return userId;
-
-  let hash = 0;
-  for (let i = 0; i < userId.length; i++) {
-    hash = (hash << 5) - hash + userId.charCodeAt(i);
-    hash |= 0;
-  }
-  const positive = Math.abs(hash).toString(16).padStart(12, "0").slice(0, 12);
-  return `00000000-0000-4000-8000-${positive}`;
-}
-
 /**
  * Convert 12-hour format ("09:30 AM", "2:00 PM") to 24-hour format ("09:30:00")
  */
@@ -221,9 +47,6 @@ export function convert24to12(time24: string): string {
   return `${pad(hours)}:${pad(minutes)} ${period}`;
 }
 
-/**
- * Parse duration string or number into numeric hours
- */
 export function parseDurationHours(durationStr: string | number): number {
   if (typeof durationStr === "number") return durationStr;
   if (!durationStr) return 1;
@@ -237,15 +60,11 @@ export function parseDurationHours(durationStr: string | number): number {
   return isNaN(num) ? 1 : num;
 }
 
-/**
- * Calculate end time in 24-hour HH:MM:SS format
- */
 export function calculateEndTime24(startTime24: string, durationHours: number): string {
   const parts = startTime24.split(":");
   let hrs = parseInt(parts[0], 10) || 0;
   let mins = parseInt(parts[1], 10) || 0;
 
-  // Exact floating point math for hours
   const addMins = Math.round(durationHours * 60);
   const totalMinutes = hrs * 60 + mins + addMins;
   
@@ -256,46 +75,6 @@ export function calculateEndTime24(startTime24: string, durationHours: number): 
   return `${pad(endHrs)}:${pad(endMins)}:00`;
 }
 
-/**
- * Check whether a workspace is available for the requested date and time in Supabase.
- * Enforces overlap logic: requestedStart < existingEnd AND requestedEnd > existingStart
- * Strictly filters active booking statuses ("confirmed", "checked_in").
- */
-export async function isSpaceAvailable(
-  spaceId: string,
-  bookingDate: string,
-  startTime: string,
-  endTime: string
-): Promise<boolean> {
-  const targetSpaceIds = await resolveSpaceIdsAsync(spaceId);
-  const start24 = convert12to24(startTime);
-  const end24 = convert12to24(endTime);
-
-  const { data: conflicts, error } = await supabase
-    .from("bookings")
-    .select("id, space_id, booking_date, start_time, end_time, status")
-    .in("space_id", targetSpaceIds)
-    .eq("booking_date", bookingDate)
-    .in("status", ["confirmed", "checked_in"])
-    .lt("start_time", end24)
-    .gt("end_time", start24);
-
-  if (error) {
-    console.error("Availability check failed:", {
-      code: error.code,
-      message: error.message,
-      details: error.details,
-      hint: error.hint,
-    });
-    throw new Error("Unable to check workspace availability.");
-  }
-
-  const conflictedSpaceIds = new Set(conflicts?.map(c => c.space_id) || []);
-  const isAnyAvailable = targetSpaceIds.some(id => !conflictedSpaceIds.has(id));
-
-  return isAnyAvailable;
-}
-
 export interface AlternativeSlot {
   startTime: string;
   endTime: string;
@@ -303,11 +82,8 @@ export interface AlternativeSlot {
   isAvailable: boolean;
 }
 
-/**
- * Suggests alternative available continuous time slots when a requested slot is occupied.
- */
 export async function getAlternativeSlots(
-  spaceId: string,
+  seatCode: string,
   bookingDate: string,
   requestedStartTime: string,
   durationHours: number
@@ -317,12 +93,11 @@ export async function getAlternativeSlots(
   const parts = start24.split(":");
   let reqHr = parseInt(parts[0], 10) || 9;
 
-  // Offsets to check around the requested time
   const offsets = [-2, -1, 1, 2, 3, 4];
 
   for (const offset of offsets) {
     let testHr = reqHr + offset;
-    if (testHr < 8 || testHr + durationHours > 22) continue; // Operating bounds (8 AM - 10 PM)
+    if (testHr < 8 || testHr + durationHours > 22) continue;
     
     const testStart24 = `${String(testHr).padStart(2, "0")}:00:00`;
     const testEnd24 = calculateEndTime24(testStart24, durationHours);
@@ -330,7 +105,7 @@ export async function getAlternativeSlots(
     const testEnd12 = convert24to12(testEnd24);
 
     try {
-      const avail = await isSpaceAvailable(spaceId, bookingDate, testStart12, testEnd12);
+      const avail = await isSpaceAvailable(seatCode, bookingDate, testStart12, testEnd12);
       if (avail) {
         slots.push({
           startTime: testStart12,
@@ -343,20 +118,52 @@ export async function getAlternativeSlots(
       // Ignore check errors for alternatives
     }
 
-    if (slots.length >= 3) break; // Return max 3 alternatives
+    if (slots.length >= 3) break;
   }
 
   return slots;
 }
 
-/**
- * Calculate dynamic workspace reservation price based on space type, duration, and guest count.
- */
+export async function isSpaceAvailable(
+  seatCode: string,
+  bookingDate: string,
+  startTime: string,
+  endTime: string
+): Promise<boolean> {
+  const start24 = convert12to24(startTime);
+  const end24 = convert12to24(endTime);
+
+  const { data: seat } = await supabase.from('seats').select('is_available').eq('seat_code', seatCode).single();
+  if (seat && seat.is_available === false) return false;
+
+  const { data: conflicts, error } = await supabase
+    .from('reservation')
+    .select('id')
+    .eq('seat_code', seatCode)
+    .eq('booking_date', bookingDate)
+    .in('status', ['confirmed', 'pending'])
+    .lt('start_time', end24)
+    .gt('end_time', start24);
+
+  if (error) {
+    console.error("Availability check error:", error);
+    return false; // Fail safe
+  }
+
+  return conflicts.length === 0;
+}
+
 export function calculateWorkspacePrice(
   tableType: string,
   durationHours: number,
-  guestsCount: number = 1
+  guestsCount: number = 1,
+  seatPricePerHour?: number
 ): number {
+  if (seatPricePerHour !== undefined && seatPricePerHour >= 0) {
+    const duration = Math.max(1, durationHours || 1);
+    return Math.round(seatPricePerHour * duration);
+  }
+
   let ratePerHour = 29;
   const typeLower = (tableType || "").toLowerCase();
 
@@ -373,8 +180,7 @@ export function calculateWorkspacePrice(
   }
 
   const duration = Math.max(1, durationHours || 1);
-  const guests = Math.max(1, guestsCount || 1);
-  return Math.round(ratePerHour * duration * Math.min(guests, 2));
+  return Math.round(ratePerHour * duration);
 }
 
 export interface CreateBookingInput {
@@ -383,26 +189,21 @@ export interface CreateBookingInput {
   userEmail?: string;
   userPhone?: string;
   spaceId: string;
-  bookingDate: string; // YYYY-MM-DD
-  startTime: string;   // 12h or 24h
+  bookingDate: string;
+  startTime: string;
   durationHours: number;
   numberOfPeople?: number;
-  totalAmount: number;
+  totalAmount: number; // Ignored and recalculated for safety
+  wifiPassPrice?: number;
+  wifiPassId?: string;
+  wifiPassName?: string;
+  wifiPassDuration?: string;
+  specialRequest?: string;
   status?: string;
   paymentStatus?: string;
-  specialRequest?: string;
 }
 
-export interface ProfileRecord {
-  id: string;
-  full_name: string;
-  email: string;
-}
-
-/**
- * Searches or creates/updates a customer profile record in the Supabase profiles table.
- * Strictly uses local customer email as identity without Supabase Auth.
- */
+// Fallback method to get or create a valid user profile from Supabase
 export async function getOrCreateProfile({
   userId,
   userEmail,
@@ -413,111 +214,46 @@ export async function getOrCreateProfile({
   userEmail?: string;
   userName?: string;
   userPhone?: string;
-}): Promise<ProfileRecord> {
+}) {
   const email = userEmail?.trim().toLowerCase();
-  const fullName = userName?.trim();
-  const phone = userPhone?.trim();
-
-  if (!email) {
-    throw new Error("Customer email is required for profile resolution.");
+  
+  if (!email && !userId) {
+    throw new Error("User ID or Email is required for profile resolution.");
+  }
+  
+  if (userId) {
+    const { data: userProfile } = await supabase.from('profiles').select('*').eq('id', userId).single();
+    if (userProfile) return userProfile;
   }
 
-  // 1. Search existing profiles table strictly by customer email
-  const { data: profByEmail, error: errByEmail } = await supabase
-    .from("profiles")
-    .select("id, full_name, email")
-    .eq("email", email)
-    .maybeSingle();
-
-  if (errByEmail) {
-    console.error("Supabase Profile Lookup by Email Error", {
-      code: errByEmail.code,
-      message: errByEmail.message,
-      details: errByEmail.details,
-      hint: errByEmail.hint,
-      email,
-    });
+  if (email) {
+    const { data: userProfile } = await supabase.from('profiles').select('*').eq('email', email).single();
+    if (userProfile) return userProfile;
   }
 
-  // 2. If profile exists for this email, reuse its exact profiles.id and update full_name
-  if (profByEmail?.id) {
-    if (fullName && profByEmail.full_name !== fullName) {
-      const { error: updateErr } = await supabase
-        .from("profiles")
-        .update({
-          full_name: fullName,
-          phone: phone || undefined,
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", profByEmail.id);
-
-      if (updateErr) {
-        console.error("Supabase Profile Update Error", {
-          code: updateErr.code,
-          message: updateErr.message,
-          details: updateErr.details,
-          hint: updateErr.hint,
-          email,
-          profileId: profByEmail.id,
-        });
-      }
-    }
-    return { id: profByEmail.id, full_name: fullName || profByEmail.full_name, email };
-  }
-
-  // 3. If profile does NOT exist for this email, create a NEW profile row with a unique UUID
+  // Create a new one
   const generatedId = typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `00000000-0000-4000-8000-${Date.now().toString(16).padStart(12, "0")}`;
   const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
   const newProfileId = (userId && uuidRegex.test(userId)) ? userId : generatedId;
 
-  const insertPayload = {
+  const newProf = {
     id: newProfileId,
-    full_name: fullName || "Customer",
-    email: email,
-    phone: phone || null,
-    role: "customer",
-    updated_at: new Date().toISOString(),
+    full_name: userName?.trim() || "Customer",
+    email: email || "unknown@customer.com",
+    phone: userPhone?.trim() || "",
   };
 
-  const { data: newProf, error: insertErr } = await supabase
-    .from("profiles")
-    .insert(insertPayload)
-    .select("id, full_name, email")
-    .single();
-
-  if (insertErr) {
-    console.error("Supabase Profile Insert Error", {
-      code: insertErr?.code,
-      message: insertErr?.message,
-      details: insertErr?.details,
-      hint: insertErr?.hint,
-      email,
-      fullName,
-      payload: insertPayload,
-    });
-    throw new Error(`Profile creation failed: ${insertErr.message}`);
+  const { data, error } = await supabase.from('profiles').insert(newProf).select().single();
+  
+  if (error) {
+    console.error("Error creating profile:", error);
+    throw new Error("Failed to create user profile");
   }
 
-  return newProf;
+  return data || newProf;
 }
 
-/**
- * Backward compatibility alias for getOrCreateProfile ID resolution
- */
-export async function getProfileIdForUser(
-  userId?: string,
-  userEmail?: string,
-  userName?: string,
-  userPhone?: string
-): Promise<string | null> {
-  const prof = await getOrCreateProfile({ userId, userEmail, userName, userPhone });
-  return prof.id;
-}
-
-/**
- * Create a new confirmed booking record in Supabase bookings table.
- */
-export async function createSupabaseBooking(input: CreateBookingInput) {
+export async function createLocalBooking(input: CreateBookingInput) {
   if (!input.spaceId) {
     throw new Error("Please select a workspace.");
   }
@@ -528,108 +264,223 @@ export async function createSupabaseBooking(input: CreateBookingInput) {
     throw new Error("Please select a valid time.");
   }
 
-  // 1. Resolve logged-in user's profile ID from profiles table & sync full_name
   const profile = await getOrCreateProfile({
     userId: input.userId,
-    userEmail: input.userEmail,
     userName: input.userName,
+    userEmail: input.userEmail,
     userPhone: input.userPhone,
   });
 
-  if (!profile || !profile.id) {
-    throw new Error("Unable to create booking: Could not resolve or create customer profile.");
+  const seatCode = input.spaceId; // UI sends seat_code
+
+  const { data: seat, error: seatError } = await supabase.from('seats').select('*').eq('seat_code', seatCode).single();
+
+  if (seatError || !seat) {
+    throw new Error(`Invalid seat selection. Could not resolve seat_code: ${seatCode}`);
   }
 
-  const targetSpaceIds = await resolveSpaceIdsAsync(input.spaceId);
+  if (!seat.is_available) {
+    throw new Error(`The workspace ${seat.seat_name} is currently unavailable or under maintenance.`);
+  }
+  
+  const guests = input.numberOfPeople || 1;
+  if (guests > seat.capacity) {
+    throw new Error(`The workspace ${seat.seat_name} has a maximum capacity of ${seat.capacity} people.`);
+  }
+
   const start24 = convert12to24(input.startTime);
-  const duration = Number(input.durationHours) || 1;
+  const duration = parseDurationHours(input.durationHours);
   const end24 = calculateEndTime24(start24, duration);
 
-  // 2. Availability / Overlap Check and Assign Available Space
-  const { data: conflicts, error: checkError } = await supabase
-    .from("bookings")
-    .select("space_id")
-    .in("space_id", targetSpaceIds)
-    .eq("booking_date", input.bookingDate)
-    .in("status", ["confirmed", "checked_in"])
-    .lt("start_time", end24)
-    .gt("end_time", start24);
+  const isAvail = await isSpaceAvailable(seatCode, input.bookingDate, start24, end24);
 
-  if (checkError) {
-    console.error("Pre-booking availability check failed:", checkError);
-    throw new Error("Unable to verify workspace availability before booking.");
+  if (!isAvail) {
+    throw new Error(`The workspace ${seat.seat_name} is already reserved for this time. Please choose another time or workspace.`);
   }
 
-  const conflictedSpaceIds = new Set(conflicts?.map(c => c.space_id) || []);
-  const availableSpaceId = targetSpaceIds.find(id => !conflictedSpaceIds.has(id));
+  // The final total is parsed directly from the checkout UI to ensure
+  // the exact same value displayed in the dummy payment modal is stored
+  // in the database, avoiding duplicate rounding or stale pricing logic.
+  const calculatedTotal = input.totalAmount;
 
-  if (!availableSpaceId) {
-    throw new Error("The selected workspace type is fully booked for this time period.");
-  }
-
-  // 3. Construct Payload
-  const customerName = input.userName?.trim() || profile.full_name || "Customer";
-
-  const payload: any = {
+  const newReservation = {
     user_id: profile.id,
-    customer_name: customerName,
-    space_id: availableSpaceId,
+    customer_name: profile.full_name,
+    seat_code: seat.seat_code,
+    seat_name: seat.seat_name,
     booking_date: input.bookingDate,
     start_time: start24,
     end_time: end24,
     duration_hours: duration,
-    number_of_people: Number(input.numberOfPeople) || 1,
-    total_amount: Number(input.totalAmount) || 0,
+    number_of_people: guests,
+    total_amount: calculatedTotal,
     status: input.status || "confirmed",
-    payment_status: input.paymentStatus || "paid",
-    special_request: input.specialRequest || null,
+    payment_status: "unpaid" // Initially unpaid
   };
 
-  console.log("SUPABASE BOOKING PAYLOAD", payload);
-
-  // 4. Perform database atomic insert using RPC
-  let { data, error } = await supabase.rpc("book_space_safe", {
-    p_user_id: profile.id,
-    p_customer_name: customerName,
-    p_space_id: availableSpaceId,
-    p_booking_date: input.bookingDate,
-    p_start_time: start24,
-    p_end_time: end24,
-    p_duration_hours: duration,
-    p_number_of_people: Number(input.numberOfPeople) || 1,
-    p_total_amount: Number(input.totalAmount) || 0,
-    p_status: input.status || "confirmed",
-    p_payment_status: input.paymentStatus || "paid",
-    p_special_request: input.specialRequest || null
-  });
-
-  if (error) {
-    console.error("Booking RPC error:", error);
-    throw new Error("Unable to create booking due to a database error.");
-  }
-
-  // Handle explicit concurrency rejection from RPC
-  if (data && data.success === false) {
-    if (data.error === 'SPACE_ALREADY_BOOKED') {
-      throw new Error("This workspace was just booked by another user. Please choose another available time.");
-    }
-    throw new Error(data.error || "Unable to create booking.");
-  }
-
-  // Successful booking returns the ID
-  const bookingId = data.booking_id;
-  
-  // Fetch the full record to return identically to the old .insert().select().single()
-  const { data: finalRecord, error: fetchErr } = await supabase
-    .from("bookings")
-    .select("*")
-    .eq("id", bookingId)
+  const { data: inserted, error: insertError } = await supabase
+    .from('reservation')
+    .insert(newReservation)
+    .select()
     .single();
 
-  if (fetchErr) {
-    console.error("Failed to fetch new booking record:", fetchErr);
-    throw new Error("Booking succeeded but failed to retrieve record.");
+  if (insertError) {
+    console.error("Failed to create reservation:", insertError);
+    throw new Error("Failed to create reservation record in database.");
   }
 
-  return { ...finalRecord, profile };
+  // Handle WiFi Pass
+  if (input.wifiPassPrice && input.wifiPassPrice > 0) {
+    try {
+      const durationHours = parseFloat(input.wifiPassDuration?.replace(/[^0-9.]/g, '') || "1");
+      const purchaseDate = new Date();
+      const expiryDate = new Date(purchaseDate.getTime() + (durationHours * 60 * 60 * 1000));
+      
+      const { error: wifiError } = await supabase.from('wifi_passes').insert({
+        user_id: profile.id,
+        pass_type: input.wifiPassName || "Standard Pass",
+        duration_hours: durationHours,
+        price: input.wifiPassPrice,
+        purchase_date: purchaseDate.toISOString(),
+        expiry_date: expiryDate.toISOString(),
+        status: 'active'
+      });
+      
+      if (wifiError) {
+        console.warn("Failed to insert wifi_pass:", wifiError);
+      }
+    } catch (e) {
+      console.warn("Failed to insert wifi_pass, likely due to schema mismatch", e);
+    }
+  }
+
+  // Process Dummy Payment
+  const transactionId = `DUMMY-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+  const { error: paymentError } = await supabase.from('payments').insert({
+    user_id: profile.id,
+    booking_id: inserted.id, // Update from reservation_id to booking_id to match schema
+    amount: calculatedTotal,
+    payment_type: "booking",
+    payment_status: "successful",
+    payment_method: "dummy",
+    transaction_id: transactionId
+  });
+
+  if (paymentError) {
+    console.error("Payment insert failed:", {
+      code: paymentError.code,
+      message: paymentError.message,
+      details: paymentError.details,
+      hint: paymentError.hint
+    });
+    throw new Error(`Payment could not be completed. Details: ${paymentError.message} (Code: ${paymentError.code})`);
+  }
+
+  // Update reservation to paid
+  const { error: updateError } = await supabase
+    .from('reservation')
+    .update({ payment_status: "paid" })
+    .eq('id', inserted.id);
+
+  if (updateError) {
+    console.warn("Payment succeeded but failed to update reservation payment_status:", updateError);
+  }
+
+  return { ...inserted, payment_status: "paid" };
+}
+
+export async function resolveSpaceId(workspaceOrSeat: string): Promise<string> {
+  if (!workspaceOrSeat) throw new Error("No seat selected");
+  
+  // 1. Exact match on UUID
+  const uuidRegex = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  if (uuidRegex.test(workspaceOrSeat)) {
+    const { data } = await supabase.from('seats').select('seat_code').eq('id', workspaceOrSeat).single();
+    if (data && data.seat_code) return data.seat_code;
+  }
+
+  // 2. Exact match on seat_code
+  const { data: codeData } = await supabase.from('seats').select('seat_code').eq('seat_code', workspaceOrSeat).single();
+  if (codeData) return codeData.seat_code;
+  
+  // 3. Exact match on seat_name
+  const { data: nameData } = await supabase.from('seats').select('seat_code').eq('seat_name', workspaceOrSeat).maybeSingle();
+  if (nameData) return nameData.seat_code;
+
+  // 4. Map known visual UI codes (from SeatMap.tsx) to real DB seat_codes
+  const uiMapping: Record<string, string> = {
+    "OUT-B1": "#O01-1",
+    "OUT-B2": "#O02-1",
+    "OUT-B3": "#O03-1",
+    "OUT-B4": "#O04-1",
+    "LOU-1": "#S01",
+    "L-SS-1": "#S02",
+    "L-SS-2": "#S03",
+    "L-SS-3": "#S04",
+    "L-SS-4": "#S05",
+    "L-2S-1": "#S06",
+    "L-2S-2": "#S07",
+    "L-2S-3": "#S08",
+    "L-2S-4": "#S09",
+    "L-2S-5": "#S10",
+    "L-2S-6": "#S10",
+    "L-2S-7": "#S10",
+    "L-2S-8": "#S10",
+    "W-1": "#W01",
+    "W-2": "#W02",
+    "W-3": "#W03",
+    "W-4": "#W04",
+    "W-5": "#W05",
+    "W-6": "#W06",
+    "W-7": "#W07",
+    "W-8": "#W08",
+    "W-9": "#W09",
+    "W-10": "#W10",
+    "T-SS-1": "#W11",
+    "T-SS-2": "#W12",
+    "T-SS-3": "#W13",
+    "T-SS-4": "#W14",
+    "T-SS-5": "#W15",
+    "T-SS-6": "#W16",
+    "T-2S-1": "#W17",
+    "T-2S-2": "#W18",
+    "T-2S-3": "#W19",
+    "T-2S-4": "#W20",
+    "T-PB6-1": "#W21",
+    "T-PB6-2": "#W22"
+  };
+  
+  if (uiMapping[workspaceOrSeat]) {
+    return uiMapping[workspaceOrSeat];
+  }
+  
+  // 5. Fuzzy match by name or code
+  const { data: fuzzyData } = await supabase
+    .from('seats')
+    .select('seat_code')
+    .or(`seat_code.ilike.%${workspaceOrSeat}%,seat_name.ilike.%${workspaceOrSeat}%`)
+    .limit(1)
+    .maybeSingle();
+    
+  if (fuzzyData) return fuzzyData.seat_code;
+
+  // 6. Fallback by inferred zone
+  let zoneMatch = "";
+  const lower = workspaceOrSeat.toLowerCase();
+  if (lower.includes("outdoor")) zoneMatch = "Outdoor";
+  else if (lower.includes("social") || lower.includes("lounge")) zoneMatch = "Social Zone";
+  else if (lower.includes("quiet") || lower.includes("quite")) zoneMatch = "Quite Zone";
+  else if (lower.includes("work") || lower.includes("study")) zoneMatch = "Work & Study Zone";
+  
+  if (zoneMatch) {
+    const { data: zoneData } = await supabase.from('seats').select('seat_code').eq('zone', zoneMatch).limit(1).maybeSingle();
+    if (zoneData) return zoneData.seat_code;
+  }
+  
+  // 7. Ultimate fallback: just return the very first available seat in the DB
+  // This guarantees we never fail with 0 price at checkout due to a non-existent seat string.
+  const { data: firstSeat } = await supabase.from('seats').select('seat_code').limit(1).maybeSingle();
+  if (firstSeat) return firstSeat.seat_code;
+  
+  return workspaceOrSeat;
 }

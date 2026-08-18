@@ -21,14 +21,13 @@ import {
 import Navbar from "@/components/customer/navbar/Navbar";
 import Footer from "@/components/customer/footer/Footer";
 import { isAuthenticated, getAuthenticatedUser } from "@/lib/auth";
-import { createSupabaseBooking, parseDurationHours, resolveSpaceId } from "@/lib/reservation";
-import { supabase } from "@/lib/supabase";
+import { createLocalBooking, parseDurationHours, resolveSpaceId } from "@/lib/reservation";
 import { useBooking } from "@/context/BookingContext";
 
 function PaymentContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const { clearBooking } = useBooking();
+  const { clearBooking, wifiPass } = useBooking();
 
   React.useEffect(() => {
     if (!isAuthenticated()) {
@@ -47,13 +46,17 @@ function PaymentContent() {
   const guests = searchParams.get("guests") || "1 Person";
   const purpose = searchParams.get("purpose") || "Work";
   const specialRequests = searchParams.get("specialRequests") || "";
-  const grandTotal = parseFloat(searchParams.get("amount") || "368");
+  const grandTotal = parseFloat(searchParams.get("amount") || "0");
+  const seatTotal = parseFloat(searchParams.get("seatAmount") || "0");
+  const wifiPassAmount = parseFloat(searchParams.get("wifiPassAmount") || "0");
+  const foodAndDrinksTotal = parseFloat(searchParams.get("foodAndDrinksTotal") || "0");
+  const parsedGst = parseFloat(searchParams.get("gstAmount") || "0");
 
   const [isProcessing, setIsProcessing] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
 
-  const handleConfirm = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleConfirm = async () => {
     setIsProcessing(true);
     setErrorMessage(null);
 
@@ -70,26 +73,30 @@ function PaymentContent() {
     const durationHours = parseDurationHours(duration);
 
     try {
-      // Create confirmed row in Supabase bookings table
-      const supabaseRecord = await createSupabaseBooking({
-        userId: user.id,
+      // Create confirmed row in localDb bookings table
+      const localRecord = await createLocalBooking({
+        userId: user.id || "anonymous",
         userName: user.name,
         userEmail: user.email,
         userPhone: user.phone,
-        spaceId: resolveSpaceId(workspace || seat || bookingType),
+        spaceId: await resolveSpaceId(workspace || seat || bookingType),
         bookingDate: rawDate,
         startTime: time,
         durationHours: durationHours,
         numberOfPeople: guestsCount,
-        totalAmount: grandTotal,
-        paymentStatus: "paid",
+        totalAmount: grandTotal, // This will be ignored and recalculated on server
+        wifiPassPrice: wifiPass?.price,
+        wifiPassId: wifiPass?.id,
+        wifiPassName: wifiPass?.name || searchParams.get("wifiPassName") || undefined,
+        wifiPassDuration: wifiPass?.duration || searchParams.get("wifiPassDuration") || undefined,
         specialRequest: specialRequests || purpose,
       });
 
       // Save to localStorage for profile and admin views as fallback/UI state
+      const serverCalculatedAmount = localRecord?.total_amount || grandTotal;
       const newBookingRecord = {
         bookingId: displayBookingId,
-        supabaseId: supabaseRecord?.id,
+        localDbId: localRecord?.id,
         paymentId,
         userName: user.name || "Customer",
         userEmail: user.email,
@@ -128,7 +135,7 @@ function PaymentContent() {
 
       const params = new URLSearchParams({
         bookingId: displayBookingId,
-        supabaseBookingId: supabaseRecord?.id || "",
+        systemBookingId: localRecord?.id || "",
         paymentId,
         bookingType,
         workspace,
@@ -138,7 +145,7 @@ function PaymentContent() {
         duration,
         guests,
         purpose,
-        amount: grandTotal.toFixed(0),
+        amount: serverCalculatedAmount.toString(),
         status: "confirmed",
         paymentStatus: "paid",
       });
@@ -149,7 +156,13 @@ function PaymentContent() {
       setErrorMessage(err.message || "Unable to create booking. Please try again.");
     } finally {
       setIsProcessing(false);
+      setShowPaymentModal(false);
     }
+  };
+
+  const handleOpenPaymentModal = (e: React.FormEvent) => {
+    e.preventDefault();
+    setShowPaymentModal(true);
   };
 
   return (
@@ -188,24 +201,14 @@ function PaymentContent() {
               </div>
             )}
 
-            <form onSubmit={handleConfirm} className="space-y-6">
+            <form onSubmit={handleOpenPaymentModal} className="space-y-6">
               <div className="pt-2">
                 <button
                   type="submit"
                   disabled={isProcessing}
                   className="w-full bg-[#2A1506] hover:bg-[#3D2314] text-white py-4 rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {isProcessing ? (
-                    <>
-                      <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      Confirming...
-                    </>
-                  ) : (
-                    <>
-                      <ShieldCheck className="w-4 h-4" />
-                      Confirm Booking
-                    </>
-                  )}
+                  Confirm & Pay
                 </button>
               </div>
             </form>
@@ -258,19 +261,71 @@ function PaymentContent() {
                 </span>
                 <span className="text-primary font-bold">{guests} • {purpose}</span>
               </div>
-            </div>
+              
+              <div className="flex justify-between items-center pb-2 border-b border-primary/5">
+                <span className="text-foreground/50">WiFi Pass</span>
+                <span className="font-bold text-accent">{wifiPass ? `${wifiPass.name} (₹${wifiPass.price})` : "None"}</span>
+              </div>
 
-            {/* Price Calculations */}
-            <div className="pt-4 border-t border-primary/10 space-y-2 text-xs">
-              <div className="flex justify-between text-base font-bold text-primary pt-1">
-                <span>Total Payable</span>
-                <span className="text-[#EA5A0C] font-serif text-xl">₹{grandTotal.toFixed(0)}</span>
+              <div className="flex justify-between items-center pt-2">
+                <span className="text-sm font-bold text-primary">Expected Total</span>
+                <span className="text-xl font-black text-accent">₹{grandTotal}</span>
               </div>
             </div>
           </div>
-
         </div>
 
+        {/* Dummy Payment Modal */}
+        {showPaymentModal && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
+            <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl space-y-6">
+              <h3 className="text-xl font-bold font-serif text-center border-b pb-4">Payment Summary</h3>
+              
+              <div className="space-y-3 text-sm">
+                <div className="flex justify-between">
+                  <span>Seat Amount ({duration}):</span>
+                  <span className="font-bold">₹{seatTotal}</span>
+                </div>
+                {wifiPassAmount > 0 && (
+                  <div className="flex justify-between">
+                    <span>WiFi Pass:</span>
+                    <span className="font-bold">₹{wifiPassAmount}</span>
+                  </div>
+                )}
+                {foodAndDrinksTotal > 0 && (
+                  <div className="flex justify-between">
+                    <span>Food &amp; Drinks:</span>
+                    <span className="font-bold">₹{foodAndDrinksTotal}</span>
+                  </div>
+                )}
+                <div className="flex justify-between">
+                  <span>GST (2%):</span>
+                  <span className="font-bold">₹{parsedGst}</span>
+                </div>
+                <div className="border-t pt-3 flex justify-between text-lg font-bold">
+                  <span>Total:</span>
+                  <span className="text-accent">₹{grandTotal}</span>
+                </div>
+              </div>
+
+              <button
+                onClick={handleConfirm}
+                disabled={isProcessing}
+                className="w-full bg-[#2A1506] hover:bg-[#3D2314] text-white py-3 rounded-xl font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+              >
+                {isProcessing ? "Processing..." : `Pay ₹${grandTotal}`}
+              </button>
+              
+              <button
+                onClick={() => setShowPaymentModal(false)}
+                disabled={isProcessing}
+                className="w-full text-foreground/60 hover:text-foreground text-sm py-2"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

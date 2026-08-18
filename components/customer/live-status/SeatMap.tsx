@@ -13,6 +13,11 @@ export interface SeatDetails {
   reservedTime?: string;
   occupiedUntil?: string;
   availableAfter?: string;
+  seat_code?: string;
+  seat_name?: string;
+  capacity?: number;
+  price_per_hour?: number;
+  is_available?: boolean;
 }
 
 interface SeatMapProps {

@@ -33,6 +33,7 @@ import {
   Check
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/lib/supabase";
 
 export type PaymentStatus = "Successful" | "Pending" | "Failed" | "Refunded" | "Cancelled";
 export type PaymentMethod = "UPI" | "Credit Card" | "Debit Card" | "Wallet" | "Cash";
@@ -312,6 +313,62 @@ export default function AdminPaymentsPage() {
 
   // Chart Toggle State
   const [revenueTimeframe, setRevenueTimeframe] = useState<"daily" | "weekly" | "monthly">("daily");
+
+  React.useEffect(() => {
+    async function fetchPayments() {
+      const { data, error } = await supabase
+        .from('payments')
+        .select(`
+          *,
+          reservation (
+            seat_code,
+            seat_name,
+            customer_name,
+            booking_date,
+            duration_hours,
+            profiles ( email, phone )
+          )
+        `)
+        .order('payment_date', { ascending: false });
+        
+      if (!error && data && data.length > 0) {
+        const mapped = data.map((p: any) => {
+          let wType: WorkspaceType = 'Workstation';
+          const sn = p.reservation?.seat_name || '';
+          if (sn.includes('Meeting')) wType = 'Meeting Room';
+          else if (sn.includes('Study') || sn.includes('Quiet')) wType = 'Study Space';
+          else if (sn.includes('Window')) wType = 'Café Table';
+          else if (sn.includes('booth') || sn.includes('Cabin')) wType = 'Private Cabin';
+          
+          const pm: PaymentMethod = p.payment_method === 'credit_card' ? 'Credit Card' : p.payment_method === 'cash' ? 'Cash' : 'UPI';
+          const stat: PaymentStatus = p.status === 'success' ? 'Successful' : p.status === 'failed' ? 'Failed' : p.status === 'refunded' ? 'Refunded' : 'Pending';
+
+          return {
+          id: p.id,
+          transactionId: p.transaction_id || `TXN-${p.id.substring(0, 6).toUpperCase()}`,
+          bookingId: p.reservation_id?.substring(0, 8).toUpperCase() || 'N/A',
+          userName: p.reservation?.customer_name || 'Customer',
+          userEmail: p.reservation?.profiles?.email || 'N/A',
+          userPhone: p.reservation?.profiles?.phone || 'N/A',
+          deskId: p.reservation?.seat_code || 'Unknown',
+          workspaceType: wType,
+          reservationDate: p.reservation?.booking_date || 'N/A',
+          duration: `${p.reservation?.duration_hours || 0} Hours`,
+          paymentDate: new Date(p.payment_date).toLocaleString(),
+          paymentMethod: pm,
+          subtotal: p.amount,
+          tax: 0,
+          discount: 0,
+          amount: p.amount,
+          status: stat,
+          gatewayRef: p.transaction_id,
+        };
+      });
+        setPayments(mapped);
+      }
+    }
+    fetchPayments();
+  }, []);
 
   // Drawer / Modals State
   const [activeDrawerPayment, setActiveDrawerPayment] = useState<PaymentRecord | null>(null);

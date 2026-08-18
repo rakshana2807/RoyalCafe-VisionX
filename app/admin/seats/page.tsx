@@ -144,7 +144,7 @@ export default function AdminSeatsPage() {
             Admin Seat Availability Management
           </h1>
           <p className="text-xs text-[#7A5A43] font-sans">
-            Manage seat availability &amp; status for internal cafe operations. Updates persist to MongoDB Atlas.
+            Manage seat availability &amp; status for internal cafe operations. Updates persist to Supabase.
           </p>
         </div>
 

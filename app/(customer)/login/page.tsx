@@ -9,8 +9,6 @@ import Navbar from "@/components/customer/navbar/Navbar";
 import Footer from "@/components/customer/footer/Footer";
 import { ADMIN_SECRET_PIN } from "@/lib/constants";
 
-import { supabase } from "@/lib/supabase";
-
 function LoginFormContent() {
   const router = useRouter();
   const searchParams = useSearchParams();

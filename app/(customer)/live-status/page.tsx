@@ -73,15 +73,20 @@ export default function LiveStatusPage() {
 
   const handleSelectSeat = (seat: SeatDetails) => {
     setSelectedSeat(seat);
+    // If the seat comes from SeatMap, id is the seat_code. If from grid, seat_code is present.
+    const seatCode = seat.seat_code || seat.id;
     setContextSelectedSeat({
       id: seat.id,
+      seat_code: seatCode,
+      seat_name: seat.seat_name || seat.area || seat.zone,
       number: seat.number,
       seatNumber: seat.number,
       zone: seat.zone,
       seatType: seat.seatType || "Single Seater",
+      price_per_hour: seat.price_per_hour,
     });
     updateReservationDetails({
-      tableType: seat.seatType || seat.id,
+      tableType: seat.seatType || seatCode,
       seatingArea: seat.zone,
     });
     router.push('/book');
@@ -262,7 +267,7 @@ export default function LiveStatusPage() {
                       <button
                         type="button"
                         disabled={ws.realTimeStatus === "FULLY BOOKED"}
-                        onClick={() => handleSelectSeat(ws)}
+                        onClick={() => handleSelectSeat(ws as unknown as SeatDetails)}
                         className={`w-full mt-3 py-2.5 px-4 font-bold text-xs rounded-xl transition-all shadow-2xs flex items-center justify-center gap-1.5 ${
                           ws.realTimeStatus === "FULLY BOOKED" 
                             ? "bg-gray-200 text-gray-400 cursor-not-allowed" 

@@ -60,6 +60,11 @@ export default function WorkspaceSelector() {
     reservationDetails,
     updateReservationDetails,
     checkAvailability,
+    bookingFee,
+    wifiTotal,
+    wifiPass,
+    foodTotal,
+    gst,
     grandTotal,
   } = useBooking();
 
@@ -97,13 +102,13 @@ export default function WorkspaceSelector() {
   const [alternativeSlots, setAlternativeSlots] = useState<AlternativeSlot[]>([]);
 
   const [workspaceDetails, setWorkspaceDetails] = useState<WorkspaceCardData | null>(null);
-  const effectiveWorkspace = selectedSeat?.id || reservationDetails.tableType || "Window Seat 01";
+  const effectiveWorkspace = selectedSeat?.seat_code || selectedSeat?.id || reservationDetails.tableType || "Window Seat 01";
 
   useEffect(() => {
     async function loadWorkspaceDetails() {
       try {
         const allSpaces = await fetchAllWorkspaces();
-        const found = allSpaces.find(s => s.id === effectiveWorkspace || s.number === effectiveWorkspace || s.name === effectiveWorkspace);
+        const found = allSpaces.find(s => s.id === effectiveWorkspace || s.number === effectiveWorkspace || s.name === effectiveWorkspace || s.seat_code === effectiveWorkspace);
         if (found) {
           setWorkspaceDetails(found);
         }
@@ -229,6 +234,12 @@ export default function WorkspaceSelector() {
         guests: reservationDetails.guests,
         purpose: reservationDetails.occasion || "",
         amount: grandTotal.toString(),
+        seatAmount: bookingFee.toString(),
+        wifiPassAmount: wifiTotal.toString(),
+        wifiPassName: wifiPass?.name || "",
+        wifiPassDuration: wifiPass?.duration || "",
+        foodAndDrinksTotal: foodTotal.toString(),
+        gstAmount: gst.toString(),
         specialRequests: reservationDetails.specialRequests || "",
       }).toString();
 
@@ -320,12 +331,15 @@ export default function WorkspaceSelector() {
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF6F0] text-[#EA5A0C] text-[10px] font-extrabold uppercase tracking-widest mb-2 border border-[#EA5A0C]/20">
                 <Calendar className="h-3 w-3" /> Seat Reservation Configuration
               </div>
-              <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#2A1506]">
-                Configure Your Booking
-              </h1>
-              <p className="text-xs sm:text-sm text-foreground/70 font-medium mt-1">
-                Customize your date, time, and duration below.
-              </p>
+              {/* Header */}
+          <div className="flex flex-col mb-4">
+            <h3 className="text-xl font-bold font-serif text-[#2A1506]">
+              Select Your Cafe Space
+            </h3>
+            <p className="text-sm text-foreground/60 mt-1">
+              Choose from available seating areas, booths, and tables.
+            </p>
+          </div>
             </div>
 
             <form

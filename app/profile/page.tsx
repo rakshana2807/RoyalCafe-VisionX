@@ -4,9 +4,8 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Navbar from "@/components/customer/navbar/Navbar";
 import Footer from "@/components/customer/footer/Footer";
-import { supabase } from "@/lib/supabase";
 import { getAuthenticatedUser } from "@/lib/auth";
-import { ensureValidUuid } from "@/lib/reservation";
+import { supabase } from "@/lib/supabase";
 import {
   User,
   Mail,
@@ -130,23 +129,25 @@ export default function UserProfilePage() {
 
     async function fetchUserBookings() {
       const authUser = getAuthenticatedUser() || currentUser;
-      if (!authUser || !authUser.id) return;
+      if (!authUser || (!authUser.id && !authUser.email)) return;
       
       try {
         const { data, error } = await supabase
-          .from("bookings")
-          .select('*, spaces(name, type, workspace_code)')
-          .eq("user_id", authUser.id)
-          .order("created_at", { ascending: false });
+          .from('reservation')
+          .select('*')
+          .eq('user_id', authUser.id)
+          .order('created_at', { ascending: false });
+
+        if (error) {
+          console.error("Error fetching user reservations:", error);
+          return;
+        }
           
-        if (error) throw error;
-        
         if (data && data.length > 0) {
           const mappedBookings: UserBooking[] = data.map((b: any) => {
-            const spaceObj = Array.isArray(b.spaces) ? b.spaces[0] : b.spaces;
-            const spaceName = spaceObj?.name || "Window Seat 01";
-            const spaceCode = spaceObj?.workspace_code || spaceName;
-            const spaceType = spaceObj?.type || "seat";
+            const spaceName = b.seat_name || b.seat_code || "Unknown Workspace";
+            const spaceCode = b.seat_code || spaceName;
+            const spaceType = "seat";
             
             let statusEnum: any = "Confirmed";
             if (b.status === "checked_in") statusEnum = "Checked In";
@@ -154,7 +155,7 @@ export default function UserProfilePage() {
             if (b.status === "cancelled") statusEnum = "Cancelled";
             
             return {
-              id: b.id.substring(0, 8),
+              id: b.id, // Keep full ID for updates, UI uses substring if needed
               deskId: spaceCode,
               workspaceType: spaceType,
               cafeName: "RoyalCafe Main Branch",
@@ -197,10 +198,16 @@ export default function UserProfilePage() {
     showToast("✅ Profile details updated successfully!");
   };
 
-  const handleCancelBooking = (bookingId: string) => {
+  const handleCancelBooking = async (bookingId: string) => {
     if (confirm("Are you sure you want to cancel this booking?")) {
-      setBookings((prev) => prev.filter((b) => b.id !== bookingId));
-      showToast(`❌ Booking ${bookingId} has been cancelled.`);
+      const { error } = await supabase.from('reservation').update({ status: 'cancelled' }).eq('id', bookingId);
+      if (error) {
+        showToast(`❌ Failed to cancel booking.`);
+        return;
+      }
+      setBookings((prev) => prev.map((b) => b.id === bookingId ? { ...b, status: 'Cancelled' } : b));
+      showToast(`❌ Booking ${bookingId.slice(0, 8).toUpperCase()} has been cancelled.`);
+      setShowDeleteModal(false);
     }
   };
 

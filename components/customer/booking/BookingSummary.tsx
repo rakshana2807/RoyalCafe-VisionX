@@ -242,7 +242,7 @@ export default function BookingSummary({
                 <Wifi className="h-4 w-4 text-foreground/35" />
                 <div>
                   <p className="text-xs font-bold text-foreground/60">
-                    No WiFi Pass Selected
+                    No WiFi pass selected.
                   </p>
                   <p className="text-[10px] text-foreground/45">
                     100 Mbps dedicated high-speed internet
@@ -253,7 +253,7 @@ export default function BookingSummary({
                 href="/work-study"
                 className="px-3 py-1 text-[10px] font-bold text-[#5A2E0C] border border-[#5A2E0C]/30 hover:bg-[#5A2E0C] hover:text-white rounded-full transition-all cursor-pointer shrink-0 uppercase tracking-wider"
               >
-                Browse Passes
+                Browse WiFi Passes
               </Link>
             </div>
           )}
@@ -459,7 +459,7 @@ export default function BookingSummary({
       <div className="p-4 rounded-2xl bg-[#FAF6F0] border border-primary/5 flex items-center gap-3 text-xs font-semibold text-[#5A2E0C]">
         <Sparkles className="h-5 w-5 text-[#EA5A0C] shrink-0" />
         <p className="text-[11px] leading-tight">
-          <strong>Instant Seat Guarantee</strong> — Reservation Fee is $29 with table guaranteed up to 15 mins past arrival.
+          <strong>Instant Seat Guarantee</strong> — Reservation Fee is dynamically calculated based on your seat choice, with table guaranteed up to 15 mins past arrival.
         </p>
       </div>
 

@@ -1,8 +1,8 @@
 "use client";
-import { supabase } from "@/lib/supabase";
+
 import {
   isSpaceAvailable,
-  createSupabaseBooking,
+  createLocalBooking,
   parseDurationHours,
   calculateWorkspacePrice,
   CreateBookingInput,
@@ -43,6 +43,9 @@ export interface SelectedSeatDetails {
   zone: string;
   seatType: string;
   area?: string;
+  seat_code?: string;
+  seat_name?: string;
+  price_per_hour?: number;
 }
 
 export interface ReservationDetails {
@@ -138,6 +141,7 @@ interface BookingContextValue {
   setSelectedSeat: (seat: SelectedSeatDetails | null) => void;
   updateReservationDetails: (details: Partial<ReservationDetails>) => void;
   clearBooking: () => void;
+  clearSelectedSeat: () => void;
   checkAvailability: (
     spaceId: string,
     bookingDate: string,
@@ -188,16 +192,8 @@ function loadFromStorage(): {
     const customer = (parsed.customer || {}) as Partial<RoyalCafeBookingStorage["customer"]>;
     const reservation = (parsed.reservation || {}) as Partial<RoyalCafeBookingStorage["reservation"]>;
 
-    const selectedSeat: SelectedSeatDetails | null = parsed.selectedSeat
-      ? {
-          id: (parsed.selectedSeat as any).id,
-          number: (parsed.selectedSeat as any).number,
-          seatNumber: parsed.selectedSeat.seatNumber || (parsed.selectedSeat as any).number || "",
-          zone: parsed.selectedSeat.zone,
-          seatType: parsed.selectedSeat.seatType,
-          area: (parsed.selectedSeat as any).area,
-        }
-      : null;
+    // Always initialize selectedSeat to null so new bookings don't inherit stale seats
+    const selectedSeat: SelectedSeatDetails | null = null;
 
     const reservationDetails: ReservationDetails = {
       ...DEFAULT_RESERVATION_DETAILS,
@@ -208,8 +204,8 @@ function loadFromStorage(): {
       arrivalTime: reservation.arrivalTime || DEFAULT_RESERVATION_DETAILS.arrivalTime,
       duration: reservation.duration || DEFAULT_RESERVATION_DETAILS.duration,
       guests: reservation.numberOfPeople || DEFAULT_RESERVATION_DETAILS.guests,
-      tableType: selectedSeat?.seatType || reservation.tableType || DEFAULT_RESERVATION_DETAILS.tableType,
-      seatingArea: selectedSeat?.zone || DEFAULT_RESERVATION_DETAILS.seatingArea,
+      tableType: reservation.tableType || DEFAULT_RESERVATION_DETAILS.tableType,
+      seatingArea: DEFAULT_RESERVATION_DETAILS.seatingArea,
       occasion: reservation.occasion || DEFAULT_RESERVATION_DETAILS.occasion,
       specialRequests: reservation.specialRequest || DEFAULT_RESERVATION_DETAILS.specialRequests,
     };
@@ -257,16 +253,7 @@ function saveToStorage(
   if (typeof window === "undefined") return;
   try {
     const payload: RoyalCafeBookingStorage = {
-      selectedSeat: seat
-        ? {
-            id: seat.id,
-            number: seat.number,
-            seatNumber: seat.seatNumber,
-            zone: seat.zone,
-            seatType: seat.seatType,
-            area: seat.area,
-          }
-        : null,
+      selectedSeat: null,
       customer: {
         fullName: res.fullName,
         email: res.email,
@@ -341,7 +328,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
   const durationHrs = parseDurationHours(reservationDetails.duration);
   const guestsNum = parseInt(reservationDetails.guests, 10) || 1;
   const effectiveType = selectedSeat?.seatType || reservationDetails.tableType || "2 Seater";
-  const bookingFee = calculateWorkspacePrice(effectiveType, durationHrs, guestsNum);
+  const bookingFee = calculateWorkspacePrice(effectiveType, durationHrs, guestsNum, selectedSeat?.price_per_hour);
   const subtotalBeforeTax = foodTotal + wifiTotal + bookingFee;
   const gst = Math.round(subtotalBeforeTax * 0.02);
   const grandTotal = subtotalBeforeTax + gst;
@@ -420,6 +407,10 @@ export function BookingProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  const clearSelectedSeat = useCallback(() => {
+    setSelectedSeatState(null);
+  }, []);
+
   const checkAvailability = useCallback(
     async (spaceId: string, bookingDate: string, startTime: string, endTime: string) => {
       return await isSpaceAvailable(spaceId, bookingDate, startTime, endTime);
@@ -447,8 +438,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         specialRequest: reservationDetails.specialRequests || undefined,
         ...overrideParams,
       };
-
-      return await createSupabaseBooking(bookingInput);
+      return await createLocalBooking(bookingInput);
     },
     [selectedSeat, reservationDetails, grandTotal]
   );
@@ -468,6 +458,7 @@ export function BookingProvider({ children }: { children: ReactNode }) {
         setSelectedSeat,
         updateReservationDetails,
         clearBooking,
+        clearSelectedSeat,
         checkAvailability,
         createBooking,
         foodTotal,

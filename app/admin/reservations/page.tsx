@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useEffect, useMemo } from "react";
-import { supabase } from "@/lib/supabase";
 import {
   Calendar,
   Clock,
@@ -27,6 +26,7 @@ import {
   Plus
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { supabase } from "@/lib/supabase";
 
 
 
@@ -91,43 +91,14 @@ export default function AdminReservationsPage() {
   };
 
   useEffect(() => {
-    async function fetchSupabaseBookings() {
+    async function fetchLocalBookings() {
       try {
         const { data, error } = await supabase
-          .from("bookings")
-          .select(`
-            id,
-            user_id,
-            space_id,
-            booking_date,
-            start_time,
-            end_time,
-            duration_hours,
-            number_of_people,
-            total_amount,
-            status,
-            payment_status,
-            created_at,
-            updated_at,
-            spaces (
-              id,
-              workspace_code,
-              name,
-              type
-            ),
-            profiles (
-              id,
-              full_name,
-              email,
-              phone
-            )
-          `)
-          .order("created_at", { ascending: false });
+          .from('reservation')
+          .select(`*, profiles(email, full_name, phone)`)
+          .order('created_at', { ascending: false });
 
-        if (error) {
-          console.error("Error fetching Supabase bookings:", error);
-          return;
-        }
+        if (error) throw error;
 
         if (data && data.length > 0) {
           const convert24to12 = (t: string) => {
@@ -140,16 +111,19 @@ export default function AdminReservationsPage() {
             return `${String(h).padStart(2, "0")}:${m} ${period}`;
           };
 
+          // Sort is already handled by Supabase
+
           const mapped: ReservationRow[] = data.map((b: any) => {
-            const spaceObj = Array.isArray(b.spaces) ? b.spaces[0] : b.spaces;
-            const spaceName = spaceObj?.name || "Window Seat 01";
-            const spaceCode = spaceObj?.workspace_code || spaceName;
-            const spaceType = spaceObj?.type || "seat";
+            const spaceName = b.seat_name || b.seat_code || "Unknown Workspace";
+            const spaceCode = b.seat_code || spaceName;
+            let spaceType: string = "seat";
 
             let wsType: WorkspaceType = "Workstation";
-            if (spaceName.includes("Meeting") || spaceType === "meeting") wsType = "Meeting Room";
-            else if (spaceName.includes("Study") || spaceType === "study") wsType = "Study Space";
-            else if (spaceName.includes("Window") || spaceType === "seat") wsType = "Café Table";
+            if (spaceName.includes("Meeting") || spaceType === "meeting" || spaceType === "Meeting Room" || spaceType === "boardroom") wsType = "Meeting Room";
+            else if (spaceName.includes("Study") || spaceType === "study" || spaceType.includes("study") || spaceName.includes("Quiet")) wsType = "Study Space";
+            else if (spaceName.includes("Window") || spaceType === "seat" || spaceType === "single-table") wsType = "Café Table";
+            else if (spaceType.includes("hot desk")) wsType = "Hot Desk";
+            else if (spaceType.includes("booth")) wsType = "Private Cabin";
 
             let uiStatus: BookingStatus = "Confirmed";
             const st = (b.status || "").toLowerCase().trim();
@@ -163,7 +137,7 @@ export default function AdminReservationsPage() {
               uiStatus = "Confirmed";
             }
 
-            const prof = Array.isArray(b.profiles) ? b.profiles[0] : b.profiles;
+            const prof = b.profiles && !Array.isArray(b.profiles) ? b.profiles : null;
             const profEmail = prof?.email || "";
             const profName = prof?.full_name?.trim();
             const displayName = b.customer_name?.trim() || profName || "Guest User";
@@ -188,10 +162,10 @@ export default function AdminReservationsPage() {
           setReservations(mapped);
         }
       } catch (err) {
-        console.error("Failed to load reservations from Supabase:", err);
+        console.error("Failed to load reservations from localDb:", err);
       }
     }
-    fetchSupabaseBookings();
+    fetchLocalBookings();
   }, []);
 
   const handleStatusChange = async (bookingId: string, newStatus: BookingStatus, dbId?: string) => {
@@ -199,19 +173,7 @@ export default function AdminReservationsPage() {
     const targetId = dbId || bookingId;
 
     try {
-      const { error } = await supabase
-        .from("bookings")
-        .update({
-          status: dbStatus,
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", targetId);
-
-      if (error) {
-        console.error("Failed to update status in Supabase:", error);
-        showToast("Failed to update status in database.");
-        return;
-      }
+      await supabase.from('reservation').update({ status: dbStatus }).eq('id', targetId);
 
       setReservations((prev) =>
         prev.map((r) => ((r.dbId === targetId || r.bookingId === bookingId) ? { ...r, status: newStatus } : r))
@@ -227,19 +189,7 @@ export default function AdminReservationsPage() {
     const targetId = dbId || bookingId;
 
     try {
-      const { error } = await supabase
-        .from("bookings")
-        .update({
-          status: "cancelled",
-          updated_at: new Date().toISOString(),
-        })
-        .eq("id", targetId);
-
-      if (error) {
-        console.error("Failed to cancel booking in Supabase:", error);
-        showToast("Failed to cancel booking in database.");
-        return;
-      }
+      await supabase.from('reservation').update({ status: 'cancelled' }).eq('id', targetId);
 
       setReservations((prev) =>
         prev.map((r) => ((r.dbId === targetId || r.bookingId === bookingId) ? { ...r, status: "Cancelled" } : r))

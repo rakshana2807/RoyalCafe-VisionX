@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Menu, X, Coffee, User, LogOut, ShieldCheck } from "lucide-react";
+import { useBooking } from "@/context/BookingContext";
 
 interface UserState {
   id: string;
@@ -104,6 +105,8 @@ export default function Navbar() {
     { name: "Reviews", href: "/reviews", sectionId: "reviews" },
   ];
 
+  const { clearSelectedSeat } = useBooking();
+
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string, sectionId: string) => {
     setIsOpen(false);
     if (pathname === href) {
@@ -126,6 +129,12 @@ export default function Navbar() {
 
   const handleBookDeskClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     setIsOpen(false);
+    
+    // If not already on the booking page, treat this as starting a NEW booking session
+    if (pathname !== "/book") {
+      clearSelectedSeat();
+    }
+
     if (!currentUser) {
       e.preventDefault();
       const msg = encodeURIComponent("Please login to your RoyalCafeConnect account to book a workspace.");
