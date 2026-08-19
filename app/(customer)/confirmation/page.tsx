@@ -135,7 +135,7 @@ function PaymentContent() {
 
       const params = new URLSearchParams({
         bookingId: displayBookingId,
-        systemBookingId: localRecord?.id || "",
+        systemBookingId: String(localRecord?.id || ""),
         paymentId,
         bookingType,
         workspace,

@@ -1,0 +1,38 @@
+warning: in the working copy of 'lib/reservation.ts', LF will be replaced by CRLF the next time Git touches it
+[1mdiff --git a/app/(customer)/confirmation/page.tsx b/app/(customer)/confirmation/page.tsx[m
+[1mindex e921c81..4029f5f 100644[m
+[1m--- a/app/(customer)/confirmation/page.tsx[m
+[1m+++ b/app/(customer)/confirmation/page.tsx[m
+[36m@@ -135,7 +135,7 @@[m [mfunction PaymentContent() {[m
+ [m
+       const params = new URLSearchParams({[m
+         bookingId: displayBookingId,[m
+[31m-        systemBookingId: localRecord?.id || "",[m
+[32m+[m[32m        systemBookingId: String(localRecord?.id || ""),[m
+         paymentId,[m
+         bookingType,[m
+         workspace,[m
+[1mdiff --git a/lib/reservation.ts b/lib/reservation.ts[m
+[1mindex fc66133..9be8475 100644[m
+[1m--- a/lib/reservation.ts[m
+[1m+++ b/lib/reservation.ts[m
+[36m@@ -240,13 +240,17 @@[m [mexport async function getOrCreateProfile({[m
+     id: newProfileId,[m
+     full_name: userName?.trim() || "Customer",[m
+     email: email || "unknown@customer.com",[m
+[31m-    phone: userPhone?.trim() || "",[m
+   };[m
+ [m
+   const { data, error } = await supabase.from('profiles').insert(newProf).select().single();[m
+   [m
+   if (error) {[m
+[31m-    console.error("Error creating profile:", error);[m
+[32m+[m[32m    console.error("Error creating profile:", {[m
+[32m+[m[32m      message: error?.message,[m
+[32m+[m[32m      details: error?.details,[m
+[32m+[m[32m      hint: error?.hint,[m
+[32m+[m[32m      code: error?.code,[m
+[32m+[m[32m    });[m
+     throw new Error("Failed to create user profile");[m
+   }[m
+ [m

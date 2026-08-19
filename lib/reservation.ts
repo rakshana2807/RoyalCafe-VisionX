@@ -240,13 +240,17 @@ export async function getOrCreateProfile({
     id: newProfileId,
     full_name: userName?.trim() || "Customer",
     email: email || "unknown@customer.com",
-    phone: userPhone?.trim() || "",
   };
 
   const { data, error } = await supabase.from('profiles').insert(newProf).select().single();
   
   if (error) {
-    console.error("Error creating profile:", error);
+    console.error("Error creating profile:", {
+      message: error?.message,
+      details: error?.details,
+      hint: error?.hint,
+      code: error?.code,
+    });
     throw new Error("Failed to create user profile");
   }
 
