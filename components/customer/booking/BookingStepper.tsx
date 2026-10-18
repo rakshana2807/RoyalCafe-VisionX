@@ -35,10 +35,10 @@ export default function BookingStepper({ currentStep, onStepClick }: StepperProp
                   <div
                     className={`h-8 w-8 rounded-full flex items-center justify-center font-bold text-xs transition-all duration-300 ${
                       isCompleted
-                        ? "bg-emerald-600 text-white shadow-sm"
+                        ? "bg-emerald-600 text-primary shadow-sm"
                         : isCurrent
-                        ? "bg-primary text-white shadow-md ring-4 ring-primary/15"
-                        : "bg-white text-primary/40 border border-primary/10"
+                        ? "bg-primary text-background shadow-md ring-4 ring-primary/15"
+                        : "bg-surface text-primary/80 border border-primary/10"
                     }`}
                   >
                     {isCompleted ? <Check className="h-4 w-4 stroke-[3]" /> : step.num}

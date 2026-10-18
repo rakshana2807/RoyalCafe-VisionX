@@ -44,43 +44,26 @@ export default function Filters({
       {/* Top Row: Title + Legend */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
         <div>
-          <h2 className="text-xl sm:text-2xl font-bold font-serif text-[#2A1506] mb-2.5">
-            ☕ RoyalCafe Floor Management Blueprint
+          <h2 className="text-xl sm:text-2xl font-bold font-serif text-primary mb-2.5">
+            ☕ Cafe Seating Blueprint
           </h2>
           
         </div>        
       </div>
 
-      {/* Bottom Row: Multi-level Dropdown & Filter Pills */}
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white/70 p-3 rounded-2xl border border-primary/10 shadow-2xs">
-        {/* Search Bar */}
-        <div className="relative w-full sm:w-64 shrink-0">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/40" />
-          <input
-            type="text"
-            placeholder="Search tables, seats or seating areas..."
-            value={searchQuery}
-            onChange={(e) => onSearchChange(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-xs rounded-xl border border-primary/15 bg-white text-[#2A1506] placeholder:text-foreground/40 outline-none focus:border-[#EA5A0C] transition-all"
-          />
-        </div>
-
-
-      </div>
-
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-white/70 p-3 rounded-2xl border border-primary/10 shadow-2xs">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-background p-4 rounded-[24px] border border-primary/20 shadow-md">
         {/* Quick Access Filter Pills */}
-        <div className="w-full overflow-x-auto pb-1 sm:pb-0 flex gap-2 scrollbar-hide">
+        <div className="w-full overflow-x-auto pb-1 sm:pb-0 flex gap-3 scrollbar-hide">
           {categories.map((cat) => {
             const isActive = activeZone === cat.value;
             return (
               <button
                 key={cat.value}
                 onClick={() => onSelectZone(cat.value)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-extrabold transition-all duration-200 cursor-pointer whitespace-nowrap ${
+                className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer whitespace-nowrap uppercase tracking-widest border ${
                   isActive
-                    ? "bg-[#2A1506] text-white shadow-sm scale-105"
-                    : "bg-[#EAE0D5]/70 text-[#2A1506] hover:bg-[#EAE0D5] border border-primary/10"
+                    ? "bg-primary text-background border-primary shadow-md scale-105"
+                    : "bg-background text-primary border-transparent hover:border-primary/30 hover:bg-primary/10"
                 }`}
               >
                 {cat.label}

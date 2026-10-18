@@ -45,9 +45,23 @@ export async function fetchAllWorkspaces(): Promise<WorkspaceCardData[]> {
 
   return seats.map((seat) => {
     const desc = seat.seat_code || "";
-    const image = seat.image_url || "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=1200";
-
     const zoneStr = seat.zone || "";
+    
+    // Map DB zone to our new premium cafe images
+    let image = "/seats/cafe_shared_table.png";
+    if (zoneStr === "Work & Study") {
+      image = "/seats/cafe_quiet_study.png";
+    } else if (zoneStr === "Outdoor") {
+      image = "/seats/cafe_outdoor_seat.png";
+    } else if (zoneStr === "Social Area" || zoneStr === "Kids Zone" || zoneStr === "Family Zone") {
+      image = "/seats/cafe_shared_table.png";
+    } else if (zoneStr === "Private Booths" || zoneStr === "Lounges" || zoneStr === "Elder Friendly") {
+      image = "/seats/cafe_lounge_seat.png";
+    } else {
+      // Default to window seat or corner seat based on ID parity as a fallback for variety
+      image = (seat.id % 2 === 0) ? "/seats/cafe_window_seat.png" : "/seats/cafe_corner_seat.png";
+    }
+
     const categories: string[] = ["All Seats"];
     
     // Map DB zone to UI category

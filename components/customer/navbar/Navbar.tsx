@@ -152,12 +152,12 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-10">
             <div className="flex items-center gap-2">
-              <Coffee className="h-6 w-6 text-primary" />
+              <Coffee className="h-7 w-7 text-primary stroke-[1.5]" />
               <Link
                 href="/"
-                className="text-xl font-bold font-serif tracking-tight text-primary flex items-center"
+                className="text-2xl font-bold font-serif tracking-tight text-primary flex items-center"
               >
-                RoyalCafe<span className="text-accent">Connect</span>
+                RoyalCafe<span className="text-accent ml-1 font-medium">Connect</span>
               </Link>
             </div>
           </div>
@@ -168,23 +168,23 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "glass-effect shadow-md py-3 border-b border-primary/5 bg-background/90 backdrop-blur-md"
-          : "bg-transparent py-5"
+          ? "glass-effect shadow-[0_4px_30px_rgba(10,5,3,0.05)] py-3 border-b border-border bg-background/95 backdrop-blur-xl"
+          : "bg-transparent py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-12">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center gap-2">
-            <Coffee className="h-6 w-6 text-primary" />
+            <Coffee className="h-7 w-7 text-primary stroke-[1.5]" />
             <Link
               href="/"
               onClick={(e) => handleNavClick(e, "/", "home")}
-              className="text-xl font-bold font-serif tracking-tight text-primary flex items-center"
+              className="text-2xl font-semibold font-serif tracking-tight text-primary flex items-center"
             >
-              RoyalCafe<span className="text-accent">Connect</span>
+              RoyalCafe<span className="text-accent ml-1 font-medium">Connect</span>
             </Link>
           </div>
 
@@ -195,10 +195,10 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
-                className={`text-[14px] font-medium transition-all duration-200 ${
+                className={`text-[12px] uppercase tracking-widest font-medium transition-all duration-300 ${
                   pathname === link.href
-                    ? "text-primary font-bold border-b-2 border-primary"
-                    : "text-foreground/80 hover:text-primary hover:font-semibold"
+                    ? "text-primary border-b border-primary pb-1"
+                    : "text-foreground/70 hover:text-primary hover:border-b hover:border-primary/30 pb-1"
                 }`}
               >
                 {link.name}
@@ -240,7 +240,7 @@ export default function Navbar() {
                 <Link
                   href="/book"
                   onClick={handleBookDeskClick}
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-xs font-semibold rounded-lg text-white bg-primary hover:bg-primary/95 shadow-sm transition-all duration-250 hover:scale-[1.02] active:scale-[0.98]"
+                  className="inline-flex items-center justify-center px-5 py-2 border border-transparent text-xs uppercase tracking-wider font-semibold rounded-full text-background bg-primary hover:bg-primary/90 shadow-sm transition-all duration-300 hover:-translate-y-0.5"
                 >
                   Book Desk
                 </Link>
@@ -266,7 +266,7 @@ export default function Navbar() {
                 <Link
                   href="/book"
                   onClick={handleBookDeskClick}
-                  className="inline-flex items-center justify-center px-4 py-2 border border-transparent text-xs font-semibold rounded-lg text-white bg-primary hover:bg-primary/95 shadow-sm transition-all duration-250 hover:scale-[1.02] active:scale-[0.98]"
+                  className="inline-flex items-center justify-center px-5 py-2 border border-transparent text-xs uppercase tracking-wider font-semibold rounded-full text-background bg-primary hover:bg-primary/90 shadow-sm transition-all duration-300 hover:-translate-y-0.5"
                 >
                   Book Desk
                 </Link>
@@ -347,7 +347,7 @@ export default function Navbar() {
             <Link
               href="/book"
               onClick={handleBookDeskClick}
-              className="block w-full text-center px-5 py-3 text-base font-semibold rounded-lg text-white bg-primary hover:bg-primary/95 transition-all"
+              className="block w-full text-center px-5 py-3 text-base font-semibold rounded-lg text-background bg-primary hover:bg-primary/95 transition-all"
             >
               Book Desk
             </Link>

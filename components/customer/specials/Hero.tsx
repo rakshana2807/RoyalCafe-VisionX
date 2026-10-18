@@ -22,7 +22,7 @@ export default function Hero() {
           {["SPECIAL OFFERS", "LIMITED TIME ONLY", "TODAY'S SPECIAL", "EXCLUSIVES"].map((badge, idx) => (
             <span
               key={idx}
-              className="inline-flex items-center text-[10px] font-bold tracking-wider uppercase px-3.5 py-1.5 bg-[#FAF6F0] border border-primary/10 rounded-full text-primary/70"
+              className="inline-flex items-center text-xs font-bold tracking-wider uppercase px-3.5 py-1.5 bg-surface border border-primary/10 rounded-full text-primary/70"
             >
               {badge}
             </span>
@@ -30,7 +30,7 @@ export default function Hero() {
         </div>
 
         {/* Main Title matching Figma screenshot */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-[#5A2E0C] leading-tight max-w-3xl mx-auto mb-5">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold font-serif text-primary leading-tight max-w-3xl mx-auto mb-5">
           Today&apos;s Specials &amp; Exclusive Offers
         </h1>
 
@@ -43,14 +43,14 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-3.5 justify-center items-center">
           <button
             onClick={() => handleScrollTo("todays-special")}
-            className="w-full sm:w-auto px-8 py-3.5 border border-transparent text-xs font-bold rounded-full text-white bg-[#2A1506] hover:bg-[#2A1506]/90 transition-all shadow-md cursor-pointer uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full sm:w-auto px-8 py-3.5 border border-transparent text-xs font-bold rounded-full text-background bg-primary hover:bg-primary/90 transition-all shadow-md cursor-pointer uppercase tracking-wider hover:scale-[1.02] active:scale-[0.98]"
           >
             Claim Today&apos;s Offer
           </button>
           
           <Link
             href="/menu"
-            className="w-full sm:w-auto px-8 py-3.5 border border-primary/20 text-xs font-bold rounded-full text-primary bg-white hover:bg-foreground/5 transition-all shadow-sm cursor-pointer uppercase tracking-wider text-center"
+            className="w-full sm:w-auto px-8 py-3.5 border border-primary/20 text-xs font-bold rounded-full text-primary bg-surface hover:bg-foreground/5 transition-all shadow-sm cursor-pointer uppercase tracking-wider text-center"
           >
             Explore Menu
           </Link>

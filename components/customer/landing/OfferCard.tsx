@@ -6,14 +6,14 @@ import { Coffee, GraduationCap, Laptop, ArrowRight } from "lucide-react";
 
 export default function OfferCard() {
   return (
-    <section id="menu"  className=" bg-background/50">
-      <div className=" max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="menu" className="py-12 bg-background">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-4 text-left">
-          <h2 className="text-3xl sm:text-4xl font-bold font-serif text-foreground mb-1">
+        <div className="mb-12 text-left">
+          <h2 className="text-3xl sm:text-4xl font-bold font-serif text-primary mb-3">
             Curated for You
           </h2>
-          <p className="text-sm sm:text-base text-foreground/75">
+          <p className="text-sm sm:text-base text-foreground/70 font-medium">
             Tasty options and spaces made just for you
           </p>
         </div>
@@ -22,7 +22,7 @@ export default function OfferCard() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
 
           {/* Left Column: Cold Brew Product Card (6 cols) */}
-          <div className="lg:col-span-6 flex flex-col bg-white rounded-2xl overflow-hidden card-shadow card-shadow-hover border border-primary/5">
+          <div className="lg:col-span-6 flex flex-col bg-surface rounded-3xl overflow-hidden card-shadow card-shadow-hover border border-border">
             <div className="relative h-[280px] w-full">
               <Image
                 src="/cold-brew.png"
@@ -30,7 +30,7 @@ export default function OfferCard() {
                 fill
                 className="object-cover"
               />
-              <span className="absolute top-4 left-4 bg-accent text-white text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
+              <span className="absolute top-4 left-4 bg-accent text-primary text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
                 Chef&apos;s Special
               </span>
             </div>
@@ -40,16 +40,16 @@ export default function OfferCard() {
                 <h3 className="text-xl sm:text-2xl font-bold font-serif text-foreground">
                   Salted Caramel Cold Brew
                 </h3>
-                <span className="text-xl sm:text-2xl font-bold font-serif text-accent">
+                <span className="text-xl sm:text-2xl font-bold font-serif text-background">
                   ₹175
                 </span>
               </div>
-              <p className="text-sm sm:text-base text-foreground/80 leading-relaxed mb-6 flex-1">
+              <p className="text-sm sm:text-base text-foreground/70 leading-relaxed mb-8 flex-1 font-medium">
                 Our signature cold brew with house-made salted caramel syrup and cold foam. Perfect for a sweet afternoon pick-me-up.
               </p>
               <Link
                 href="/book"
-                className="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent text-sm font-semibold rounded-lg text-white bg-primary hover:bg-primary/95 transition-all duration-250 cursor-pointer shadow-sm active:scale-[0.98]"
+                className="w-full inline-flex items-center justify-center px-6 py-4 border border-transparent text-xs uppercase tracking-[0.2em] font-semibold rounded-full text-background bg-primary hover:bg-primary/95 transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-0.5"
               >
                 Include in booking
               </Link>
@@ -60,28 +60,28 @@ export default function OfferCard() {
           <div className="lg:col-span-6 flex flex-col gap-6">
 
             {/* Top Right: Off-Peak Happy Hour (Dark Card) */}
-            <div className="bg-primary text-white p-6 sm:p-8 rounded-2xl flex flex-col justify-between card-shadow card-shadow-hover relative overflow-hidden group min-h-[220px]">
+            <div className="bg-background text-primary p-8 sm:p-10 rounded-3xl flex flex-col justify-between card-shadow card-shadow-hover relative overflow-hidden group min-h-[240px]">
               {/* Background vector */}
-              <div className="absolute right-4 bottom-4 text-white/5 transform group-hover:scale-110 transition-transform duration-500">
+              <div className="absolute right-4 bottom-4 text-primary/5 transform group-hover:scale-110 group-hover:-rotate-6 transition-all duration-700">
                 <Coffee className="h-44 w-44 stroke-[0.5]" />
               </div>
 
               <div className="relative z-10 flex-1">
-                <div className="flex items-center gap-2 mb-3">
+                <div className="flex items-center gap-2 mb-4">
                   <Coffee className="h-5 w-5 text-accent" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-accent">Limited Time</span>
+                  <span className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Limited Time</span>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-bold font-serif mb-3 text-[#F8F1EA]">
+                <h3 className="text-2xl sm:text-3xl font-bold font-serif mb-3 text-primary">
                   Off-Peak Happy Hour
                 </h3>
-                <p className="text-sm sm:text-base text-[#F8F1EA]/85 leading-relaxed mb-6 max-w-md">
+                <p className="text-sm sm:text-base text-primary/80 leading-relaxed mb-8 max-w-md font-medium">
                   Avoid the rush! Get a medium hot beverage and 20% off all baked goods between 2 PM and 5 PM.
                 </p>
               </div>
               <div className="relative z-10">
                 <Link
                   href="/specials"
-                  className="inline-flex items-center justify-center px-6 py-2.5 border border-transparent text-sm font-semibold rounded-lg text-primary bg-[#F8F1EA] hover:bg-[#F8F1EA]/95 transition-all duration-250 cursor-pointer shadow-sm active:scale-[0.98]"
+                  className="inline-flex items-center justify-center px-6 py-3 border border-transparent text-xs uppercase tracking-[0.2em] font-semibold rounded-full text-primary bg-surface hover:bg-surface/90 transition-all duration-300 cursor-pointer shadow-sm hover:-translate-y-0.5"
                 >
                   View Offers
                 </Link>
@@ -92,52 +92,52 @@ export default function OfferCard() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
 
               {/* Student Pass Card */}
-              <div className="bg-[#FAF6F0] p-6 rounded-2xl flex flex-col justify-between card-shadow card-shadow-hover border border-primary/5">
+              <div className="bg-surface p-8 rounded-3xl flex flex-col justify-between card-shadow card-shadow-hover border border-border group">
                 <div>
-                  <div className="h-10 w-10 rounded-lg bg-primary/5 flex items-center justify-center mb-4 border border-primary/10">
-                    <GraduationCap className="h-5 w-5 text-primary" />
+                  <div className="h-12 w-12 rounded-full bg-background flex items-center justify-center mb-6 border border-border group-hover:scale-110 transition-transform duration-500">
+                    <GraduationCap className="h-5 w-5 text-accent" />
                   </div>
-                  <h4 className="text-base sm:text-lg font-bold font-serif text-primary mb-1">
+                  <h4 className="text-lg sm:text-xl font-bold font-serif text-primary mb-2">
                     Student Pass
                   </h4>
-                  <span className="text-[11px] font-semibold text-accent block mb-3 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-background block mb-4 uppercase tracking-[0.1em]">
                     Valid Mon-Fri, 9am - 3pm
                   </span>
-                  <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed mb-6">
+                  <p className="text-sm text-foreground/70 leading-relaxed mb-8 font-medium">
                     Get unlimited drip coffee &amp; a reserved desk.
                   </p>
                 </div>
                 <Link
                   href="/work-study"
-                  className="inline-flex items-center text-xs sm:text-sm font-semibold text-accent hover:text-primary transition-colors group cursor-pointer"
+                  className="inline-flex items-center text-xs uppercase tracking-widest font-semibold text-background hover:text-primary transition-colors cursor-pointer"
                 >
                   Learn more
-                  <ArrowRight className="ml-1 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
 
               {/* Work Pass Card */}
-              <div className="bg-[#FAF6F0] p-6 rounded-2xl flex flex-col justify-between card-shadow card-shadow-hover border border-primary/5">
+              <div className="bg-surface p-8 rounded-3xl flex flex-col justify-between card-shadow card-shadow-hover border border-border group">
                 <div>
-                  <div className="h-10 w-10 rounded-lg bg-primary/5 flex items-center justify-center mb-4 border border-primary/10">
-                    <Laptop className="h-5 w-5 text-primary" />
+                  <div className="h-12 w-12 rounded-full bg-background flex items-center justify-center mb-6 border border-border group-hover:scale-110 transition-transform duration-500">
+                    <Laptop className="h-5 w-5 text-accent" />
                   </div>
-                  <h4 className="text-base sm:text-lg font-bold font-serif text-primary mb-1">
+                  <h4 className="text-lg sm:text-xl font-bold font-serif text-primary mb-2">
                     Work Pass
                   </h4>
-                  <span className="text-[11px] font-semibold text-accent block mb-3 uppercase tracking-wider">
+                  <span className="text-xs font-semibold text-background block mb-4 uppercase tracking-[0.1em]">
                     Single day or weekly
                   </span>
-                  <p className="text-xs sm:text-sm text-foreground/80 leading-relaxed mb-6">
+                  <p className="text-sm text-foreground/70 leading-relaxed mb-8 font-medium">
                     Get dedicated high-speed Wi-Fi, power outlets &amp; 10% off food.
                   </p>
                 </div>
                 <Link
                   href="/work-study"
-                  className="inline-flex items-center text-xs sm:text-sm font-semibold text-accent hover:text-primary transition-colors group cursor-pointer"
+                  className="inline-flex items-center text-xs uppercase tracking-widest font-semibold text-background hover:text-primary transition-colors cursor-pointer"
                 >
                   Learn more
-                  <ArrowRight className="ml-1 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
                 </Link>
               </div>
 

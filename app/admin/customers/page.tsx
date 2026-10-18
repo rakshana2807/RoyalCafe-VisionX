@@ -64,34 +64,34 @@ export default function AdminCustomersPage() {
       {/* Title */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#2A1506] dark:text-amber-100 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black font-serif text-primary dark:text-amber-100 tracking-tight">
             Customer Directory &amp; User Profiles
           </h1>
-          <p className="text-xs text-foreground/60 dark:text-amber-200/60 font-sans">
+          <p className="text-xs text-foreground/80 dark:text-amber-200/60 font-sans">
             Manage registered accounts, view booking history, suspend accounts &amp; grant WiFi passes
           </p>
         </div>
       </div>
 
       {/* Search Input */}
-      <div className="bg-white dark:bg-[#1C120C] p-4 rounded-3xl border border-primary/10 flex gap-4 items-center shadow-xs">
+      <div className="bg-surface dark:bg-[#1C120C] p-4 rounded-3xl border border-primary/10 flex gap-4 items-center shadow-xs">
         <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/40" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/80" />
           <input
             type="text"
             placeholder="Search by Name, Email, or Mobile Number..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-primary/15 text-xs bg-[#FAF6F0] dark:bg-[#2A1D16] text-primary dark:text-amber-100 focus:outline-none focus:border-[#EA5A0C]"
+            className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-primary/15 text-xs bg-surface dark:bg-[#2A1D16] text-primary dark:text-amber-100 focus:outline-none focus:border-accent"
           />
         </div>
       </div>
 
       {/* Customers Table */}
-      <div className="bg-white dark:bg-[#1C120C] rounded-3xl border border-primary/10 overflow-hidden shadow-xs">
+      <div className="bg-surface dark:bg-[#1C120C] rounded-3xl border border-primary/10 overflow-hidden shadow-xs">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-xs">
-            <thead className="bg-[#FAF6F0] dark:bg-[#2A1D16] border-b border-primary/10 text-primary dark:text-amber-200 font-extrabold uppercase tracking-wider">
+            <thead className="bg-surface dark:bg-[#2A1D16] border-b border-primary/10 text-primary dark:text-amber-200 font-extrabold uppercase tracking-wider">
               <tr>
                 <th className="p-4">Customer Name</th>
                 <th className="p-4">Email Address</th>
@@ -104,9 +104,9 @@ export default function AdminCustomersPage() {
             <tbody className="divide-y divide-primary/5">
               {filtered.length > 0 ? (
                 filtered.map((c) => (
-                  <tr key={c._id} className="hover:bg-[#FAF6F0]/50 dark:hover:bg-[#2A1D16]/50 transition-colors">
+                  <tr key={c._id} className="hover:bg-surface/50 dark:hover:bg-[#2A1D16]/50 transition-colors">
                     <td className="p-4 font-bold text-primary dark:text-amber-100 flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-gradient from-[#EA5A0C] to-[#D06B1C] text-white flex items-center justify-center font-bold text-xs">
+                      <div className="w-8 h-8 rounded-full bg-gradient from-[#EA5A0C] to-[#D06B1C] text-primary flex items-center justify-center font-bold text-xs">
                         {c.fullName.substring(0, 2).toUpperCase()}
                       </div>
                       <span>{c.fullName}</span>
@@ -114,13 +114,13 @@ export default function AdminCustomersPage() {
                     <td className="p-4 text-foreground/80">{c.email}</td>
                     <td className="p-4 font-mono font-semibold">{c.mobile || "N/A"}</td>
                     <td className="p-4">
-                      <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-amber-100 text-amber-900">
+                      <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase bg-amber-100 text-amber-900">
                         {c.role || "customer"}
                       </span>
                     </td>
                     <td className="p-4">
                       <span
-                        className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
+                        className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase ${
                           c.status === "suspended" ? "bg-rose-100 text-rose-800" : "bg-emerald-100 text-emerald-800"
                         }`}
                       >
@@ -130,7 +130,7 @@ export default function AdminCustomersPage() {
                     <td className="p-4 text-right space-x-1">
                       <button
                         onClick={() => setSelectedCustomer(c)}
-                        className="px-3 py-1.5 rounded-xl bg-[#2A1506] text-white font-bold text-xs hover:bg-[#EA5A0C] transition-colors cursor-pointer"
+                        className="px-3 py-1.5 rounded-xl bg-background text-primary font-bold text-xs hover:bg-accent transition-colors cursor-pointer"
                       >
                         Profile
                       </button>
@@ -160,7 +160,7 @@ export default function AdminCustomersPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan={6} className="p-8 text-center text-foreground/50">
+                  <td colSpan={6} className="p-8 text-center text-foreground/80">
                     No customers found matching search query.
                   </td>
                 </tr>
@@ -172,16 +172,16 @@ export default function AdminCustomersPage() {
 
       {/* Customer Profile Modal */}
       {selectedCustomer && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white dark:bg-[#1C120C] p-6 sm:p-8 rounded-3xl max-w-lg w-full space-y-6 shadow-2xl border border-primary/20">
+        <div className="fixed inset-0 z-50 bg-background/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-surface dark:bg-[#1C120C] p-6 sm:p-8 rounded-3xl max-w-lg w-full space-y-6 shadow-2xl border border-primary/20">
             <div className="flex items-center justify-between border-b border-primary/10 pb-4">
               <div className="flex items-center gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient from-[#EA5A0C] to-[#D06B1C] text-white font-bold flex items-center justify-center text-lg">
+                <div className="w-12 h-12 rounded-2xl bg-gradient from-[#EA5A0C] to-[#D06B1C] text-primary font-bold flex items-center justify-center text-lg">
                   {selectedCustomer.fullName.substring(0, 2).toUpperCase()}
                 </div>
                 <div>
                   <h3 className="text-xl font-bold font-serif text-primary dark:text-amber-100">{selectedCustomer.fullName}</h3>
-                  <span className="text-xs text-foreground/50">{selectedCustomer.email}</span>
+                  <span className="text-xs text-foreground/80">{selectedCustomer.email}</span>
                 </div>
               </div>
               <button onClick={() => setSelectedCustomer(null)} className="p-2 rounded-2xl bg-primary/5 cursor-pointer">✕</button>
@@ -189,15 +189,15 @@ export default function AdminCustomersPage() {
 
             <div className="space-y-3 text-xs">
               <div className="flex justify-between py-1 border-b border-primary/5">
-                <span className="text-foreground/50 font-bold">Mobile</span>
+                <span className="text-foreground/80 font-bold">Mobile</span>
                 <span className="font-mono font-bold">{selectedCustomer.mobile || "N/A"}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-primary/5">
-                <span className="text-foreground/50 font-bold">Role</span>
+                <span className="text-foreground/80 font-bold">Role</span>
                 <span className="font-bold uppercase text-accent">{selectedCustomer.role || "customer"}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-primary/5">
-                <span className="text-foreground/50 font-bold">Joined</span>
+                <span className="text-foreground/80 font-bold">Joined</span>
                 <span>{selectedCustomer.createdAt ? new Date(selectedCustomer.createdAt).toLocaleDateString() : "Recently"}</span>
               </div>
             </div>
@@ -205,7 +205,7 @@ export default function AdminCustomersPage() {
             <div className="pt-2">
               <button
                 onClick={() => handleAction(selectedCustomer._id, "grant_wifi")}
-                className="w-full py-3 rounded-2xl bg-gradient from-emerald-600 to-emerald-700 text-white font-bold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md"
+                className="w-full py-3 rounded-2xl bg-gradient from-emerald-600 to-emerald-700 text-primary font-bold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md"
               >
                 <Wifi className="h-4 w-4" />
                 <span>Grant Complimentary VIP WiFi Pass</span>

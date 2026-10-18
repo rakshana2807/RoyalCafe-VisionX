@@ -55,7 +55,7 @@ export default function AuthPage() {
   // Password strength calculation
   const calculatePasswordStrength = (pass: string) => {
     let score = 0;
-    if (!pass) return { score: 0, label: "", color: "bg-gray-200" };
+    if (!pass) return { score: 0, label: "", color: "bg-surface-secondary" };
     if (pass.length >= 8) score += 1;
     if (/[A-Z]/.test(pass)) score += 1;
     if (/[0-9]/.test(pass)) score += 1;
@@ -209,7 +209,7 @@ export default function AuthPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F1EA]">
+    <div className="min-h-screen flex flex-col bg-surface">
       {/* Toast Notification Banner */}
       <AnimatePresence>
         {toastMessage && (
@@ -217,7 +217,7 @@ export default function AuthPage() {
             initial={{ opacity: 0, y: -50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -20, scale: 0.95 }}
-            className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-6 py-3.5 bg-primary text-white rounded-full shadow-2xl border border-accent/40 backdrop-blur-md"
+            className="fixed top-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-6 py-3.5 bg-primary text-background rounded-full shadow-2xl border border-accent/40 backdrop-blur-md"
           >
             <CheckCircle2 className="w-5 h-5 text-accent animate-pulse" />
             <span className="text-sm font-semibold tracking-wide">{toastMessage}</span>
@@ -233,11 +233,11 @@ export default function AuthPage() {
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 -right-32 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl pointer-events-none" />
 
-        <div className="w-full max-w-6xl bg-white/60 backdrop-blur-xl rounded-3xl border border-primary/10 shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
+        <div className="w-full max-w-6xl bg-surface/60 backdrop-blur-xl rounded-3xl border border-primary/10 shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 min-h-[640px]">
           {/* ================= LEFT SIDE (Desktop/Laptop/Tablet Illustration & Welcome) ================= */}
-          <div className="hidden lg:flex lg:col-span-6 relative bg-gradient-to-br from-[#2B2118] via-[#42220C] to-[#1E140C] text-white p-12 flex-col justify-between overflow-hidden">
+          <div className="hidden lg:flex lg:col-span-6 relative bg-gradient-to-br from-accent via-accent to-accent text-primary p-12 flex-col justify-between overflow-hidden">
             {/* Background Image overlay with darkening gradient */}
-            <div className="absolute inset-0 z-0 opacity-40 mix-blend-overlay">
+            <div className="absolute inset-0 z-0 opacity-80 mix-blend-overlay">
               <Image
                 src="/auth-bg.png"
                 alt="RoyalCafe Atmosphere"
@@ -246,19 +246,19 @@ export default function AuthPage() {
                 className="object-cover"
               />
             </div>
-            <div className="absolute inset-0 bg-gradient-to-t from-[#1E140C] via-transparent to-[#2B2118]/80 z-0" />
+            <div className="absolute inset-0 bg-gradient-to-t from-accent via-transparent to-accent/80 z-0" />
 
             {/* Top Brand & Logo */}
             <div className="relative z-10">
               <Link href="/" className="flex items-center gap-3 group inline-flex">
-                <div className="w-12 h-12 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
+                <div className="w-12 h-12 rounded-2xl bg-surface/10 backdrop-blur-md border border-primary/20 flex items-center justify-center group-hover:scale-105 transition-transform duration-300">
                   <Coffee className="h-6 w-6 text-accent" />
                 </div>
                 <div>
-                  <span className="text-2xl font-bold font-serif tracking-tight text-white block">
+                  <span className="text-2xl font-bold font-serif tracking-tight text-primary block">
                     RoyalCafe<span className="text-accent">Connect</span>
                   </span>
-                  <span className="text-[11px] uppercase tracking-widest text-white/60 font-medium">
+                  <span className="text-xs uppercase tracking-widest text-primary/80 font-medium">
                     Premium Seating &amp; Cafe
                   </span>
                 </div>
@@ -276,42 +276,42 @@ export default function AuthPage() {
                   <Sparkles className="w-3.5 h-3.5" />
                   Your Ultimate Productivity Sanctuary
                 </div>
-                <h1 className="text-3xl lg:text-4xl font-extrabold font-serif leading-tight text-white">
+                <h1 className="text-3xl lg:text-4xl font-extrabold font-serif leading-tight text-primary">
                   Welcome back to your <span className="text-accent font-italic">favourite café.</span>
                 </h1>
-                <p className="mt-4 text-base text-white/80 leading-relaxed font-light">
+                <p className="mt-4 text-base text-primary/80 leading-relaxed font-medium">
                   Book your favourite workspace, reserve café seating, discover today&apos;s specials, and enjoy a seamless RoyalCafe Connect experience.
                 </p>
               </motion.div>
 
               {/* Feature Badges */}
               <div className="grid grid-cols-2 gap-4 pt-4">
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-surface/5 border border-primary/10 backdrop-blur-sm">
                   <Wifi className="w-5 h-5 text-accent shrink-0" />
                   <div>
-                    <div className="text-xs font-semibold text-white">1000 Mbps WiFi</div>
-                    <div className="text-[10px] text-white/60">Ultra-fast fiber network</div>
+                    <div className="text-xs font-semibold text-primary">1000 Mbps WiFi</div>
+                    <div className="text-xs text-primary/80">Ultra-fast fiber network</div>
                   </div>
                 </div>
-                <div className="flex items-center gap-3 p-3 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="flex items-center gap-3 p-3 rounded-2xl bg-surface/5 border border-primary/10 backdrop-blur-sm">
                   <Armchair className="w-5 h-5 text-accent shrink-0" />
                   <div>
-                    <div className="text-xs font-semibold text-white">Reserved Seating</div>
-                    <div className="text-[10px] text-white/60">Guaranteed desk space</div>
+                    <div className="text-xs font-semibold text-primary">Reserved Seating</div>
+                    <div className="text-xs text-primary/80">Guaranteed desk space</div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Bottom Footer Quote */}
-            <div className="relative z-10 border-t border-white/10 pt-6 flex items-center justify-between text-xs text-white/60">
+            <div className="relative z-10 border-t border-primary/10 pt-6 flex items-center justify-between text-xs text-primary/80">
               <span>Crafted for creators &amp; remote teams</span>
               <span className="text-accent font-semibold">#RoyalCafeConnect</span>
             </div>
           </div>
 
           {/* ================= RIGHT SIDE (AUTHENTICATION CARD) ================= */}
-          <div className="col-span-1 lg:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-center bg-white/90 backdrop-blur-md">
+          <div className="col-span-1 lg:col-span-6 p-6 sm:p-10 lg:p-12 flex flex-col justify-center bg-surface/90 backdrop-blur-md">
             {/* Mobile Header Logo (Visible only on mobile) */}
             <div className="lg:hidden flex items-center justify-center gap-2 mb-6 text-center">
               <Coffee className="h-6 w-6 text-primary" />
@@ -321,7 +321,7 @@ export default function AuthPage() {
             </div>
 
             {/* Auth Mode Toggle Switch */}
-            <div className="bg-[#F8F1EA] p-1.5 rounded-full border border-primary/10 flex items-center relative mb-8 shadow-inner">
+            <div className="bg-surface p-1.5 rounded-full border border-primary/10 flex items-center relative mb-8 shadow-inner">
               <button
                 type="button"
                 onClick={() => {
@@ -329,7 +329,7 @@ export default function AuthPage() {
                   setErrors({});
                 }}
                 className={`flex-1 py-3 text-sm font-semibold rounded-full transition-all duration-300 relative z-10 cursor-pointer text-center ${
-                  activeTab === "signin" ? "text-white" : "text-foreground/70 hover:text-primary"
+                  activeTab === "signin" ? "text-primary" : "text-foreground/70 hover:text-primary"
                 }`}
               >
                 Sign In
@@ -341,7 +341,7 @@ export default function AuthPage() {
                   setErrors({});
                 }}
                 className={`flex-1 py-3 text-sm font-semibold rounded-full transition-all duration-300 relative z-10 cursor-pointer text-center ${
-                  activeTab === "signup" ? "text-white" : "text-foreground/70 hover:text-primary"
+                  activeTab === "signup" ? "text-primary" : "text-foreground/70 hover:text-primary"
                 }`}
               >
                 Create Account
@@ -349,7 +349,7 @@ export default function AuthPage() {
 
               {/* Animated Tab Indicator Pill */}
               <motion.div
-                className="absolute top-1.5 bottom-1.5 rounded-full bg-gradient-to-r from-primary to-[#422007] shadow-md z-0"
+                className="absolute top-1.5 bottom-1.5 rounded-full bg-gradient-to-r from-primary to-accent shadow-md z-0"
                 initial={false}
                 animate={{
                   left: activeTab === "signin" ? "6px" : "calc(50% + 3px)",
@@ -386,7 +386,7 @@ export default function AuthPage() {
                 >
                   <div className="space-y-1">
                     <h2 className="text-2xl font-bold font-serif text-primary">Sign in to your account</h2>
-                    <p className="text-xs text-foreground/60">Enter your credentials to access your bookings and rewards.</p>
+                    <p className="text-xs text-foreground/80">Enter your credentials to access your bookings and rewards.</p>
                   </div>
 
                   {/* Email Field */}
@@ -395,13 +395,13 @@ export default function AuthPage() {
                       Email Address
                     </label>
                     <div className="relative">
-                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                      <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                       <input
                         type="email"
                         placeholder="yourname@example.com"
                         value={signInData.email}
                         onChange={(e) => setSignInData({ ...signInData, email: e.target.value })}
-                        className={`w-full pl-11 pr-4 py-3 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
+                        className={`w-full pl-11 pr-4 py-3 rounded-2xl bg-surface/60 border text-sm text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
                           errors.signInEmail ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
                         }`}
                       />
@@ -428,20 +428,20 @@ export default function AuthPage() {
                       </Link>
                     </div>
                     <div className="relative">
-                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                       <input
                         type={showSignInPassword ? "text" : "password"}
                         placeholder="••••••••"
                         value={signInData.password}
                         onChange={(e) => setSignInData({ ...signInData, password: e.target.value })}
-                        className={`w-full pl-11 pr-11 py-3 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
+                        className={`w-full pl-11 pr-11 py-3 rounded-2xl bg-surface/60 border text-sm text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
                           errors.signInPassword ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
                         }`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowSignInPassword(!showSignInPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-primary transition-colors cursor-pointer"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/80 hover:text-primary transition-colors cursor-pointer"
                         aria-label="Toggle password visibility"
                       >
                         {showSignInPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -474,7 +474,7 @@ export default function AuthPage() {
                     whileTap={{ scale: 0.985 }}
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 px-6 rounded-full text-white font-semibold text-sm bg-gradient-to-r from-[#5A2E0C] via-[#6F3A0E] to-[#3D1E07] hover:from-[#472309] hover:to-[#2B1404] shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+                    className="w-full py-3.5 px-6 rounded-full text-primary font-semibold text-sm bg-gradient-to-r from-accent via-accent to-accent hover:from-accent hover:to-accent shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
                   >
                     {isSubmitting ? (
                       <>
@@ -491,7 +491,7 @@ export default function AuthPage() {
                     <div className="absolute inset-0 flex items-center">
                       <div className="w-full border-t border-primary/10" />
                     </div>
-                    <span className="relative px-4 bg-white text-xs uppercase tracking-widest text-foreground/50 font-medium">
+                    <span className="relative px-4 bg-surface text-xs uppercase tracking-widest text-foreground/80 font-medium">
                       Or continue with
                     </span>
                   </div>
@@ -504,7 +504,7 @@ export default function AuthPage() {
                         setToastMessage("Google Sign In initialized...");
                         setTimeout(() => setToastMessage(null), 2000);
                       }}
-                      className="py-2.5 px-4 rounded-full border border-primary/20 bg-white hover:bg-[#F8F1EA] text-xs font-semibold text-foreground/80 hover:text-primary transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                      className="py-2.5 px-4 rounded-full border border-primary/20 bg-surface hover:bg-surface text-xs font-semibold text-foreground/80 hover:text-primary transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                     >
                       <svg className="w-4 h-4" viewBox="0 0 24 24">
                         <path
@@ -533,7 +533,7 @@ export default function AuthPage() {
                         setToastMessage("Apple Sign In initialized...");
                         setTimeout(() => setToastMessage(null), 2000);
                       }}
-                      className="py-2.5 px-4 rounded-full border border-primary/20 bg-white hover:bg-[#F8F1EA] text-xs font-semibold text-foreground/80 hover:text-primary transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
+                      className="py-2.5 px-4 rounded-full border border-primary/20 bg-surface hover:bg-surface text-xs font-semibold text-foreground/80 hover:text-primary transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                     >
                       <svg className="w-4 h-4 fill-current text-foreground" viewBox="0 0 170 170">
                         <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.82.13-9.67-1.92-14.55-6.14-3.35-2.88-7.24-7.6-11.66-14.16-7.85-11.75-13.88-24.81-18.09-39.18-4.21-14.37-6.32-28.09-6.32-41.16 0-16.14 3.97-29.6 11.9-40.38 7.93-10.78 17.84-16.27 29.74-16.47 4.74 0 9.97 1.14 15.69 3.42 5.72 2.28 9.77 3.42 12.16 3.42 2.05 0 6.23-1.22 12.54-3.66 6.31-2.44 11.73-3.56 16.27-3.35 13.08.74 23.64 5.37 31.69 13.89-11.5 6.94-17.11 16.79-16.82 29.54.27 9.87 4.18 18.23 11.73 25.07 7.55 6.84 16.4 10.7 26.54 11.58-2.6 7.64-6.07 15.34-10.41 23.1zm-28.61-105.7c0 7.42-2.73 14.45-8.19 21.09-5.46 6.64-12.24 10.66-20.34 12.06-.27-.82-.41-1.78-.41-2.88 0-7.29 2.85-14.46 8.55-21.51 5.7-7.05 12.63-11.08 20.79-12.09.14 1.1.2 2.21.2 3.33z" />
@@ -570,7 +570,7 @@ export default function AuthPage() {
                 >
                   <div className="space-y-1">
                     <h2 className="text-2xl font-bold font-serif text-primary">Create your Account</h2>
-                    <p className="text-xs text-foreground/60">Join RoyalCafe Connect for exclusive perks and effortless bookings.</p>
+                    <p className="text-xs text-foreground/80">Join RoyalCafe Connect for exclusive perks and effortless bookings.</p>
                   </div>
 
                   {/* Full Name */}
@@ -579,13 +579,13 @@ export default function AuthPage() {
                       Full Name
                     </label>
                     <div className="relative">
-                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                      <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                       <input
                         type="text"
                         placeholder="Alex Morgan"
                         value={signUpData.fullName}
                         onChange={(e) => setSignUpData({ ...signUpData, fullName: e.target.value })}
-                        className={`w-full pl-11 pr-4 py-2.5 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
+                        className={`w-full pl-11 pr-4 py-2.5 rounded-2xl bg-surface/60 border text-sm text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
                           errors.fullName ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
                         }`}
                       />
@@ -606,19 +606,19 @@ export default function AuthPage() {
                         Email Address
                       </label>
                       <div className="relative">
-                        <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                        <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                         <input
                           type="email"
                           placeholder="alex@example.com"
                           value={signUpData.email}
                           onChange={(e) => setSignUpData({ ...signUpData, email: e.target.value })}
-                          className={`w-full pl-10 pr-3 py-2.5 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
+                          className={`w-full pl-10 pr-3 py-2.5 rounded-2xl bg-surface/60 border text-sm text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
                             errors.email ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
                           }`}
                         />
                       </div>
                       {errors.email && (
-                        <p className="text-[11px] text-red-600 font-medium flex items-center gap-1">
+                        <p className="text-xs text-red-600 font-medium flex items-center gap-1">
                           <AlertCircle className="w-3 h-3 shrink-0" />
                           {errors.email}
                         </p>
@@ -631,19 +631,19 @@ export default function AuthPage() {
                         Phone Number
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                        <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                         <input
                           type="tel"
                           placeholder="+1 234 567 8900"
                           value={signUpData.phone}
                           onChange={(e) => setSignUpData({ ...signUpData, phone: e.target.value })}
-                          className={`w-full pl-10 pr-3 py-2.5 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
+                          className={`w-full pl-10 pr-3 py-2.5 rounded-2xl bg-surface/60 border text-sm text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
                             errors.phone ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
                           }`}
                         />
                       </div>
                       {errors.phone && (
-                        <p className="text-[11px] text-red-600 font-medium flex items-center gap-1">
+                        <p className="text-xs text-red-600 font-medium flex items-center gap-1">
                           <AlertCircle className="w-3 h-3 shrink-0" />
                           {errors.phone}
                         </p>
@@ -657,27 +657,27 @@ export default function AuthPage() {
                       Password
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                       <input
                         type={showSignUpPassword ? "text" : "password"}
                         placeholder="Min. 8 characters"
                         value={signUpData.password}
                         onChange={(e) => setSignUpData({ ...signUpData, password: e.target.value })}
-                        className={`w-full pl-11 pr-11 py-2.5 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
+                        className={`w-full pl-11 pr-11 py-2.5 rounded-2xl bg-surface/60 border text-sm text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
                           errors.password ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
                         }`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowSignUpPassword(!showSignUpPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-primary transition-colors cursor-pointer"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/80 hover:text-primary transition-colors cursor-pointer"
                         aria-label="Toggle password visibility"
                       >
                         {showSignUpPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
                     {errors.password && (
-                      <p className="text-[11px] text-red-600 font-medium flex items-center gap-1">
+                      <p className="text-xs text-red-600 font-medium flex items-center gap-1">
                         <AlertCircle className="w-3 h-3 shrink-0" />
                         {errors.password}
                       </p>
@@ -686,13 +686,13 @@ export default function AuthPage() {
                     {/* Password Strength Indicator */}
                     {signUpData.password.length > 0 && (
                       <div className="pt-1.5 space-y-1">
-                        <div className="flex items-center justify-between text-[11px]">
-                          <span className="text-foreground/60">Password Strength:</span>
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-foreground/80">Password Strength:</span>
                           <span className={`font-semibold ${passwordStrength.text}`}>
                             {passwordStrength.label}
                           </span>
                         </div>
-                        <div className="h-1.5 w-full bg-gray-200 rounded-full overflow-hidden flex gap-1 p-0.5">
+                        <div className="h-1.5 w-full bg-surface-secondary rounded-full overflow-hidden flex gap-1 p-0.5">
                           <div
                             className={`h-full rounded-full transition-all duration-300 ${
                               passwordStrength.score >= 1 ? passwordStrength.color : "bg-transparent"
@@ -728,27 +728,27 @@ export default function AuthPage() {
                       Confirm Password
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                      <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                       <input
                         type={showConfirmPassword ? "text" : "password"}
                         placeholder="Re-enter password"
                         value={signUpData.confirmPassword}
                         onChange={(e) => setSignUpData({ ...signUpData, confirmPassword: e.target.value })}
-                        className={`w-full pl-11 pr-11 py-2.5 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
+                        className={`w-full pl-11 pr-11 py-2.5 rounded-2xl bg-surface/60 border text-sm text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
                           errors.confirmPassword ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
                         }`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-primary transition-colors cursor-pointer"
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/80 hover:text-primary transition-colors cursor-pointer"
                         aria-label="Toggle confirm password visibility"
                       >
                         {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                       </button>
                     </div>
                     {errors.confirmPassword && (
-                      <p className="text-[11px] text-red-600 font-medium flex items-center gap-1">
+                      <p className="text-xs text-red-600 font-medium flex items-center gap-1">
                         <AlertCircle className="w-3 h-3 shrink-0" />
                         {errors.confirmPassword}
                       </p>
@@ -776,7 +776,7 @@ export default function AuthPage() {
                       </span>
                     </label>
                     {errors.agreeTerms && (
-                      <p className="text-[11px] text-red-600 font-medium mt-1 flex items-center gap-1">
+                      <p className="text-xs text-red-600 font-medium mt-1 flex items-center gap-1">
                         <AlertCircle className="w-3 h-3 shrink-0" />
                         {errors.agreeTerms}
                       </p>
@@ -789,7 +789,7 @@ export default function AuthPage() {
                     whileTap={{ scale: 0.985 }}
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3.5 px-6 rounded-full text-white font-semibold text-sm bg-gradient-to-r from-[#5A2E0C] via-[#6F3A0E] to-[#3D1E07] hover:from-[#472309] hover:to-[#2B1404] shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-2"
+                    className="w-full py-3.5 px-6 rounded-full text-primary font-semibold text-sm bg-gradient-to-r from-accent via-accent to-accent hover:from-accent hover:to-accent shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-2"
                   >
                     {isSubmitting ? (
                       <>

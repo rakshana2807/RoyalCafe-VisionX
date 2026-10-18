@@ -279,43 +279,43 @@ export default function WorkspaceSelector() {
   };
 
   return (
-    <section className="pb-16 pt-24 bg-[#FFFDF9] text-foreground font-sans">
+    <section className="pb-24 pt-32 bg-background text-foreground font-sans">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-10 items-start">
           
           {/* LEFT COLUMN: Seating Details Card */}
-          <div className="bg-white rounded-[24px] border border-primary/10 shadow-md shadow-primary/5 overflow-hidden sticky top-24">
+          <div className="bg-surface rounded-3xl border border-border shadow-[0_8px_30px_rgba(10,5,3,0.04)] overflow-hidden sticky top-28">
             {workspaceDetails ? (
               <div className="flex flex-col">
                 <div className="h-48 w-full bg-muted relative">
                   <img src={workspaceDetails.image} alt={workspaceDetails.name} className="w-full h-full object-cover" />
                 </div>
-                <div className="p-6 space-y-4 text-left">
+                <div className="p-8 space-y-5 text-left">
                   <div>
-                    <h3 className="font-bold text-xl text-[#2A1506] font-serif">{workspaceDetails.name}</h3>
-                    <p className="text-xs font-bold text-foreground/60 mt-1">
+                    <h3 className="font-bold text-2xl text-primary font-serif">{workspaceDetails.name}</h3>
+                    <p className="text-xs font-semibold text-foreground/80 mt-1 uppercase tracking-widest">
                       {workspaceDetails.seatType} • {workspaceDetails.zone}
                     </p>
                   </div>
                   
-                  <div className="flex flex-wrap gap-1.5">
+                  <div className="flex flex-wrap gap-2">
                     {workspaceDetails.amenities.map((am, i) => (
-                      <span key={i} className="text-[10px] font-bold bg-[#FAF4ED] text-[#7A5A43] px-2 py-0.5 rounded-md border border-[#DFCDBE]/50">
+                      <span key={i} className="text-xs font-semibold bg-background text-primary px-3 py-1 rounded-md border border-border tracking-wide uppercase">
                         ✓ {am}
                       </span>
                     ))}
                   </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-primary/10">
-                    <span className="font-bold text-[#2563EB] text-lg">{workspaceDetails.price}</span>
-                    <span className="text-xs font-medium text-foreground/60 flex items-center gap-1">
-                      <Users className="w-3.5 h-3.5 text-[#EA5A0C]"/> Capacity: {workspaceDetails.capacity}
+                  <div className="flex items-center justify-between pt-5 border-t border-border">
+                    <span className="font-semibold text-primary text-xl">{workspaceDetails.price}</span>
+                    <span className="text-xs uppercase tracking-wider font-semibold text-foreground/80 flex items-center gap-1.5">
+                      <Users className="w-4 h-4 text-accent"/> Capacity: {workspaceDetails.capacity}
                     </span>
                   </div>
                 </div>
               </div>
             ) : (
-              <div className="p-6 text-center text-sm font-bold text-foreground/60">
+              <div className="p-6 text-center text-sm font-bold text-foreground/80">
                 <div className="flex items-center justify-center gap-2">
                   <Armchair className="w-5 h-5 animate-pulse text-[#8C4A21]" />
                   Loading Seating Details...
@@ -325,18 +325,18 @@ export default function WorkspaceSelector() {
           </div>
 
           {/* RIGHT COLUMN: Booking Form */}
-          <div className="bg-white p-6 sm:p-8 rounded-[28px] border border-primary/10 shadow-md shadow-primary/5 space-y-6">
+          <div className="bg-surface p-8 sm:p-10 rounded-3xl border border-border shadow-[0_8px_30px_rgba(10,5,3,0.04)] space-y-8">
             
-            <div className="border-b border-primary/10 pb-5 text-left">
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF6F0] text-[#EA5A0C] text-[10px] font-extrabold uppercase tracking-widest mb-2 border border-[#EA5A0C]/20">
-                <Calendar className="h-3 w-3" /> Seat Reservation Configuration
+            <div className="border-b border-border pb-6 text-left">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-background text-accent text-xs font-semibold uppercase tracking-[0.2em] mb-4 border border-border">
+                <Calendar className="h-3.5 w-3.5" /> Seat Reservation Configuration
               </div>
               {/* Header */}
-          <div className="flex flex-col mb-4">
-            <h3 className="text-xl font-bold font-serif text-[#2A1506]">
+          <div className="flex flex-col mb-2">
+            <h3 className="text-2xl sm:text-3xl font-bold font-serif text-primary">
               Select Your Cafe Space
             </h3>
-            <p className="text-sm text-foreground/60 mt-1">
+            <p className="text-sm text-foreground/70 mt-2 font-medium">
               Choose from available seating areas, booths, and tables.
             </p>
           </div>
@@ -350,27 +350,27 @@ export default function WorkspaceSelector() {
               className="space-y-6 text-left"
             >
               {/* Booking Configuration Fields */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left border-b border-primary/10 pb-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-left border-b border-border pb-8">
                 <div>
-                  <label className="block text-[10px] font-extrabold text-[#7A5A43] uppercase mb-1">Select Date *</label>
+                  <label className="block text-xs font-semibold text-primary uppercase tracking-[0.1em] mb-2">Select Date *</label>
                   <div className="relative">
-                    <Calendar className="h-4 w-4 text-foreground/40 absolute left-3.5 top-3.5 pointer-events-none" />
+                    <Calendar className="h-4 w-4 text-primary/80 absolute left-4 top-3.5 pointer-events-none" />
                     <input
                       type="date"
                       min={todayStr}
                       value={reservationDetails.resDate}
                       onChange={(e) => handleInputChange("resDate", e.target.value)}
-                      className="w-full pl-10 pr-3.5 py-3 rounded-[14px] border border-primary/15 text-xs bg-[#FAF6F0]/60 focus:bg-white text-[#2A1506] font-medium outline-none focus:border-[#EA5A0C] focus:ring-2 focus:ring-[#EA5A0C]/10 transition-all cursor-pointer"
+                      className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-border text-xs bg-background focus:bg-surface text-foreground font-medium outline-none focus:border-accent focus:ring-1 focus:ring-accent/20 transition-all cursor-pointer"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-extrabold text-[#7A5A43] uppercase mb-1">Select Start Time *</label>
+                  <label className="block text-xs font-semibold text-primary uppercase tracking-[0.1em] mb-2">Select Start Time *</label>
                   <select
                     value={reservationDetails.arrivalTime}
                     onChange={(e) => handleInputChange("arrivalTime", e.target.value)}
-                    className="w-full px-3.5 py-3 rounded-[14px] border border-primary/15 text-xs bg-[#FAF6F0]/60 focus:bg-white text-[#2A1506] font-semibold outline-none focus:border-[#EA5A0C] transition-all cursor-pointer shadow-xs"
+                    className="w-full px-4 py-3.5 rounded-2xl border border-border text-xs bg-background focus:bg-surface text-foreground font-medium outline-none focus:border-accent focus:ring-1 focus:ring-accent/20 transition-all cursor-pointer"
                   >
                     {["08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM"].map((t) => (
                       <option key={t} value={t}>{t}</option>
@@ -379,11 +379,11 @@ export default function WorkspaceSelector() {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-extrabold text-[#7A5A43] uppercase mb-1">Select Duration *</label>
+                  <label className="block text-xs font-semibold text-primary uppercase tracking-[0.1em] mb-2">Select Duration *</label>
                   <select
                     value={reservationDetails.duration}
                     onChange={(e) => handleInputChange("duration", e.target.value)}
-                    className="w-full px-3.5 py-3 rounded-[14px] border border-primary/15 text-xs bg-[#FAF6F0]/60 focus:bg-white text-[#2A1506] font-semibold outline-none focus:border-[#EA5A0C] transition-all cursor-pointer shadow-xs"
+                    className="w-full px-4 py-3.5 rounded-2xl border border-border text-xs bg-background focus:bg-surface text-foreground font-medium outline-none focus:border-accent focus:ring-1 focus:ring-accent/20 transition-all cursor-pointer"
                   >
                     <option value="1 Hour">1 Hour</option>
                     <option value="2 Hours">2 Hours</option>
@@ -395,8 +395,8 @@ export default function WorkspaceSelector() {
                 </div>
 
                 <div>
-                  <label className="block text-[10px] font-extrabold text-[#7A5A43] uppercase mb-1">Calculated Time Range</label>
-                  <div className="w-full px-3.5 py-3 rounded-[14px] border border-primary/10 bg-emerald-50 text-emerald-800 text-xs font-bold flex items-center justify-center">
+                  <label className="block text-xs font-semibold text-primary uppercase tracking-[0.1em] mb-2">Calculated Time Range</label>
+                  <div className="w-full px-4 py-3.5 rounded-2xl border border-border bg-background text-primary text-xs font-semibold flex items-center justify-center">
                     {reservationDetails.arrivalTime} — {calculatedEndTime} ({reservationDetails.duration})
                   </div>
                 </div>
@@ -436,9 +436,9 @@ export default function WorkspaceSelector() {
                                   arrivalTime: slot.startTime,
                                 });
                               }}
-                              className="px-3 py-1.5 text-xs font-bold bg-white text-[#2563EB] hover:bg-[#EFF6FF] border border-blue-200 hover:border-blue-300 rounded-lg shadow-sm transition-all cursor-pointer flex items-center gap-1.5"
+                              className="px-3 py-1.5 text-xs font-bold bg-surface text-primary hover:bg-surface border border-primary/20 rounded-lg shadow-sm transition-all cursor-pointer flex items-center gap-1.5"
                             >
-                              <span className="text-[10px]">🟢</span>
+                              <span className="text-xs">🟢</span>
                               {slot.label}
                             </button>
                           ))}
@@ -450,67 +450,67 @@ export default function WorkspaceSelector() {
               </div>
 
               {/* SECTION 1: GUEST DETAILS */}
-              <div className="space-y-3 pt-4 border-t border-primary/5">
-                <h3 className="text-xs font-extrabold text-[#5A2E0C] uppercase tracking-wider flex items-center gap-1.5 pb-2">
-                  <User className="h-4 w-4 text-[#EA5A0C]" />
+              <div className="space-y-4 pt-6 border-t border-border">
+                <h3 className="text-xs font-semibold text-primary uppercase tracking-[0.15em] flex items-center gap-2 pb-2">
+                  <User className="h-4 w-4 text-accent" />
                   Guest Details
                 </h3>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="relative">
-                    <User className="h-4 w-4 text-foreground/40 absolute left-3.5 top-3.5 pointer-events-none" />
+                    <User className="h-4 w-4 text-primary/80 absolute left-4 top-3.5 pointer-events-none" />
                     <input
                       type="text"
                       required
                       placeholder="Full Name *"
                       value={reservationDetails.fullName}
                       onChange={(e) => handleInputChange("fullName", e.target.value)}
-                      className="w-full pl-10 pr-3.5 py-3 rounded-[14px] border border-primary/15 text-xs bg-[#FAF6F0]/60 focus:bg-white text-[#2A1506] font-medium outline-none focus:border-[#EA5A0C] focus:ring-2 focus:ring-[#EA5A0C]/10 transition-all"
+                      className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-border text-xs bg-background focus:bg-surface text-foreground font-medium outline-none focus:border-accent focus:ring-1 focus:ring-accent/20 transition-all"
                     />
                   </div>
 
                   <div className="relative">
-                    <Phone className="h-4 w-4 text-foreground/40 absolute left-3.5 top-3.5 pointer-events-none" />
+                    <Phone className="h-4 w-4 text-foreground/80 absolute left-3.5 top-3.5 pointer-events-none" />
                     <input
                       type="tel"
                       required
                       placeholder="Mobile Number *"
                       value={reservationDetails.mobile}
                       onChange={(e) => handleInputChange("mobile", e.target.value)}
-                      className="w-full pl-10 pr-3.5 py-3 rounded-[14px] border border-primary/15 text-xs bg-[#FAF6F0]/60 focus:bg-white text-[#2A1506] font-medium outline-none focus:border-[#EA5A0C] focus:ring-2 focus:ring-[#EA5A0C]/10 transition-all"
+                      className="w-full pl-10 pr-3.5 py-3 rounded-[14px] border border-primary/15 text-xs bg-surface/60 focus:bg-surface text-primary font-medium outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                     />
                   </div>
 
                   <div className="relative">
-                    <Mail className="h-4 w-4 text-foreground/40 absolute left-3.5 top-3.5 pointer-events-none" />
+                    <Mail className="h-4 w-4 text-foreground/80 absolute left-3.5 top-3.5 pointer-events-none" />
                     <input
                       type="email"
                       placeholder="Email Address (Optional)"
                       value={reservationDetails.email}
                       onChange={(e) => handleInputChange("email", e.target.value)}
-                      className="w-full pl-10 pr-3.5 py-3 rounded-[14px] border border-primary/15 text-xs bg-[#FAF6F0]/60 focus:bg-white text-[#2A1506] font-medium outline-none focus:border-[#EA5A0C] focus:ring-2 focus:ring-[#EA5A0C]/10 transition-all"
+                      className="w-full pl-10 pr-3.5 py-3 rounded-[14px] border border-primary/15 text-xs bg-surface/60 focus:bg-surface text-primary font-medium outline-none focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all"
                     />
                   </div>
                 </div>
               </div>
 
               {/* SECTION 2: SEATING PREFERENCES */}
-              <div className="space-y-3 pt-4 border-t border-primary/5">
-                <h3 className="text-xs font-extrabold text-[#5A2E0C] uppercase tracking-wider flex items-center gap-1.5 pb-2">
-                  <Coffee className="h-4 w-4 text-[#EA5A0C]" />
+              <div className="space-y-4 pt-6 border-t border-border">
+                <h3 className="text-xs font-semibold text-primary uppercase tracking-[0.15em] flex items-center gap-2 pb-2">
+                  <Coffee className="h-4 w-4 text-accent" />
                   Seating Preferences
                 </h3>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 items-end">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
                   <div>
-                    <label className="block text-[10px] font-bold text-foreground/50 uppercase mb-1">
+                    <label className="block text-xs font-semibold text-primary uppercase tracking-[0.1em] mb-2">
                       Environment *
                     </label>
                     <select
                       value={selectedSeat?.zone || reservationDetails.seatingArea}
                       onChange={(e) => handleInputChange("seatingArea", e.target.value)}
                       disabled={!!selectedSeat}
-                      className="w-full px-3.5 py-3 rounded-[14px] border border-primary/15 text-xs bg-[#FAF6F0]/60 focus:bg-white text-[#2A1506] font-semibold outline-none focus:border-[#EA5A0C] transition-all cursor-pointer shadow-xs disabled:opacity-80"
+                      className="w-full px-4 py-3.5 rounded-2xl border border-border text-xs bg-background focus:bg-surface text-foreground font-medium outline-none focus:border-accent transition-all cursor-pointer disabled:opacity-80"
                     >
                       <option value="Indoor Seating">Indoor Air-Conditioned</option>
                       <option value="Outdoor Terrace">Outdoor Garden Terrace</option>
@@ -530,38 +530,38 @@ export default function WorkspaceSelector() {
                   />
 
                   <div>
-                    <label className="block text-[10px] font-bold text-foreground/50 uppercase mb-1">
+                    <label className="block text-xs font-semibold text-primary uppercase tracking-[0.1em] mb-2">
                       Number of People * (1 to 20)
                     </label>
-                    <div className="flex items-center rounded-[14px] border border-primary/15 bg-[#FAF6F0]/60 focus-within:bg-white focus-within:border-[#EA5A0C] transition-all overflow-hidden p-1 shadow-xs">
+                    <div className="flex items-center rounded-2xl border border-border bg-background focus-within:bg-surface focus-within:border-accent transition-all overflow-hidden p-1 shadow-sm">
                       <button
                         type="button"
                         onClick={() => handleGuestCountChange(-1)}
-                        className="h-8 w-8 rounded-xl bg-white hover:bg-[#EA5A0C] hover:text-white text-[#2A1506] flex items-center justify-center transition-all cursor-pointer shrink-0 border border-primary/10 shadow-2xs"
+                        className="h-10 w-10 rounded-xl bg-surface hover:bg-accent hover:text-primary text-primary flex items-center justify-center transition-all cursor-pointer shrink-0 border border-border shadow-sm"
                         aria-label="Decrease guest count"
                       >
-                        <Minus className="h-3.5 w-3.5" />
+                        <Minus className="h-4 w-4" />
                       </button>
 
                       <div className="flex-1 relative flex items-center justify-center px-2">
-                        <Users className="h-3.5 w-3.5 text-foreground/40 absolute left-2 pointer-events-none" />
+                        <Users className="h-4 w-4 text-primary/80 absolute left-2 pointer-events-none" />
                         <input
                           type="number"
                           min={1}
                           max={20}
                           value={reservationDetails.guests}
                           onChange={(e) => handleInputChange("guests", e.target.value)}
-                          className="w-full text-center pl-4 pr-1 py-1 font-bold text-xs bg-transparent text-[#2A1506] outline-none"
+                          className="w-full text-center pl-4 pr-1 py-1 font-semibold text-xs bg-transparent text-foreground outline-none"
                         />
                       </div>
 
                       <button
                         type="button"
                         onClick={() => handleGuestCountChange(1)}
-                        className="h-8 w-8 rounded-xl bg-white hover:bg-[#EA5A0C] hover:text-white text-[#2A1506] flex items-center justify-center transition-all cursor-pointer shrink-0 border border-primary/10 shadow-2xs"
+                        className="h-10 w-10 rounded-xl bg-surface hover:bg-accent hover:text-primary text-primary flex items-center justify-center transition-all cursor-pointer shrink-0 border border-border shadow-sm"
                         aria-label="Increase guest count"
                       >
-                        <Plus className="h-3.5 w-3.5" />
+                        <Plus className="h-4 w-4" />
                       </button>
                     </div>
                   </div>
@@ -569,16 +569,16 @@ export default function WorkspaceSelector() {
               </div>
 
               {/* SPECIAL REQUEST */}
-              <div className="space-y-3 pt-4 border-t border-primary/5">
-                <h3 className="text-xs font-extrabold text-[#5A2E0C] uppercase tracking-wider flex items-center gap-1.5 pb-2">
-                  <Sparkles className="h-4 w-4 text-[#EA5A0C]" />
+              <div className="space-y-4 pt-6 border-t border-border">
+                <h3 className="text-xs font-semibold text-primary uppercase tracking-[0.15em] flex items-center gap-2 pb-2">
+                  <Sparkles className="h-4 w-4 text-accent" />
                   Special Requests (Optional)
                 </h3>
                 <textarea
                   value={reservationDetails.specialRequests || ""}
                   onChange={(e) => handleInputChange("specialRequests", e.target.value)}
                   placeholder="Any special accommodations or requests?"
-                  className="w-full px-4 py-3 rounded-[14px] border border-primary/15 text-xs bg-[#FAF6F0]/60 focus:bg-white text-[#2A1506] font-medium outline-none focus:border-[#EA5A0C] focus:ring-2 focus:ring-[#EA5A0C]/10 transition-all min-h-[80px]"
+                  className="w-full px-4 py-4 rounded-2xl border border-border text-xs bg-background focus:bg-surface text-foreground font-medium outline-none focus:border-accent focus:ring-1 focus:ring-accent/20 transition-all min-h-[100px]"
                 ></textarea>
               </div>
 

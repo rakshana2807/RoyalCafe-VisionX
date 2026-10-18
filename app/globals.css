@@ -1,20 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "tailwindcss";
 
-:root {
-  --background: #F8F1EA;
-  --foreground: #2B2118;
-  --primary: #5A2E0C;
-  --accent: #C18A52;
-}
 
 @theme {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-accent: var(--accent);
+  --color-background: #2B1B17;
+  --color-foreground: #EECCA4;
+  --color-primary: #EECCA4;
+  --color-surface: #EECCA4;
+  --color-surface-secondary: rgba(43, 27, 23, 0.85);
+  --color-accent: #e5b382;
+  --color-border: rgba(238, 204, 164, 0.15);
+  --radius: 0.5rem;
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@layer utilities {
+  /* =========================================
+     VARIABLE-BASED CONTEXT INVERSION
+     Automatically swaps text/bg colors based on the container
+     to guarantee unbreakable contrast rules.
+     ========================================= */
+
+  .bg-surface {
+    /* Inside a Caramel card, default text and borders become Dark */
+    --color-primary: #2B1B17;
+    --color-foreground: #2B1B17;
+    --color-accent: #2B1B17;
+    /* References to background color become Caramel */
+    --color-background: #EECCA4; 
+    --color-border: rgba(43, 27, 23, 0.15);
+  }
+
+  .bg-background {
+    /* Inside a Dark container, restore original theme variables */
+    --color-primary: #EECCA4;
+    --color-foreground: #EECCA4;
+    --color-accent: #e5b382;
+    --color-background: #2B1B17;
+    --color-border: rgba(238, 204, 164, 0.15);
+  }
 }
 
 /* Base resets & layout */
@@ -93,20 +118,28 @@ body {
 
 /* Utilities for premium feel */
 .glass-effect {
-  background: rgba(248, 241, 234, 0.85);
+  background: rgba(43, 27, 23, 0.85); /* Dark Chocolate base */
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
 }
 
 .card-shadow {
-  box-shadow: 0 4px 20px -2px rgba(90, 46, 12, 0.08), 0 2px 8px -1px rgba(90, 46, 12, 0.04);
+  box-shadow: 0 8px 30px rgba(10, 5, 3, 0.4), 0 4px 12px rgba(10, 5, 3, 0.2);
+  border: 1px solid var(--border);
 }
 
 .card-shadow-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-shadow-hover:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px -4px rgba(90, 46, 12, 0.12), 0 4px 12px -2px rgba(90, 46, 12, 0.06);
+  box-shadow: 0 16px 40px rgba(10, 5, 3, 0.6), 0 8px 16px rgba(10, 5, 3, 0.3);
+}
+
+/* Secondary dark cards with subtle caramel border */
+.bg-surface-secondary {
+  background-color: #38241e; /* Slightly lighter than #2b1b17 */
+  border: 1px solid rgba(238, 204, 164, 0.18);
+  color: var(--color-foreground);
 }

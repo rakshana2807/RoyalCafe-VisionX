@@ -27,7 +27,7 @@ export default function WorkflowSteps() {
   ];
 
   return (
-    <section className="py-20 bg-background/50 overflow-hidden">
+    <section className="py-10 bg-background overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
@@ -56,7 +56,7 @@ export default function WorkflowSteps() {
               {steps.map((step, index) => (
                 <div key={index} className="relative group">
                   {/* Circle number indicator */}
-                  <div className="absolute -left-[41px] sm:-left-[45px] top-0.5 h-[28px] w-[28px] sm:h-[34px] sm:w-[34px] rounded-full bg-background border-2 border-primary text-primary font-serif font-bold text-xs sm:text-sm flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300 z-10">
+                  <div className="absolute -left-[41px] sm:-left-[45px] top-0.5 h-[28px] w-[28px] sm:h-[34px] sm:w-[34px] rounded-full bg-background border-2 border-primary text-primary font-serif font-bold text-xs sm:text-sm flex items-center justify-center group-hover:bg-primary group-hover:text-background transition-all duration-300 z-10">
                     {step.num}
                   </div>
 

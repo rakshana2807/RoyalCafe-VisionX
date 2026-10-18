@@ -29,7 +29,7 @@ function BookingConfirmationContent() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-28 text-left">
-      <div className="bg-white p-8 sm:p-12 rounded-[2.5rem] card-shadow border border-primary/5 text-center space-y-6 animate-fade-in">
+      <div className="bg-surface p-8 sm:p-12 rounded-[2.5rem] card-shadow border border-primary/5 text-center space-y-6 animate-fade-in">
         
         {/* Success Icon Badge */}
         <div className="h-20 w-20 rounded-full bg-emerald-100 text-emerald-600 mx-auto flex items-center justify-center border-4 border-emerald-200 shadow-sm">
@@ -50,47 +50,47 @@ function BookingConfirmationContent() {
         </div>
 
         {/* Booking & Payment Details Summary Card */}
-        <div className="bg-[#FAF6F0] p-6 sm:p-8 rounded-[20px] border border-primary/10 text-left text-xs space-y-3.5 font-semibold max-w-xl mx-auto card-shadow">
+        <div className="bg-surface p-6 sm:p-8 rounded-[20px] border border-primary/10 text-left text-xs space-y-3.5 font-semibold max-w-xl mx-auto card-shadow">
           <div className="flex justify-between border-b border-primary/10 pb-3">
-            <span className="text-foreground/50 uppercase tracking-wider">Booking Type:</span>
+            <span className="text-foreground/80 uppercase tracking-wider">Booking Type:</span>
             <span className="font-bold text-accent uppercase tracking-wider">{bookingType}</span>
           </div>
           <div className="flex justify-between border-b border-primary/10 pb-3">
-            <span className="text-foreground/50 uppercase tracking-wider">Booking Reference:</span>
+            <span className="text-foreground/80 uppercase tracking-wider">Booking Reference:</span>
             <span className="font-mono font-bold text-[#5A2E0C] text-sm">{bookingId}</span>
           </div>
           {systemBookingId && (
             <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
-              <span className="text-sm font-medium text-foreground/60">System ID</span>
-              <span className="font-mono text-[11px] font-bold text-foreground/70">{systemBookingId.slice(0, 18)}...</span>
+              <span className="text-sm font-medium text-foreground/80">System ID</span>
+              <span className="font-mono text-xs font-bold text-foreground/70">{systemBookingId.slice(0, 18)}...</span>
             </div>
           )}
           <div className="flex justify-between border-b border-primary/10 pb-3">
-            <span className="text-foreground/50 uppercase tracking-wider">Payment Ref:</span>
+            <span className="text-foreground/80 uppercase tracking-wider">Payment Ref:</span>
             <span className="font-mono font-bold text-accent">{paymentId}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-foreground/50">Reservation Date:</span>
+            <span className="text-foreground/80">Reservation Date:</span>
             <span className="font-bold font-mono text-[#5A2E0C]">{date}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-foreground/50">Arrival Time:</span>
+            <span className="text-foreground/80">Arrival Time:</span>
             <span className="font-bold text-primary">{time}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-foreground/50">Details / Selection:</span>
+            <span className="text-foreground/80">Details / Selection:</span>
             <span className="font-bold text-primary">{workspace} ({seat})</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-foreground/50">Guests &amp; Purpose:</span>
+            <span className="text-foreground/80">Guests &amp; Purpose:</span>
             <span className="font-bold text-primary">{guests} • {purpose}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-foreground/50">Booking Status:</span>
+            <span className="text-foreground/80">Booking Status:</span>
             <span className="font-bold text-emerald-600 capitalize">{status}</span>
           </div>
           <div className="flex justify-between">
-            <span className="text-foreground/50">Payment Status:</span>
+            <span className="text-foreground/80">Payment Status:</span>
             <span className={`font-bold ${isPaid ? "text-emerald-600" : "text-amber-600"}`}>
               {isPaid ? "Paid & Verified" : "Pay at Counter"}
             </span>
@@ -115,28 +115,28 @@ function BookingConfirmationContent() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-6 border-t border-primary/10">
           <Link
             href="/"
-            className="px-4 py-3 bg-[#2A1506] text-white text-xs font-bold rounded-full hover:bg-[#2A1506]/90 shadow-md inline-flex items-center justify-center gap-1.5 uppercase tracking-wider text-center"
+            className="px-4 py-3 bg-[#2A1506] text-primary text-xs font-bold rounded-full hover:bg-[#2A1506]/90 shadow-md inline-flex items-center justify-center gap-1.5 uppercase tracking-wider text-center"
           >
             <Home className="h-3.5 w-3.5" /> Back to Home
           </Link>
 
           <Link
             href="/book"
-            className="px-4 py-3 bg-white border border-primary/20 text-[#5A2E0C] text-xs font-bold rounded-full hover:bg-foreground/5 shadow-sm inline-flex items-center justify-center gap-1.5 uppercase tracking-wider text-center"
+            className="px-4 py-3 bg-surface border border-primary/20 text-[#5A2E0C] text-xs font-bold rounded-full hover:bg-foreground/5 shadow-sm inline-flex items-center justify-center gap-1.5 uppercase tracking-wider text-center"
           >
             <Calendar className="h-3.5 w-3.5 text-accent" /> Book Another
           </Link>
 
           <Link
             href="/menu"
-            className="px-4 py-3 bg-white border border-primary/20 text-[#5A2E0C] text-xs font-bold rounded-full hover:bg-foreground/5 shadow-sm inline-flex items-center justify-center gap-1.5 uppercase tracking-wider text-center"
+            className="px-4 py-3 bg-surface border border-primary/20 text-[#5A2E0C] text-xs font-bold rounded-full hover:bg-foreground/5 shadow-sm inline-flex items-center justify-center gap-1.5 uppercase tracking-wider text-center"
           >
             <Utensils className="h-3.5 w-3.5 text-accent" /> View Menu
           </Link>
 
           <Link
             href="/reviews"
-            className="px-4 py-3 bg-white border border-primary/20 text-[#5A2E0C] text-xs font-bold rounded-full hover:bg-foreground/5 shadow-sm inline-flex items-center justify-center gap-1.5 uppercase tracking-wider text-center"
+            className="px-4 py-3 bg-surface border border-primary/20 text-[#5A2E0C] text-xs font-bold rounded-full hover:bg-foreground/5 shadow-sm inline-flex items-center justify-center gap-1.5 uppercase tracking-wider text-center"
           >
             <Star className="h-3.5 w-3.5 text-accent" /> Leave Review
           </Link>

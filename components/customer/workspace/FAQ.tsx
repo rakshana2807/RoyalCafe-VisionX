@@ -13,24 +13,36 @@ export default function FAQ() {
 
   const faqs: FAQItem[] = [
     {
-      question: "Is Wi-Fi free?",
-      answer: "Yes! Every customer receives complimentary high-speed Wi-Fi for up to 45 minutes with any purchase. If you require extended internet access for remote work or study, you can easily upgrade to a Smart Wi-Fi Pass, or buy a Daily Workspace Pass.",
+      question: "What is the Complimentary WiFi Pass?",
+      answer: "The Complimentary WiFi Pass gives visitors free internet access for 45 minutes with a usage limit of 500 MB. It is designed for quick browsing, messaging, email, and other light online tasks.",
     },
     {
-      question: "Can I reserve seats?",
-      answer: "Absolutely. You can view real-time seating availability on our Live Status dashboard page and book specific hot desks, window seats, quiet zone desks, or meeting booths in advance.",
+      question: "Is the Complimentary WiFi Pass really free?",
+      answer: "Yes. The Complimentary WiFi Pass is completely free and does not require payment.",
     },
     {
-      question: "Are charging ports available?",
-      answer: "Yes, charging ports and power plugs are available at every single workspace desk, focus pod, and private booth in our cafe. They support standard power plugs and direct USB fast-charging cables.",
+      question: "How long can I use the free WiFi?",
+      answer: "The complimentary connection is available for up to 45 minutes.",
     },
     {
-      question: "Can teams book together?",
-      answer: "Yes! Teams can reserve meeting tables or collaborative private booths designed to fit up to 4-6 people. For larger groups, you can book multiple booths or reserve spaces together.",
+      question: "How much data is included?",
+      answer: "The complimentary pass includes up to 500 MB of usage.",
     },
     {
-      question: "What are the working hours?",
-      answer: "Our co-working cafe is open Monday through Friday from 8:00 AM to 10:00 PM, and Saturday and Sunday from 9:00 AM to 11:00 PM.",
+      question: "What can I use the Complimentary WiFi for?",
+      answer: "It is ideal for messaging, email, quick browsing, checking documents, and other light internet activities.",
+    },
+    {
+      question: "What should I choose for longer work sessions?",
+      answer: "Choose the Student Pass or Work Pass for longer sessions, higher bandwidth, and additional workspace benefits.",
+    },
+    {
+      question: "Can I switch from the free pass to a premium pass?",
+      answer: "Yes. You can choose a premium WiFi pass whenever you need a longer or more feature-rich workspace session, subject to the existing booking flow.",
+    },
+    {
+      question: "Does using WiFi require booking a seat?",
+      answer: "Follow the existing Royal Cafe booking rules shown by the application. Keep this answer synchronized with the current implemented functionality rather than introducing new rules.",
     },
   ];
 
@@ -43,41 +55,44 @@ export default function FAQ() {
   };
 
   return (
-    <section className="py-12 bg-background text-foreground">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-background">
+      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Section Header matching Figma */}
-        <div className="text-center mb-8 animate-fade-in">
-          <h2 className="text-3xl sm:text-4xl font-bold font-serif text-[#5A2E0C] mb-3">
+        {/* Section Header */}
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="text-3xl sm:text-4xl font-extrabold font-serif text-primary mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xs sm:text-sm text-foreground/75 font-sans max-w-xl mx-auto">
-            Got questions? We have answers. Find everything you need to know about our co-working workspace.
+          <p className="text-base text-primary/80 font-sans max-w-xl mx-auto">
+            Everything you need to know about staying connected at Royal Cafe.
           </p>
         </div>
 
-        {/* Interactive Accordion List matching Figma */}
-        <div className="space-y-3.5">
+        {/* Interactive Accordion List */}
+        <div className="space-y-4">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className="bg-white rounded-[20px] border border-primary/5 card-shadow overflow-hidden transition-all duration-300"
+                className={`rounded-[20px] border overflow-hidden transition-all duration-300 ${
+                  isOpen ? "bg-background border-primary/20 shadow-md" : "bg-background border-primary/20"
+                }`}
               >
                 {/* Header Trigger button */}
                 <button
                   onClick={() => toggleFAQ(idx)}
-                  className="w-full p-5 flex justify-between items-center text-left font-serif font-bold text-primary text-sm sm:text-base transition-colors hover:text-accent cursor-pointer"
+                  className="w-full p-6 flex justify-between items-center text-left font-serif font-bold text-primary text-base sm:text-lg transition-colors hover:text-primary/90 cursor-pointer"
+                  aria-expanded={isOpen}
                 >
                   <span className="flex items-center gap-3">
-                    <div className="h-6 w-6 rounded-full bg-[#EA5A0C]/10 flex items-center justify-center text-[#EA5A0C] shrink-0">
-                      <HelpCircle className="h-3.5 w-3.5 stroke-[2.5]" />
+                    <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                      <HelpCircle className="h-4 w-4 stroke-[2.5]" />
                     </div>
                     {faq.question}
                   </span>
                   <ChevronDown
-                    className={`h-4 w-4 text-primary/60 transition-transform duration-300 ${
+                    className={`h-5 w-5 text-primary transition-transform duration-300 shrink-0 ${
                       isOpen ? "transform rotate-180" : ""
                     }`}
                   />
@@ -86,10 +101,10 @@ export default function FAQ() {
                 {/* Collapsible Answer panel */}
                 <div
                   className={`transition-all duration-300 ease-in-out overflow-hidden ${
-                    isOpen ? "max-h-[300px] border-t border-primary/5" : "max-h-0"
+                    isOpen ? "max-h-[300px] border-t border-primary/10 opacity-100" : "max-h-0 opacity-0"
                   }`}
                 >
-                  <p className="p-5 text-xs text-foreground/80 leading-relaxed font-sans pl-14">
+                  <p className="p-6 text-sm text-primary/80 leading-relaxed font-sans pl-16">
                     {faq.answer}
                   </p>
                 </div>

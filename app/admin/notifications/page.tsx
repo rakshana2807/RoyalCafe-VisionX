@@ -33,10 +33,10 @@ export default function AdminNotificationsPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#2A1506]  tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black font-serif text-primary  tracking-tight">
             Real-Time Notifications &amp; System Alerts
           </h1>
-          <p className="text-xs text-foreground/60  font-sans">
+          <p className="text-xs text-foreground/80  font-sans">
             Instant logs for bookings, payment triggers, WiFi session events &amp; system alerts
           </p>
         </div>
@@ -63,7 +63,7 @@ export default function AdminNotificationsPage() {
             <div
               key={n.id}
               className={`p-4 rounded-2xl border flex items-start justify-between gap-4 transition-all ${
-                n.read ? "bg-white dark:bg-[#E9DCCE] border-primary/5" : "bg-[#E9DCCE] border-[#EA5A0C]/20 shadow-xs"
+                n.read ? "bg-surface dark:bg-[#E9DCCE] border-primary/5" : "bg-[#E9DCCE] border-accent/20 shadow-xs"
               }`}
             >
               <div className="flex items-start gap-3">
@@ -79,11 +79,11 @@ export default function AdminNotificationsPage() {
                 </div>
               </div>
 
-              <span className="text-[12px] text-foreground/40 font-mono shrink-0">{n.time}</span>
+              <span className="text-[12px] text-foreground/80 font-mono shrink-0">{n.time}</span>
             </div>
           ))
         ) : (
-          <div className="py-12 text-center text-xs text-foreground/50 font-semibold">
+          <div className="py-12 text-center text-xs text-foreground/80 font-semibold">
             Notification inbox is clear. No unread alerts.
           </div>
         )}

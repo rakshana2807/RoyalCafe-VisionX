@@ -182,7 +182,7 @@ function PaymentContent() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Confirmation Form (7 Cols) */}
-          <div className="lg:col-span-7 bg-white p-8 sm:p-10 rounded-[2.5rem] card-shadow border border-primary/5 space-y-6">
+          <div className="lg:col-span-7 bg-surface p-8 sm:p-10 rounded-[2.5rem] card-shadow border border-primary/5 space-y-6">
             
             <div className="flex items-center gap-3 mb-6">
               <div className="w-10 h-10 rounded-full bg-[#EA5A0C]/10 flex items-center justify-center text-[#EA5A0C]">
@@ -190,7 +190,7 @@ function PaymentContent() {
               </div>
               <div>
                 <h2 className="text-xl font-bold font-serif text-[#2A1506]">Confirm Booking</h2>
-                <p className="text-sm text-foreground/60 font-medium">Review your details before confirming</p>
+                <p className="text-sm text-foreground/80 font-medium">Review your details before confirming</p>
               </div>
             </div>
 
@@ -206,7 +206,7 @@ function PaymentContent() {
                 <button
                   type="submit"
                   disabled={isProcessing}
-                  className="w-full bg-[#2A1506] hover:bg-[#3D2314] text-white py-4 rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+                  className="w-full bg-[#2A1506] hover:bg-[#3D2314] text-primary py-4 rounded-xl font-bold text-sm transition-all shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
                 >
                   Confirm & Pay
                 </button>
@@ -215,55 +215,55 @@ function PaymentContent() {
           </div>
 
           {/* Booking Summary Sidebar (5 Cols) */}
-          <div className="lg:col-span-5 bg-white p-6 sm:p-8 rounded-[2.5rem] card-shadow border border-primary/5 space-y-6">
+          <div className="lg:col-span-5 bg-surface p-6 sm:p-8 rounded-[2.5rem] card-shadow border border-primary/5 space-y-6">
             
             <div className="flex items-center justify-between border-b border-primary/5 pb-3">
               <h2 className="text-lg font-bold font-serif text-primary">
                 Booking Summary
               </h2>
-              <span className="text-[10px] font-extrabold px-3 py-1 bg-[#FAF6F0] text-accent rounded-full uppercase tracking-wider border border-primary/5">
+              <span className="text-xs font-extrabold px-3 py-1 bg-surface text-accent rounded-full uppercase tracking-wider border border-primary/5">
                 {bookingType}
               </span>
             </div>
 
             <div className="space-y-3.5 text-xs text-foreground/80 font-semibold">
               <div className="flex justify-between items-center pb-2 border-b border-primary/5">
-                <span className="text-foreground/50 flex items-center gap-1.5">
+                <span className="text-foreground/80 flex items-center gap-1.5">
                   <MapPin className="h-3.5 w-3.5 text-accent" /> Selection
                 </span>
                 <span className="text-primary font-bold">{workspace}</span>
               </div>
 
               <div className="flex justify-between items-center pb-2 border-b border-primary/5">
-                <span className="text-foreground/50 flex items-center gap-1.5">
+                <span className="text-foreground/80 flex items-center gap-1.5">
                   <Calendar className="h-3.5 w-3.5 text-accent" /> Reservation Date
                 </span>
                 <span className="text-accent font-bold font-mono">{date}</span>
               </div>
 
               <div className="flex justify-between items-center pb-2 border-b border-primary/5">
-                <span className="text-foreground/50 flex items-center gap-1.5">
+                <span className="text-foreground/80 flex items-center gap-1.5">
                   <Clock className="h-3.5 w-3.5 text-accent" /> Arrival Time
                 </span>
                 <span className="text-primary font-bold">{time}</span>
               </div>
 
               <div className="flex justify-between items-center pb-2 border-b border-primary/5">
-                <span className="text-foreground/50 flex items-center gap-1.5">
+                <span className="text-foreground/80 flex items-center gap-1.5">
                   <Clock className="h-3.5 w-3.5 text-accent" /> Duration
                 </span>
                 <span className="text-primary font-bold">{duration}</span>
               </div>
 
               <div className="flex justify-between items-center pb-2 border-b border-primary/5">
-                <span className="text-foreground/50 flex items-center gap-1.5">
+                <span className="text-foreground/80 flex items-center gap-1.5">
                   <User className="h-3.5 w-3.5 text-accent" /> Guests &amp; Purpose
                 </span>
                 <span className="text-primary font-bold">{guests} • {purpose}</span>
               </div>
               
               <div className="flex justify-between items-center pb-2 border-b border-primary/5">
-                <span className="text-foreground/50">WiFi Pass</span>
+                <span className="text-foreground/80">WiFi Pass</span>
                 <span className="font-bold text-accent">{wifiPass ? `${wifiPass.name} (₹${wifiPass.price})` : "None"}</span>
               </div>
 
@@ -277,8 +277,8 @@ function PaymentContent() {
 
         {/* Dummy Payment Modal */}
         {showPaymentModal && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4">
-            <div className="bg-white rounded-2xl p-6 w-full max-w-sm shadow-xl space-y-6">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/60 p-4">
+            <div className="bg-surface rounded-2xl p-6 w-full max-w-sm shadow-xl space-y-6">
               <h3 className="text-xl font-bold font-serif text-center border-b pb-4">Payment Summary</h3>
               
               <div className="space-y-3 text-sm">
@@ -311,7 +311,7 @@ function PaymentContent() {
               <button
                 onClick={handleConfirm}
                 disabled={isProcessing}
-                className="w-full bg-[#2A1506] hover:bg-[#3D2314] text-white py-3 rounded-xl font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
+                className="w-full bg-[#2A1506] hover:bg-[#3D2314] text-primary py-3 rounded-xl font-bold transition-all shadow-md flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 disabled:cursor-not-allowed"
               >
                 {isProcessing ? "Processing..." : `Pay ₹${grandTotal}`}
               </button>
@@ -319,7 +319,7 @@ function PaymentContent() {
               <button
                 onClick={() => setShowPaymentModal(false)}
                 disabled={isProcessing}
-                className="w-full text-foreground/60 hover:text-foreground text-sm py-2"
+                className="w-full text-foreground/80 hover:text-foreground text-sm py-2"
               >
                 Cancel
               </button>

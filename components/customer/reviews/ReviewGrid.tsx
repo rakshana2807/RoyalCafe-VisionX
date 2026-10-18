@@ -55,7 +55,7 @@ export default function ReviewGrid() {
       date: "Oct 08, 2023",
       helpfulCount: 15,
       initials: "JW",
-      avatarBg: "bg-[#FAF6F0] text-primary border border-primary/10",
+      avatarBg: "bg-surface text-primary border border-primary/10",
     },
     {
       id: "r4",
@@ -67,7 +67,7 @@ export default function ReviewGrid() {
       date: "Oct 04, 2023",
       helpfulCount: 31,
       initials: "SC",
-      avatarBg: "bg-[#FAF6F0] text-primary border border-primary/10",
+      avatarBg: "bg-surface text-primary border border-primary/10",
     },
     {
       id: "r5",
@@ -79,7 +79,7 @@ export default function ReviewGrid() {
       date: "Sep 30, 2023",
       helpfulCount: 12,
       initials: "RG",
-      avatarBg: "bg-[#FAF6F0] text-primary border border-primary/10",
+      avatarBg: "bg-surface text-primary border border-primary/10",
     },
     {
       id: "r6",
@@ -91,7 +91,7 @@ export default function ReviewGrid() {
       date: "Sep 25, 2023",
       helpfulCount: 8,
       initials: "EW",
-      avatarBg: "bg-[#FAF6F0] text-primary border border-primary/10",
+      avatarBg: "bg-surface text-primary border border-primary/10",
     },
     {
       id: "r7",
@@ -103,7 +103,7 @@ export default function ReviewGrid() {
       date: "Sep 20, 2023",
       helpfulCount: 27,
       initials: "LO",
-      avatarBg: "bg-[#FAF6F0] text-primary border border-primary/10",
+      avatarBg: "bg-surface text-primary border border-primary/10",
     },
     {
       id: "r8",
@@ -115,7 +115,7 @@ export default function ReviewGrid() {
       date: "Sep 15, 2023",
       helpfulCount: 42,
       initials: "PM",
-      avatarBg: "bg-[#FAF6F0] text-primary border border-primary/10",
+      avatarBg: "bg-surface text-primary border border-primary/10",
     },
   ]);
 
@@ -156,13 +156,13 @@ export default function ReviewGrid() {
           
           {/* Search Input */}
           <div className="relative w-full md:w-80">
-            <Search className="absolute left-3.5 top-3 h-4 w-4 text-foreground/40" />
+            <Search className="absolute left-3.5 top-3 h-4 w-4 text-foreground/80" />
             <input
               type="text"
               placeholder="Search reviews by name or keyword..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 rounded-full border border-primary/10 bg-white text-xs font-sans focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-sm"
+              className="w-full pl-10 pr-4 py-2.5 rounded-full border border-primary/10 bg-surface text-xs font-sans focus:outline-none focus:ring-2 focus:ring-primary/20 shadow-sm"
             />
           </div>
 
@@ -174,8 +174,8 @@ export default function ReviewGrid() {
                 onClick={() => setSelectedRating(star)}
                 className={`px-4 py-2 rounded-full text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
                   selectedRating === star
-                    ? "bg-primary text-white shadow-sm"
-                    : "bg-white text-primary hover:bg-[#FAF6F0] border border-primary/5"
+                    ? "bg-primary text-background shadow-sm"
+                    : "bg-surface text-primary hover:bg-surface border border-primary/5"
                 }`}
               >
                 {star === "All" ? "All Ratings" : `${star} Stars`}
@@ -190,7 +190,7 @@ export default function ReviewGrid() {
           {filteredReviews.map((rev) => (
             <div
               key={rev.id}
-              className="bg-white p-6 rounded-3xl border border-primary/5 flex flex-col justify-between card-shadow card-shadow-hover text-left h-full"
+              className="bg-surface p-6 rounded-3xl border border-primary/5 flex flex-col justify-between card-shadow card-shadow-hover text-left h-full"
             >
               <div>
                 {/* Header: Avatar, Name, Occupation */}
@@ -203,7 +203,7 @@ export default function ReviewGrid() {
                       {rev.name}
                       <CheckCircle2 className="h-3 w-3 text-emerald-500 fill-emerald-100" />
                     </h4>
-                    <span className="text-[10px] text-foreground/50 font-medium block">
+                    <span className="text-xs text-foreground/80 font-medium block">
                       {rev.occupation}
                     </span>
                   </div>
@@ -228,11 +228,11 @@ export default function ReviewGrid() {
               </div>
 
               {/* Footer: Date & Helpful Like Counter */}
-              <div className="pt-3 border-t border-primary/5 flex items-center justify-between text-[10px] font-semibold text-foreground/50">
+              <div className="pt-3 border-t border-primary/5 flex items-center justify-between text-xs font-semibold text-foreground/80">
                 <span>{rev.date}</span>
                 <button
                   onClick={() => handleLike(rev.id)}
-                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#FAF6F0] text-primary hover:bg-primary hover:text-white transition-colors cursor-pointer border border-primary/5 active:scale-95"
+                  className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface text-primary hover:bg-primary hover:text-background transition-colors cursor-pointer border border-primary/5 active:scale-95"
                 >
                   <ThumbsUp className="h-3 w-3 stroke-[2]" />
                   <span>Helpful ({rev.helpfulCount})</span>

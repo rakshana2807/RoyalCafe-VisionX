@@ -348,14 +348,14 @@ export default function AdminReservationsPage() {
       case "Checked In":
         return "bg-emerald-500/15 text-emerald-800 border-emerald-500/30";
       case "Checked Out":
-        return "bg-slate-500/15 text-slate-700 border-slate-500/30";
+        return "bg-primary/10 text-primary/70 border-primary/20";
       case "Cancelled":
         return "bg-rose-500/15 text-rose-800 border-rose-500/30";
     }
   };
 
   return (
-    <div className="space-y-6 text-[#3D2314]">
+    <div className="space-y-6 text-foreground">
       {/* Toast Alert */}
       <AnimatePresence>
         {toast && (
@@ -363,7 +363,7 @@ export default function AdminReservationsPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-6 right-6 z-50 bg-[#3D2314] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
+            className="fixed top-6 right-6 z-50 bg-accent text-primary px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
           >
             <CheckCircle2 className="h-5 w-5 text-emerald-400" />
             <span className="text-xs font-bold font-sans">{toast}</span>
@@ -375,35 +375,35 @@ export default function AdminReservationsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <Calendar className="w-7 h-7 text-[#8C4A21]" />
-            <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#3D2314] tracking-tight">
+            <Calendar className="w-7 h-7 text-accent" />
+            <h1 className="text-2xl sm:text-3xl font-black font-serif text-foreground tracking-tight">
               Reservations Management
             </h1>
           </div>
-          <p className="text-xs text-[#7A5A43] mt-1">
+          <p className="text-xs text-foreground/80 mt-1">
             View, filter, sort, and manage all café and workspace desk bookings across your facility.
           </p>
         </div>
 
         <div className="flex items-center gap-3 self-start sm:self-auto">
-          <span className="text-xs font-mono font-bold text-[#8C4A21] bg-[#F8F1EA] px-4 py-2 rounded-full border border-[#E5D5C5] shadow-xs">
+          <span className="text-xs font-mono font-bold text-accent bg-surface px-4 py-2 rounded-full border border-border/50 shadow-xs">
             Total: {reservations.length} Bookings
           </span>
         </div>
       </div>
 
       {/* Search & Multi-Filters Bar */}
-      <div className="bg-[#FFFDF9] p-5 rounded-[20px] border border-[#E5D5C5] shadow-sm space-y-4">
+      <div className="bg-surface p-5 rounded-[20px] border border-border/50 shadow-sm space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Search Bar */}
           <div className="relative lg:col-span-2">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7A5A43]" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-foreground/80" />
             <input
               type="text"
               placeholder="Search by Booking ID, Customer Name, Email, Desk..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 placeholder-[#7A5A43]/60 transition-all font-medium"
+              className="w-full pl-10 pr-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 placeholder:text-foreground/80 transition-all font-medium"
             />
           </div>
 
@@ -412,7 +412,7 @@ export default function AdminReservationsPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="All">Filter by Status (All)</option>
               <option value="Confirmed">Confirmed</option>
@@ -426,7 +426,7 @@ export default function AdminReservationsPage() {
             <select
               value={workspaceFilter}
               onChange={(e) => setWorkspaceFilter(e.target.value)}
-              className="w-full px-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="All">Workspace Type (All)</option>
               <option value="Café Table">Café Table</option>
@@ -444,7 +444,7 @@ export default function AdminReservationsPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="priority">Priority First (Action Required)</option>
               <option value="latest">Latest Booking Date</option>
@@ -458,11 +458,11 @@ export default function AdminReservationsPage() {
       </div>
 
       {/* Main Table Card */}
-      <div className="bg-[#FFFDF9] rounded-[20px] border border-[#E5D5C5] shadow-sm overflow-hidden space-y-4">
+      <div className="bg-surface rounded-[20px] border border-border/50 shadow-sm overflow-hidden space-y-4">
         {/* Desktop View */}
         <div className="hidden md:block overflow-x-auto">
-          <table className="w-full text-left text-xs text-[#3D2314] border-collapse">
-            <thead className="bg-[#F8F1EA] uppercase text-[11px] font-extrabold tracking-wider text-[#7A5A43] border-b border-[#E5D5C5]">
+          <table className="w-full text-left text-xs text-foreground border-collapse">
+            <thead className="bg-surface uppercase text-xs font-extrabold tracking-wider text-foreground/80 border-b border-border/50">
               <tr>
                 <th className="py-4 px-4 font-bold">Booking ID</th>
                 <th className="py-4 px-4 font-bold">User Name</th>
@@ -475,7 +475,7 @@ export default function AdminReservationsPage() {
                 <th className="py-4 px-4 font-bold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E5D5C5]/60">
+            <tbody className="divide-y divide-border/50">
               {paginatedReservations.length > 0 ? (
                 paginatedReservations.map((row, idx) => {
                   const isOdd = idx % 2 !== 0;
@@ -485,49 +485,49 @@ export default function AdminReservationsPage() {
                     <tr
                       key={row.bookingId}
                       className={`${
-                        isOdd ? "bg-[#FBF7F1]/60" : "bg-[#FFFDF9]"
-                      } hover:bg-[#F3E9DD] transition-colors`}
+                        isOdd ? "bg-background" : "bg-surface"
+                      } hover:bg-background transition-colors`}
                     >
                       {/* 1. Booking ID */}
-                      <td className="py-4 px-4 font-bold font-mono text-sm text-[#8C4A21] whitespace-nowrap">
+                      <td className="py-4 px-4 font-bold font-mono text-sm text-accent whitespace-nowrap">
                         {row.bookingId}
                       </td>
 
                       {/* 2. User Name */}
                       <td className="py-4 px-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#3D2314] to-[#8C4A21] text-amber-200 flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs ring-2 ring-[#E5D5C5]/40">
+                          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-accent to-accent-light text-amber-200 flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs ring-2 ring-border/50">
                             {row.userName.charAt(0)}
                           </div>
                           <div>
-                            <div className="font-bold text-sm text-[#3D2314]">{row.userName}</div>
-                            <div className="text-[11px] text-[#7A5A43]">{row.userEmail}</div>
+                            <div className="font-bold text-sm text-foreground">{row.userName}</div>
+                            <div className="text-xs text-foreground/80">{row.userEmail}</div>
                           </div>
                         </div>
                       </td>
 
                       {/* 3. Desk ID */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <span className="font-extrabold font-mono text-xs text-[#8C4A21] bg-[#F8F1EA] px-3 py-1 rounded-full border border-[#E5D5C5] shadow-2xs">
+                        <span className="font-extrabold font-mono text-xs text-accent bg-surface px-3 py-1 rounded-full border border-border/50 shadow-2xs">
                           {row.deskId}
                         </span>
                       </td>
 
                       {/* 4. Arrival Time */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <div className="flex items-center gap-1.5 text-xs font-semibold text-[#3D2314]">
-                          <Clock className="w-3.5 h-3.5 text-[#8C4A21] shrink-0" />
+                        <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                          <Clock className="w-3.5 h-3.5 text-accent shrink-0" />
                           <span>{row.arrivalTime}</span>
                         </div>
                       </td>
 
                       {/* 5. Date */}
-                      <td className="py-4 px-4 text-xs font-medium text-[#7A5A43] whitespace-nowrap">
+                      <td className="py-4 px-4 text-xs font-medium text-foreground/80 whitespace-nowrap">
                         {row.date}
                       </td>
 
                       {/* 6. Duration */}
-                      <td className="py-4 px-4 text-xs font-semibold text-[#3D2314] whitespace-nowrap">
+                      <td className="py-4 px-4 text-xs font-semibold text-foreground whitespace-nowrap">
                         {row.duration}
                       </td>
 
@@ -543,7 +543,7 @@ export default function AdminReservationsPage() {
                       {/* 8. Booking Status */}
                       <td className="py-4 px-4 whitespace-nowrap">
                         <span
-                          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[11px] font-extrabold border uppercase tracking-wider shadow-2xs ${getStatusBadge(
+                          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-extrabold border uppercase tracking-wider shadow-2xs ${getStatusBadge(
                             row.status
                           )}`}
                         >
@@ -560,7 +560,7 @@ export default function AdminReservationsPage() {
                               <button
                                 type="button"
                                 onClick={() => handleStatusChange(row.bookingId, "Checked In", row.dbId)}
-                                className="px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
+                                className="px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-primary font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
                                 title="Check In Guest"
                               >
                                 <UserCheck className="w-3.5 h-3.5" />
@@ -582,7 +582,7 @@ export default function AdminReservationsPage() {
                             <button
                               type="button"
                               onClick={() => handleStatusChange(row.bookingId, "Checked Out", row.dbId)}
-                              className="px-3.5 py-1.5 rounded-xl bg-amber-700 hover:bg-amber-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
+                              className="px-3.5 py-1.5 rounded-xl bg-amber-700 hover:bg-amber-800 active:scale-95 text-primary font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
                               title="Check Out Guest"
                             >
                               <LogOut className="w-3.5 h-3.5" />
@@ -592,8 +592,8 @@ export default function AdminReservationsPage() {
 
                           {/* Checked Out Disabled Badge */}
                           {row.status === "Checked Out" && (
-                            <span className="px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200 inline-flex items-center gap-1 opacity-80">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-slate-600" />
+                            <span className="px-3 py-1.5 rounded-xl bg-surface-secondary text-primary/70 font-bold text-xs border border-border inline-flex items-center gap-1 opacity-80">
+                              <CheckCircle2 className="w-3.5 h-3.5 text-background/80" />
                               Checked Out
                             </span>
                           )}
@@ -610,7 +610,7 @@ export default function AdminReservationsPage() {
                           <button
                             type="button"
                             onClick={() => setSelectedBooking(row)}
-                            className="p-1.5 rounded-xl bg-[#F8F1EA] hover:bg-[#3D2314] hover:text-white text-[#3D2314] transition-all cursor-pointer flex items-center justify-center border border-[#E5D5C5]"
+                            className="p-1.5 rounded-xl bg-surface hover:bg-accent hover:text-primary text-foreground transition-all cursor-pointer flex items-center justify-center border border-border/50"
                             title="View Booking Details"
                           >
                             <Eye className="w-4 h-4" />
@@ -622,7 +622,7 @@ export default function AdminReservationsPage() {
                 })
               ) : (
                 <tr>
-                  <td colSpan={9} className="py-12 text-center text-xs text-[#7A5A43]">
+                  <td colSpan={9} className="py-12 text-center text-xs text-foreground/80">
                     No bookings found matching your search and filter criteria.
                   </td>
                 </tr>
@@ -632,11 +632,11 @@ export default function AdminReservationsPage() {
         </div>
 
         {/* Pagination Bar */}
-        <div className="p-4 bg-[#F8F1EA]/60 border-t border-[#E5D5C5] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <div className="text-[#7A5A43] font-medium">
-            Showing <span className="font-bold text-[#3D2314]">{paginatedReservations.length > 0 ? startIndex + 1 : 0}</span> to{" "}
-            <span className="font-bold text-[#3D2314]">{Math.min(startIndex + itemsPerPage, filteredReservations.length)}</span> of{" "}
-            <span className="font-bold text-[#3D2314]">{filteredReservations.length}</span> total entries
+        <div className="p-4 bg-surface/60 border-t border-border/50 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div className="text-foreground/80 font-medium">
+            Showing <span className="font-bold text-foreground">{paginatedReservations.length > 0 ? startIndex + 1 : 0}</span> to{" "}
+            <span className="font-bold text-foreground">{Math.min(startIndex + itemsPerPage, filteredReservations.length)}</span> of{" "}
+            <span className="font-bold text-foreground">{filteredReservations.length}</span> total entries
           </div>
 
           <div className="flex items-center gap-1.5">
@@ -644,18 +644,18 @@ export default function AdminReservationsPage() {
               type="button"
               onClick={() => setCurrentPage((p) => Math.max(p - 1, 1))}
               disabled={currentPage === 1}
-              className="p-2 rounded-xl bg-[#FFFDF9] border border-[#E5D5C5] text-[#3D2314] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#3D2314] hover:text-white transition-all cursor-pointer"
+              className="p-2 rounded-xl bg-surface border border-border/50 text-foreground disabled:opacity-80 disabled:cursor-not-allowed hover:bg-accent hover:text-primary transition-all cursor-pointer"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="px-3 py-1 font-bold font-mono text-[#8C4A21]">
+            <span className="px-3 py-1 font-bold font-mono text-accent">
               Page {currentPage} of {totalPages}
             </span>
             <button
               type="button"
               onClick={() => setCurrentPage((p) => Math.min(p + 1, totalPages))}
               disabled={currentPage === totalPages}
-              className="p-2 rounded-xl bg-[#FFFDF9] border border-[#E5D5C5] text-[#3D2314] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#3D2314] hover:text-white transition-all cursor-pointer"
+              className="p-2 rounded-xl bg-surface border border-border/50 text-foreground disabled:opacity-80 disabled:cursor-not-allowed hover:bg-accent hover:text-primary transition-all cursor-pointer"
             >
               <ChevronRight className="w-4 h-4" />
             </button>
@@ -672,69 +672,69 @@ export default function AdminReservationsPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedBooking(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-background/60 backdrop-blur-xs"
             />
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-lg bg-[#FFFDF9] rounded-3xl border border-[#E5D5C5] shadow-2xl overflow-hidden text-xs z-10"
+              className="relative w-full max-w-lg bg-surface rounded-3xl border border-border/50 shadow-2xl overflow-hidden text-xs z-10"
             >
-              <div className="p-6 bg-[#F8F1EA] border-b border-[#E5D5C5] flex items-center justify-between">
+              <div className="p-6 bg-surface border-b border-border/50 flex items-center justify-between">
                 <div>
-                  <h3 className="text-lg font-bold font-serif text-[#3D2314]">
+                  <h3 className="text-lg font-bold font-serif text-foreground">
                     Booking Details — {selectedBooking.bookingId}
                   </h3>
-                  <span className="text-xs text-[#7A5A43]">
+                  <span className="text-xs text-foreground/80">
                     RoyalCafe Connect Desk Reservation System
                   </span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedBooking(null)}
-                  className="p-2 rounded-xl bg-[#FFFDF9] text-[#3D2314] hover:bg-[#3D2314] hover:text-white border border-[#E5D5C5] transition-colors cursor-pointer"
+                  className="p-2 rounded-xl bg-surface text-foreground hover:bg-accent hover:text-primary border border-border/50 transition-colors cursor-pointer"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
               <div className="p-6 space-y-4">
-                <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2">
+                <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-bold">User Name:</span>
-                    <span className="font-bold text-[#3D2314]">{selectedBooking.userName}</span>
+                    <span className="text-foreground/80 font-bold">User Name:</span>
+                    <span className="font-bold text-foreground">{selectedBooking.userName}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-bold">User Email:</span>
+                    <span className="text-foreground/80 font-bold">User Email:</span>
                     <span>{selectedBooking.userEmail}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-bold">User Phone:</span>
+                    <span className="text-foreground/80 font-bold">User Phone:</span>
                     <span>{selectedBooking.userPhone}</span>
                   </div>
                 </div>
 
-                <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2">
+                <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2">
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-bold">Desk / Workspace ID:</span>
-                    <span className="font-extrabold font-mono text-[#8C4A21]">{selectedBooking.deskId}</span>
+                    <span className="text-foreground/80 font-bold">Desk / Workspace ID:</span>
+                    <span className="font-extrabold font-mono text-accent">{selectedBooking.deskId}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-bold">Workspace Type:</span>
+                    <span className="text-foreground/80 font-bold">Workspace Type:</span>
                     <span>{selectedBooking.workspaceType}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-bold">Arrival Time:</span>
+                    <span className="text-foreground/80 font-bold">Arrival Time:</span>
                     <span>{selectedBooking.arrivalTime} ({selectedBooking.date})</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-bold">Duration:</span>
+                    <span className="text-foreground/80 font-bold">Duration:</span>
                     <span>{selectedBooking.duration}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-bold">Booking Status:</span>
+                    <span className="text-foreground/80 font-bold">Booking Status:</span>
                     <span
-                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${getStatusBadge(
+                      className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase ${getStatusBadge(
                         selectedBooking.status
                       )}`}
                     >
@@ -744,11 +744,11 @@ export default function AdminReservationsPage() {
                 </div>
               </div>
 
-              <div className="p-6 bg-[#F8F1EA] border-t border-[#E5D5C5] flex justify-end gap-2">
+              <div className="p-6 bg-surface border-t border-border/50 flex justify-end gap-2">
                 <button
                   type="button"
                   onClick={() => setSelectedBooking(null)}
-                  className="px-5 py-2.5 rounded-2xl bg-[#FFFDF9] text-[#3D2314] font-bold border border-[#E5D5C5] hover:bg-[#3D2314] hover:text-white transition-all cursor-pointer"
+                  className="px-5 py-2.5 rounded-2xl bg-surface text-foreground font-bold border border-border/50 hover:bg-accent hover:text-primary transition-all cursor-pointer"
                 >
                   Close Window
                 </button>

@@ -76,7 +76,7 @@ export default function SearchableTableDropdown({
 
   return (
     <div ref={dropdownRef} className="relative w-full text-left font-sans" onKeyDown={handleKeyDown}>
-      <label className="block text-[10px] font-bold text-foreground/50 uppercase mb-1">
+      <label className="block text-xs font-bold text-foreground/80 uppercase mb-1">
         Table Type * (Searchable)
       </label>
 
@@ -91,27 +91,27 @@ export default function SearchableTableDropdown({
         }}
         aria-haspopup="listbox"
         aria-expanded={isOpen}
-        className="w-full px-3.5 py-3 rounded-[14px] border border-primary/15 bg-[#FAF6F0]/60 hover:bg-white text-[#2A1506] font-semibold text-xs flex items-center justify-between outline-none focus:border-[#EA5A0C] focus:ring-2 focus:ring-[#EA5A0C]/10 transition-all cursor-pointer shadow-xs"
+        className="w-full px-3.5 py-3 rounded-[14px] border border-primary/15 bg-surface/60 hover:bg-surface text-primary font-semibold text-xs flex items-center justify-between outline-none focus:border-accent focus:ring-2 focus:ring-[#EA5A0C]/10 transition-all cursor-pointer shadow-xs"
       >
         <div className="flex items-center gap-2 truncate">
-          <span className="h-2 w-2 rounded-full bg-[#EA5A0C]" />
+          <span className="h-2 w-2 rounded-full bg-accent" />
           <span className="truncate">{value || "Select Table Type"}</span>
         </div>
         <ChevronDown
-          className={`h-4 w-4 text-[#2A1506]/60 transition-transform duration-200 shrink-0 ${
-            isOpen ? "rotate-180 text-[#EA5A0C]" : ""
+          className={`h-4 w-4 text-primary/80 transition-transform duration-200 shrink-0 ${
+            isOpen ? "rotate-180 text-accent" : ""
           }`}
         />
       </button>
 
       {/* Animated Dropdown Menu */}
       {isOpen && (
-        <div className="absolute z-50 mt-1.5 w-full bg-white rounded-[18px] border border-primary/10 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
+        <div className="absolute z-50 mt-1.5 w-full bg-surface rounded-[18px] border border-primary/10 shadow-2xl overflow-hidden animate-in fade-in zoom-in-95 duration-150">
           
           {/* Search Header */}
-          <div className="p-2.5 bg-[#FAF6F0] border-b border-primary/10">
+          <div className="p-2.5 bg-surface border-b border-primary/10">
             <div className="relative">
-              <Search className="h-3.5 w-3.5 text-foreground/40 absolute left-3 top-3 pointer-events-none" />
+              <Search className="h-3.5 w-3.5 text-foreground/80 absolute left-3 top-3 pointer-events-none" />
               <input
                 ref={inputRef}
                 type="text"
@@ -121,7 +121,7 @@ export default function SearchableTableDropdown({
                   setFocusedIndex(0);
                 }}
                 placeholder="Search seating options..."
-                className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-primary/15 bg-white text-[#2A1506] placeholder:text-foreground/40 outline-none focus:border-[#EA5A0C]"
+                className="w-full pl-9 pr-3 py-2 text-xs rounded-xl border border-primary/15 bg-surface text-primary placeholder:text-foreground/80 outline-none focus:border-accent"
               />
             </div>
           </div>
@@ -150,29 +150,29 @@ export default function SearchableTableDropdown({
                     onMouseEnter={() => setFocusedIndex(idx)}
                     className={`px-3 py-2.5 rounded-xl cursor-pointer transition-all flex items-center justify-between text-xs ${
                       isSelected
-                        ? "bg-[#FAF6F0] text-[#EA5A0C] font-extrabold"
+                        ? "bg-surface text-accent font-extrabold"
                         : isFocused
-                        ? "bg-[#FAF6F0]/80 text-[#2A1506]"
-                        : "text-[#2A1506] hover:bg-[#FAF6F0]/50"
+                        ? "bg-surface/80 text-primary"
+                        : "text-primary hover:bg-surface/50"
                     }`}
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <div className={`p-1.5 rounded-lg ${isSelected ? "bg-[#EA5A0C]/10 text-[#EA5A0C]" : "bg-primary/5 text-foreground/50"}`}>
+                      <div className={`p-1.5 rounded-lg ${isSelected ? "bg-accent/10 text-accent" : "bg-primary/5 text-foreground/80"}`}>
                         <IconComponent className="h-3.5 w-3.5" />
                       </div>
                       <div className="min-w-0">
                         <p className="font-bold truncate">{opt.name}</p>
-                        <p className="text-[10px] text-foreground/50 truncate font-normal">
+                        <p className="text-xs text-foreground/80 truncate font-normal">
                           {opt.desc}
                         </p>
                       </div>
                     </div>
 
                     <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                      <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-primary/5 text-foreground/60">
+                      <span className="text-[9px] font-extrabold px-2 py-0.5 rounded-full bg-primary/5 text-foreground/80">
                         {opt.capacity}
                       </span>
-                      {isSelected && <Check className="h-3.5 w-3.5 text-[#EA5A0C]" />}
+                      {isSelected && <Check className="h-3.5 w-3.5 text-accent" />}
                     </div>
                   </li>
                 );

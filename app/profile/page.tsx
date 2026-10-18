@@ -230,7 +230,7 @@ export default function UserProfilePage() {
   );
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#FAF4ED] text-[#3D2314] font-sans selection:bg-[#8C4A21] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-background text-foreground font-sans relative overflow-hidden">
       {/* Toast Alert */}
       <AnimatePresence>
         {toast && (
@@ -238,7 +238,7 @@ export default function UserProfilePage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-24 right-6 z-50 bg-[#3D2314] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
+            className="fixed top-24 right-6 z-50 bg-accent text-primary px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
           >
             <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
             <span className="text-xs font-bold font-sans">{toast}</span>
@@ -252,13 +252,13 @@ export default function UserProfilePage() {
       {/* Main Profile Body with Proper Top Spacing from Navbar */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-22 lg:pt-24 pb-12 space-y-8">
         {/* PROFILE HEADER HERO */}
-        <div className="bg-[#FFFDF9] rounded-3xl p-6 sm:p-8 border border-[#E5D5C5] shadow-sm relative overflow-hidden space-y-6">
+        <div className="bg-surface rounded-3xl p-6 sm:p-8 border border-border/50 shadow-sm relative overflow-hidden space-y-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             {/* Avatar + User Info */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start md:items-center gap-5 text-center sm:text-left">
               {/* Profile Avatar with Camera Trigger */}
               <div className="relative group">
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-gradient-to-tr from-[#3D2314] via-[#5C2E13] to-[#8C4A21] text-amber-200 flex items-center justify-center font-bold text-3xl shadow-md ring-4 ring-[#8C4A21]/20 overflow-hidden">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-accent text-primary text-amber-200 flex items-center justify-center font-bold text-3xl shadow-md ring-4 ring-accent/20 overflow-hidden">
                   {userInfo.avatarUrl ? (
                     <img src={userInfo.avatarUrl} alt={userInfo.name} className="w-full h-full object-cover" />
                   ) : (
@@ -268,7 +268,7 @@ export default function UserProfilePage() {
                 <button
                   type="button"
                   onClick={() => showToast("📷 Profile avatar updated")}
-                  className="absolute bottom-0 right-0 p-2 rounded-xl bg-[#8C4A21] hover:bg-[#3D2314] text-white shadow-md transition-all cursor-pointer"
+                  className="absolute bottom-0 right-0 p-2 rounded-xl bg-accent hover:bg-accent text-primary shadow-md transition-all cursor-pointer"
                   title="Upload / Change Avatar"
                 >
                   <Camera className="w-4 h-4" />
@@ -278,22 +278,22 @@ export default function UserProfilePage() {
               {/* Text Info */}
               <div className="space-y-1.5">
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                  <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#3D2314]">
+                  <h1 className="text-2xl sm:text-3xl font-black font-serif text-foreground">
                     {userInfo.name}
                   </h1>
                   <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-500/15 text-amber-900 border border-amber-500/30 flex items-center gap-1">
                     <Crown className="w-3.5 h-3.5 text-amber-700" /> {userInfo.membershipPlan}
                   </span>
                 </div>
-                <p className="text-xs text-[#7A5A43] font-medium flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                  <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-[#8C4A21]" /> {userInfo.email}</span>
-                  <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5 text-[#8C4A21]" /> {userInfo.phone}</span>
+                <p className="text-xs text-foreground/80 font-medium flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                  <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-accent" /> {userInfo.email}</span>
+                  <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5 text-accent" /> {userInfo.phone}</span>
                 </p>
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-1 text-xs">
-                  <span className="text-[#7A5A43] font-semibold">
-                    Member Since: <strong className="text-[#3D2314]">{userInfo.memberSince}</strong>
+                  <span className="text-foreground/80 font-semibold">
+                    Member Since: <strong className="text-foreground">{userInfo.memberSince}</strong>
                   </span>
-                  <span className="text-[#8C4A21] font-bold bg-[#F8F1EA] px-3 py-1 rounded-full border border-[#E5D5C5] flex items-center gap-1">
+                  <span className="text-accent font-bold bg-surface px-3 py-1 rounded-full border border-border/50 flex items-center gap-1">
                     <Sparkles className="w-3.5 h-3.5" /> {userInfo.loyaltyPoints} Loyalty Points
                   </span>
                 </div>
@@ -305,7 +305,7 @@ export default function UserProfilePage() {
               <button
                 type="button"
                 onClick={() => setActiveTab("profile")}
-                className="px-5 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer"
+                className="px-5 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer"
               >
                 <Edit className="w-4 h-4" /> Edit Profile
               </button>
@@ -315,69 +315,69 @@ export default function UserProfilePage() {
 
         {/* QUICK STATS CARDS (6 Responsive KPI Cards) */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+          <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-extrabold text-[#7A5A43] uppercase tracking-wider">Upcoming</span>
-              <Calendar className="w-4 h-4 text-[#8C4A21]" />
+              <span className="text-xs font-extrabold text-foreground/80 uppercase tracking-wider">Upcoming</span>
+              <Calendar className="w-4 h-4 text-accent" />
             </div>
             <div className="mt-2">
-              <div className="text-xl font-bold font-mono text-[#3D2314]">{upcomingBookingsList.length}</div>
-              <div className="text-[10px] text-emerald-700 font-bold mt-0.5">Active Bookings</div>
+              <div className="text-xl font-bold font-mono text-foreground">{upcomingBookingsList.length}</div>
+              <div className="text-xs text-emerald-700 font-bold mt-0.5">Active Bookings</div>
             </div>
           </div>
 
-          <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+          <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-extrabold text-[#7A5A43] uppercase tracking-wider">Completed</span>
+              <span className="text-xs font-extrabold text-foreground/80 uppercase tracking-wider">Completed</span>
               <CheckCircle2 className="w-4 h-4 text-emerald-700" />
             </div>
             <div className="mt-2">
               <div className="text-xl font-bold font-mono text-emerald-800">12</div>
-              <div className="text-[10px] text-[#7A5A43] font-medium mt-0.5">Past Visits</div>
+              <div className="text-xs text-foreground/80 font-medium mt-0.5">Past Visits</div>
             </div>
           </div>
 
-          <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+          <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-extrabold text-[#7A5A43] uppercase tracking-wider">Cancelled</span>
+              <span className="text-xs font-extrabold text-foreground/80 uppercase tracking-wider">Cancelled</span>
               <XCircle className="w-4 h-4 text-rose-700" />
             </div>
             <div className="mt-2">
-              <div className="text-xl font-bold font-mono text-slate-700">1</div>
-              <div className="text-[10px] text-slate-500 font-medium mt-0.5">Cancelled Booking</div>
+              <div className="text-xl font-bold font-mono text-primary/70">1</div>
+              <div className="text-xs text-primary/80 font-medium mt-0.5">Cancelled Booking</div>
             </div>
           </div>
 
-          <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+          <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-extrabold text-[#7A5A43] uppercase tracking-wider">Membership</span>
+              <span className="text-xs font-extrabold text-foreground/80 uppercase tracking-wider">Membership</span>
               <Crown className="w-4 h-4 text-amber-700" />
             </div>
             <div className="mt-2">
               <div className="text-base font-bold text-amber-900 truncate">VIP Premium</div>
-              <div className="text-[10px] text-amber-800 font-bold mt-0.5">Renews 31 Dec</div>
+              <div className="text-xs text-amber-800 font-bold mt-0.5">Renews 31 Dec</div>
             </div>
           </div>
 
-          <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+          <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-extrabold text-[#7A5A43] uppercase tracking-wider">Total Spent</span>
+              <span className="text-xs font-extrabold text-foreground/80 uppercase tracking-wider">Total Spent</span>
               <CreditCard className="w-4 h-4 text-purple-700" />
             </div>
             <div className="mt-2">
-              <div className="text-xl font-bold font-mono text-purple-900">₹5,840</div>
-              <div className="text-[10px] text-purple-700 font-medium mt-0.5">14 Invoices</div>
+              <div className="text-xl font-bold font-mono text-purple-900 font-extrabold">₹5,840</div>
+              <div className="text-xs text-purple-700 font-medium mt-0.5">14 Invoices</div>
             </div>
           </div>
 
-          <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+          <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
             <div className="flex items-center justify-between">
-              <span className="text-[10px] font-extrabold text-[#7A5A43] uppercase tracking-wider">Fav Desk</span>
-              <Armchair className="w-4 h-4 text-[#8C4A21]" />
+              <span className="text-xs font-extrabold text-foreground/80 uppercase tracking-wider">Fav Desk</span>
+              <Armchair className="w-4 h-4 text-accent" />
             </div>
             <div className="mt-2">
-              <div className="text-base font-bold text-[#3D2314] truncate">Desk W-02</div>
-              <div className="text-[10px] text-[#7A5A43] font-medium mt-0.5">Workstation</div>
+              <div className="text-base font-bold text-foreground truncate">Desk W-02</div>
+              <div className="text-xs text-foreground/80 font-medium mt-0.5">Workstation</div>
             </div>
           </div>
         </div>
@@ -385,8 +385,8 @@ export default function UserProfilePage() {
         {/* TWO-COLUMN NAVIGATION & MAIN TABS */}
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 items-start">
           {/* LEFT TAB NAVIGATION SIDEBAR */}
-          <div className="bg-[#FFFDF9] rounded-3xl p-3 border border-[#E5D5C5] shadow-sm space-y-1">
-            <div className="px-3 py-2 text-[10px] font-extrabold uppercase tracking-widest text-[#7A5A43]">
+          <div className="bg-surface rounded-3xl p-3 border border-border/50 shadow-sm space-y-1">
+            <div className="px-3 py-2 text-xs font-extrabold uppercase tracking-widest text-foreground/80">
               Profile Sections
             </div>
 
@@ -411,16 +411,16 @@ export default function UserProfilePage() {
                   onClick={() => setActiveTab(tab.id as any)}
                   className={`w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
                     isActive
-                      ? "bg-[#3D2314] text-white shadow-md scale-[1.01]"
-                      : "text-[#5C3A21] hover:bg-[#FAF4ED] hover:text-[#3D2314]"
+                      ? "bg-accent text-primary shadow-md scale-[1.01]"
+                      : "text-foreground/70 hover:bg-background hover:text-foreground"
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <Icon className={`w-4 h-4 ${isActive ? "text-amber-300" : "text-[#8C4A21]"}`} />
+                    <Icon className={`w-4 h-4 ${isActive ? "text-amber-300" : "text-accent"}`} />
                     <span>{tab.label}</span>
                   </div>
                   {tab.badge !== undefined && tab.badge > 0 && (
-                    <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold bg-amber-500 text-white">
+                    <span className="px-2 py-0.5 rounded-full text-xs font-extrabold bg-amber-500 text-primary">
                       {tab.badge}
                     </span>
                   )}
@@ -429,7 +429,7 @@ export default function UserProfilePage() {
             })}
 
             {/* Logout Button */}
-            <div className="pt-2 border-t border-[#E5D5C5] mt-2">
+            <div className="pt-2 border-t border-border/50 mt-2">
               <button
                 type="button"
                 onClick={handleLogout}
@@ -442,58 +442,58 @@ export default function UserProfilePage() {
           </div>
 
           {/* RIGHT CONTENT TAB PANELS */}
-          <div className="lg:col-span-3 bg-[#FFFDF9] rounded-3xl p-6 sm:p-8 border border-[#E5D5C5] shadow-sm space-y-6">
+          <div className="lg:col-span-3 bg-surface rounded-3xl p-6 sm:p-8 border border-border/50 shadow-sm space-y-6">
             {/* TAB 1: PROFILE INFORMATION */}
             {activeTab === "profile" && (
               <form onSubmit={handleSaveProfile} className="space-y-6">
-                <div className="border-b border-[#E5D5C5] pb-4">
-                  <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                    <User className="w-5 h-5 text-[#8C4A21]" /> Edit Personal Profile
+                <div className="border-b border-border/50 pb-4">
+                  <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                    <User className="w-5 h-5 text-accent" /> Edit Personal Profile
                   </h2>
-                  <p className="text-xs text-[#7A5A43]">
+                  <p className="text-xs text-foreground/80">
                     Update your account details, contact information, and personal preferences.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                   <div className="space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">Full Name</label>
+                    <label className="font-bold text-foreground">Full Name</label>
                     <input
                       type="text"
                       value={userInfo.name}
                       onChange={(e) => setUserInfo({ ...userInfo, name: e.target.value })}
-                      className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                       required
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">Email Address</label>
+                    <label className="font-bold text-foreground">Email Address</label>
                     <input
                       type="email"
                       value={userInfo.email}
                       onChange={(e) => setUserInfo({ ...userInfo, email: e.target.value })}
-                      className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                       required
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">Phone Number</label>
+                    <label className="font-bold text-foreground">Phone Number</label>
                     <input
                       type="text"
                       value={userInfo.phone}
                       onChange={(e) => setUserInfo({ ...userInfo, phone: e.target.value })}
-                      className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">Gender</label>
+                    <label className="font-bold text-foreground">Gender</label>
                     <select
                       value={userInfo.gender}
                       onChange={(e) => setUserInfo({ ...userInfo, gender: e.target.value })}
-                      className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                     >
                       <option value="Male">Male</option>
                       <option value="Female">Female</option>
@@ -503,68 +503,68 @@ export default function UserProfilePage() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">Date of Birth</label>
+                    <label className="font-bold text-foreground">Date of Birth</label>
                     <input
                       type="text"
                       value={userInfo.dob}
                       onChange={(e) => setUserInfo({ ...userInfo, dob: e.target.value })}
-                      className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">Profession / Designation</label>
+                    <label className="font-bold text-foreground">Profession / Designation</label>
                     <input
                       type="text"
                       value={userInfo.profession}
                       onChange={(e) => setUserInfo({ ...userInfo, profession: e.target.value })}
-                      className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                     />
                   </div>
 
                   <div className="sm:col-span-2 space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">Address</label>
+                    <label className="font-bold text-foreground">Address</label>
                     <input
                       type="text"
                       value={userInfo.address}
                       onChange={(e) => setUserInfo({ ...userInfo, address: e.target.value })}
-                      className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">City</label>
+                    <label className="font-bold text-foreground">City</label>
                     <input
                       type="text"
                       value={userInfo.city}
                       onChange={(e) => setUserInfo({ ...userInfo, city: e.target.value })}
-                      className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">State &amp; Country</label>
+                    <label className="font-bold text-foreground">State &amp; Country</label>
                     <div className="flex gap-2">
                       <input
                         type="text"
                         value={userInfo.state}
                         onChange={(e) => setUserInfo({ ...userInfo, state: e.target.value })}
-                        className="w-1/2 p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                        className="w-1/2 p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                       />
                       <input
                         type="text"
                         value={userInfo.country}
                         onChange={(e) => setUserInfo({ ...userInfo, country: e.target.value })}
-                        className="w-1/2 p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                        className="w-1/2 p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="flex justify-end pt-4 border-t border-[#E5D5C5]">
+                <div className="flex justify-end pt-4 border-t border-border/50">
                   <button
                     type="submit"
-                    className="px-6 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                    className="px-6 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                   >
                     <Save className="w-4 h-4" /> Save Profile Changes
                   </button>
@@ -575,11 +575,11 @@ export default function UserProfilePage() {
             {/* TAB 2: UPCOMING BOOKINGS */}
             {activeTab === "upcoming" && (
               <div className="space-y-4">
-                <div className="border-b border-[#E5D5C5] pb-4">
-                  <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-[#8C4A21]" /> Upcoming Reservations
+                <div className="border-b border-border/50 pb-4">
+                  <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                    <Calendar className="w-5 h-5 text-accent" /> Upcoming Reservations
                   </h2>
-                  <p className="text-xs text-[#7A5A43]">
+                  <p className="text-xs text-foreground/80">
                     View and manage your active desk &amp; room reservations.
                   </p>
                 </div>
@@ -589,7 +589,7 @@ export default function UserProfilePage() {
                     {upcomingBookingsList.map((b) => (
                       <div
                         key={b.id}
-                        className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] flex flex-col md:flex-row md:items-center justify-between gap-4 hover:shadow-md transition-all"
+                        className="p-4 rounded-2xl bg-background border border-border/50 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:shadow-md transition-all"
                       >
                         <div className="flex items-center gap-4">
                           <img
@@ -599,27 +599,27 @@ export default function UserProfilePage() {
                           />
                           <div className="space-y-1">
                             <div className="flex items-center gap-2">
-                              <span className="font-mono font-bold text-sm text-[#8C4A21]">{b.id}</span>
-                              <span className="font-extrabold font-mono text-xs text-[#8C4A21] bg-[#F8F1EA] px-2.5 py-0.5 rounded-full border border-[#E5D5C5]">
+                              <span className="font-mono font-bold text-sm text-accent">{b.id}</span>
+                              <span className="font-extrabold font-mono text-xs text-accent bg-surface px-2.5 py-0.5 rounded-full border border-border/50">
                                 Desk {b.deskId}
                               </span>
                             </div>
-                            <h3 className="font-bold text-sm text-[#3D2314]">{b.workspaceType}</h3>
-                            <p className="text-xs text-[#7A5A43]">{b.cafeName}</p>
-                            <div className="text-xs text-[#8C4A21] font-semibold flex items-center gap-3">
+                            <h3 className="font-bold text-sm text-foreground">{b.workspaceType}</h3>
+                            <p className="text-xs text-foreground/80">{b.cafeName}</p>
+                            <div className="text-xs text-accent font-semibold flex items-center gap-3">
                               <span>📅 {b.date}</span>
                               <span>⏰ {b.time} ({b.duration})</span>
                             </div>
                           </div>
                         </div>
 
-                        <div className="flex md:flex-col items-center md:items-end justify-between gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-[#E5D5C5]">
-                          <span className="font-mono font-bold text-base text-[#3D2314]">₹{b.amount}</span>
+                        <div className="flex md:flex-col items-center md:items-end justify-between gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-border/50">
+                          <span className="font-mono font-bold text-base text-foreground">₹{b.amount}</span>
                           <div className="flex items-center gap-2">
                             <button
                               type="button"
                               onClick={() => setSelectedBookingDetails(b)}
-                              className="px-3.5 py-1.5 rounded-xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
+                              className="px-3.5 py-1.5 rounded-xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
                             >
                               <Eye className="w-3.5 h-3.5" /> View Details
                             </button>
@@ -636,12 +636,12 @@ export default function UserProfilePage() {
                     ))}
                   </div>
                 ) : (
-                  <div className="py-12 text-center text-xs text-[#7A5A43] space-y-2">
-                    <p className="font-bold text-sm text-[#3D2314]">No upcoming reservations found.</p>
+                  <div className="py-12 text-center text-xs text-foreground/80 space-y-2">
+                    <p className="font-bold text-sm text-foreground">No upcoming reservations found.</p>
                     <button
                       type="button"
                       onClick={() => router.push("/book")}
-                      className="px-5 py-2.5 rounded-2xl bg-[#8C4A21] text-white font-bold text-xs"
+                      className="px-5 py-2.5 rounded-2xl bg-accent text-primary font-bold text-xs"
                     >
                       Book a Seat Now
                     </button>
@@ -653,11 +653,11 @@ export default function UserProfilePage() {
             {/* TAB 3: BOOKING HISTORY */}
             {activeTab === "history" && (
               <div className="space-y-4">
-                <div className="border-b border-[#E5D5C5] pb-4">
-                  <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                    <Clock className="w-5 h-5 text-[#8C4A21]" /> Booking History
+                <div className="border-b border-border/50 pb-4">
+                  <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                    <Clock className="w-5 h-5 text-accent" /> Booking History
                   </h2>
-                  <p className="text-xs text-[#7A5A43]">
+                  <p className="text-xs text-foreground/80">
                     Archived past reservations and completed seating visits.
                   </p>
                 </div>
@@ -666,7 +666,7 @@ export default function UserProfilePage() {
                   {completedBookingsList.map((b) => (
                     <div
                       key={b.id}
-                      className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] flex flex-col md:flex-row md:items-center justify-between gap-4"
+                      className="p-4 rounded-2xl bg-background border border-border/50 flex flex-col md:flex-row md:items-center justify-between gap-4"
                     >
                       <div className="flex items-center gap-4">
                         <img
@@ -676,21 +676,21 @@ export default function UserProfilePage() {
                         />
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="font-mono font-bold text-xs text-[#8C4A21]">{b.id}</span>
-                            <span className="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-800">
+                            <span className="font-mono font-bold text-xs text-accent">{b.id}</span>
+                            <span className="text-xs font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-surface-secondary text-primary/80">
                               {b.status}
                             </span>
                           </div>
-                          <h4 className="font-bold text-xs text-[#3D2314]">{b.workspaceType} ({b.deskId})</h4>
-                          <p className="text-[11px] text-[#7A5A43]">{b.date} • {b.duration}</p>
+                          <h4 className="font-bold text-xs text-foreground">{b.workspaceType} ({b.deskId})</h4>
+                          <p className="text-xs text-foreground/80">{b.date} • {b.duration}</p>
                         </div>
                       </div>
                       <div className="flex items-center justify-between md:justify-end gap-4">
-                        <span className="font-mono font-bold text-sm text-[#3D2314]">₹{b.amount}</span>
+                        <span className="font-mono font-bold text-sm text-foreground">₹{b.amount}</span>
                         <button
                           type="button"
                           onClick={() => setSelectedBookingDetails(b)}
-                          className="p-2 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white text-[#3D2314] border border-[#E5D5C5] transition-all cursor-pointer"
+                          className="p-2 rounded-xl bg-surface hover:bg-accent hover:text-primary text-foreground border border-border/50 transition-all cursor-pointer"
                         >
                           <Eye className="w-4 h-4" />
                         </button>
@@ -704,18 +704,18 @@ export default function UserProfilePage() {
             {/* TAB 4: PAYMENT HISTORY */}
             {activeTab === "payments" && (
               <div className="space-y-4">
-                <div className="border-b border-[#E5D5C5] pb-4">
-                  <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                    <CreditCard className="w-5 h-5 text-[#8C4A21]" /> Payment History &amp; Receipts
+                <div className="border-b border-border/50 pb-4">
+                  <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                    <CreditCard className="w-5 h-5 text-accent" /> Payment History &amp; Receipts
                   </h2>
-                  <p className="text-xs text-[#7A5A43]">
+                  <p className="text-xs text-foreground/80">
                     Review invoice payments, download receipts, and check transaction statuses.
                   </p>
                 </div>
 
                 <div className="overflow-x-auto">
-                  <table className="w-full text-left text-xs text-[#3D2314]">
-                    <thead className="bg-[#F8F1EA] uppercase text-[10px] font-extrabold text-[#7A5A43] border-b border-[#E5D5C5]">
+                  <table className="w-full text-left text-xs text-foreground">
+                    <thead className="bg-surface uppercase text-xs font-extrabold text-foreground/80 border-b border-border/50">
                       <tr>
                         <th className="p-3">Payment ID</th>
                         <th className="p-3">Booking ID</th>
@@ -726,16 +726,16 @@ export default function UserProfilePage() {
                         <th className="p-3 text-right">Receipt</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-[#E5D5C5]/60">
+                    <tbody className="divide-y divide-border/50">
                       {payments.map((p) => (
-                        <tr key={p.id} className="hover:bg-[#FAF4ED]">
-                          <td className="p-3 font-mono font-bold text-[#8C4A21]">{p.id}</td>
-                          <td className="p-3 font-mono font-bold text-[#7A5A43]">{p.bookingId}</td>
-                          <td className="p-3 font-mono font-bold text-[#3D2314]">₹{p.amount}</td>
+                        <tr key={p.id} className="hover:bg-background">
+                          <td className="p-3 font-mono font-bold text-accent">{p.id}</td>
+                          <td className="p-3 font-mono font-bold text-foreground/80">{p.bookingId}</td>
+                          <td className="p-3 font-mono font-bold text-foreground">₹{p.amount}</td>
                           <td className="p-3 font-medium">{p.method}</td>
-                          <td className="p-3 text-[#7A5A43]">{p.date}</td>
+                          <td className="p-3 text-foreground/80">{p.date}</td>
                           <td className="p-3">
-                            <span className="px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-emerald-500/15 text-emerald-800">
+                            <span className="px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase bg-emerald-500/15 text-emerald-800">
                               {p.status}
                             </span>
                           </td>
@@ -743,7 +743,7 @@ export default function UserProfilePage() {
                             <button
                               type="button"
                               onClick={() => showToast(`📄 Receipt for ${p.id} downloaded.`)}
-                              className="px-3 py-1 rounded-xl bg-[#FAF4ED] hover:bg-[#3D2314] hover:text-white text-[#3D2314] border border-[#DFCDBE] font-bold text-xs transition-all cursor-pointer flex items-center gap-1 ml-auto"
+                              className="px-3 py-1 rounded-xl bg-background hover:bg-accent hover:text-primary text-foreground border border-border/50 font-bold text-xs transition-all cursor-pointer flex items-center gap-1 ml-auto"
                             >
                               <Download className="w-3.5 h-3.5" /> PDF
                             </button>
@@ -759,19 +759,19 @@ export default function UserProfilePage() {
             {/* TAB 5: MEMBERSHIP */}
             {activeTab === "membership" && (
               <div className="space-y-6">
-                <div className="border-b border-[#E5D5C5] pb-4">
-                  <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
+                <div className="border-b border-border/50 pb-4">
+                  <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
                     <Crown className="w-5 h-5 text-amber-600" /> Royal VIP Membership Plan
                   </h2>
-                  <p className="text-xs text-[#7A5A43]">
+                  <p className="text-xs text-foreground/80">
                     Enjoy exclusive desk discounts, priority bookings, free high-speed WiFi &amp; perks.
                   </p>
                 </div>
 
-                <div className="bg-gradient-to-br from-[#3D2314] via-[#5C2E13] to-[#8C4A21] p-6 rounded-3xl text-white space-y-4 shadow-lg relative overflow-hidden">
+                <div className="bg-accent text-primary p-6 rounded-3xl text-primary space-y-4 shadow-lg relative overflow-hidden">
                   <div className="flex justify-between items-start">
                     <div>
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-amber-300 block">Current Membership</span>
+                      <span className="text-xs font-bold uppercase tracking-widest text-amber-300 block">Current Membership</span>
                       <h3 className="text-2xl font-serif font-black text-amber-100 mt-1">Royal VIP Membership</h3>
                       <p className="text-xs text-amber-200/80 mt-0.5">Valid until 31 December 2026</p>
                     </div>
@@ -801,14 +801,14 @@ export default function UserProfilePage() {
                     <button
                       type="button"
                       onClick={() => showToast("⭐ Membership renewed until Dec 2027")}
-                      className="px-5 py-2.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-[#3D2314] font-black text-xs shadow-md transition-all cursor-pointer"
+                      className="px-5 py-2.5 rounded-2xl bg-amber-400 hover:bg-amber-300 text-foreground font-black text-xs shadow-md transition-all cursor-pointer"
                     >
                       Renew Membership
                     </button>
                     <button
                       type="button"
                       onClick={() => showToast("👑 Upgraded to Platinum Elite")}
-                      className="px-5 py-2.5 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs border border-white/20 transition-all cursor-pointer"
+                      className="px-5 py-2.5 rounded-2xl bg-surface/10 hover:bg-surface/20 text-primary font-bold text-xs border border-primary/20 transition-all cursor-pointer"
                     >
                       Upgrade Plan
                     </button>
@@ -820,41 +820,41 @@ export default function UserProfilePage() {
             {/* TAB 6: LOYALTY & REWARDS */}
             {activeTab === "rewards" && (
               <div className="space-y-6">
-                <div className="border-b border-[#E5D5C5] pb-4">
-                  <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
+                <div className="border-b border-border/50 pb-4">
+                  <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
                     <Gift className="w-5 h-5 text-amber-700" /> Loyalty Rewards &amp; Coupons
                   </h2>
-                  <p className="text-xs text-[#7A5A43]">
+                  <p className="text-xs text-foreground/80">
                     Redeem points for complimentary beverages, desk vouchers &amp; discount codes.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                  <div className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] space-y-2">
+                  <div className="p-4 rounded-2xl bg-background border border-border/50 space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-[#3D2314]">COFFEE20 Coupon Code</span>
+                      <span className="font-bold text-foreground">COFFEE20 Coupon Code</span>
                       <span className="text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded-full">20% OFF</span>
                     </div>
-                    <p className="text-[11px] text-[#7A5A43]">Valid on all food &amp; beverage menu orders.</p>
+                    <p className="text-xs text-foreground/80">Valid on all food &amp; beverage menu orders.</p>
                     <button
                       type="button"
                       onClick={() => showToast("📋 Coupon COFFEE20 copied!")}
-                      className="w-full py-2 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white border border-[#E5D5C5] font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1"
+                      className="w-full py-2 rounded-xl bg-surface hover:bg-accent hover:text-primary border border-border/50 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1"
                     >
                       <Copy className="w-3.5 h-3.5" /> Copy Code COFFEE20
                     </button>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] space-y-2">
+                  <div className="p-4 rounded-2xl bg-background border border-border/50 space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="font-bold text-[#3D2314]">WORKSTATION100</span>
+                      <span className="font-bold text-foreground">WORKSTATION100</span>
                       <span className="text-amber-800 font-bold bg-amber-100 px-2 py-0.5 rounded-full">₹100 OFF</span>
                     </div>
-                    <p className="text-[11px] text-[#7A5A43]">Valid on minimum booking of 4 hours.</p>
+                    <p className="text-xs text-foreground/80">Valid on minimum booking of 4 hours.</p>
                     <button
                       type="button"
                       onClick={() => showToast("📋 Coupon WORKSTATION100 copied!")}
-                      className="w-full py-2 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white border border-[#E5D5C5] font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1"
+                      className="w-full py-2 rounded-xl bg-surface hover:bg-accent hover:text-primary border border-border/50 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1"
                     >
                       <Copy className="w-3.5 h-3.5" /> Copy Code WORKSTATION100
                     </button>
@@ -866,49 +866,49 @@ export default function UserProfilePage() {
             {/* TAB 7: SAVED FAVORITES */}
             {activeTab === "favorites" && (
               <div className="space-y-4">
-                <div className="border-b border-[#E5D5C5] pb-4">
-                  <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
+                <div className="border-b border-border/50 pb-4">
+                  <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
                     <Heart className="w-5 h-5 text-rose-600" /> Saved Favorites
                   </h2>
-                  <p className="text-xs text-[#7A5A43]">
+                  <p className="text-xs text-foreground/80">
                     Quickly re-book your favorite café locations, seating options, and menu treats.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                  <div className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] space-y-2">
+                  <div className="p-4 rounded-2xl bg-background border border-border/50 space-y-2">
                     <div className="flex items-center gap-3">
-                      <div className="p-3 rounded-2xl bg-[#8C4A21] text-white">
+                      <div className="p-3 rounded-2xl bg-accent text-primary">
                         <Armchair className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-sm text-[#3D2314]">Workstation W-02</h4>
-                        <p className="text-[11px] text-[#7A5A43]">Dual Monitor Desk • Cyber City</p>
+                        <h4 className="font-bold text-sm text-foreground">Workstation W-02</h4>
+                        <p className="text-xs text-foreground/80">Dual Monitor Desk • Cyber City</p>
                       </div>
                     </div>
                     <button
                       type="button"
                       onClick={() => router.push("/book")}
-                      className="w-full py-2 rounded-xl bg-[#8C4A21] text-white font-bold text-xs"
+                      className="w-full py-2 rounded-xl bg-accent text-primary font-bold text-xs"
                     >
                       Quick Book Desk
                     </button>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] space-y-2">
+                  <div className="p-4 rounded-2xl bg-background border border-border/50 space-y-2">
                     <div className="flex items-center gap-3">
-                      <div className="p-3 rounded-2xl bg-amber-800 text-white">
+                      <div className="p-3 rounded-2xl bg-amber-800 text-primary">
                         <Coffee className="w-5 h-5" />
                       </div>
                       <div>
-                        <h4 className="font-bold text-sm text-[#3D2314]">Hazelnut Latte</h4>
-                        <p className="text-[11px] text-[#7A5A43]">Artisanal Espresso Brew • ₹220</p>
+                        <h4 className="font-bold text-sm text-foreground">Hazelnut Latte</h4>
+                        <p className="text-xs text-foreground/80">Artisanal Espresso Brew • ₹220</p>
                       </div>
                     </div>
                     <button
                       type="button"
                       onClick={() => showToast("☕ Hazelnut Latte added to cart")}
-                      className="w-full py-2 rounded-xl bg-[#8C4A21] text-white font-bold text-xs"
+                      className="w-full py-2 rounded-xl bg-accent text-primary font-bold text-xs"
                     >
                       Order Drink
                     </button>
@@ -920,11 +920,11 @@ export default function UserProfilePage() {
             {/* TAB 8: NOTIFICATIONS */}
             {activeTab === "notifications" && (
               <div className="space-y-4">
-                <div className="border-b border-[#E5D5C5] pb-4">
-                  <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                    <Bell className="w-5 h-5 text-[#8C4A21]" /> Recent Notifications
+                <div className="border-b border-border/50 pb-4">
+                  <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                    <Bell className="w-5 h-5 text-accent" /> Recent Notifications
                   </h2>
-                  <p className="text-xs text-[#7A5A43]">
+                  <p className="text-xs text-foreground/80">
                     Activity timeline of your desk bookings, payments, and perks.
                   </p>
                 </div>
@@ -936,15 +936,15 @@ export default function UserProfilePage() {
                     { title: "VIP Membership Renewed", desc: "Status valid until 31 Dec 2026", time: "2 days ago", dot: "bg-amber-500" },
                     { title: "Special Weekend Offer", desc: "Get 20% off on Private Cabins", time: "4 days ago", dot: "bg-purple-500" },
                   ].map((n, idx) => (
-                    <div key={idx} className="p-3.5 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] flex items-start justify-between">
+                    <div key={idx} className="p-3.5 rounded-2xl bg-background border border-border/50 flex items-start justify-between">
                       <div className="flex items-start gap-2.5">
                         <span className={`w-2.5 h-2.5 rounded-full ${n.dot} mt-1 shrink-0`} />
                         <div>
-                          <div className="font-bold text-[#3D2314]">{n.title}</div>
-                          <div className="text-[11px] text-[#7A5A43]">{n.desc}</div>
+                          <div className="font-bold text-foreground">{n.title}</div>
+                          <div className="text-xs text-foreground/80">{n.desc}</div>
                         </div>
                       </div>
-                      <span className="text-[10px] font-mono text-[#7A5A43]">{n.time}</span>
+                      <span className="text-xs font-mono text-foreground/80">{n.time}</span>
                     </div>
                   ))}
                 </div>
@@ -954,31 +954,31 @@ export default function UserProfilePage() {
             {/* TAB 9: ACCOUNT SETTINGS */}
             {activeTab === "settings" && (
               <div className="space-y-6">
-                <div className="border-b border-[#E5D5C5] pb-4">
-                  <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                    <Settings className="w-5 h-5 text-[#8C4A21]" /> Account &amp; Privacy Settings
+                <div className="border-b border-border/50 pb-4">
+                  <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                    <Settings className="w-5 h-5 text-accent" /> Account &amp; Privacy Settings
                   </h2>
-                  <p className="text-xs text-[#7A5A43]">
+                  <p className="text-xs text-foreground/80">
                     Change password, adjust notification preferences, and manage account security.
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                   <div className="space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">Current Password</label>
+                    <label className="font-bold text-foreground">Current Password</label>
                     <input
                       type="password"
                       placeholder="••••••••"
-                      className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-bold text-[#3D2314]">New Password</label>
+                    <label className="font-bold text-foreground">New Password</label>
                     <input
                       type="password"
                       placeholder="••••••••"
-                      className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                     />
                   </div>
                 </div>
@@ -987,7 +987,7 @@ export default function UserProfilePage() {
                   <button
                     type="button"
                     onClick={() => showToast("🔒 Password updated successfully")}
-                    className="px-5 py-2.5 rounded-2xl bg-[#8C4A21] text-white font-bold text-xs"
+                    className="px-5 py-2.5 rounded-2xl bg-accent text-primary font-bold text-xs"
                   >
                     Update Password
                   </button>
@@ -999,12 +999,12 @@ export default function UserProfilePage() {
                   <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
                     <div>
                       <div className="font-bold text-rose-900">Delete Account</div>
-                      <div className="text-[11px] text-rose-700">Permanently remove your profile &amp; reservation history.</div>
+                      <div className="text-xs text-rose-700">Permanently remove your profile &amp; reservation history.</div>
                     </div>
                     <button
                       type="button"
                       onClick={() => setShowDeleteModal(true)}
-                      className="px-4 py-2 rounded-xl bg-rose-700 text-white font-bold hover:bg-rose-800 transition-colors cursor-pointer"
+                      className="px-4 py-2 rounded-xl bg-rose-700 text-primary font-bold hover:bg-rose-800 transition-colors cursor-pointer"
                     >
                       Delete Account
                     </button>
@@ -1025,60 +1025,60 @@ export default function UserProfilePage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setSelectedBookingDetails(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-background/60 backdrop-blur-xs"
             />
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-lg bg-[#FFFDF9] rounded-3xl border border-[#E5D5C5] shadow-2xl p-6 space-y-4 text-xs z-10"
+              className="relative w-full max-w-lg bg-surface rounded-3xl border border-border/50 shadow-2xl p-6 space-y-4 text-xs z-10"
             >
-              <div className="flex justify-between items-start border-b border-[#E5D5C5] pb-3">
+              <div className="flex justify-between items-start border-b border-border/50 pb-3">
                 <div>
-                  <h3 className="text-lg font-bold font-serif text-[#3D2314]">
+                  <h3 className="text-lg font-bold font-serif text-foreground">
                     Booking Details ({selectedBookingDetails.id})
                   </h3>
-                  <p className="text-xs text-[#7A5A43]">{selectedBookingDetails.cafeName}</p>
+                  <p className="text-xs text-foreground/80">{selectedBookingDetails.cafeName}</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedBookingDetails(null)}
-                  className="p-2 rounded-xl bg-[#F8F1EA] text-[#3D2314] hover:bg-[#3D2314] hover:text-white"
+                  className="p-2 rounded-xl bg-surface text-foreground hover:bg-accent hover:text-primary"
                 >
                   <X className="w-4 h-4" />
                 </button>
               </div>
 
-              <div className="flex items-center gap-4 bg-[#FAF4ED] p-3 rounded-2xl border border-[#DFCDBE]">
+              <div className="flex items-center gap-4 bg-background p-3 rounded-2xl border border-border/50">
                 <img
                   src={selectedBookingDetails.image}
                   alt={selectedBookingDetails.workspaceType}
                   className="w-20 h-20 rounded-2xl object-cover shrink-0"
                 />
                 <div className="space-y-1">
-                  <div className="font-bold text-sm text-[#3D2314]">
+                  <div className="font-bold text-sm text-foreground">
                     {selectedBookingDetails.workspaceType} (Desk {selectedBookingDetails.deskId})
                   </div>
-                  <div className="text-xs text-[#7A5A43]">Date: {selectedBookingDetails.date}</div>
-                  <div className="text-xs text-[#7A5A43]">Time: {selectedBookingDetails.time} ({selectedBookingDetails.duration})</div>
-                  <div className="text-xs font-mono font-bold text-[#8C4A21]">Total Paid: ₹{selectedBookingDetails.amount}</div>
+                  <div className="text-xs text-foreground/80">Date: {selectedBookingDetails.date}</div>
+                  <div className="text-xs text-foreground/80">Time: {selectedBookingDetails.time} ({selectedBookingDetails.duration})</div>
+                  <div className="text-xs font-mono font-bold text-accent">Total Paid: ₹{selectedBookingDetails.amount}</div>
                 </div>
               </div>
 
               {/* QR Code Demo Section */}
-              <div className="p-4 rounded-2xl bg-[#3D2314] text-white text-center space-y-2">
-                <span className="text-[10px] font-bold tracking-widest text-amber-300 uppercase block">Check-in Scan QR</span>
-                <div className="w-24 h-24 mx-auto bg-white p-2 rounded-xl flex items-center justify-center text-[#3D2314]">
+              <div className="p-4 rounded-2xl bg-accent text-primary text-center space-y-2">
+                <span className="text-xs font-bold tracking-widest text-amber-300 uppercase block">Check-in Scan QR</span>
+                <div className="w-24 h-24 mx-auto bg-surface p-2 rounded-xl flex items-center justify-center text-foreground">
                   <QrCode className="w-full h-full" />
                 </div>
-                <p className="text-[10px] text-amber-200/80">Scan this QR code at the RoyalCafe entrance kiosk.</p>
+                <p className="text-xs text-amber-200/80">Scan this QR code at the RoyalCafe entrance kiosk.</p>
               </div>
 
               <div className="flex justify-end pt-2">
                 <button
                   type="button"
                   onClick={() => setSelectedBookingDetails(null)}
-                  className="px-5 py-2.5 rounded-2xl bg-[#3D2314] text-white font-bold cursor-pointer"
+                  className="px-5 py-2.5 rounded-2xl bg-accent text-primary font-bold cursor-pointer"
                 >
                   Close Details
                 </button>
@@ -1097,25 +1097,25 @@ export default function UserProfilePage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowDeleteModal(false)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-background/60 backdrop-blur-xs"
             />
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-md bg-[#FFFDF9] rounded-3xl border border-[#E5D5C5] shadow-2xl p-6 space-y-4 text-xs z-10"
+              className="relative w-full max-w-md bg-surface rounded-3xl border border-border/50 shadow-2xl p-6 space-y-4 text-xs z-10"
             >
               <h3 className="text-lg font-bold font-serif text-rose-800">
                 Confirm Account Deletion
               </h3>
-              <p className="text-[#7A5A43]">
+              <p className="text-foreground/80">
                 This is a demo action. Clicking confirm will log you out of RoyalCafe Connect.
               </p>
               <div className="flex justify-end gap-2 pt-2">
                 <button
                   type="button"
                   onClick={() => setShowDeleteModal(false)}
-                  className="px-4 py-2 rounded-xl bg-[#FAF4ED] text-[#3D2314] border border-[#DFCDBE] font-bold"
+                  className="px-4 py-2 rounded-xl bg-background text-foreground border border-border/50 font-bold"
                 >
                   Cancel
                 </button>
@@ -1125,7 +1125,7 @@ export default function UserProfilePage() {
                     setShowDeleteModal(false);
                     handleLogout();
                   }}
-                  className="px-4 py-2 rounded-xl bg-rose-700 text-white font-bold"
+                  className="px-4 py-2 rounded-xl bg-rose-700 text-primary font-bold"
                 >
                   Confirm Delete &amp; Logout
                 </button>

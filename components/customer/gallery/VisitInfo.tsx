@@ -21,7 +21,7 @@ export default function VisitInfo() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
           
           {/* LEFT: Opening Hours Card */}
-          <div className="bg-white p-8 rounded-3xl border border-primary/5 card-shadow flex flex-col justify-between">
+          <div className="bg-surface p-8 rounded-3xl border border-primary/5 card-shadow flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-10 w-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary border border-primary/10">
@@ -34,15 +34,15 @@ export default function VisitInfo() {
 
               <div className="space-y-4 text-xs sm:text-sm font-semibold">
                 <div className="flex justify-between items-center border-b border-primary/5 pb-3">
-                  <span className="text-foreground/60">Monday – Friday</span>
+                  <span className="text-foreground/80">Monday – Friday</span>
                   <span className="text-primary font-bold">8:00 AM – 10:00 PM</span>
                 </div>
                 <div className="flex justify-between items-center border-b border-primary/5 pb-3">
-                  <span className="text-foreground/60">Saturday</span>
+                  <span className="text-foreground/80">Saturday</span>
                   <span className="text-primary font-bold">8:00 AM – 11:00 PM</span>
                 </div>
                 <div className="flex justify-between items-center pb-1">
-                  <span className="text-foreground/60">Sunday</span>
+                  <span className="text-foreground/80">Sunday</span>
                   <span className="text-primary font-bold">9:00 AM – 9:00 PM</span>
                 </div>
               </div>
@@ -57,7 +57,7 @@ export default function VisitInfo() {
           </div>
 
           {/* RIGHT: Cafe Details Card */}
-          <div className="bg-white p-8 rounded-3xl border border-primary/5 card-shadow flex flex-col justify-between">
+          <div className="bg-surface p-8 rounded-3xl border border-primary/5 card-shadow flex flex-col justify-between">
             <div>
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-10 w-10 rounded-xl bg-primary/5 flex items-center justify-center text-primary border border-primary/10">
@@ -91,15 +91,15 @@ export default function VisitInfo() {
 
             {/* Badges Row */}
             <div className="pt-4 border-t border-primary/5 flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-primary bg-[#FAF6F0] px-2.5 py-1 rounded-full border border-primary/5">
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-primary bg-surface px-2.5 py-1 rounded-full border border-primary/5">
                 <Car className="h-3 w-3 text-accent" />
                 Parking Available
               </span>
-              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-primary bg-[#FAF6F0] px-2.5 py-1 rounded-full border border-primary/5">
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-primary bg-surface px-2.5 py-1 rounded-full border border-primary/5">
                 <Wifi className="h-3 w-3 text-accent" />
                 Free Wi-Fi
               </span>
-              <span className="inline-flex items-center gap-1 text-[10px] font-bold text-primary bg-[#FAF6F0] px-2.5 py-1 rounded-full border border-primary/5">
+              <span className="inline-flex items-center gap-1 text-xs font-bold text-primary bg-surface px-2.5 py-1 rounded-full border border-primary/5">
                 <Wind className="h-3 w-3 text-accent" />
                 Air Conditioning
               </span>

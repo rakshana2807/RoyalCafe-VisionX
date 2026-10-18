@@ -47,7 +47,7 @@ export default function Hero() {
                       <Star key={i} className="h-3.5 w-3.5 fill-accent text-accent" />
                     ))}
                   </div>
-                  <span className="text-[10px] font-bold text-foreground/50 uppercase tracking-wider block">
+                  <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider block">
                     Based on 200+ reviews
                   </span>
                 </div>
@@ -56,7 +56,7 @@ export default function Hero() {
               {/* Leave a Review Button */}
               <button
                 onClick={() => handleScrollTo("write-review")}
-                className="px-6 py-3 border border-transparent text-xs font-bold rounded-full text-white bg-[#EA5A0C] hover:bg-[#EA5A0C]/95 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] inline-flex items-center gap-2 cursor-pointer uppercase tracking-wider"
+                className="px-6 py-3 border border-transparent text-xs font-bold rounded-full text-primary bg-accent hover:bg-accent/95 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] inline-flex items-center gap-2 cursor-pointer uppercase tracking-wider"
               >
                 <Edit3 className="h-4 w-4" />
                 <span>Leave a Review</span>
@@ -76,10 +76,10 @@ export default function Hero() {
                 className="object-cover object-center"
                 sizes="(max-w-1024px) 100vw, 50vw"
               />
-              <div className="absolute inset-0 bg-black/15" />
+              <div className="absolute inset-0 bg-background/15" />
               
               {/* Overlay Badge */}
-              <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold font-serif text-primary shadow-lg">
+              <div className="absolute bottom-6 left-6 bg-surface/90 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold font-serif text-primary shadow-lg">
                 #RoyalCafeConnect
               </div>
             </div>
@@ -88,7 +88,7 @@ export default function Hero() {
         </div>
 
         {/* Quick Badges Bar */}
-        <div className="flex flex-wrap justify-center sm:justify-between gap-4 p-6 bg-white rounded-2xl border border-primary/5 card-shadow">
+        <div className="flex flex-wrap justify-center sm:justify-between gap-4 p-6 bg-surface rounded-2xl border border-primary/5 card-shadow">
           <div className="flex items-center gap-2">
             <Star className="h-4 w-4 fill-accent text-accent" />
             <span className="text-xs font-bold text-primary">4.9 Average Rating</span>

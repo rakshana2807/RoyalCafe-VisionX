@@ -69,7 +69,7 @@ export default function ComboDeals() {
         
         {/* Section Header */}
         <div className="mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#5A2E0C]">
+          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-primary">
             Best Combo Deals
           </h2>
         </div>
@@ -79,7 +79,7 @@ export default function ComboDeals() {
           {combos.map((combo, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-[24px] overflow-hidden card-shadow border border-primary/5 flex flex-col justify-between text-left h-full"
+              className="bg-surface rounded-[24px] overflow-hidden card-shadow border border-primary/5 flex flex-col justify-between text-left h-full"
             >
               {/* Image Cover */}
               <div className="relative h-[220px] w-full">
@@ -99,7 +99,7 @@ export default function ComboDeals() {
                     <h3 className="text-lg font-bold font-serif text-primary">
                       {combo.name}
                     </h3>
-                    <span className="text-lg font-bold font-serif text-[#5A2E0C]">
+                    <span className="text-lg font-bold font-serif text-primary">
                       {combo.priceFormatted}
                     </span>
                   </div>
@@ -110,8 +110,8 @@ export default function ComboDeals() {
 
                 <button
                   onClick={() => handleAddCombo(combo)}
-                  className={`w-full py-3 px-5 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
-                    isAlreadyInBooking(combo) ? "bg-[#8C4A21] hover:bg-[#3D2314]" : "bg-[#2A1506] hover:bg-[#2A1506]/90"
+                  className={`w-full py-3 px-5 border border-transparent text-xs font-bold rounded-full text-primary transition-all shadow-md cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
+                    isAlreadyInBooking(combo) ? "bg-accent hover:bg-primary/90" : "bg-primary hover:bg-primary/90"
                   }`}
                 >
                   {isAlreadyInBooking(combo) ? (

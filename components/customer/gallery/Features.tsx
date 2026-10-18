@@ -57,7 +57,7 @@ export default function Features() {
             return (
               <div
                 key={idx}
-                className="bg-white p-8 rounded-3xl border border-primary/5 flex flex-col text-left card-shadow card-shadow-hover h-full"
+                className="bg-surface p-8 rounded-3xl border border-primary/5 flex flex-col text-left card-shadow card-shadow-hover h-full"
               >
                 {/* Large Icon circle */}
                 <div className="h-14 w-14 rounded-full bg-primary/5 flex items-center justify-center mb-6 border border-primary/10">

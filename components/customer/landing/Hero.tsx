@@ -24,9 +24,9 @@ export default function Hero() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-2xl text-left animate-fade-in">
           {/* Main Title */}
-          <h1 className="text-4xl sm:text-5xl md:text-[56px] leading-[1.1] font-bold font-serif text-foreground tracking-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-[64px] lg:text-[72px] leading-[1.1] font-bold font-serif text-foreground tracking-tight mb-6">
             Your Perfect Coffee &amp;<br />
-            <span className="text-primary">Workspace</span>
+            <span className="text-primary italic font-medium">Workspace</span>
           </h1>
 
           {/* Description */}
@@ -36,16 +36,16 @@ export default function Hero() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 mb-10">
+          <div className="flex flex-col sm:flex-row gap-5 mb-12">
             <Link
               href="/book"
-              className="inline-flex items-center justify-center px-8 py-3.5 border border-transparent text-base font-semibold rounded-lg text-white bg-primary hover:bg-primary/95 shadow-md hover:scale-[1.02] active:scale-[0.98] transition-all duration-250 cursor-pointer"
+              className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-xs uppercase tracking-[0.2em] font-semibold rounded-full text-background bg-primary hover:bg-primary/95 shadow-[0_8px_30px_rgba(10,5,3,0.15)] hover:shadow-[0_12px_40px_rgba(10,5,3,0.25)] hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
             >
               Book Your Seat
             </Link>
             <Link
               href="/menu"
-              className="inline-flex items-center justify-center px-8 py-3.5 border border-primary/20 text-base font-semibold rounded-lg text-primary bg-white/70 backdrop-blur-sm hover:bg-white hover:border-primary/40 shadow-sm hover:scale-[1.02] active:scale-[0.98] transition-all duration-250 cursor-pointer"
+              className="inline-flex items-center justify-center px-8 py-4 border border-transparent text-xs uppercase tracking-[0.2em] font-semibold rounded-full text-background bg-primary backdrop-blur-md hover:bg-surface hover:border-primary/40 shadow-sm hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
             >
               Explore Menu
             </Link>
@@ -54,25 +54,25 @@ export default function Hero() {
           {/* Status Badges */}
           <div className="flex flex-wrap gap-3 sm:gap-4 items-center">
             {/* Live Capacity */}
-            <Link href="/live-status" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-primary/5 shadow-sm hover:border-primary/20 transition-colors">
+            <Link href="/live-status" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full  border border-primary shadow-sm hover:border-primary/30 transition-colors">
               <span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="text-xs sm:text-sm font-medium text-foreground/80">
+              <span className="text-xs font-medium text-primary tracking-wide">
                 Live Capacity: <span className="font-semibold text-emerald-600">62% (Available)</span>
               </span>
             </Link>
 
             {/* Fast Wi-Fi */}
-            <Link href="/work-study" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-primary/5 shadow-sm hover:border-primary/20 transition-colors">
+            <Link href="/work-study" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary shadow-sm hover:border-primary/30 transition-colors">
               <Check className="h-4 w-4 text-emerald-500" />
-              <span className="text-xs sm:text-sm font-medium text-foreground/80">
+              <span className="text-xs font-medium text-foreground/80 tracking-wide">
                 Fast Wi-Fi<span className="font-semibold text-primary"></span>
               </span>
             </Link>
 
             {/* Ports Available */}
-            <Link href="/work-study" className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/80 border border-primary/5 shadow-sm hover:border-primary/20 transition-colors">
+            <Link href="/work-study" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full border border-primary shadow-sm hover:border-primary/30 transition-colors">
               <Zap className="h-3.5 w-3.5 text-accent" />
-              <span className="text-xs sm:text-sm font-semibold text-primary">
+              <span className="text-xs font-semibold text-primary tracking-wide">
                 Ports Available
               </span>
             </Link>

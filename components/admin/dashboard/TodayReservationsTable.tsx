@@ -302,7 +302,7 @@ export default function TodayReservationsTable() {
       case "Checked In":
         return "bg-emerald-500/15 text-emerald-800 border-emerald-500/30";
       case "Checked Out":
-        return "bg-slate-500/15 text-slate-700 border-slate-500/30";
+        return "bg-primary/10 text-primary/70 border-primary/20";
     }
   };
 
@@ -311,21 +311,21 @@ export default function TodayReservationsTable() {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.3 }}
-      className="bg-[#FFFDF9] rounded-[20px] p-6 border border-[#E5D5C5] shadow-sm space-y-6 w-full relative"
+      className="bg-surface rounded-[20px] p-6 border border-border/50 shadow-sm space-y-6 w-full relative"
     >
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2.5">
-            <Calendar className="w-6 h-6 text-[#8C4A21]" />
-            <h3 className="text-xl font-bold font-serif text-[#3D2314]">Today's Reservations</h3>
+          <div className="flex items-center gap-3">
+            <Calendar className="w-6 h-6 text-accent" />
+            <h3 className="text-xl sm:text-2xl font-bold font-serif text-primary">Today's Reservations</h3>
           </div>
-          <p className="text-xs text-[#7A5A43] mt-1">
+          <p className="text-xs text-foreground/80 font-medium mt-1.5">
             Manage today's workspace bookings and customer check-ins.
           </p>
         </div>
         <div className="flex items-center gap-2 self-start sm:self-auto">
-          <span className="text-xs font-mono font-bold text-[#8C4A21] bg-[#F8F1EA] px-3.5 py-1.5 rounded-full border border-[#E5D5C5] shadow-2xs">
+          <span className="text-xs font-semibold uppercase tracking-[0.15em] text-accent bg-background px-4 py-2 rounded-full border border-border shadow-sm">
             {filteredReservations.length} Bookings Today
           </span>
         </div>
@@ -338,7 +338,7 @@ export default function TodayReservationsTable() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="p-3.5 rounded-2xl bg-[#3D2314] text-white text-xs font-semibold flex items-center justify-between shadow-md border border-amber-900/40"
+            className="p-3.5 rounded-2xl bg-accent text-primary text-xs font-semibold flex items-center justify-between shadow-md border border-amber-900/40"
           >
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
@@ -347,7 +347,7 @@ export default function TodayReservationsTable() {
             <button
               type="button"
               onClick={() => setToast(null)}
-              className="text-amber-300 hover:text-white font-bold p-1 cursor-pointer transition-colors"
+              className="text-amber-300 hover:text-primary font-bold p-1 cursor-pointer transition-colors"
             >
               <X className="w-4 h-4" />
             </button>
@@ -356,17 +356,17 @@ export default function TodayReservationsTable() {
       </AnimatePresence>
 
       {/* Search & Filters Toolbar */}
-      <div className="bg-[#F8F1EA]/80 p-4 rounded-2xl border border-[#E5D5C5] space-y-3">
+      <div className="bg-surface/80 p-4 rounded-2xl border border-border/50 space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Search */}
           <div className="relative lg:col-span-2">
-            <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-[#7A5A43]" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-foreground/80" />
             <input
               type="text"
               placeholder="Search Booking ID, User, Desk..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-9 pr-3 py-2 bg-[#FFFDF9] border border-[#E5D5C5] rounded-xl text-xs text-[#3D2314] focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 placeholder-[#7A5A43]/60 transition-all"
+              className="w-full pl-10 pr-3 py-2.5 bg-background border border-border rounded-xl text-xs text-foreground focus:outline-none focus:ring-1 focus:ring-accent/30 placeholder-foreground/40 transition-all"
             />
           </div>
 
@@ -375,7 +375,7 @@ export default function TodayReservationsTable() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-3 py-2 bg-[#FFFDF9] border border-[#E5D5C5] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all"
+              className="w-full px-3 py-2 bg-surface border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
             >
               <option value="All">Filter by Status (All)</option>
               <option value="Confirmed">Confirmed</option>
@@ -389,7 +389,7 @@ export default function TodayReservationsTable() {
             <select
               value={workspaceFilter}
               onChange={(e) => setWorkspaceFilter(e.target.value)}
-              className="w-full px-3 py-2 bg-[#FFFDF9] border border-[#E5D5C5] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all"
+              className="w-full px-3 py-2 bg-surface border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
             >
               <option value="All">Workspace Type (All)</option>
               <option value="Desk">Desk</option>
@@ -406,7 +406,7 @@ export default function TodayReservationsTable() {
             <select
               value={dateFilter}
               onChange={(e) => setDateFilter(e.target.value)}
-              className="w-full px-3 py-2 bg-[#FFFDF9] border border-[#E5D5C5] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all"
+              className="w-full px-3 py-2 bg-surface border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
             >
               <option value="All">Filter by Date (All)</option>
               <option value="07 Aug 2026">Today (07 Aug 2026)</option>
@@ -415,7 +415,7 @@ export default function TodayReservationsTable() {
             <button
               type="button"
               onClick={() => setSortOrder(sortOrder === "asc" ? "desc" : "asc")}
-              className="p-2 bg-[#FFFDF9] border border-[#E5D5C5] rounded-xl text-[#8C4A21] hover:bg-[#F8F1EA] transition-all cursor-pointer shrink-0"
+              className="p-2 bg-surface border border-border/50 rounded-xl text-accent hover:bg-surface transition-all cursor-pointer shrink-0"
               title={`Sort Arrival Time (${sortOrder === "asc" ? "Ascending" : "Descending"})`}
             >
               <ArrowUpDown className="w-4 h-4" />
@@ -425,9 +425,9 @@ export default function TodayReservationsTable() {
       </div>
 
       {/* Desktop Table View */}
-      <div className="hidden md:block overflow-x-auto rounded-[20px] border border-[#E5D5C5] shadow-xs max-h-[600px] overflow-y-auto">
-        <table className="w-full text-left text-xs text-[#3D2314] border-collapse">
-          <thead className="bg-[#F8F1EA] sticky top-0 z-10 uppercase text-[11px] font-extrabold tracking-wider text-[#7A5A43] border-b border-[#E5D5C5] shadow-2xs">
+      <div className="hidden md:block overflow-x-auto rounded-[20px] border border-border shadow-xs max-h-[600px] overflow-y-auto">
+        <table className="w-full text-left text-xs text-foreground border-collapse">
+          <thead className="bg-background sticky top-0 z-10 uppercase text-xs font-semibold tracking-[0.15em] text-primary/70 border-b border-border shadow-sm">
             <tr>
               <th className="py-4 px-4 font-bold">Booking ID</th>
               <th className="py-4 px-4 font-bold">User Name</th>
@@ -440,7 +440,7 @@ export default function TodayReservationsTable() {
               <th className="py-4 px-4 font-bold text-right">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#E5D5C5]/60">
+          <tbody className="divide-y divide-border">
             {dashboardReservations.length > 0 ? (
               dashboardReservations.map((row, idx) => {
                 const wsBadge = getWorkspaceBadge(row.workspaceType);
@@ -451,25 +451,25 @@ export default function TodayReservationsTable() {
                   <tr
                     key={row.bookingId}
                     className={`${
-                      isOdd ? "bg-[#FBF7F1]/60" : "bg-[#FFFDF9]"
-                    } hover:bg-[#F3E9DD] transition-colors`}
+                      isOdd ? "bg-background" : "bg-surface"
+                    } hover:bg-background/80 transition-colors`}
                   >
                     {/* 1. Booking ID */}
-                    <td className="py-4 px-4 font-bold font-mono text-sm text-[#8C4A21] whitespace-nowrap">
+                    <td className="py-4 px-4 font-bold font-mono text-sm text-accent whitespace-nowrap">
                       {row.bookingId}
                     </td>
 
                     {/* 2. User Name */}
                     <td className="py-4 px-4 whitespace-nowrap">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#3D2314] to-[#8C4A21] text-amber-200 flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs ring-2 ring-[#E5D5C5]/40">
+                        <div className="w-9 h-9 rounded-full bg-primary text-background flex items-center justify-center font-semibold text-xs shrink-0 shadow-sm">
                           {row.userName.charAt(0)}
                         </div>
                         <div>
-                          <div className="font-bold text-sm text-[#3D2314]">
+                          <div className="font-bold text-sm text-foreground">
                             {row.userName}
                           </div>
-                          <div className="text-[11px] text-[#7A5A43]">
+                          <div className="text-xs text-foreground/80">
                             {row.userEmail}
                           </div>
                         </div>
@@ -478,26 +478,26 @@ export default function TodayReservationsTable() {
 
                     {/* 3. Desk ID */}
                     <td className="py-4 px-4 whitespace-nowrap">
-                      <span className="font-extrabold font-mono text-xs text-[#8C4A21] bg-[#F8F1EA] px-3 py-1 rounded-full border border-[#E5D5C5] shadow-2xs">
+                      <span className="font-extrabold font-mono text-xs text-accent bg-surface px-3 py-1 rounded-full border border-border/50 shadow-2xs">
                         {row.deskId}
                       </span>
                     </td>
 
                     {/* 4. Arrival Time */}
                     <td className="py-4 px-4 whitespace-nowrap">
-                      <div className="flex items-center gap-1.5 text-xs font-semibold text-[#3D2314]">
-                        <Clock className="w-3.5 h-3.5 text-[#8C4A21] shrink-0" />
+                      <div className="flex items-center gap-1.5 text-xs font-semibold text-foreground">
+                        <Clock className="w-3.5 h-3.5 text-accent shrink-0" />
                         <span>{row.arrivalTime}</span>
                       </div>
                     </td>
 
                     {/* 5. Date */}
-                    <td className="py-4 px-4 text-xs font-medium text-[#7A5A43] whitespace-nowrap">
+                    <td className="py-4 px-4 text-xs font-medium text-foreground/80 whitespace-nowrap">
                       {row.date}
                     </td>
 
                     {/* 6. Duration */}
-                    <td className="py-4 px-4 text-xs font-semibold text-[#3D2314] whitespace-nowrap">
+                    <td className="py-4 px-4 text-xs font-semibold text-foreground whitespace-nowrap">
                       {row.duration}
                     </td>
 
@@ -513,7 +513,7 @@ export default function TodayReservationsTable() {
                     {/* 8. Booking Status */}
                     <td className="py-4 px-4 whitespace-nowrap">
                       <span
-                        className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[11px] font-extrabold border uppercase tracking-wider shadow-2xs ${getStatusBadge(
+                        className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-extrabold border uppercase tracking-wider shadow-2xs ${getStatusBadge(
                           row.status
                         )}`}
                       >
@@ -530,7 +530,7 @@ export default function TodayReservationsTable() {
                             <button
                               type="button"
                               onClick={() => handleStatusChange(row.bookingId, "Checked In", row.dbId)}
-                              className="px-3 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
+                              className="px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 active:scale-95 text-primary font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
                               title="Check In Guest"
                             >
                               <UserCheck className="w-3.5 h-3.5" />
@@ -553,7 +553,7 @@ export default function TodayReservationsTable() {
                           <button
                             type="button"
                             onClick={() => handleStatusChange(row.bookingId, "Checked Out", row.dbId)}
-                            className="px-3.5 py-1.5 rounded-xl bg-amber-700 hover:bg-amber-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
+                            className="px-3.5 py-1.5 rounded-xl bg-amber-600 hover:bg-amber-700 active:scale-95 text-primary font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
                             title="Check Out Guest"
                           >
                             <LogOut className="w-3.5 h-3.5" />
@@ -563,8 +563,8 @@ export default function TodayReservationsTable() {
 
                         {/* Checked Out state badge */}
                         {row.status === "Checked Out" && (
-                          <span className="px-3 py-1 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200 inline-flex items-center gap-1 opacity-80">
-                            <CheckCircle2 className="w-3.5 h-3.5 text-slate-600" />
+                          <span className="px-3 py-1 rounded-xl bg-surface-secondary text-primary/70 font-bold text-xs border border-border inline-flex items-center gap-1 opacity-80">
+                            <CheckCircle2 className="w-3.5 h-3.5 text-background/80" />
                             Checked Out
                           </span>
                         )}
@@ -583,7 +583,7 @@ export default function TodayReservationsTable() {
               })
             ) : (
               <tr>
-                <td colSpan={9} className="py-12 text-center text-xs text-[#7A5A43]">
+                <td colSpan={9} className="py-12 text-center text-xs text-foreground/80">
                   No bookings found matching your search and filter criteria.
                 </td>
               </tr>
@@ -601,20 +601,20 @@ export default function TodayReservationsTable() {
             return (
               <div
                 key={row.bookingId}
-                className="bg-[#FFFDF9] rounded-2xl border border-[#E5D5C5] p-4 shadow-xs space-y-3"
+                className="bg-surface rounded-2xl border border-border/50 p-4 shadow-xs space-y-3"
               >
                 {/* Top Row: Booking ID, Desk ID, Status */}
-                <div className="flex items-center justify-between gap-2 border-b border-[#E5D5C5]/50 pb-2.5">
+                <div className="flex items-center justify-between gap-2 border-b border-border/50/50 pb-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold font-mono text-sm text-[#8C4A21]">
+                    <span className="font-bold font-mono text-sm text-accent">
                       {row.bookingId}
                     </span>
-                    <span className="font-extrabold font-mono text-xs text-[#8C4A21] bg-[#F8F1EA] px-2.5 py-0.5 rounded-full border border-[#E5D5C5]">
+                    <span className="font-extrabold font-mono text-xs text-accent bg-surface px-2.5 py-0.5 rounded-full border border-border/50">
                       {row.deskId}
                     </span>
                   </div>
                   <span
-                    className={`inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border uppercase tracking-wider ${getStatusBadge(
+                    className={`inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-extrabold border uppercase tracking-wider ${getStatusBadge(
                       row.status
                     )}`}
                   >
@@ -625,38 +625,38 @@ export default function TodayReservationsTable() {
                 {/* User Info & Workspace */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#3D2314] to-[#8C4A21] text-amber-200 flex items-center justify-center font-bold text-sm shrink-0 shadow-2xs">
+                    <div className="w-10 h-10 rounded-full bg-primary text-background flex items-center justify-center font-semibold text-sm shrink-0 shadow-sm">
                       {row.userName.charAt(0)}
                     </div>
                     <div>
-                      <div className="font-bold text-sm text-[#3D2314]">
+                      <div className="font-bold text-sm text-foreground">
                         {row.userName}
                       </div>
-                      <div className="text-xs text-[#7A5A43]">
+                      <div className="text-xs text-foreground/80">
                         {row.userEmail}
                       </div>
                     </div>
                   </div>
                   <span
-                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-extrabold border shrink-0 ${wsBadge.style}`}
+                    className={`inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-extrabold border shrink-0 ${wsBadge.style}`}
                   >
                     {wsBadge.label}
                   </span>
                 </div>
 
                 {/* Arrival Time, Date, Duration Grid */}
-                <div className="grid grid-cols-3 gap-2 bg-[#F8F1EA]/60 p-2.5 rounded-xl text-center border border-[#E5D5C5]/40 text-xs">
+                <div className="grid grid-cols-3 gap-2 bg-surface/60 p-2.5 rounded-xl text-center border border-border/50/40 text-xs">
                   <div>
-                    <div className="text-[10px] text-[#7A5A43] font-semibold">Arrival</div>
-                    <div className="font-bold text-[#3D2314] mt-0.5">{row.arrivalTime}</div>
+                    <div className="text-xs text-foreground/80 font-semibold">Arrival</div>
+                    <div className="font-bold text-foreground mt-0.5">{row.arrivalTime}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] text-[#7A5A43] font-semibold">Date</div>
-                    <div className="font-bold text-[#3D2314] mt-0.5">{row.date}</div>
+                    <div className="text-xs text-foreground/80 font-semibold">Date</div>
+                    <div className="font-bold text-foreground mt-0.5">{row.date}</div>
                   </div>
                   <div>
-                    <div className="text-[10px] text-[#7A5A43] font-semibold">Duration</div>
-                    <div className="font-bold text-[#3D2314] mt-0.5">{row.duration}</div>
+                    <div className="text-xs text-foreground/80 font-semibold">Duration</div>
+                    <div className="font-bold text-foreground mt-0.5">{row.duration}</div>
                   </div>
                 </div>
 
@@ -667,7 +667,7 @@ export default function TodayReservationsTable() {
                       <button
                         type="button"
                         onClick={() => handleStatusChange(row.bookingId, "Checked In", row.dbId)}
-                        className="flex-1 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1"
+                        className="flex-1 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-primary font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1"
                       >
                         <UserCheck className="w-3.5 h-3.5" />
                         Check In
@@ -687,7 +687,7 @@ export default function TodayReservationsTable() {
                     <button
                       type="button"
                       onClick={() => handleStatusChange(row.bookingId, "Checked Out", row.dbId)}
-                      className="w-full py-2 rounded-xl bg-amber-700 hover:bg-amber-800 text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1"
+                      className="w-full py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-primary font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1"
                     >
                       <LogOut className="w-3.5 h-3.5" />
                       Check Out
@@ -695,8 +695,8 @@ export default function TodayReservationsTable() {
                   )}
 
                   {row.status === "Checked Out" && (
-                    <span className="w-full py-2 rounded-xl bg-slate-100 text-slate-700 font-bold text-xs border border-slate-200 flex items-center justify-center gap-1 opacity-80">
-                      <CheckCircle2 className="w-3.5 h-3.5 text-slate-600" />
+                    <span className="w-full py-2 rounded-xl bg-surface-secondary text-primary/70 font-bold text-xs border border-border flex items-center justify-center gap-1 opacity-80">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-background/80" />
                       Checked Out
                     </span>
                   )}
@@ -712,17 +712,17 @@ export default function TodayReservationsTable() {
             );
           })
         ) : (
-          <div className="py-8 text-center text-xs text-[#7A5A43] bg-[#F8F1EA]/50 rounded-xl">
+          <div className="py-8 text-center text-xs text-foreground/80 bg-surface/50 rounded-xl">
             No bookings found matching your search and filter criteria.
           </div>
         )}
       </div>
 
       {/* Centered View All Reservations Button */}
-      <div className="flex justify-center pt-2">
+      <div className="flex justify-center pt-4">
         <Link
           href="/admin/reservations"
-          className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#3D2314] hover:bg-[#8C4A21] text-white font-bold text-xs sm:text-sm shadow-md hover:shadow-lg transition-all duration-200 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
+          className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-full bg-primary hover:bg-primary/95 text-background font-semibold text-xs uppercase tracking-[0.15em] shadow-[0_8px_30px_rgba(10,5,3,0.15)] hover:shadow-[0_12px_40px_rgba(10,5,3,0.25)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer"
         >
           <span>View All Reservations</span>
           <ArrowRight className="w-4 h-4" />

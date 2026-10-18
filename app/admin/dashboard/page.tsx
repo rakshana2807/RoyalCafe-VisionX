@@ -11,7 +11,7 @@ import NotificationsPanel from "@/components/admin/dashboard/NotificationsPanel"
 
 export default function AdminDashboardPage() {
   return (
-    <div className="space-y-6 pb-8 text-[#3D2314]">
+    <div className="space-y-6 pb-8 text-foreground">
       {/* Welcome Hero Banner */}
       <WelcomeBanner />
 

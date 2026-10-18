@@ -45,14 +45,14 @@ export default function NotificationsPanel() {
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4, delay: 0.55 }}
-      className="bg-[#FFFDF9] rounded-3xl p-6 border border-[#E5D5C5] shadow-sm space-y-4"
+      className="bg-surface rounded-3xl p-6 border border-border/50 shadow-sm space-y-4"
     >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Bell className="w-5 h-5 text-[#8C4A21]" />
-          <h3 className="text-lg font-bold font-serif text-[#3D2314]">System Notifications</h3>
+          <Bell className="w-5 h-5 text-accent" />
+          <h3 className="text-lg font-bold font-serif text-foreground">System Notifications</h3>
         </div>
-        <span className="text-xs font-mono font-bold text-[#8C4A21] bg-[#F8F1EA] px-2.5 py-1 rounded-full border border-[#E5D5C5]">
+        <span className="text-xs font-mono font-bold text-accent bg-surface px-2.5 py-1 rounded-full border border-border/50">
           {notifications.length} Alerts
         </span>
       </div>
@@ -69,13 +69,13 @@ export default function NotificationsPanel() {
               >
                 <div className="space-y-1 pr-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-xs text-[#3D2314]">{n.title}</span>
+                    <span className="font-bold text-xs text-foreground">{n.title}</span>
                     {!n.isRead && (
                       <span className="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0" />
                     )}
                   </div>
-                  <p className="text-xs text-[#7A5A43] leading-relaxed">{n.message}</p>
-                  <div className="text-[10px] text-[#7A5A43]/70 font-mono font-semibold pt-1">
+                  <p className="text-xs text-foreground/80 leading-relaxed">{n.message}</p>
+                  <div className="text-xs text-foreground/80/70 font-mono font-semibold pt-1">
                     {n.time}
                   </div>
                 </div>
@@ -83,7 +83,7 @@ export default function NotificationsPanel() {
                 <button
                   type="button"
                   onClick={() => dismissNotification(n.id)}
-                  className="text-foreground/40 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-100/50 transition-colors cursor-pointer shrink-0"
+                  className="text-foreground/80 hover:text-rose-600 p-1.5 rounded-lg hover:bg-rose-100/50 transition-colors cursor-pointer shrink-0"
                   title="Dismiss alert"
                 >
                   <X className="w-3.5 h-3.5" />
@@ -91,7 +91,7 @@ export default function NotificationsPanel() {
               </motion.div>
             ))
           ) : (
-            <div className="col-span-full py-6 text-center text-xs text-[#7A5A43]">All notifications cleared.</div>
+            <div className="col-span-full py-6 text-center text-xs text-foreground/80">All notifications cleared.</div>
           )}
         </AnimatePresence>
       </div>

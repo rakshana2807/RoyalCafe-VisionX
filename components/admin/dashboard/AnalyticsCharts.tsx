@@ -85,19 +85,19 @@ export default function AnalyticsCharts() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="bg-[#FFFDF9] rounded-3xl p-6 border border-[#E5D5C5] shadow-sm flex flex-col justify-between"
+        className="bg-surface rounded-3xl p-6 border border-border/50 shadow-sm flex flex-col justify-between"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <div>
             <div className="flex items-center gap-2">
-              <DollarSign className="w-5 h-5 text-[#8C4A21]" />
-              <h3 className="text-lg font-bold font-serif text-[#3D2314]">Revenue Analytics</h3>
+              <DollarSign className="w-5 h-5 text-accent" />
+              <h3 className="text-lg font-bold font-serif text-foreground">Revenue Analytics</h3>
             </div>
-            <p className="text-xs text-[#7A5A43] mt-0.5">Café sales &amp; workspace reservation breakdown</p>
+            <p className="text-xs text-foreground/80 mt-0.5">Café sales &amp; workspace reservation breakdown</p>
           </div>
 
           {/* Time Filter Pills */}
-          <div className="bg-[#F8F1EA] p-1 rounded-2xl border border-[#E5D5C5] flex items-center self-start sm:self-auto">
+          <div className="bg-surface p-1 rounded-2xl border border-border/50 flex items-center self-start sm:self-auto">
             {(["daily", "weekly", "monthly"] as const).map((period) => (
               <button
                 key={period}
@@ -105,8 +105,8 @@ export default function AnalyticsCharts() {
                 onClick={() => setRevenueFilter(period)}
                 className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all capitalize cursor-pointer ${
                   revenueFilter === period
-                    ? "bg-[#3D2314] text-white shadow-xs"
-                    : "text-[#7A5A43] hover:text-[#3D2314]"
+                    ? "bg-accent text-primary shadow-xs"
+                    : "text-foreground/80 hover:text-foreground"
                 }`}
               >
                 {period}
@@ -156,19 +156,19 @@ export default function AnalyticsCharts() {
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, delay: 0.2 }}
-        className="bg-[#FFFDF9] rounded-3xl p-6 border border-[#E5D5C5] shadow-sm flex flex-col justify-between"
+        className="bg-surface rounded-3xl p-6 border border-border/50 shadow-sm flex flex-col justify-between"
       >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
           <div>
             <div className="flex items-center gap-2">
               <Calendar className="w-5 h-5 text-amber-700" />
-              <h3 className="text-lg font-bold font-serif text-[#3D2314]">Reservation Analytics</h3>
+              <h3 className="text-lg font-bold font-serif text-foreground">Reservation Analytics</h3>
             </div>
-            <p className="text-xs text-[#7A5A43] mt-0.5">Booking volumes vs floor seating capacity</p>
+            <p className="text-xs text-foreground/80 mt-0.5">Booking volumes vs floor seating capacity</p>
           </div>
 
           {/* Type Filter Pills */}
-          <div className="bg-[#F8F1EA] p-1 rounded-2xl border border-[#E5D5C5] flex items-center self-start sm:self-auto">
+          <div className="bg-surface p-1 rounded-2xl border border-border/50 flex items-center self-start sm:self-auto">
             {(["bookings", "walkins", "workspaces"] as const).map((type) => (
               <button
                 key={type}
@@ -176,8 +176,8 @@ export default function AnalyticsCharts() {
                 onClick={() => setReservationFilter(type)}
                 className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all capitalize cursor-pointer ${
                   reservationFilter === type
-                    ? "bg-[#8C4A21] text-white shadow-xs"
-                    : "text-[#7A5A43] hover:text-[#3D2314]"
+                    ? "bg-accent text-primary shadow-xs"
+                    : "text-foreground/80 hover:text-foreground"
                 }`}
               >
                 {type}

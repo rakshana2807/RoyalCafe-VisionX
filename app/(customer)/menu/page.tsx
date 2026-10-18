@@ -195,13 +195,13 @@ if (loading) {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             {/* Header Row */}
-            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 border-b border-primary/5 pb-4 gap-4">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 border-b border-primary/20 pb-4 gap-4">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#5A2E0C] flex items-center gap-2">
-                  <UtensilsCrossed className="h-6 w-6 text-accent" />
+                <h2 className="text-2xl sm:text-3xl font-bold font-serif text-primary flex items-center gap-2">
+                  <UtensilsCrossed className="h-6 w-6 text-primary" />
                   {activeCategory === "All" ? "Full Café Selection" : `${activeCategory} Menu`}
                 </h2>
-                <p className="text-xs text-foreground/60 font-sans mt-1">
+                <p className="text-sm text-primary/80 font-medium mt-1">
                   Showing {filteredItems.length} handcrafted items
                 </p>
               </div>
@@ -209,17 +209,17 @@ if (loading) {
               {(activeCategory !== "All" || searchTerm !== "" || sortOption !== "Recommended") && (
                 <button
                   onClick={handleResetFilters}
-                  className="inline-flex items-center text-xs font-bold text-accent hover:text-primary transition-colors cursor-pointer group"
+                  className="inline-flex items-center text-sm font-bold text-primary hover:text-primary/70 transition-colors cursor-pointer group"
                 >
                   Clear Filters
-                  <ArrowRight className="ml-1 h-3.5 w-3.5 transform group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="ml-1.5 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
                 </button>
               )}
             </div>
 
             {/* Menu Grid with Smooth Fade-in */}
             {filteredItems.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 transition-all duration-300">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 transition-all duration-500">
                 {filteredItems.map((item) => (
                   <div key={item.id} className="animate-fade-in">
                     <MenuCard item={item} />
@@ -227,15 +227,15 @@ if (loading) {
                 ))}
               </div>
             ) : (
-              <div className="py-20 text-center bg-white rounded-3xl border border-primary/5 max-w-xl mx-auto p-8 card-shadow animate-fade-in">
-                <Coffee className="h-10 w-10 text-accent/60 mx-auto mb-4 animate-bounce" />
-                <h3 className="text-lg font-bold font-serif text-primary mb-2">No Menu Items Found</h3>
-                <p className="text-xs text-foreground/75 mb-6">
+              <div className="py-24 text-center bg-surface rounded-[32px] border border-primary/20 max-w-xl mx-auto p-10 shadow-xl animate-fade-in">
+                <Coffee className="h-12 w-12 text-primary/60 mx-auto mb-6 animate-bounce" />
+                <h3 className="text-2xl font-bold font-serif text-foreground mb-3">No Menu Items Found</h3>
+                <p className="text-base text-foreground/75 font-medium mb-8">
                   We couldn&apos;t find any items matching &ldquo;{searchTerm}&rdquo; in the {activeCategory} category.
                 </p>
                 <button
                   onClick={handleResetFilters}
-                  className="px-6 py-2.5 bg-[#2A1506] text-white text-xs font-bold rounded-full uppercase tracking-wider hover:bg-[#2A1506]/90 transition-all cursor-pointer"
+                  className="px-8 py-3.5 bg-foreground text-background text-sm font-bold rounded-full uppercase tracking-widest hover:-translate-y-1 hover:shadow-lg transition-all duration-300 cursor-pointer"
                 >
                   View All Menu Items
                 </button>

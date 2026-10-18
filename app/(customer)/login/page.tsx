@@ -135,16 +135,16 @@ function LoginFormContent() {
   };
 
   return (
-    <div className="w-full max-w-md bg-white/90 backdrop-blur-xl rounded-3xl border border-primary/10 shadow-2xl p-8 sm:p-10 relative z-10">
+    <div className="w-full max-w-md bg-surface/90 backdrop-blur-xl rounded-3xl border border-border shadow-[0_8px_30px_rgba(10,5,3,0.08)] p-8 sm:p-10 relative z-10">
       {/* Notice Banner when redirecting from booking */}
       {(customNoticeMessage || redirectTarget === "/book") && (
-        <div className="mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-950 text-xs font-semibold flex items-start gap-2.5 shadow-xs">
+        <div className="mb-8 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-950 text-xs font-medium flex items-start gap-3 shadow-sm">
           <AlertCircle className="w-5 h-5 text-amber-700 shrink-0 mt-0.5" />
           <div>
             <p className="font-bold text-amber-950">
               {customNoticeMessage || "Please login to your RoyalCafeConnect account to book a workspace."}
             </p>
-            <p className="text-[11px] text-amber-800/90 mt-0.5">
+            <p className="text-xs text-amber-800/90 mt-0.5">
               Login is required to make and manage workspace reservations.
             </p>
           </div>
@@ -152,23 +152,23 @@ function LoginFormContent() {
       )}
 
       {/* Header */}
-      <div className="text-center mb-6">
-        <div className="w-14 h-14 rounded-2xl bg-[#F8F1EA] border border-primary/15 flex items-center justify-center mx-auto mb-4 shadow-sm">
+      <div className="text-center mb-8">
+        <div className="w-14 h-14 rounded-2xl bg-background border border-border flex items-center justify-center mx-auto mb-4 shadow-sm">
           <Coffee className="w-7 h-7 text-primary" />
         </div>
         <h1 className="text-2xl sm:text-3xl font-bold font-serif text-primary">RoyalCafe Connect</h1>
-        <p className="text-xs text-foreground/70 mt-1">Select your portal to sign in to your workspace account.</p>
+        <p className="text-xs text-foreground/80 font-medium mt-2">Select your portal to sign in to your workspace account.</p>
       </div>
 
       {/* Mode Switcher Tabs */}
-      <div className="bg-[#F8F1EA] p-1.5 rounded-2xl border border-primary/10 flex items-center relative mb-6 shadow-inner">
+      <div className="bg-background p-1.5 rounded-2xl border border-border flex items-center relative mb-8 shadow-sm">
         <button
           type="button"
           onClick={() => {
             setActiveMode("user");
             setErrors({});
           }}
-          className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all duration-300 relative z-10 cursor-pointer flex items-center justify-center gap-2 ${activeMode === "user" ? "text-white" : "text-foreground/70 hover:text-primary"
+          className={`flex-1 py-3 text-xs font-semibold rounded-xl transition-all duration-300 relative z-10 cursor-pointer flex items-center justify-center gap-2 uppercase tracking-[0.1em] ${activeMode === "user" ? "text-primary" : "text-foreground/70 hover:text-primary"
             }`}
         >
           <User className="w-3.5 h-3.5" />
@@ -180,7 +180,7 @@ function LoginFormContent() {
             setActiveMode("admin");
             setErrors({});
           }}
-          className={`flex-1 py-2.5 text-xs font-bold rounded-xl transition-all duration-300 relative z-10 cursor-pointer flex items-center justify-center gap-2 ${activeMode === "admin" ? "text-white" : "text-foreground/70 hover:text-primary"
+          className={`flex-1 py-3 text-xs font-semibold rounded-xl transition-all duration-300 relative z-10 cursor-pointer flex items-center justify-center gap-2 uppercase tracking-[0.1em] ${activeMode === "admin" ? "text-primary" : "text-foreground/70 hover:text-primary"
             }`}
         >
           <ShieldCheck className="w-3.5 h-3.5" />
@@ -188,7 +188,7 @@ function LoginFormContent() {
         </button>
 
         <motion.div
-          className="absolute top-1.5 bottom-1.5 rounded-xl bg-gradient-to-r from-primary to-[#422007] shadow-md z-0"
+          className="absolute top-1.5 bottom-1.5 rounded-xl bg-primary shadow-sm z-0"
           initial={false}
           animate={{
             left: activeMode === "user" ? "6px" : "calc(50% + 3px)",
@@ -229,18 +229,18 @@ function LoginFormContent() {
             </div>
 
             {/* Email Address */}
-            <div className="space-y-1.5">
-              <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                 <input
                   type="email"
                   placeholder="user@email.com"
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
-                  className={`w-full pl-11 pr-4 py-3 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${errors.userEmail ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
+                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${errors.userEmail ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
                     }`}
                 />
               </div>
@@ -253,12 +253,10 @@ function LoginFormContent() {
             </div>
 
             {/* Login as User Button */}
-            <motion.button
-              whileHover={{ scale: 1.015 }}
-              whileTap={{ scale: 0.985 }}
+            <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 px-6 rounded-full text-white font-semibold text-sm bg-gradient-to-r from-[#5A2E0C] via-[#6F3A0E] to-[#3D1E07] hover:from-[#472309] hover:to-[#2B1404] shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-4"
+              className="w-full py-4 px-6 rounded-full text-background font-semibold text-xs uppercase tracking-[0.15em] bg-primary hover:bg-primary/95 shadow-[0_8px_30px_rgba(10,5,3,0.15)] hover:shadow-[0_12px_40px_rgba(10,5,3,0.25)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
             >
               {isSubmitting ? (
                 <>
@@ -268,7 +266,7 @@ function LoginFormContent() {
               ) : (
                 "Login as User"
               )}
-            </motion.button>
+            </button>
           </motion.form>
         ) : (
           /* OPTION 2: ADMIN LOGIN */
@@ -287,18 +285,18 @@ function LoginFormContent() {
             </div>
 
             {/* Admin Email */}
-            <div className="space-y-1.5">
-              <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
                 Admin Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                 <input
                   type="email"
                   placeholder="admin@email.com"
                   value={adminEmail}
                   onChange={(e) => setAdminEmail(e.target.value)}
-                  className={`w-full pl-11 pr-4 py-3 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${errors.adminEmail ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
+                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${errors.adminEmail ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
                     }`}
                 />
               </div>
@@ -311,18 +309,18 @@ function LoginFormContent() {
             </div>
 
             {/* Secret PIN */}
-            <div className="space-y-1.5">
-              <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
                 Secret PIN
               </label>
               <div className="relative">
-                <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                 <input
                   type="password"
                   placeholder="Enter Secret PIN(845291)"
                   value={adminPin}
                   onChange={(e) => setAdminPin(e.target.value)}
-                  className={`w-full pl-11 pr-4 py-3 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${errors.adminPin ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
+                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${errors.adminPin ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
                     }`}
                 />
               </div>
@@ -335,12 +333,10 @@ function LoginFormContent() {
             </div>
 
             {/* Login as Admin Button */}
-            <motion.button
-              whileHover={{ scale: 1.015 }}
-              whileTap={{ scale: 0.985 }}
+            <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 px-6 rounded-full text-white font-semibold text-sm bg-gradient-to-r from-[#5A2E0C] via-[#6F3A0E] to-[#3D1E07] hover:from-[#472309] hover:to-[#2B1404] shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-4"
+              className="w-full py-4 px-6 rounded-full text-background font-semibold text-xs uppercase tracking-[0.15em] bg-primary hover:bg-primary/95 shadow-[0_8px_30px_rgba(10,5,3,0.15)] hover:shadow-[0_12px_40px_rgba(10,5,3,0.25)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
             >
               {isSubmitting ? (
                 <>
@@ -350,7 +346,7 @@ function LoginFormContent() {
               ) : (
                 "Login as Admin"
               )}
-            </motion.button>
+            </button>
           </motion.form>
         )}
       </AnimatePresence>
@@ -373,7 +369,7 @@ function LoginFormContent() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="absolute -bottom-16 left-0 right-0 p-3.5 bg-emerald-700 text-white text-xs font-semibold rounded-2xl shadow-xl flex items-center justify-center gap-2"
+            className="absolute -bottom-16 left-0 right-0 p-3.5 bg-emerald-700 text-primary text-xs font-semibold rounded-2xl shadow-xl flex items-center justify-center gap-2"
           >
             <CheckCircle2 className="w-4 h-4 text-emerald-300" />
             <span>{toastMessage}</span>
@@ -386,10 +382,10 @@ function LoginFormContent() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F1EA]">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
-      <main className="flex-grow pt-24 pb-16 flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
+      <main className="flex-grow pt-32 pb-24 flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 -right-32 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl pointer-events-none" />
 

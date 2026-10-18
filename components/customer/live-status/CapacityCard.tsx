@@ -42,7 +42,7 @@ export default function CapacityCard() {
             return (
               <div
                 key={idx}
-                className="bg-white p-6 rounded-2xl border border-primary/5 card-shadow text-left flex flex-col justify-between h-[120px] transition-all hover:translate-y-[-2px] duration-300"
+                className="bg-surface p-6 rounded-2xl border border-primary/5 card-shadow text-left flex flex-col justify-between h-[120px] transition-all hover:translate-y-[-2px] duration-300"
               >
                 {/* Top Row: Icon + Badge */}
                 <div className="flex items-center justify-between">
@@ -51,7 +51,7 @@ export default function CapacityCard() {
                   </div>
                   {card.badge && (
                     <span
-                      className={`px-2 py-0.5 rounded text-[10px] font-bold border tracking-wide uppercase ${card.badgeColor}`}
+                      className={`px-2 py-0.5 rounded text-xs font-bold border tracking-wide uppercase ${card.badgeColor}`}
                     >
                       {card.badge}
                     </span>
@@ -60,7 +60,7 @@ export default function CapacityCard() {
 
                 {/* Bottom Row: Text content */}
                 <div>
-                  <span className="text-[11px] font-bold text-foreground/45 uppercase tracking-wider block mb-1">
+                  <span className="text-xs font-bold text-foreground/45 uppercase tracking-wider block mb-1">
                     {card.title}
                   </span>
                   <span className="text-xl font-bold font-serif text-primary">

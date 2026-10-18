@@ -31,7 +31,7 @@ export default function Amenities() {
   ];
 
   return (
-    <section className="py-20 bg-[#E6D7C7] text-foreground">
+    <section className="py-12 bg-surface text-foreground">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Section Header */}
@@ -39,7 +39,7 @@ export default function Amenities() {
           <h2 className="text-3xl sm:text-4xl font-bold font-serif text-primary mb-4">
             World-Class Amenities
           </h2>
-          <p className="text-base text-primary/80">
+          <p className="text-base text-foreground/70 font-medium">
             Everything you need to stay productive, connected, and inspired.
           </p>
         </div>
@@ -51,13 +51,13 @@ export default function Amenities() {
             return (
               <div
                 key={index}
-                className="bg-[#C18A52]/20 hover:bg-[#C18A52]/30 transition-all duration-300 py-8 px-6 rounded-xl flex flex-col items-center justify-center text-center border border-[#C18A52]/10 group"
+                className="bg-background transition-all duration-500 py-12 px-8 rounded-3xl flex flex-col items-center justify-center text-center border border-border card-shadow-hover group"
               >
                 {/* Icon with smooth bounce hover */}
-                <Icon className="h-8 w-8 text-primary mb-4 group-hover:scale-110 transition-transform duration-300 stroke-[1.5]" />
+                <Icon className="h-8 w-8 text-accent mb-6 group-hover:scale-110 group-hover:-translate-y-1 transition-all duration-500 stroke-[1.5]" />
 
                 {/* Title */}
-                <span className="text-base font-bold font-serif text-primary">
+                <span className="text-lg font-bold font-serif text-primary tracking-wide">
                   {item.title}
                 </span>
               </div>

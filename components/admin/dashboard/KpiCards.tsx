@@ -56,9 +56,9 @@ const KPI_LIST: KpiCardData[] = [
     change: "+12.5%",
     isPositive: true,
     icon: Calendar,
-    iconBg: "bg-[#8C4A21]/10 border-[#8C4A21]/20",
-    iconColor: "text-[#8C4A21]",
-    borderAccent: "hover:border-[#8C4A21]/40",
+    iconBg: "bg-accent/10 border-accent/20",
+    iconColor: "text-accent",
+    borderAccent: "hover:border-accent/40",
   },
   {
     id: "orders",
@@ -144,10 +144,10 @@ export default function KpiCards() {
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <h2 className="text-sm font-bold font-serif uppercase tracking-wider text-[#7A5A43]">
+        <h2 className="text-xs font-semibold font-serif uppercase tracking-[0.15em] text-primary">
           Key Business Indicators
         </h2>
-        <span className="text-[11px] font-semibold text-[#8C4A21] bg-[#8C4A21]/10 px-2.5 py-1 rounded-full border border-[#8C4A21]/15">
+        <span className="text-xs font-semibold text-accent bg-accent/10 px-2.5 py-1 rounded-full border border-accent/15">
           Real-Time Synced
         </span>
       </div>
@@ -162,11 +162,11 @@ export default function KpiCards() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.3, delay: idx * 0.05 }}
               whileHover={{ y: -4, transition: { duration: 0.2 } }}
-              className={`bg-[#FFFDF9] rounded-3xl p-5 border border-[#E5D5C5] shadow-sm hover:shadow-md transition-all ${kpi.borderAccent} relative overflow-hidden group cursor-pointer flex flex-col justify-between`}
+              className={`bg-surface rounded-3xl p-5 border border-border/50 shadow-sm hover:shadow-md transition-all ${kpi.borderAccent} relative overflow-hidden group cursor-pointer flex flex-col justify-between`}
             >
               {/* Top Row: Title & Icon */}
               <div className="flex items-start justify-between gap-3">
-                <span className="text-xs font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                <span className="text-xs font-semibold uppercase tracking-[0.15em] text-primary/70">
                   {kpi.title}
                 </span>
                 <div className={`w-9 h-9 rounded-2xl border flex items-center justify-center shrink-0 transition-transform group-hover:scale-110 ${kpi.iconBg}`}>
@@ -176,18 +176,18 @@ export default function KpiCards() {
 
               {/* Middle Row: Large Value */}
               <div className="my-3">
-                <div className="text-2xl sm:text-3xl font-black font-serif text-[#3D2314] tracking-tight">
+                <div className="text-2xl sm:text-3xl font-bold font-serif text-primary tracking-tight">
                   {kpi.value}
                 </div>
               </div>
 
               {/* Bottom Row: Badge & Subtitle */}
-              <div className="pt-2 border-t border-[#E5D5C5]/60 flex items-center justify-between text-xs">
-                <span className="text-[11px] text-[#7A5A43]/80 font-medium truncate max-w-[140px]" title={kpi.subtitle}>
+              <div className="pt-3 border-t border-border flex items-center justify-between text-xs">
+                <span className="text-xs text-foreground/80 font-medium truncate max-w-[130px]" title={kpi.subtitle}>
                   {kpi.subtitle}
                 </span>
                 <span
-                  className={`inline-flex items-center gap-0.5 text-[10px] font-extrabold px-2 py-0.5 rounded-full shrink-0 ${
+                  className={`inline-flex items-center gap-0.5 text-xs font-extrabold px-2 py-0.5 rounded-full shrink-0 ${
                     kpi.isPositive
                       ? "bg-emerald-500/10 text-emerald-700 border border-emerald-500/20"
                       : "bg-rose-500/10 text-rose-700 border border-rose-500/20"

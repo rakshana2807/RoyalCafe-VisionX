@@ -11,13 +11,13 @@ export default function WorkStudyPage() {
       <Navbar />
 
       <main className="w-full flex-grow bg-background">
-        {/* Hero Section & Work Suitability Score Grid */}
+        {/* Premium Typography Hero */}
         <Hero />
 
-        {/* Seating Plans & Passes Section */}
+        {/* Premium Membership Passes */}
         <MembershipPlans />
 
-        {/* Seating FAQ */}
+        {/* Premium FAQ */}
         <FAQ />
       </main>
 

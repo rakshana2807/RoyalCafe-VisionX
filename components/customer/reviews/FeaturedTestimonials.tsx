@@ -55,7 +55,7 @@ export default function FeaturedTestimonials() {
           {testimonials.map((story, idx) => (
             <div
               key={idx}
-              className="bg-white p-8 rounded-3xl border border-primary/5 flex flex-col justify-between card-shadow card-shadow-hover text-left h-full"
+              className="bg-surface p-8 rounded-3xl border border-primary/5 flex flex-col justify-between card-shadow card-shadow-hover text-left h-full"
             >
               <div>
                 {/* Header: Avatar + Name + Date */}
@@ -69,12 +69,12 @@ export default function FeaturedTestimonials() {
                         {story.name}
                         <CheckCircle2 className="h-3.5 w-3.5 text-emerald-500 fill-emerald-100" />
                       </h3>
-                      <span className="text-xs text-foreground/50 font-medium">
+                      <span className="text-xs text-foreground/80 font-medium">
                         {story.profession}
                       </span>
                     </div>
                   </div>
-                  <span className="text-[10px] font-semibold text-foreground/40">
+                  <span className="text-xs font-semibold text-foreground/80">
                     {story.date}
                   </span>
                 </div>
@@ -97,7 +97,7 @@ export default function FeaturedTestimonials() {
                 {story.tags.map((tag, tIdx) => (
                   <span
                     key={tIdx}
-                    className="px-3 py-1 bg-[#FAF6F0] rounded-full text-[10px] font-bold text-primary/70 border border-primary/5"
+                    className="px-3 py-1 bg-surface rounded-full text-xs font-bold text-primary/70 border border-primary/5"
                   >
                     {tag}
                   </span>
@@ -115,7 +115,7 @@ export default function FeaturedTestimonials() {
               const grid = document.getElementById("reviews-grid");
               if (grid) grid.scrollIntoView({ behavior: "smooth" });
             }}
-            className="px-8 py-3 border border-primary/20 text-xs font-bold rounded-full text-primary bg-white hover:bg-foreground/5 transition-all shadow-sm cursor-pointer hover:scale-[1.02] active:scale-[0.98] uppercase tracking-wider"
+            className="px-8 py-3 border border-primary/20 text-xs font-bold rounded-full text-primary bg-surface hover:bg-foreground/5 transition-all shadow-sm cursor-pointer hover:scale-[1.02] active:scale-[0.98] uppercase tracking-wider"
           >
             Load More Reviews
           </button>

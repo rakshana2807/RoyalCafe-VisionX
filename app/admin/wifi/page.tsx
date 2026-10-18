@@ -539,7 +539,7 @@ export default function AdminWifiPage() {
   const getDeviceIcon = (category: DeviceCategory) => {
     switch (category) {
       case "Laptop":
-        return <Laptop className="w-4 h-4 text-[#8C4A21]" />;
+        return <Laptop className="w-4 h-4 text-accent" />;
       case "Phone":
         return <Smartphone className="w-4 h-4 text-amber-700" />;
       case "Tablet":
@@ -569,7 +569,7 @@ export default function AdminWifiPage() {
       case "Expiring Soon":
         return "bg-amber-500/15 text-amber-800 border-amber-500/30 animate-pulse";
       case "Expired":
-        return "bg-slate-500/15 text-slate-700 border-slate-500/30";
+        return "bg-primary/10 text-primary/70 border-primary/20";
       case "Disconnected":
         return "bg-purple-500/15 text-purple-800 border-purple-500/30";
       case "Blocked":
@@ -578,7 +578,7 @@ export default function AdminWifiPage() {
   };
 
   return (
-    <div className="space-y-6 text-[#3D2314]">
+    <div className="space-y-6 text-foreground">
       {/* Toast Alert */}
       <AnimatePresence>
         {toast && (
@@ -586,7 +586,7 @@ export default function AdminWifiPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-6 right-6 z-50 bg-[#3D2314] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
+            className="fixed top-6 right-6 z-50 bg-accent text-primary px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
           >
             <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
             <span className="text-xs font-bold font-sans">{toast}</span>
@@ -598,12 +598,12 @@ export default function AdminWifiPage() {
       <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <Wifi className="w-7 h-7 text-[#8C4A21]" />
-            <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#3D2314] tracking-tight">
+            <Wifi className="w-7 h-7 text-accent" />
+            <h1 className="text-2xl sm:text-3xl font-black font-serif text-foreground tracking-tight">
               WiFi Management Dashboard
             </h1>
           </div>
-          <p className="text-xs text-[#7A5A43] mt-1">
+          <p className="text-xs text-foreground/80 mt-1">
             Monitor customer WiFi sessions, bandwidth consumption, premium passes &amp; network security.
           </p>
         </div>
@@ -613,7 +613,7 @@ export default function AdminWifiPage() {
           <button
             type="button"
             onClick={handleSyncConnections}
-            className="px-4 py-2.5 rounded-2xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white text-[#3D2314] font-bold text-xs border border-[#E5D5C5] shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2.5 rounded-2xl bg-surface hover:bg-accent hover:text-primary text-foreground font-bold text-xs border border-border/50 shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? "animate-spin" : ""}`} />
             Sync Connections
@@ -622,7 +622,7 @@ export default function AdminWifiPage() {
           <button
             type="button"
             onClick={() => setShowCreatePassModal(true)}
-            className="px-4 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <Plus className="w-3.5 h-3.5" />
             Create WiFi Pass
@@ -631,7 +631,7 @@ export default function AdminWifiPage() {
           <button
             type="button"
             onClick={() => showToast("📤 WiFi sessions exported to CSV.")}
-            className="px-4 py-2.5 rounded-2xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white text-[#3D2314] font-bold text-xs border border-[#E5D5C5] shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
+            className="px-4 py-2.5 rounded-2xl bg-surface hover:bg-accent hover:text-primary text-foreground font-bold text-xs border border-border/50 shadow-xs transition-all flex items-center gap-1.5 cursor-pointer"
           >
             <Download className="w-3.5 h-3.5" />
             Export Sessions
@@ -640,7 +640,7 @@ export default function AdminWifiPage() {
           <button
             type="button"
             onClick={() => setShowSettingsModal(true)}
-            className="p-2.5 rounded-2xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white text-[#3D2314] border border-[#E5D5C5] shadow-xs transition-all cursor-pointer flex items-center justify-center"
+            className="p-2.5 rounded-2xl bg-surface hover:bg-accent hover:text-primary text-foreground border border-border/50 shadow-xs transition-all cursor-pointer flex items-center justify-center"
             title="WiFi Settings"
           >
             <Settings className="w-4 h-4" />
@@ -651,130 +651,130 @@ export default function AdminWifiPage() {
       {/* Top 8 Rich KPI Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
         {/* Active Users */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Active Users</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Active Users</span>
             <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-800">
               <Wifi className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
-            <div className="text-xl font-bold font-mono text-[#3D2314]">{stats.activeCount}</div>
-            <div className="text-[10px] text-emerald-700 font-medium truncate mt-0.5">Online Now</div>
+            <div className="text-xl font-bold font-mono text-foreground">{stats.activeCount}</div>
+            <div className="text-xs text-emerald-700 font-medium truncate mt-0.5">Online Now</div>
           </div>
         </div>
 
         {/* Premium Pass Users */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Premium Passes</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Premium Passes</span>
             <div className="p-1.5 rounded-lg bg-amber-500/10 text-amber-800">
               <Zap className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-amber-800">{stats.premiumCount}</div>
-            <div className="text-[10px] text-amber-700 font-medium truncate mt-0.5">Paid Tier</div>
+            <div className="text-xs text-amber-700 font-medium truncate mt-0.5">Paid Tier</div>
           </div>
         </div>
 
         {/* Free WiFi Users */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Free Tier</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Free Tier</span>
             <div className="p-1.5 rounded-lg bg-blue-500/10 text-blue-800">
               <User className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-blue-800">{stats.freeCount}</div>
-            <div className="text-[10px] text-blue-700 font-medium truncate mt-0.5">1-Hr Free</div>
+            <div className="text-xs text-blue-700 font-medium truncate mt-0.5">1-Hr Free</div>
           </div>
         </div>
 
         {/* Expired Sessions */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Expired</span>
-            <div className="p-1.5 rounded-lg bg-slate-500/10 text-slate-800">
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Expired</span>
+            <div className="p-1.5 rounded-lg bg-primary/5 text-primary/80">
               <Clock className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
-            <div className="text-xl font-bold font-mono text-slate-800">{stats.expiredCount}</div>
-            <div className="text-[10px] text-slate-600 font-medium truncate mt-0.5">Completed</div>
+            <div className="text-xl font-bold font-mono text-primary/80">{stats.expiredCount}</div>
+            <div className="text-xs text-background/80 font-medium truncate mt-0.5">Completed</div>
           </div>
         </div>
 
         {/* Avg Session Duration */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Avg Session</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Avg Session</span>
             <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-800">
               <Activity className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-purple-800">{stats.avgDuration}</div>
-            <div className="text-[10px] text-purple-700 font-medium truncate mt-0.5">Per Guest</div>
+            <div className="text-xs text-purple-700 font-medium truncate mt-0.5">Per Guest</div>
           </div>
         </div>
 
         {/* Bandwidth Usage */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Bandwidth</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Bandwidth</span>
             <div className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-800">
               <Signal className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-cyan-800">{stats.bandwidthUsage}</div>
-            <div className="text-[10px] text-cyan-700 font-medium truncate mt-0.5">Used Today</div>
+            <div className="text-xs text-cyan-700 font-medium truncate mt-0.5">Used Today</div>
           </div>
         </div>
 
         {/* Revenue */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">WiFi Revenue</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">WiFi Revenue</span>
             <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-800">
               <CreditCard className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
-            <div className="text-xl font-bold font-mono text-[#3D2314]">{stats.revenue}</div>
-            <div className="text-[10px] text-emerald-700 font-medium truncate mt-0.5">Pass Sales</div>
+            <div className="text-xl font-bold font-mono text-foreground">{stats.revenue}</div>
+            <div className="text-xs text-emerald-700 font-medium truncate mt-0.5">Pass Sales</div>
           </div>
         </div>
 
         {/* Blacklisted Devices */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Blacklisted</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Blacklisted</span>
             <div className="p-1.5 rounded-lg bg-rose-500/10 text-rose-800">
               <Ban className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-rose-800">{stats.blockedCount}</div>
-            <div className="text-[10px] text-rose-700 font-medium truncate mt-0.5">MAC Blocked</div>
+            <div className="text-xs text-rose-700 font-medium truncate mt-0.5">MAC Blocked</div>
           </div>
         </div>
       </div>
 
       {/* Toolbar Search & Filters */}
-      <div className="bg-[#FFFDF9] p-4 rounded-2xl border border-[#E5D5C5] shadow-sm space-y-3">
+      <div className="bg-surface p-4 rounded-2xl border border-border/50 shadow-sm space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Search */}
           <div className="relative lg:col-span-2">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7A5A43]" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-foreground/80" />
             <input
               type="text"
               placeholder="Search Customer Name, Email, Device, MAC, Desk ID (e.g. W-02)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-3 py-2 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 placeholder-[#7A5A43]/60 transition-all font-medium"
+              className="w-full pl-10 pr-3 py-2 bg-background border border-border/50 rounded-xl text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 placeholder:text-foreground/80 transition-all font-medium"
             />
           </div>
 
@@ -783,7 +783,7 @@ export default function AdminWifiPage() {
             <select
               value={planFilter}
               onChange={(e) => setPlanFilter(e.target.value)}
-              className="w-full px-3 py-2 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="All">WiFi Plan (All)</option>
               <option value="Complimentary Free 1 Hr">Free 1-Hr Tier</option>
@@ -798,7 +798,7 @@ export default function AdminWifiPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-3 py-2 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="All">Status (All)</option>
               <option value="Active">Active</option>
@@ -814,7 +814,7 @@ export default function AdminWifiPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-3 py-2 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="default">Status Rank (Default)</option>
               <option value="remaining">Remaining Time</option>
@@ -826,10 +826,10 @@ export default function AdminWifiPage() {
       </div>
 
       {/* PART 1 — FULL WIDTH TABLE (Stretches 100% across dashboard content area) */}
-      <div className="bg-[#FFFDF9] rounded-2xl border border-[#E5D5C5] shadow-sm overflow-hidden space-y-4">
+      <div className="bg-surface rounded-2xl border border-border/50 shadow-sm overflow-hidden space-y-4">
         <div className="hidden md:block overflow-x-auto max-h-[660px] overflow-y-auto">
-          <table className="w-full text-left text-xs text-[#3D2314] border-collapse">
-            <thead className="bg-[#F8F1EA] sticky top-0 z-10 uppercase text-[11px] font-extrabold tracking-wider text-[#7A5A43] border-b border-[#E5D5C5]">
+          <table className="w-full text-left text-xs text-foreground border-collapse">
+            <thead className="bg-surface sticky top-0 z-10 uppercase text-xs font-extrabold tracking-wider text-foreground/80 border-b border-border/50">
               <tr>
                 <th className="py-4 px-4 font-bold">Session ID</th>
                 <th className="py-4 px-4 font-bold">Customer</th>
@@ -846,7 +846,7 @@ export default function AdminWifiPage() {
                 <th className="py-4 px-4 font-bold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E5D5C5]/60">
+            <tbody className="divide-y divide-border/50">
               {filteredAndSortedSessions.length > 0 ? (
                 filteredAndSortedSessions.map((s, idx) => {
                   const isOdd = idx % 2 !== 0;
@@ -860,55 +860,55 @@ export default function AdminWifiPage() {
                         isExpiringSoon
                           ? "bg-amber-100/60"
                           : isOdd
-                          ? "bg-[#FBF7F1]/60"
-                          : "bg-[#FFFDF9]"
-                      } hover:bg-[#F3E9DD] transition-colors`}
+                          ? "bg-background"
+                          : "bg-surface"
+                      } hover:bg-background transition-colors`}
                     >
                       {/* 1. Session ID */}
-                      <td className="py-4 px-4 font-bold font-mono text-sm text-[#8C4A21] whitespace-nowrap">
+                      <td className="py-4 px-4 font-bold font-mono text-sm text-accent whitespace-nowrap">
                         {s.id}
                       </td>
 
                       {/* 2. Customer */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <div className="font-bold text-sm text-[#3D2314]">{s.customerName}</div>
-                        <div className="text-[11px] text-[#7A5A43]">{s.customerEmail}</div>
+                        <div className="font-bold text-sm text-foreground">{s.customerName}</div>
+                        <div className="text-xs text-foreground/80">{s.customerEmail}</div>
                       </td>
 
                       {/* 3. Reservation ID */}
-                      <td className="py-4 px-4 font-mono font-bold text-xs text-[#7A5A43] whitespace-nowrap">
+                      <td className="py-4 px-4 font-mono font-bold text-xs text-foreground/80 whitespace-nowrap">
                         {s.reservationId}
                       </td>
 
                       {/* 4. Desk ID */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <span className="font-extrabold font-mono text-xs text-[#8C4A21] bg-[#F8F1EA] px-3 py-1 rounded-full border border-[#E5D5C5]">
+                        <span className="font-extrabold font-mono text-xs text-accent bg-surface px-3 py-1 rounded-full border border-border/50">
                           {s.deskId}
                         </span>
                       </td>
 
                       {/* 5. Device & OS */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <div className="flex items-center gap-1.5 font-bold text-xs text-[#3D2314]">
+                        <div className="flex items-center gap-1.5 font-bold text-xs text-foreground">
                           {getDeviceIcon(s.deviceCategory)}
                           <span>{s.deviceName}</span>
                         </div>
-                        <div className="text-[11px] text-[#7A5A43] pl-5.5">{s.osName}</div>
+                        <div className="text-xs text-foreground/80 pl-5.5">{s.osName}</div>
                       </td>
 
                       {/* 6. MAC Address */}
-                      <td className="py-4 px-4 font-mono text-xs font-semibold text-[#3D2314] whitespace-nowrap">
+                      <td className="py-4 px-4 font-mono text-xs font-semibold text-foreground whitespace-nowrap">
                         {s.macAddress}
                       </td>
 
                       {/* 7. Login Time */}
-                      <td className="py-4 px-4 text-xs font-medium text-[#7A5A43] whitespace-nowrap">
+                      <td className="py-4 px-4 text-xs font-medium text-foreground/80 whitespace-nowrap">
                         {s.loginTime}
                       </td>
 
                       {/* 8. Remaining Time (Live Countdown Timer) */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <span className="font-mono font-extrabold text-xs text-[#8C4A21]">
+                        <span className="font-mono font-extrabold text-xs text-accent">
                           {formatTimeSeconds(s.remainingSeconds)}
                         </span>
                       </td>
@@ -916,14 +916,14 @@ export default function AdminWifiPage() {
                       {/* 9. Used Data + Low Data Alert */}
                       <td className="py-4 px-4 whitespace-nowrap">
                         <div className="space-y-1 max-w-[120px]">
-                          <div className="flex justify-between text-[11px] font-bold">
+                          <div className="flex justify-between text-xs font-bold">
                             <span>{s.usedBytesMB} MB</span>
                             <span>{s.totalBytesMB === -1 ? "∞" : `${s.totalBytesMB} MB`}</span>
                           </div>
                           {/* Progress bar */}
-                          <div className="w-full h-1.5 bg-[#E5D5C5] rounded-full overflow-hidden">
+                          <div className="w-full h-1.5 bg-border/50 rounded-full overflow-hidden">
                             <div
-                              className={`h-full ${isLowData ? "bg-amber-600" : "bg-[#8C4A21]"}`}
+                              className={`h-full ${isLowData ? "bg-amber-600" : "bg-accent"}`}
                               style={{
                                 width: `${s.totalBytesMB === -1 ? 35 : Math.min(100, (s.usedBytesMB / s.totalBytesMB) * 100)}%`,
                               }}
@@ -939,7 +939,7 @@ export default function AdminWifiPage() {
 
                       {/* 10. Plan */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <span className="px-3 py-1 rounded-full text-[11px] font-extrabold bg-[#F8F1EA] text-[#8C4A21] border border-[#E5D5C5]">
+                        <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-surface text-accent border border-border/50">
                           {s.planName}
                         </span>
                       </td>
@@ -952,7 +952,7 @@ export default function AdminWifiPage() {
                       {/* 12. Status */}
                       <td className="py-4 px-4 whitespace-nowrap">
                         <span
-                          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[11px] font-extrabold border uppercase tracking-wider ${getStatusBadge(
+                          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-extrabold border uppercase tracking-wider ${getStatusBadge(
                             s.status
                           )}`}
                         >
@@ -968,7 +968,7 @@ export default function AdminWifiPage() {
                             <button
                               type="button"
                               onClick={() => handleExtendSession(s.id, 3600)}
-                              className="px-2.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer"
+                              className="px-2.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-primary font-bold text-xs shadow-xs transition-all cursor-pointer"
                               title="Extend Session by 1 Hour"
                             >
                               +1h Extend
@@ -1001,7 +1001,7 @@ export default function AdminWifiPage() {
                             <button
                               type="button"
                               onClick={() => handleUnblockDevice(s.id)}
-                              className="px-3 py-1.5 rounded-xl bg-slate-200 hover:bg-slate-300 text-slate-800 font-bold text-xs transition-all cursor-pointer"
+                              className="px-3 py-1.5 rounded-xl bg-surface-secondary hover:bg-primary/10 text-primary/80 font-bold text-xs transition-all cursor-pointer"
                               title="Unblock Device"
                             >
                               Unblock
@@ -1012,7 +1012,7 @@ export default function AdminWifiPage() {
                           <button
                             type="button"
                             onClick={() => setActiveDrawerSession(s)}
-                            className="p-1.5 rounded-xl bg-[#F8F1EA] hover:bg-[#3D2314] hover:text-white text-[#3D2314] border border-[#E5D5C5] transition-all cursor-pointer"
+                            className="p-1.5 rounded-xl bg-surface hover:bg-accent hover:text-primary text-foreground border border-border/50 transition-all cursor-pointer"
                             title="View Session Details Drawer"
                           >
                             <Eye className="w-4 h-4" />
@@ -1024,7 +1024,7 @@ export default function AdminWifiPage() {
                 })
               ) : (
                 <tr>
-                  <td colSpan={13} className="py-12 text-center text-xs text-[#7A5A43]">
+                  <td colSpan={13} className="py-12 text-center text-xs text-foreground/80">
                     No WiFi sessions found matching your search and filter criteria.
                   </td>
                 </tr>
@@ -1036,51 +1036,51 @@ export default function AdminWifiPage() {
         {/* Mobile Responsive Cards View */}
         <div className="block md:hidden p-4 space-y-3">
           {filteredAndSortedSessions.map((s) => (
-            <div key={s.id} className="bg-[#FFFDF9] rounded-2xl border border-[#E5D5C5] p-4 space-y-3 text-xs">
-              <div className="flex justify-between items-center border-b border-[#E5D5C5]/50 pb-2.5">
+            <div key={s.id} className="bg-surface rounded-2xl border border-border/50 p-4 space-y-3 text-xs">
+              <div className="flex justify-between items-center border-b border-border/50/50 pb-2.5">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono font-bold text-sm text-[#8C4A21]">{s.id}</span>
-                  <span className="font-mono font-extrabold text-xs text-[#8C4A21] bg-[#F8F1EA] px-2.5 py-0.5 rounded-full border border-[#E5D5C5]">
+                  <span className="font-mono font-bold text-sm text-accent">{s.id}</span>
+                  <span className="font-mono font-extrabold text-xs text-accent bg-surface px-2.5 py-0.5 rounded-full border border-border/50">
                     {s.deskId}
                   </span>
                 </div>
-                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${getStatusBadge(s.status)}`}>
+                <span className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase ${getStatusBadge(s.status)}`}>
                   {s.status}
                 </span>
               </div>
               <div className="flex justify-between items-start">
                 <div>
-                  <div className="font-bold text-sm text-[#3D2314]">{s.customerName}</div>
-                  <div className="text-xs text-[#7A5A43]">{s.customerEmail}</div>
+                  <div className="font-bold text-sm text-foreground">{s.customerName}</div>
+                  <div className="text-xs text-foreground/80">{s.customerEmail}</div>
                 </div>
-                <span className="text-xs font-mono font-bold text-[#7A5A43]">{s.reservationId}</span>
+                <span className="text-xs font-mono font-bold text-foreground/80">{s.reservationId}</span>
               </div>
-              <div className="bg-[#F8F1EA]/60 p-2.5 rounded-xl text-xs space-y-1">
+              <div className="bg-surface/60 p-2.5 rounded-xl text-xs space-y-1">
                 <div className="flex justify-between">
-                  <span className="text-[#7A5A43] font-semibold">Device &amp; MAC:</span>
-                  <span className="font-mono font-bold text-[#3D2314]">{s.deviceName} ({s.macAddress})</span>
+                  <span className="text-foreground/80 font-semibold">Device &amp; MAC:</span>
+                  <span className="font-mono font-bold text-foreground">{s.deviceName} ({s.macAddress})</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#7A5A43] font-semibold">Time Remaining:</span>
-                  <span className="font-mono font-bold text-[#8C4A21]">{formatTimeSeconds(s.remainingSeconds)}</span>
+                  <span className="text-foreground/80 font-semibold">Time Remaining:</span>
+                  <span className="font-mono font-bold text-accent">{formatTimeSeconds(s.remainingSeconds)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#7A5A43] font-semibold">Data Used:</span>
+                  <span className="text-foreground/80 font-semibold">Data Used:</span>
                   <span className="font-mono font-bold">{s.usedBytesMB} MB</span>
                 </div>
               </div>
-              <div className="pt-2 flex justify-end gap-2 border-t border-[#E5D5C5]/50">
+              <div className="pt-2 flex justify-end gap-2 border-t border-border/50/50">
                 {(s.status === "Active" || s.status === "Expiring Soon") && (
                   <button
                     onClick={() => handleExtendSession(s.id, 3600)}
-                    className="flex-1 py-2 rounded-xl bg-emerald-700 text-white font-bold text-xs"
+                    className="flex-1 py-2 rounded-xl bg-emerald-700 text-primary font-bold text-xs"
                   >
                     +1h Extend
                   </button>
                 )}
                 <button
                   onClick={() => setActiveDrawerSession(s)}
-                  className="p-2 rounded-xl bg-[#F8F1EA] text-[#3D2314] border border-[#E5D5C5]"
+                  className="p-2 rounded-xl bg-surface text-foreground border border-border/50"
                 >
                   <Eye className="w-4 h-4" />
                 </button>
@@ -1099,7 +1099,7 @@ export default function AdminWifiPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveDrawerSession(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-background/60 backdrop-blur-xs"
             />
             <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
               <motion.div
@@ -1107,25 +1107,25 @@ export default function AdminWifiPage() {
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="w-screen max-w-md bg-[#FFFDF9] border-l border-[#E5D5C5] shadow-2xl flex flex-col justify-between"
+                className="w-screen max-w-md bg-surface border-l border-border/50 shadow-2xl flex flex-col justify-between"
               >
                 {/* Header */}
-                <div className="p-6 border-b border-[#E5D5C5] bg-[#F8F1EA] flex items-center justify-between">
+                <div className="p-6 border-b border-border/50 bg-surface flex items-center justify-between">
                   <div>
                     <div className="flex items-center gap-2">
-                      <Wifi className="w-5 h-5 text-[#8C4A21]" />
-                      <h3 className="text-lg font-bold font-serif text-[#3D2314]">
+                      <Wifi className="w-5 h-5 text-accent" />
+                      <h3 className="text-lg font-bold font-serif text-foreground">
                         WiFi Session Details
                       </h3>
                     </div>
-                    <span className="text-xs font-mono font-bold text-[#8C4A21]">
+                    <span className="text-xs font-mono font-bold text-accent">
                       {activeDrawerSession.id}
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setActiveDrawerSession(null)}
-                    className="p-2 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white text-[#3D2314] border border-[#E5D5C5] transition-colors cursor-pointer"
+                    className="p-2 rounded-xl bg-surface hover:bg-accent hover:text-primary text-foreground border border-border/50 transition-colors cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -1133,88 +1133,88 @@ export default function AdminWifiPage() {
 
                 {/* Content */}
                 <div className="p-6 overflow-y-auto space-y-4 text-xs flex-1">
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Customer &amp; Reservation Details
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Customer Name:</span>
-                      <span className="font-bold text-[#3D2314]">{activeDrawerSession.customerName}</span>
+                      <span className="text-foreground/80 font-bold">Customer Name:</span>
+                      <span className="font-bold text-foreground">{activeDrawerSession.customerName}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Email Address:</span>
+                      <span className="text-foreground/80 font-bold">Email Address:</span>
                       <span>{activeDrawerSession.customerEmail}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Reservation ID:</span>
-                      <span className="font-mono text-[#8C4A21] font-bold">{activeDrawerSession.reservationId}</span>
+                      <span className="text-foreground/80 font-bold">Reservation ID:</span>
+                      <span className="font-mono text-accent font-bold">{activeDrawerSession.reservationId}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Desk ID &amp; Type:</span>
+                      <span className="text-foreground/80 font-bold">Desk ID &amp; Type:</span>
                       <span className="font-bold">{activeDrawerSession.deskId} ({activeDrawerSession.workspaceType})</span>
                     </div>
                   </div>
 
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Device &amp; Network Information
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Device Name:</span>
+                      <span className="text-foreground/80 font-bold">Device Name:</span>
                       <span className="font-bold">{activeDrawerSession.deviceName}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Operating System:</span>
+                      <span className="text-foreground/80 font-bold">Operating System:</span>
                       <span>{activeDrawerSession.osName}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">MAC Address:</span>
-                      <span className="font-mono text-[#3D2314] font-bold">{activeDrawerSession.macAddress}</span>
+                      <span className="text-foreground/80 font-bold">MAC Address:</span>
+                      <span className="font-mono text-foreground font-bold">{activeDrawerSession.macAddress}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">IP Address:</span>
-                      <span className="font-mono text-[#7A5A43]">{activeDrawerSession.ipAddress}</span>
+                      <span className="text-foreground/80 font-bold">IP Address:</span>
+                      <span className="font-mono text-foreground/80">{activeDrawerSession.ipAddress}</span>
                     </div>
-                    <div className="flex justify-between pt-1 border-t border-[#DFCDBE]/60">
-                      <span className="text-[#7A5A43] font-bold">Signal Strength:</span>
+                    <div className="flex justify-between pt-1 border-t border-border/50/60">
+                      <span className="text-foreground/80 font-bold">Signal Strength:</span>
                       <span>{getSignalStrengthIcon(activeDrawerSession.signalStrength)}</span>
                     </div>
                   </div>
 
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Session &amp; Data Consumption
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">WiFi Plan:</span>
-                      <span className="font-bold text-[#8C4A21]">{activeDrawerSession.planName} ({activeDrawerSession.planPrice})</span>
+                      <span className="text-foreground/80 font-bold">WiFi Plan:</span>
+                      <span className="font-bold text-accent">{activeDrawerSession.planName} ({activeDrawerSession.planPrice})</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Login Time:</span>
+                      <span className="text-foreground/80 font-bold">Login Time:</span>
                       <span>{activeDrawerSession.loginTime}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Remaining Time:</span>
-                      <span className="font-mono font-bold text-[#8C4A21]">{formatTimeSeconds(activeDrawerSession.remainingSeconds)}</span>
+                      <span className="text-foreground/80 font-bold">Remaining Time:</span>
+                      <span className="font-mono font-bold text-accent">{formatTimeSeconds(activeDrawerSession.remainingSeconds)}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Data Consumption:</span>
+                      <span className="text-foreground/80 font-bold">Data Consumption:</span>
                       <span className="font-bold">{activeDrawerSession.usedBytesMB} MB used</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Payment Status:</span>
+                      <span className="text-foreground/80 font-bold">Payment Status:</span>
                       <span className="font-bold text-emerald-800">{activeDrawerSession.paymentStatus}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Footer Actions */}
-                <div className="p-6 border-t border-[#E5D5C5] bg-[#F8F1EA] space-y-2">
+                <div className="p-6 border-t border-border/50 bg-surface space-y-2">
                   {(activeDrawerSession.status === "Active" || activeDrawerSession.status === "Expiring Soon") && (
                     <button
                       type="button"
                       onClick={() => handleExtendSession(activeDrawerSession.id, 3600)}
-                      className="w-full py-3 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full py-3 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                       <Clock className="w-4 h-4" /> Extend Session (+1 Hour)
                     </button>
@@ -1222,7 +1222,7 @@ export default function AdminWifiPage() {
                   <button
                     type="button"
                     onClick={() => setActiveDrawerSession(null)}
-                    className="w-full py-2.5 rounded-2xl bg-[#FFFDF9] text-[#3D2314] border border-[#E5D5C5] font-bold text-xs hover:bg-[#3D2314] hover:text-white transition-all cursor-pointer"
+                    className="w-full py-2.5 rounded-2xl bg-surface text-foreground border border-border/50 font-bold text-xs hover:bg-accent hover:text-primary transition-all cursor-pointer"
                   >
                     Close Drawer
                   </button>
@@ -1242,13 +1242,13 @@ export default function AdminWifiPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setBlockingSession(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-background/60 backdrop-blur-xs"
             />
             <motion.div
               initial={{ scale: 0.95, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.95, opacity: 0 }}
-              className="relative w-full max-w-md bg-[#FFFDF9] rounded-3xl border border-[#E5D5C5] shadow-2xl p-6 space-y-4 text-xs z-10"
+              className="relative w-full max-w-md bg-surface rounded-3xl border border-border/50 shadow-2xl p-6 space-y-4 text-xs z-10"
             >
               <div className="flex items-center gap-2.5 text-rose-700">
                 <Ban className="w-6 h-6 shrink-0" />
@@ -1257,16 +1257,16 @@ export default function AdminWifiPage() {
                 </h3>
               </div>
 
-              <p className="text-[#7A5A43]">
-                Are you sure you want to block device <span className="font-mono font-bold text-[#3D2314]">{blockingSession.macAddress}</span> ({blockingSession.deviceName})?
+              <p className="text-foreground/80">
+                Are you sure you want to block device <span className="font-mono font-bold text-foreground">{blockingSession.macAddress}</span> ({blockingSession.deviceName})?
               </p>
 
               <div className="space-y-1.5">
-                <label className="font-bold text-[#3D2314]">Select Reason for Blacklisting:</label>
+                <label className="font-bold text-foreground">Select Reason for Blacklisting:</label>
                 <select
                   value={blockReasonInput}
                   onChange={(e) => setBlockReasonInput(e.target.value)}
-                  className="w-full p-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium"
+                  className="w-full p-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium"
                 >
                   <option value="Suspicious Activity">Suspicious Activity / Port Scan</option>
                   <option value="Abuse">Network Abuse / Torrenting</option>
@@ -1279,14 +1279,14 @@ export default function AdminWifiPage() {
                 <button
                   type="button"
                   onClick={() => setBlockingSession(null)}
-                  className="px-4 py-2 rounded-xl bg-[#FAF4ED] text-[#3D2314] border border-[#E5D5C5] font-bold cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-background text-foreground border border-border/50 font-bold cursor-pointer"
                 >
                   Cancel
                 </button>
                 <button
                   type="button"
                   onClick={handleBlockDevice}
-                  className="px-4 py-2 rounded-xl bg-rose-700 text-white font-bold hover:bg-rose-800 transition-colors cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-rose-700 text-primary font-bold hover:bg-rose-800 transition-colors cursor-pointer"
                 >
                   Block &amp; Blacklist Device
                 </button>

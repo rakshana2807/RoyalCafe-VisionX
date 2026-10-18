@@ -86,7 +86,7 @@ export default function ReviewForm() {
             </p>
             <button
               onClick={handleReset}
-              className="px-6 py-2.5 bg-emerald-700 text-white rounded-full text-xs font-bold hover:bg-emerald-800 transition-all cursor-pointer"
+              className="px-6 py-2.5 bg-emerald-700 text-primary rounded-full text-xs font-bold hover:bg-emerald-800 transition-all cursor-pointer"
             >
               Write Another Review
             </button>
@@ -95,7 +95,7 @@ export default function ReviewForm() {
           /* Main Form Card */
           <form
             onSubmit={handleSubmit}
-            className="bg-white p-8 sm:p-12 rounded-[2.5rem] card-shadow border border-primary/5 space-y-6"
+            className="bg-surface p-8 sm:p-12 rounded-[2.5rem] card-shadow border border-primary/5 space-y-6"
           >
             {/* Clickable Star Rating Selector */}
             <div className="text-center pb-6 border-b border-primary/5">
@@ -116,7 +116,7 @@ export default function ReviewForm() {
                       className={`h-8 w-8 ${
                         star <= (hoverRating || rating)
                           ? "fill-accent text-accent"
-                          : "text-zinc-200 fill-zinc-100"
+                          : "text-primary/70 fill-zinc-100"
                       }`}
                     />
                   </button>
@@ -143,7 +143,7 @@ export default function ReviewForm() {
                   }`}
                 />
                 {errors.fullName && (
-                  <span className="text-[11px] font-semibold text-rose-500 block mt-1">{errors.fullName}</span>
+                  <span className="text-xs font-semibold text-rose-500 block mt-1">{errors.fullName}</span>
                 )}
               </div>
 
@@ -161,7 +161,7 @@ export default function ReviewForm() {
                   }`}
                 />
                 {errors.email && (
-                  <span className="text-[11px] font-semibold text-rose-500 block mt-1">{errors.email}</span>
+                  <span className="text-xs font-semibold text-rose-500 block mt-1">{errors.email}</span>
                 )}
               </div>
             </div>
@@ -187,7 +187,7 @@ export default function ReviewForm() {
                 <select
                   value={formData.purpose}
                   onChange={(e) => setFormData({ ...formData, purpose: e.target.value })}
-                  className="w-full px-4 py-3 rounded-xl border border-primary/10 text-sm font-sans focus:outline-none focus:ring-2 focus:ring-primary/20 bg-white"
+                  className="w-full px-4 py-3 rounded-xl border border-primary/10 text-sm font-sans focus:outline-none focus:ring-2 focus:ring-primary/20 bg-surface"
                 >
                   <option value="Study">Study Session</option>
                   <option value="Work">Remote Work</option>
@@ -213,7 +213,7 @@ export default function ReviewForm() {
                 }`}
               />
               {errors.reviewTitle && (
-                <span className="text-[11px] font-semibold text-rose-500 block mt-1">{errors.reviewTitle}</span>
+                <span className="text-xs font-semibold text-rose-500 block mt-1">{errors.reviewTitle}</span>
               )}
             </div>
 
@@ -223,7 +223,7 @@ export default function ReviewForm() {
                 <label className="block text-xs font-bold text-primary uppercase tracking-wider">
                   Review Message *
                 </label>
-                <span className="text-[10px] font-semibold text-foreground/40">
+                <span className="text-xs font-semibold text-foreground/80">
                   {formData.reviewMessage.length} / 500 characters
                 </span>
               </div>
@@ -238,12 +238,12 @@ export default function ReviewForm() {
                 }`}
               />
               {errors.reviewMessage && (
-                <span className="text-[11px] font-semibold text-rose-500 block mt-1">{errors.reviewMessage}</span>
+                <span className="text-xs font-semibold text-rose-500 block mt-1">{errors.reviewMessage}</span>
               )}
             </div>
 
             {/* Photo Upload Trigger */}
-            <div className="p-4 bg-[#FAF6F0] rounded-xl border border-primary/5 flex items-center justify-between">
+            <div className="p-4 bg-surface rounded-xl border border-primary/5 flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <Camera className="h-5 w-5 text-accent" />
                 <span className="text-xs font-bold text-primary">
@@ -253,7 +253,7 @@ export default function ReviewForm() {
               <button
                 type="button"
                 onClick={() => alert("Photo selector opened! (Demo placeholder)")}
-                className="px-4 py-1.5 bg-white border border-primary/10 rounded-full text-xs font-bold text-primary hover:bg-foreground/5 cursor-pointer"
+                className="px-4 py-1.5 bg-surface border border-primary/10 rounded-full text-xs font-bold text-primary hover:bg-foreground/5 cursor-pointer"
               >
                 Choose Photo
               </button>
@@ -273,7 +273,7 @@ export default function ReviewForm() {
                 </span>
               </label>
               {errors.agreeGenuine && (
-                <span className="text-[11px] font-semibold text-rose-500 block mt-1">{errors.agreeGenuine}</span>
+                <span className="text-xs font-semibold text-rose-500 block mt-1">{errors.agreeGenuine}</span>
               )}
             </div>
 
@@ -290,7 +290,7 @@ export default function ReviewForm() {
 
               <button
                 type="submit"
-                className="w-full sm:w-auto px-8 py-3 border border-transparent text-xs font-bold rounded-full text-white bg-primary hover:bg-primary/95 transition-all shadow-md inline-flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full sm:w-auto px-8 py-3 border border-transparent text-xs font-bold rounded-full text-background bg-primary hover:bg-primary/95 transition-all shadow-md inline-flex items-center justify-center gap-2 cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
               >
                 <Send className="h-4 w-4" />
                 <span>Submit Review</span>

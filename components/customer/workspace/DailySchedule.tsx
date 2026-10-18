@@ -60,13 +60,13 @@ export default function DailySchedule() {
             return (
               <div key={idx} className="relative group text-left">
                 {/* Circle Number/Badge */}
-                <div className="absolute -left-[41px] sm:-left-[45px] top-0.5 h-[28px] w-[28px] sm:h-[34px] sm:w-[34px] rounded-full bg-white border-2 border-primary text-primary font-serif font-bold text-[9px] sm:text-xs flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-all duration-300 z-10 shadow-sm">
+                <div className="absolute -left-[41px] sm:-left-[45px] top-0.5 h-[28px] w-[28px] sm:h-[34px] sm:w-[34px] rounded-full bg-surface border-2 border-primary text-primary font-serif font-bold text-[9px] sm:text-xs flex items-center justify-center group-hover:bg-primary group-hover:text-background transition-all duration-300 z-10 shadow-sm">
                   <Icon className="h-3.5 w-3.5" />
                 </div>
 
                 {/* Content */}
-                <div className="bg-white p-6 rounded-2xl border border-primary/5 card-shadow shadow-sm group-hover:translate-x-1 transition-transform">
-                  <span className="text-[10px] font-bold text-accent uppercase tracking-widest block mb-1">
+                <div className="bg-surface p-6 rounded-2xl border border-primary/5 card-shadow shadow-sm group-hover:translate-x-1 transition-transform">
+                  <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-1">
                     {item.time}
                   </span>
                   <h3 className="text-lg font-bold font-serif text-primary mb-2">

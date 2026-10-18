@@ -41,7 +41,7 @@ export default function TermsAccordion() {
 
         {/* Section Header matching Figma */}
         <div className="text-center mb-8 animate-fade-in">
-          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#5A2E0C]">
+          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-primary">
             Terms &amp; Conditions
           </h2>
         </div>
@@ -53,7 +53,7 @@ export default function TermsAccordion() {
             return (
               <div
                 key={idx}
-                className="bg-white rounded-[20px] border border-primary/5 card-shadow overflow-hidden transition-all duration-300"
+                className="bg-surface rounded-[20px] border border-primary/5 card-shadow overflow-hidden transition-all duration-300"
               >
                 {/* Accordion trigger header */}
                 <button
@@ -62,7 +62,7 @@ export default function TermsAccordion() {
                 >
                   <span>{term.question}</span>
                   <ChevronDown
-                    className={`h-4 w-4 text-primary/60 transition-transform duration-300 ${
+                    className={`h-4 w-4 text-primary/80 transition-transform duration-300 ${
                       isOpen ? "transform rotate-180" : ""
                     }`}
                   />

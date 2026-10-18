@@ -271,21 +271,21 @@ export default function SlidingBookingPanel({
     <>
       {/* Backdrop overlay */}
       <div
-        className="fixed inset-0 bg-black/40 backdrop-blur-xs z-40 transition-opacity duration-300 animate-in fade-in"
+        className="fixed inset-0 bg-background/40 backdrop-blur-xs z-40 transition-opacity duration-300 animate-in fade-in"
         onClick={onClose}
       />
 
       {/* Right Side Sliding Drawer Panel (Desktop Side Modal / Mobile Bottom Sheet) */}
-      <div className="fixed top-0 right-0 h-full w-full max-w-md bg-[#FFFDF9] z-50 shadow-2xl flex flex-col justify-between overflow-y-auto font-sans transition-transform duration-300 ease-in-out animate-in slide-in-from-right text-[#3D2314]">
+      <div className="fixed top-0 right-0 h-full w-full max-w-md bg-surface z-50 shadow-2xl flex flex-col justify-between overflow-y-auto font-sans transition-transform duration-300 ease-in-out animate-in slide-in-from-right text-foreground">
 
         {/* Panel Header */}
-        <div className="p-6 bg-gradient-to-r from-[#2A1506] to-[#42220C] text-white flex items-center justify-between shadow-md shrink-0">
+        <div className="p-6 bg-gradient-to-r from-accent to-accent text-primary flex items-center justify-between shadow-md shrink-0">
           <div className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-2xl bg-[#8C4A21] text-white flex items-center justify-center font-bold shadow-xs">
+            <div className="h-10 w-10 rounded-2xl bg-accent text-primary flex items-center justify-center font-bold shadow-xs">
               <Armchair className="h-5 w-5" />
             </div>
             <div>
-              <span className="text-[10px] font-extrabold text-amber-300 uppercase tracking-widest block">
+              <span className="text-xs font-extrabold text-amber-300 uppercase tracking-widest block">
                 RoyalCafe Connect
               </span>
               <h2 className="text-xl font-bold font-serif tracking-tight text-amber-50">
@@ -297,7 +297,7 @@ export default function SlidingBookingPanel({
           <button
             type="button"
             onClick={onClose}
-            className="p-2 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors cursor-pointer"
+            className="p-2 rounded-full bg-surface/10 hover:bg-surface/20 text-primary transition-colors cursor-pointer"
             aria-label="Close booking panel"
           >
             <X className="h-5 w-5" />
@@ -305,40 +305,40 @@ export default function SlidingBookingPanel({
         </div>
 
         {/* Panel Body Content */}
-        <div className="p-6 space-y-6 flex-1 bg-[#FFFDF9]">
+        <div className="p-6 space-y-6 flex-1 bg-surface">
 
           {/* Selected Desk ID & Status Highlight Banner */}
-          <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2 shadow-xs">
-            <div className="flex items-center justify-between border-b border-[#DFCDBE]/60 pb-2">
-              <span className="text-[11px] font-extrabold text-[#8C4A21] uppercase tracking-wider">
+          <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2 shadow-xs">
+            <div className="flex items-center justify-between border-b border-border/50/60 pb-2">
+              <span className="text-xs font-extrabold text-accent uppercase tracking-wider">
                 DESK ID / SEAT
               </span>
-              <span className="text-xs font-mono font-bold text-[#3D2314] bg-[#FFFDF9] px-3 py-1 rounded-full border border-[#DFCDBE]">
+              <span className="text-xs font-mono font-bold text-foreground bg-surface px-3 py-1 rounded-full border border-border/50">
                 {selectedSeat.id} ({formattedSeatNumber})
               </span>
             </div>
 
             <div className="flex items-center justify-between pt-1">
-              <span className="text-[11px] font-extrabold text-[#8C4A21] uppercase tracking-wider">
+              <span className="text-xs font-extrabold text-accent uppercase tracking-wider">
                 SEATING TYPE
               </span>
-              <span className="text-xs font-bold text-[#3D2314]">
+              <span className="text-xs font-bold text-foreground">
                 {selectedSeat.seatType || selectedSeat.area}
               </span>
             </div>
 
             <div className="flex items-center justify-between pt-1">
-              <span className="text-[11px] font-extrabold text-[#8C4A21] uppercase tracking-wider">
+              <span className="text-xs font-extrabold text-accent uppercase tracking-wider">
                 CURRENT STATUS
               </span>
               <span
-                className={`px-3 py-0.5 rounded-full text-[11px] font-extrabold uppercase ${isOriginallyAvailable
+                className={`px-3 py-0.5 rounded-full text-xs font-extrabold uppercase ${isOriginallyAvailable
                     ? "bg-emerald-500/15 text-emerald-800 border border-emerald-500/30"
                     : isReserved
                       ? "bg-amber-500/15 text-amber-800 border border-amber-500/30"
                       : isOccupied
                         ? "bg-rose-500/15 text-rose-800 border border-rose-500/30"
-                        : "bg-slate-500/15 text-slate-800 border border-slate-500/30"
+                        : "bg-primary/10 text-primary/80 border border-primary/20"
                   }`}
               >
                 {seatStatus}
@@ -353,7 +353,7 @@ export default function SlidingBookingPanel({
                 <AlertTriangle className="w-4 h-4 text-amber-700 shrink-0" />
                 <span>This seating option is currently unavailable at the selected time, but you can choose another available slot.</span>
               </div>
-              <p className="text-[11px] text-amber-800">
+              <p className="text-xs text-amber-800">
                 Current Booking: <strong className="font-mono">{selectedSeat.reservedTime || "02:00 PM - 05:00 PM"}</strong>
               </p>
             </div>
@@ -365,30 +365,30 @@ export default function SlidingBookingPanel({
                 <AlertTriangle className="w-4 h-4 text-rose-700 shrink-0" />
                 <span>This seat is currently in use. Select a later available time slot.</span>
               </div>
-              <p className="text-[11px] text-rose-800">
+              <p className="text-xs text-rose-800">
                 Expected Checkout: <strong className="font-mono">{selectedSeat.occupiedUntil || "06:30 PM"}</strong>
               </p>
             </div>
           )}
 
           {isMaintenance && (
-            <div className="bg-slate-500/10 p-3.5 rounded-2xl border border-slate-500/30 text-xs text-slate-800 space-y-1">
+            <div className="bg-primary/5 p-3.5 rounded-2xl border border-primary/10 text-xs text-primary/80 space-y-1">
               <div className="font-bold flex items-center gap-2">
-                <Info className="w-4 h-4 text-slate-700" />
+                <Info className="w-4 h-4 text-primary/70" />
                 <span>This seat is currently under maintenance.</span>
               </div>
-              <p className="text-[11px] text-slate-600">Please choose an alternative seating option below.</p>
+              <p className="text-xs text-background/80">Please choose an alternative seating option below.</p>
             </div>
           )}
 
           {/* SECTION 1: AVAILABLE TIME SLOTS FOR THIS SEAT */}
           {(!isOriginallyAvailable || selectedSlotOverride !== null) && !isMaintenance && (
-            <div className="space-y-3 p-4 bg-[#FAF4ED] rounded-2xl border border-[#DFCDBE]">
-              <div className="flex items-center justify-between border-b border-[#DFCDBE]/60 pb-2">
-                <span className="text-xs font-bold text-[#3D2314] flex items-center gap-1.5">
-                  <Calendar className="w-4 h-4 text-[#8C4A21]" /> Available Time Slots for {selectedSeat.id}
+            <div className="space-y-3 p-4 bg-background rounded-2xl border border-border/50">
+              <div className="flex items-center justify-between border-b border-border/50/60 pb-2">
+                <span className="text-xs font-bold text-foreground flex items-center gap-1.5">
+                  <Calendar className="w-4 h-4 text-accent" /> Available Time Slots for {selectedSeat.id}
                 </span>
-                <span className="text-[10px] font-extrabold text-[#8C4A21] bg-[#FFFDF9] px-2 py-0.5 rounded-full border border-[#DFCDBE]">
+                <span className="text-xs font-extrabold text-accent bg-surface px-2 py-0.5 rounded-full border border-border/50">
                   Same Desk
                 </span>
               </div>
@@ -401,8 +401,8 @@ export default function SlidingBookingPanel({
                     <div
                       key={slot.id}
                       className={`p-3 rounded-xl border flex items-center justify-between transition-all ${isSelectedSlot
-                          ? "bg-[#3D2314] text-white border-[#3D2314] shadow-sm"
-                          : "bg-[#FFFDF9] hover:bg-[#F3E9DD] border-[#DFCDBE] text-[#3D2314]"
+                          ? "bg-accent text-primary border-accent shadow-sm"
+                          : "bg-surface hover:bg-background border-border/50 text-foreground"
                         }`}
                     >
                       <div className="space-y-0.5">
@@ -410,7 +410,7 @@ export default function SlidingBookingPanel({
                           <span className={`w-2 h-2 rounded-full ${isSelectedSlot ? "bg-amber-300" : "bg-emerald-500"}`} />
                           <span className="font-mono">{slot.slotText}</span>
                         </div>
-                        <div className={`text-[10px] ${isSelectedSlot ? "text-amber-200" : "text-[#7A5A43]"}`}>
+                        <div className={`text-xs ${isSelectedSlot ? "text-amber-200" : "text-foreground/80"}`}>
                           Duration: {slot.duration} • {slot.dateText}
                         </div>
                       </div>
@@ -419,8 +419,8 @@ export default function SlidingBookingPanel({
                         type="button"
                         onClick={() => handleSelectSlotOverride(slot)}
                         className={`px-3 py-1.5 rounded-xl font-bold text-xs transition-all cursor-pointer flex items-center gap-1 ${isSelectedSlot
-                            ? "bg-amber-400 text-[#3D2314]"
-                            : "bg-[#FAF4ED] hover:bg-[#8C4A21] hover:text-white text-[#8C4A21] border border-[#DFCDBE]"
+                            ? "bg-amber-400 text-foreground"
+                            : "bg-background hover:bg-accent hover:text-primary text-accent border border-border/50"
                           }`}
                       >
                         {isSelectedSlot ? <><Check className="w-3.5 h-3.5" /> Selected</> : "Select Slot"}
@@ -445,23 +445,23 @@ export default function SlidingBookingPanel({
               {/* TIME SELECTOR UI: MODERN TIME PICKER */}
               <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#3D2314] flex items-center gap-2">
-                    <Clock className="h-4 w-4 text-[#8C4A21]" />
+                  <label className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                    <Clock className="h-4 w-4 text-accent" />
                     Arrival Start Time
                   </label>
-                  <span className="text-[11px] font-bold text-[#8C4A21] bg-[#FAF4ED] px-2.5 py-0.5 rounded-full border border-[#DFCDBE]">
+                  <span className="text-xs font-bold text-accent bg-background px-2.5 py-0.5 rounded-full border border-border/50">
                     {arrivalTime}
                   </span>
                 </div>
 
-                <div className="grid grid-cols-3 gap-2 bg-[#FAF4ED] p-3 rounded-2xl border border-[#DFCDBE]">
+                <div className="grid grid-cols-3 gap-2 bg-background p-3 rounded-2xl border border-border/50">
                   {/* Hour Select */}
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-[#7A5A43] block">Hour</span>
+                    <span className="text-xs font-bold text-foreground/80 block">Hour</span>
                     <select
                       value={pickerHour}
                       onChange={(e) => handleTimePickerChange(e.target.value, pickerMinute, pickerPeriod)}
-                      className="w-full p-2 bg-[#FFFDF9] border border-[#DFCDBE] rounded-xl text-xs font-bold text-[#3D2314] focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 cursor-pointer"
+                      className="w-full p-2 bg-surface border border-border/50 rounded-xl text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 cursor-pointer"
                     >
                       {["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"].map((h) => (
                         <option key={h} value={h}>{h}</option>
@@ -471,11 +471,11 @@ export default function SlidingBookingPanel({
 
                   {/* Minute Select */}
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-[#7A5A43] block">Minute</span>
+                    <span className="text-xs font-bold text-foreground/80 block">Minute</span>
                     <select
                       value={pickerMinute}
                       onChange={(e) => handleTimePickerChange(pickerHour, e.target.value, pickerPeriod)}
-                      className="w-full p-2 bg-[#FFFDF9] border border-[#DFCDBE] rounded-xl text-xs font-bold text-[#3D2314] focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 cursor-pointer"
+                      className="w-full p-2 bg-surface border border-border/50 rounded-xl text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 cursor-pointer"
                     >
                       {["00", "15", "30", "45"].map((m) => (
                         <option key={m} value={m}>{m}</option>
@@ -485,11 +485,11 @@ export default function SlidingBookingPanel({
 
                   {/* Period AM/PM Select */}
                   <div className="space-y-1">
-                    <span className="text-[10px] font-bold text-[#7A5A43] block">Period</span>
+                    <span className="text-xs font-bold text-foreground/80 block">Period</span>
                     <select
                       value={pickerPeriod}
                       onChange={(e) => handleTimePickerChange(pickerHour, pickerMinute, e.target.value)}
-                      className="w-full p-2 bg-[#FFFDF9] border border-[#DFCDBE] rounded-xl text-xs font-bold text-[#3D2314] focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 cursor-pointer"
+                      className="w-full p-2 bg-surface border border-border/50 rounded-xl text-xs font-bold text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 cursor-pointer"
                     >
                       <option value="AM">AM</option>
                       <option value="PM">PM</option>
@@ -501,15 +501,15 @@ export default function SlidingBookingPanel({
               {/* DURATION SELECTOR: QUICK PRESETS & CUSTOM DURATION */}
               <div className="space-y-2.5">
                 <div className="flex items-center justify-between">
-                  <label className="text-xs font-bold uppercase tracking-wider text-[#3D2314] flex items-center gap-2">
-                    <Timer className="h-4 w-4 text-[#8C4A21]" />
+                  <label className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                    <Timer className="h-4 w-4 text-accent" />
                     Booking Duration (Default: 1 Hour)
                   </label>
 
                   <button
                     type="button"
                     onClick={() => setIsCustomDurationMode(!isCustomDurationMode)}
-                    className="text-[11px] font-extrabold text-[#8C4A21] hover:underline flex items-center gap-1 cursor-pointer"
+                    className="text-xs font-extrabold text-accent hover:underline flex items-center gap-1 cursor-pointer"
                   >
                     <Sliders className="w-3.5 h-3.5" />
                     {isCustomDurationMode ? "Quick Presets" : "Customize Duration"}
@@ -525,8 +525,8 @@ export default function SlidingBookingPanel({
                         type="button"
                         onClick={() => setDuration(opt)}
                         className={`py-2 px-2.5 rounded-xl text-xs font-bold transition-all cursor-pointer text-center ${duration === opt
-                            ? "bg-[#3D2314] text-white shadow-xs scale-[1.02]"
-                            : "bg-[#FAF4ED] text-[#7A5A43] border border-[#DFCDBE] hover:bg-[#8C4A21] hover:text-white"
+                            ? "bg-accent text-primary shadow-xs scale-[1.02]"
+                            : "bg-background text-foreground/80 border border-border/50 hover:bg-accent hover:text-primary"
                           }`}
                       >
                         {opt} {opt === "1 Hour" ? "(Default)" : ""}
@@ -535,17 +535,17 @@ export default function SlidingBookingPanel({
                   </div>
                 ) : (
                   /* Custom Duration Input Fields */
-                  <div className="p-3.5 bg-[#FAF4ED] rounded-2xl border border-[#DFCDBE] space-y-2">
-                    <span className="text-[10px] font-extrabold text-[#7A5A43] uppercase block">
+                  <div className="p-3.5 bg-background rounded-2xl border border-border/50 space-y-2">
+                    <span className="text-xs font-extrabold text-foreground/80 uppercase block">
                       Custom Duration Setup
                     </span>
                     <div className="grid grid-cols-2 gap-3 text-xs">
                       <div className="space-y-1">
-                        <label className="font-bold text-[#3D2314]">Hours</label>
+                        <label className="font-bold text-foreground">Hours</label>
                         <select
                           value={customHours}
                           onChange={(e) => handleCustomDurationChange(e.target.value, customMinutes)}
-                          className="w-full p-2 bg-[#FFFDF9] border border-[#DFCDBE] rounded-xl font-bold"
+                          className="w-full p-2 bg-surface border border-border/50 rounded-xl font-bold"
                         >
                           {["0", "1", "2", "3", "4", "5", "6", "7", "8"].map((h) => (
                             <option key={h} value={h}>{h} Hours</option>
@@ -553,11 +553,11 @@ export default function SlidingBookingPanel({
                         </select>
                       </div>
                       <div className="space-y-1">
-                        <label className="font-bold text-[#3D2314]">Minutes</label>
+                        <label className="font-bold text-foreground">Minutes</label>
                         <select
                           value={customMinutes}
                           onChange={(e) => handleCustomDurationChange(customHours, e.target.value)}
-                          className="w-full p-2 bg-[#FFFDF9] border border-[#DFCDBE] rounded-xl font-bold"
+                          className="w-full p-2 bg-surface border border-border/50 rounded-xl font-bold"
                         >
                           {["00", "15", "30", "45"].map((m) => (
                             <option key={m} value={m}>{m} Mins</option>
@@ -570,17 +570,17 @@ export default function SlidingBookingPanel({
               </div>
 
               {/* AUTOMATIC END TIME / CHECKOUT CALCULATION BADGE */}
-              <div className="bg-gradient-to-r from-[#FAF4ED] to-[#F3E9DD] p-3.5 rounded-2xl border border-[#DFCDBE] flex items-center justify-between text-xs">
+              <div className="bg-gradient-to-r from-surface to-background p-3.5 rounded-2xl border border-border/50 flex items-center justify-between text-xs">
                 <div className="space-y-0.5">
-                  <span className="text-[10px] font-extrabold uppercase text-[#8C4A21] tracking-wider block">
+                  <span className="text-xs font-extrabold uppercase text-accent tracking-wider block">
                     AUTOMATIC END TIME / CHECKOUT
                   </span>
-                  <span className="text-xs font-bold text-[#7A5A43]">
+                  <span className="text-xs font-bold text-foreground/80">
                     {arrivalTime} + {duration}
                   </span>
                 </div>
                 <div className="text-right">
-                  <span className="text-sm font-black font-mono text-[#3D2314] block">
+                  <span className="text-sm font-black font-mono text-foreground block">
                     🏁 Ends At: {calculatedEndTime}
                   </span>
                 </div>
@@ -588,8 +588,8 @@ export default function SlidingBookingPanel({
 
               {/* Number of People */}
               <div className="space-y-2">
-                <label className="text-xs font-bold uppercase tracking-wider text-[#3D2314] flex items-center gap-2">
-                  <Users className="h-4 w-4 text-[#8C4A21]" />
+                <label className="text-xs font-bold uppercase tracking-wider text-foreground flex items-center gap-2">
+                  <Users className="h-4 w-4 text-accent" />
                   Number of Guests
                 </label>
                 <div className="flex items-center gap-3">
@@ -599,7 +599,7 @@ export default function SlidingBookingPanel({
                     max="20"
                     value={numberOfPeople}
                     onChange={(e) => setNumberOfPeople(e.target.value)}
-                    className="w-full px-4 py-3 rounded-2xl border border-[#DFCDBE] bg-white text-xs font-bold text-[#3D2314]"
+                    className="w-full px-4 py-3 rounded-2xl border border-border/50 bg-surface text-xs font-bold text-foreground"
                   />
                   <div className="flex items-center gap-1 shrink-0">
                     <button
@@ -608,7 +608,7 @@ export default function SlidingBookingPanel({
                         const val = Math.max(1, (parseInt(numberOfPeople, 10) || 1) - 1);
                         setNumberOfPeople(val.toString());
                       }}
-                      className="h-10 w-10 rounded-xl bg-[#FAF4ED] hover:bg-[#8C4A21] hover:text-white flex items-center justify-center font-bold text-sm text-[#3D2314] border border-[#DFCDBE] transition-colors cursor-pointer"
+                      className="h-10 w-10 rounded-xl bg-background hover:bg-accent hover:text-primary flex items-center justify-center font-bold text-sm text-foreground border border-border/50 transition-colors cursor-pointer"
                     >
                       -
                     </button>
@@ -618,7 +618,7 @@ export default function SlidingBookingPanel({
                         const val = (parseInt(numberOfPeople, 10) || 1) + 1;
                         setNumberOfPeople(val.toString());
                       }}
-                      className="h-10 w-10 rounded-xl bg-[#FAF4ED] hover:bg-[#8C4A21] hover:text-white flex items-center justify-center font-bold text-sm text-[#3D2314] border border-[#DFCDBE] transition-colors cursor-pointer"
+                      className="h-10 w-10 rounded-xl bg-background hover:bg-accent hover:text-primary flex items-center justify-center font-bold text-sm text-foreground border border-border/50 transition-colors cursor-pointer"
                     >
                       +
                     </button>
@@ -627,26 +627,26 @@ export default function SlidingBookingPanel({
               </div>
 
               {/* BOOKING SUMMARY PREVIEW CARD */}
-              <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2 text-xs">
-                <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43] border-b border-[#DFCDBE]/60 pb-1.5 flex justify-between items-center">
+              <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2 text-xs">
+                <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80 border-b border-border/50/60 pb-1.5 flex justify-between items-center">
                   <span>Booking Summary Preview</span>
-                  <span className="font-mono text-[#8C4A21]">07 Aug 2026</span>
+                  <span className="font-mono text-accent">07 Aug 2026</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#7A5A43]">Seat / Table:</span>
-                  <span className="font-mono font-bold text-[#3D2314]">{selectedSeat.id} ({selectedSeat.seatType || selectedSeat.area})</span>
+                  <span className="text-foreground/80">Seat / Table:</span>
+                  <span className="font-mono font-bold text-foreground">{selectedSeat.id} ({selectedSeat.seatType || selectedSeat.area})</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#7A5A43]">Arrival &amp; Duration:</span>
-                  <span className="font-bold text-[#3D2314]">{arrivalTime} ({duration})</span>
+                  <span className="text-foreground/80">Arrival &amp; Duration:</span>
+                  <span className="font-bold text-foreground">{arrivalTime} ({duration})</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[#7A5A43]">Calculated Checkout:</span>
+                  <span className="text-foreground/80">Calculated Checkout:</span>
                   <span className="font-bold font-mono text-emerald-800">{calculatedEndTime}</span>
                 </div>
-                <div className="flex justify-between pt-1 border-t border-[#DFCDBE]/60 font-bold text-sm text-[#3D2314]">
+                <div className="flex justify-between pt-1 border-t border-border/50/60 font-bold text-sm text-foreground">
                   <span>Total Amount:</span>
-                  <span className="text-[#8C4A21] font-mono">₹499</span>
+                  <span className="text-accent font-mono font-extrabold">₹499</span>
                 </div>
               </div>
             </div>
@@ -654,21 +654,21 @@ export default function SlidingBookingPanel({
 
           {/* SECTION 2: ALTERNATIVE SEATING OPTIONS */}
           <div className="space-y-2.5 pt-2">
-            <span className="text-[11px] font-extrabold uppercase tracking-wider text-[#7A5A43] block flex items-center gap-1.5">
-              <Zap className="w-3.5 h-3.5 text-[#8C4A21]" /> Other Available Seating
+            <span className="text-xs font-extrabold uppercase tracking-wider text-foreground/80 block flex items-center gap-1.5">
+              <Zap className="w-3.5 h-3.5 text-accent" /> Other Available Seating
             </span>
             <div className="space-y-2 text-xs">
               {DEMO_ALTERNATIVES.map((alt) => (
                 <div
                   key={alt.id}
-                  className="p-3 rounded-2xl bg-[#FAF4ED] hover:bg-[#F3E9DD] border border-[#DFCDBE] flex items-center justify-between transition-all text-left"
+                  className="p-3 rounded-2xl bg-background hover:bg-background border border-border/50 flex items-center justify-between transition-all text-left"
                 >
                   <div>
-                    <div className="font-bold text-[#3D2314] flex items-center gap-2">
-                      <span className="font-mono text-[#8C4A21]">{alt.id}</span>
+                    <div className="font-bold text-foreground flex items-center gap-2">
+                      <span className="font-mono text-accent">{alt.id}</span>
                       <span>• {alt.seatType}</span>
                     </div>
-                    <div className="text-[10px] text-emerald-700 font-bold mt-0.5">
+                    <div className="text-xs text-emerald-700 font-bold mt-0.5">
                       🟢 {alt.availableAfter || "Available Now"}
                     </div>
                   </div>
@@ -677,7 +677,7 @@ export default function SlidingBookingPanel({
                     onClick={() => {
                       if (onSelectSeat) onSelectSeat(alt);
                     }}
-                    className="px-3.5 py-1.5 rounded-xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs transition-all cursor-pointer flex items-center gap-1 shrink-0"
+                    className="px-3.5 py-1.5 rounded-xl bg-accent hover:bg-accent text-primary font-bold text-xs transition-all cursor-pointer flex items-center gap-1 shrink-0"
                   >
                     Book <ChevronRight className="w-3.5 h-3.5" />
                   </button>
@@ -689,13 +689,13 @@ export default function SlidingBookingPanel({
         </div>
 
         {/* Panel Footer / Action Button */}
-        <div className="p-6 bg-white border-t border-[#DFCDBE] space-y-3 shrink-0">
+        <div className="p-6 bg-surface border-t border-border/50 space-y-3 shrink-0">
           {isBookingExecutable ? (
             <button
               type="button"
               onClick={handleContinue}
               disabled={!isFormValid || isNavigating}
-              className="w-full py-4 px-6 rounded-full font-extrabold text-xs uppercase tracking-wider text-white shadow-lg transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 bg-gradient-to-r from-[#3D2314] to-[#8C4A21] hover:from-[#8C4A21] hover:to-[#3D2314] disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full py-4 px-6 rounded-full font-extrabold text-xs uppercase tracking-wider text-primary shadow-lg transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 bg-gradient-to-r from-accent to-accent-light hover:from-accent hover:to-accent disabled:opacity-80 disabled:cursor-not-allowed"
             >
               {isNavigating ? (
                 <>
@@ -714,7 +714,7 @@ export default function SlidingBookingPanel({
               <button
                 type="button"
                 disabled
-                className="w-full py-4 px-6 rounded-full font-extrabold text-xs uppercase tracking-wider text-slate-500 bg-slate-200 border border-slate-300 cursor-not-allowed text-center"
+                className="w-full py-4 px-6 rounded-full font-extrabold text-xs uppercase tracking-wider text-primary/80 bg-surface-secondary border border-border cursor-not-allowed text-center"
               >
                 {isReserved
                   ? "Select a Time Slot or Alternative Seat"
@@ -722,7 +722,7 @@ export default function SlidingBookingPanel({
                     ? "Select a Later Time Slot or Seat"
                     : "Seat Under Maintenance"}
               </button>
-              <p className="text-[11px] text-[#8C4A21] font-bold text-center">
+              <p className="text-xs text-accent font-bold text-center">
                 * Select an available time slot above or choose another desk to continue.
               </p>
             </div>

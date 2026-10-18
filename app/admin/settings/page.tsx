@@ -172,7 +172,7 @@ export default function AdminSettingsPage() {
   });
 
   return (
-    <div className="space-y-6 text-[#3D2314]">
+    <div className="space-y-6 text-foreground">
       {/* Toast Alert */}
       <AnimatePresence>
         {toast && (
@@ -180,7 +180,7 @@ export default function AdminSettingsPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-6 right-6 z-50 bg-[#3D2314] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
+            className="fixed top-6 right-6 z-50 bg-accent text-primary px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
           >
             <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
             <span className="text-xs font-bold font-sans">{toast}</span>
@@ -191,12 +191,12 @@ export default function AdminSettingsPage() {
       {/* Page Header */}
       <div>
         <div className="flex items-center gap-2.5">
-          <Store className="w-7 h-7 text-[#8C4A21]" />
-          <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#3D2314] tracking-tight">
+          <Store className="w-7 h-7 text-accent" />
+          <h1 className="text-2xl sm:text-3xl font-black font-serif text-foreground tracking-tight">
             Settings &amp; Configuration Center
           </h1>
         </div>
-        <p className="text-xs text-[#7A5A43] mt-1">
+        <p className="text-xs text-foreground/80 mt-1">
           Manage your café profile, workspace capacity, booking rules, payment gateway, WiFi credentials, and security settings.
         </p>
       </div>
@@ -204,8 +204,8 @@ export default function AdminSettingsPage() {
       {/* Main Two-Column Layout */}
       <div className="flex flex-col lg:flex-row gap-6 items-start">
         {/* LEFT SETTINGS SIDEBAR MENU */}
-        <div className="w-full lg:w-64 bg-[#FFFDF9] rounded-3xl p-3 border border-[#E5D5C5] shadow-sm shrink-0 space-y-1">
-          <div className="px-3 py-2 text-[10px] font-extrabold uppercase tracking-widest text-[#7A5A43]">
+        <div className="w-full lg:w-64 bg-surface rounded-3xl p-3 border border-border/50 shadow-sm shrink-0 space-y-1">
+          <div className="px-3 py-2 text-xs font-extrabold uppercase tracking-widest text-foreground/80">
             Settings Navigation
           </div>
           {MENU_ITEMS.map((item) => {
@@ -219,62 +219,62 @@ export default function AdminSettingsPage() {
                 onClick={() => setActiveTab(item.id)}
                 className={`w-full flex items-center justify-between px-3.5 py-3 rounded-2xl text-xs font-bold transition-all cursor-pointer ${
                   isActive
-                    ? "bg-[#3D2314] text-white shadow-md scale-[1.01]"
-                    : "text-[#5C3A21] hover:bg-[#F8F1EA] hover:text-[#3D2314]"
+                    ? "bg-accent text-primary shadow-md scale-[1.01]"
+                    : "text-foreground/70 hover:bg-surface hover:text-foreground"
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-amber-300" : "text-[#8C4A21]"}`} />
+                  <Icon className={`w-4 h-4 shrink-0 ${isActive ? "text-amber-300" : "text-accent"}`} />
                   <span>{item.label}</span>
                 </div>
-                <ChevronRight className={`w-3.5 h-3.5 transition-transform ${isActive ? "text-amber-300 translate-x-0.5" : "text-[#7A5A43]/40"}`} />
+                <ChevronRight className={`w-3.5 h-3.5 transition-transform ${isActive ? "text-amber-300 translate-x-0.5" : "text-foreground/80/40"}`} />
               </button>
             );
           })}
         </div>
 
         {/* RIGHT SETTINGS CONTENT AREA */}
-        <div className="flex-1 w-full bg-[#FFFDF9] rounded-3xl p-6 sm:p-8 border border-[#E5D5C5] shadow-sm space-y-6">
+        <div className="flex-1 w-full bg-surface rounded-3xl p-6 sm:p-8 border border-border/50 shadow-sm space-y-6">
           {/* SECTION 1: CAFÉ INFORMATION */}
           {activeTab === "cafe" && (
             <div className="space-y-6">
-              <div className="border-b border-[#E5D5C5] pb-4">
-                <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                  <Store className="w-5 h-5 text-[#8C4A21]" /> Café Information
+              <div className="border-b border-border/50 pb-4">
+                <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                  <Store className="w-5 h-5 text-accent" /> Café Information
                 </h2>
-                <p className="text-xs text-[#7A5A43]">
+                <p className="text-xs text-foreground/80">
                   Update public café branding, contact details, business hours, and social media links.
                 </p>
               </div>
 
               {/* Logo & Cover Image Upload Row */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-3">
-                  <span className="text-xs font-bold text-[#3D2314] block">Café Logo</span>
+                <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-3">
+                  <span className="text-xs font-bold text-foreground block">Café Logo</span>
                   <div className="flex items-center gap-4">
-                    <div className="w-16 h-16 rounded-2xl bg-[#8C4A21] text-amber-200 flex items-center justify-center font-serif font-black text-xl shadow-xs shrink-0">
+                    <div className="w-16 h-16 rounded-2xl bg-accent text-amber-200 flex items-center justify-center font-serif font-black text-xl shadow-xs shrink-0">
                       RC
                     </div>
                     <button
                       type="button"
                       onClick={() => showToast("📸 Logo updated successfully")}
-                      className="px-3.5 py-2 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white border border-[#E5D5C5] text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                      className="px-3.5 py-2 rounded-xl bg-surface hover:bg-accent hover:text-primary border border-border/50 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
                     >
                       <Camera className="w-3.5 h-3.5" /> Upload Logo
                     </button>
                   </div>
                 </div>
 
-                <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-3">
-                  <span className="text-xs font-bold text-[#3D2314] block">Cover Header Banner</span>
+                <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-3">
+                  <span className="text-xs font-bold text-foreground block">Cover Header Banner</span>
                   <div className="flex items-center gap-4">
-                    <div className="h-16 flex-1 rounded-2xl bg-gradient-to-r from-[#8C4A21] to-[#3D2314] flex items-center justify-center text-amber-200 text-xs font-bold shadow-xs">
+                    <div className="h-16 flex-1 rounded-2xl bg-gradient-to-r from-accent to-accent-light flex items-center justify-center text-amber-200 text-xs font-bold shadow-xs">
                       RoyalCafe Interior Banner
                     </div>
                     <button
                       type="button"
                       onClick={() => showToast("🖼 Cover banner updated")}
-                      className="px-3.5 py-2 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white border border-[#E5D5C5] text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                      className="px-3.5 py-2 rounded-xl bg-surface hover:bg-accent hover:text-primary border border-border/50 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
                     >
                       <Upload className="w-3.5 h-3.5" /> Upload Cover
                     </button>
@@ -285,87 +285,87 @@ export default function AdminSettingsPage() {
               {/* Form Fields */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Café Name</label>
+                  <label className="font-bold text-foreground">Café Name</label>
                   <input
                     type="text"
                     value={cafeData.name}
                     onChange={(e) => setCafeData({ ...cafeData, name: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Contact Phone</label>
+                  <label className="font-bold text-foreground">Contact Phone</label>
                   <input
                     type="text"
                     value={cafeData.phone}
                     onChange={(e) => setCafeData({ ...cafeData, phone: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Official Email</label>
+                  <label className="font-bold text-foreground">Official Email</label>
                   <input
                     type="email"
                     value={cafeData.email}
                     onChange={(e) => setCafeData({ ...cafeData, email: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Opening &amp; Closing Hours</label>
+                  <label className="font-bold text-foreground">Opening &amp; Closing Hours</label>
                   <div className="flex gap-2">
                     <input
                       type="text"
                       value={cafeData.openHours}
                       onChange={(e) => setCafeData({ ...cafeData, openHours: e.target.value })}
-                      className="w-1/2 p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-1/2 p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                     />
                     <input
                       type="text"
                       value={cafeData.closeHours}
                       onChange={(e) => setCafeData({ ...cafeData, closeHours: e.target.value })}
-                      className="w-1/2 p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                      className="w-1/2 p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                     />
                   </div>
                 </div>
 
                 <div className="sm:col-span-2 space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Café Address &amp; Location</label>
+                  <label className="font-bold text-foreground">Café Address &amp; Location</label>
                   <input
                     type="text"
                     value={cafeData.address}
                     onChange={(e) => setCafeData({ ...cafeData, address: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
                 <div className="sm:col-span-2 space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Café Description</label>
+                  <label className="font-bold text-foreground">Café Description</label>
                   <textarea
                     rows={3}
                     value={cafeData.description}
                     onChange={(e) => setCafeData({ ...cafeData, description: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
               </div>
 
               {/* Buttons */}
-              <div className="flex justify-end gap-3 pt-4 border-t border-[#E5D5C5]">
+              <div className="flex justify-end gap-3 pt-4 border-t border-border/50">
                 <button
                   type="button"
                   onClick={() => showToast("Settings reset to defaults")}
-                  className="px-5 py-2.5 rounded-2xl bg-[#FAF4ED] text-[#3D2314] font-bold border border-[#E5D5C5] text-xs hover:bg-[#3D2314] hover:text-white transition-all cursor-pointer"
+                  className="px-5 py-2.5 rounded-2xl bg-background text-foreground font-bold border border-border/50 text-xs hover:bg-accent hover:text-primary transition-all cursor-pointer"
                 >
                   Reset
                 </button>
                 <button
                   type="button"
                   onClick={() => showToast("Café Information updated successfully")}
-                  className="px-6 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-6 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Save className="w-4 h-4" /> Save Changes
                 </button>
@@ -376,26 +376,26 @@ export default function AdminSettingsPage() {
           {/* SECTION 2: ADMIN PROFILE */}
           {activeTab === "profile" && (
             <div className="space-y-6">
-              <div className="border-b border-[#E5D5C5] pb-4">
-                <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                  <User className="w-5 h-5 text-[#8C4A21]" /> Admin Profile
+              <div className="border-b border-border/50 pb-4">
+                <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                  <User className="w-5 h-5 text-accent" /> Admin Profile
                 </h2>
-                <p className="text-xs text-[#7A5A43]">
+                <p className="text-xs text-foreground/80">
                   Manage your administrator account credentials, avatar, and system privileges.
                 </p>
               </div>
 
-              <div className="flex items-center gap-5 bg-[#FAF4ED] p-5 rounded-2xl border border-[#DFCDBE]">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-[#3D2314] to-[#8C4A21] text-amber-200 flex items-center justify-center font-bold text-2xl shadow-md ring-4 ring-[#8C4A21]/20 shrink-0">
+              <div className="flex items-center gap-5 bg-background p-5 rounded-2xl border border-border/50">
+                <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-accent to-accent-light text-amber-200 flex items-center justify-center font-bold text-2xl shadow-md ring-4 ring-accent/20 shrink-0">
                   VS
                 </div>
                 <div className="space-y-1">
-                  <h3 className="text-lg font-bold text-[#3D2314]">{profileData.fullName}</h3>
-                  <p className="text-xs font-mono font-bold text-[#8C4A21]">{profileData.role} ({profileData.adminId})</p>
+                  <h3 className="text-lg font-bold text-foreground">{profileData.fullName}</h3>
+                  <p className="text-xs font-mono font-bold text-accent">{profileData.role} ({profileData.adminId})</p>
                   <button
                     type="button"
                     onClick={() => showToast("Profile avatar updated")}
-                    className="px-3.5 py-1.5 rounded-xl bg-[#FFFDF9] border border-[#E5D5C5] text-xs font-bold hover:bg-[#3D2314] hover:text-white transition-all cursor-pointer mt-1"
+                    className="px-3.5 py-1.5 rounded-xl bg-surface border border-border/50 text-xs font-bold hover:bg-accent hover:text-primary transition-all cursor-pointer mt-1"
                   >
                     Change Profile Image
                   </button>
@@ -404,51 +404,51 @@ export default function AdminSettingsPage() {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Full Name</label>
+                  <label className="font-bold text-foreground">Full Name</label>
                   <input
                     type="text"
                     value={profileData.fullName}
                     onChange={(e) => setProfileData({ ...profileData, fullName: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Admin Email</label>
+                  <label className="font-bold text-foreground">Admin Email</label>
                   <input
                     type="email"
                     value={profileData.email}
                     onChange={(e) => setProfileData({ ...profileData, email: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Phone Number</label>
+                  <label className="font-bold text-foreground">Phone Number</label>
                   <input
                     type="text"
                     value={profileData.phone}
                     onChange={(e) => setProfileData({ ...profileData, phone: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Admin ID</label>
+                  <label className="font-bold text-foreground">Admin ID</label>
                   <input
                     type="text"
                     disabled
                     value={profileData.adminId}
-                    className="w-full p-3 bg-[#E5D5C5]/40 border border-[#DFCDBE] rounded-xl text-[#7A5A43] font-mono font-bold cursor-not-allowed"
+                    className="w-full p-3 bg-border/50/40 border border-border/50 rounded-xl text-foreground/80 font-mono font-bold cursor-not-allowed"
                   />
                 </div>
               </div>
 
-              <div className="flex justify-end pt-4 border-t border-[#E5D5C5]">
+              <div className="flex justify-end pt-4 border-t border-border/50">
                 <button
                   type="button"
                   onClick={() => showToast("Admin Profile updated successfully")}
-                  className="px-6 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-6 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Save className="w-4 h-4" /> Update Profile
                 </button>
@@ -459,60 +459,60 @@ export default function AdminSettingsPage() {
           {/* SECTION 3: WORKSPACE SETTINGS */}
           {activeTab === "workspace" && (
             <div className="space-y-6">
-              <div className="border-b border-[#E5D5C5] pb-4">
-                <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                  <Armchair className="w-5 h-5 text-[#8C4A21]" /> Workspace Settings
+              <div className="border-b border-border/50 pb-4">
+                <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                  <Armchair className="w-5 h-5 text-accent" /> Workspace Settings
                 </h2>
-                <p className="text-xs text-[#7A5A43]">
+                <p className="text-xs text-foreground/80">
                   Configure desk seating areas, workspace types, prefixes, and booking durations.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Total Seats Capacity</label>
+                  <label className="font-bold text-foreground">Total Seats Capacity</label>
                   <input
                     type="number"
                     value={workspaceData.totalSeats}
                     onChange={(e) => setWorkspaceData({ ...workspaceData, totalSeats: Number(e.target.value) })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Seat Number Prefix</label>
+                  <label className="font-bold text-foreground">Seat Number Prefix</label>
                   <input
                     type="text"
                     value={workspaceData.seatPrefix}
                     onChange={(e) => setWorkspaceData({ ...workspaceData, seatPrefix: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Minimum Booking Duration (Hours)</label>
+                  <label className="font-bold text-foreground">Minimum Booking Duration (Hours)</label>
                   <input
                     type="number"
                     value={workspaceData.minDurationHours}
                     onChange={(e) => setWorkspaceData({ ...workspaceData, minDurationHours: Number(e.target.value) })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Maximum Booking Duration (Hours)</label>
+                  <label className="font-bold text-foreground">Maximum Booking Duration (Hours)</label>
                   <input
                     type="number"
                     value={workspaceData.maxDurationHours}
                     onChange={(e) => setWorkspaceData({ ...workspaceData, maxDurationHours: Number(e.target.value) })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
               </div>
 
               {/* Workspace Types Enable Toggles */}
               <div className="space-y-3 pt-2">
-                <span className="text-xs font-bold text-[#3D2314] block">Available Workspace Types</span>
+                <span className="text-xs font-bold text-foreground block">Available Workspace Types</span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
                   {[
                     { key: "cafeTableEnabled", label: "☕ Café Table", fee: "₹150 / hr" },
@@ -521,10 +521,10 @@ export default function AdminSettingsPage() {
                     { key: "meetingRoomEnabled", label: "👥 Meeting Room", fee: "₹950 / hr" },
                     { key: "studySpaceEnabled", label: "📚 Study Space", fee: "₹200 / hr" },
                   ].map((ws) => (
-                    <div key={ws.key} className="p-3.5 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] flex items-center justify-between">
+                    <div key={ws.key} className="p-3.5 rounded-2xl bg-background border border-border/50 flex items-center justify-between">
                       <div>
-                        <div className="font-bold text-[#3D2314]">{ws.label}</div>
-                        <div className="text-[11px] text-[#7A5A43]">{ws.fee}</div>
+                        <div className="font-bold text-foreground">{ws.label}</div>
+                        <div className="text-xs text-foreground/80">{ws.fee}</div>
                       </div>
                       <input
                         type="checkbox"
@@ -537,11 +537,11 @@ export default function AdminSettingsPage() {
                 </div>
               </div>
 
-              <div className="flex justify-end pt-4 border-t border-[#E5D5C5]">
+              <div className="flex justify-end pt-4 border-t border-border/50">
                 <button
                   type="button"
                   onClick={() => showToast("Workspace settings updated successfully")}
-                  className="px-6 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-6 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Save className="w-4 h-4" /> Save Workspace Settings
                 </button>
@@ -552,22 +552,22 @@ export default function AdminSettingsPage() {
           {/* SECTION 4: BOOKING SETTINGS */}
           {activeTab === "booking" && (
             <div className="space-y-6">
-              <div className="border-b border-[#E5D5C5] pb-4">
-                <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                  <Calendar className="w-5 h-5 text-[#8C4A21]" /> Booking Settings
+              <div className="border-b border-border/50 pb-4">
+                <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                  <Calendar className="w-5 h-5 text-accent" /> Booking Settings
                 </h2>
-                <p className="text-xs text-[#7A5A43]">
+                <p className="text-xs text-foreground/80">
                   Manage booking approval workflows, cancellation limits, and advance booking rules.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div className="space-y-1.5 sm:col-span-2">
-                  <label className="font-bold text-[#3D2314]">Booking Approval Mode</label>
+                  <label className="font-bold text-foreground">Booking Approval Mode</label>
                   <select
                     value={bookingSettings.approvalType}
                     onChange={(e) => setBookingSettings({ ...bookingSettings, approvalType: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   >
                     <option value="Automatic Confirmation">Automatic Instant Confirmation</option>
                     <option value="Manual Approval">Manual Admin Approval Required</option>
@@ -575,37 +575,37 @@ export default function AdminSettingsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Cancellation Time Limit (Hours)</label>
+                  <label className="font-bold text-foreground">Cancellation Time Limit (Hours)</label>
                   <input
                     type="number"
                     value={bookingSettings.cancelLimitHours}
                     onChange={(e) => setBookingSettings({ ...bookingSettings, cancelLimitHours: Number(e.target.value) })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Maximum Advance Booking Days</label>
+                  <label className="font-bold text-foreground">Maximum Advance Booking Days</label>
                   <input
                     type="number"
                     value={bookingSettings.maxAdvanceDays}
                     onChange={(e) => setBookingSettings({ ...bookingSettings, maxAdvanceDays: Number(e.target.value) })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
 
                 <div className="sm:col-span-2 space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Cancellation Policy Text</label>
+                  <label className="font-bold text-foreground">Cancellation Policy Text</label>
                   <textarea
                     rows={2}
                     value={bookingSettings.cancellationPolicy}
                     onChange={(e) => setBookingSettings({ ...bookingSettings, cancellationPolicy: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] flex items-center justify-between">
-                  <span className="font-bold text-[#3D2314]">Allow Walk-in Bookings</span>
+                <div className="p-3.5 rounded-2xl bg-background border border-border/50 flex items-center justify-between">
+                  <span className="font-bold text-foreground">Allow Walk-in Bookings</span>
                   <input
                     type="checkbox"
                     checked={bookingSettings.allowWalkIn}
@@ -614,8 +614,8 @@ export default function AdminSettingsPage() {
                   />
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] flex items-center justify-between">
-                  <span className="font-bold text-[#3D2314]">Allow Same Day Bookings</span>
+                <div className="p-3.5 rounded-2xl bg-background border border-border/50 flex items-center justify-between">
+                  <span className="font-bold text-foreground">Allow Same Day Bookings</span>
                   <input
                     type="checkbox"
                     checked={bookingSettings.allowSameDay}
@@ -625,11 +625,11 @@ export default function AdminSettingsPage() {
                 </div>
               </div>
 
-              <div className="flex justify-end pt-4 border-t border-[#E5D5C5]">
+              <div className="flex justify-end pt-4 border-t border-border/50">
                 <button
                   type="button"
                   onClick={() => showToast("Booking settings saved successfully")}
-                  className="px-6 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-6 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Save className="w-4 h-4" /> Save Booking Rules
                 </button>
@@ -640,49 +640,49 @@ export default function AdminSettingsPage() {
           {/* SECTION 5: PAYMENT SETTINGS */}
           {activeTab === "payment" && (
             <div className="space-y-6">
-              <div className="border-b border-[#E5D5C5] pb-4">
-                <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                  <CreditCard className="w-5 h-5 text-[#8C4A21]" /> Payment Settings
+              <div className="border-b border-border/50 pb-4">
+                <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                  <CreditCard className="w-5 h-5 text-accent" /> Payment Settings
                 </h2>
-                <p className="text-xs text-[#7A5A43]">
+                <p className="text-xs text-foreground/80">
                   Configure active payment gateways, tax percentages, currency, and invoice details.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">System Currency</label>
+                  <label className="font-bold text-foreground">System Currency</label>
                   <input
                     type="text"
                     value={paymentSettings.currency}
                     onChange={(e) => setPaymentSettings({ ...paymentSettings, currency: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Tax Percentage (GST %)</label>
+                  <label className="font-bold text-foreground">Tax Percentage (GST %)</label>
                   <input
                     type="number"
                     value={paymentSettings.taxPercentage}
                     onChange={(e) => setPaymentSettings({ ...paymentSettings, taxPercentage: Number(e.target.value) })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5 sm:col-span-2">
-                  <label className="font-bold text-[#3D2314]">GSTIN Invoice Header Number</label>
+                  <label className="font-bold text-foreground">GSTIN Invoice Header Number</label>
                   <input
                     type="text"
                     value={paymentSettings.gstin}
                     onChange={(e) => setPaymentSettings({ ...paymentSettings, gstin: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
               </div>
 
               <div className="space-y-3 pt-2">
-                <span className="text-xs font-bold text-[#3D2314] block">Accepted Payment Gateways</span>
+                <span className="text-xs font-bold text-foreground block">Accepted Payment Gateways</span>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs">
                   {[
                     { key: "upiEnabled", label: "📱 UPI (GPay/Paytm)" },
@@ -690,8 +690,8 @@ export default function AdminSettingsPage() {
                     { key: "cashEnabled", label: "💵 Cash POS" },
                     { key: "walletsEnabled", label: "👛 Digital Wallets" },
                   ].map((pm) => (
-                    <div key={pm.key} className="p-3.5 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] flex items-center justify-between">
-                      <span className="font-bold text-[#3D2314]">{pm.label}</span>
+                    <div key={pm.key} className="p-3.5 rounded-2xl bg-background border border-border/50 flex items-center justify-between">
+                      <span className="font-bold text-foreground">{pm.label}</span>
                       <input
                         type="checkbox"
                         checked={(paymentSettings as any)[pm.key]}
@@ -703,11 +703,11 @@ export default function AdminSettingsPage() {
                 </div>
               </div>
 
-              <div className="flex justify-end pt-4 border-t border-[#E5D5C5]">
+              <div className="flex justify-end pt-4 border-t border-border/50">
                 <button
                   type="button"
                   onClick={() => showToast("Payment settings updated successfully")}
-                  className="px-6 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-6 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Save className="w-4 h-4" /> Save Payment Configuration
                 </button>
@@ -718,53 +718,53 @@ export default function AdminSettingsPage() {
           {/* SECTION 6: WIFI SETTINGS */}
           {activeTab === "wifi" && (
             <div className="space-y-6">
-              <div className="border-b border-[#E5D5C5] pb-4">
-                <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                  <Wifi className="w-5 h-5 text-[#8C4A21]" /> WiFi Settings
+              <div className="border-b border-border/50 pb-4">
+                <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                  <Wifi className="w-5 h-5 text-accent" /> WiFi Settings
                 </h2>
-                <p className="text-xs text-[#7A5A43]">
+                <p className="text-xs text-foreground/80">
                   Configure customer WiFi SSID, pass durations, quotas, and generate connection QR codes.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">WiFi Network Name (SSID)</label>
+                  <label className="font-bold text-foreground">WiFi Network Name (SSID)</label>
                   <input
                     type="text"
                     value={wifiSettings.ssid}
                     onChange={(e) => setWifiSettings({ ...wifiSettings, ssid: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Network WPA2 Password</label>
+                  <label className="font-bold text-foreground">Network WPA2 Password</label>
                   <input
                     type="text"
                     value={wifiSettings.password}
                     onChange={(e) => setWifiSettings({ ...wifiSettings, password: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Free Tier Duration (Minutes)</label>
+                  <label className="font-bold text-foreground">Free Tier Duration (Minutes)</label>
                   <input
                     type="number"
                     value={wifiSettings.freeDurationMins}
                     onChange={(e) => setWifiSettings({ ...wifiSettings, freeDurationMins: Number(e.target.value) })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Maximum Connected Devices</label>
+                  <label className="font-bold text-foreground">Maximum Connected Devices</label>
                   <input
                     type="number"
                     value={wifiSettings.maxDevices}
                     onChange={(e) => setWifiSettings({ ...wifiSettings, maxDevices: Number(e.target.value) })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono"
                   />
                 </div>
               </div>
@@ -773,24 +773,24 @@ export default function AdminSettingsPage() {
                 <button
                   type="button"
                   onClick={() => showToast("📶 WiFi QR Code generated for printing")}
-                  className="px-4 py-2 rounded-xl bg-[#FAF4ED] hover:bg-[#3D2314] hover:text-white border border-[#E5D5C5] text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-xl bg-background hover:bg-accent hover:text-primary border border-border/50 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
                 >
                   <QrCode className="w-4 h-4" /> Generate WiFi QR Code
                 </button>
                 <button
                   type="button"
                   onClick={() => showToast("🔑 Password reset & updated on router")}
-                  className="px-4 py-2 rounded-xl bg-[#FAF4ED] hover:bg-[#3D2314] hover:text-white border border-[#E5D5C5] text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
+                  className="px-4 py-2 rounded-xl bg-background hover:bg-accent hover:text-primary border border-border/50 text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5"
                 >
                   <KeyRound className="w-4 h-4" /> Reset Password
                 </button>
               </div>
 
-              <div className="flex justify-end pt-4 border-t border-[#E5D5C5]">
+              <div className="flex justify-end pt-4 border-t border-border/50">
                 <button
                   type="button"
                   onClick={() => showToast("WiFi settings saved successfully")}
-                  className="px-6 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-6 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Save className="w-4 h-4" /> Save WiFi Settings
                 </button>
@@ -801,11 +801,11 @@ export default function AdminSettingsPage() {
           {/* SECTION 7: NOTIFICATION SETTINGS */}
           {activeTab === "notifications" && (
             <div className="space-y-6">
-              <div className="border-b border-[#E5D5C5] pb-4">
-                <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                  <Bell className="w-5 h-5 text-[#8C4A21]" /> Notification Settings
+              <div className="border-b border-border/50 pb-4">
+                <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                  <Bell className="w-5 h-5 text-accent" /> Notification Settings
                 </h2>
-                <p className="text-xs text-[#7A5A43]">
+                <p className="text-xs text-foreground/80">
                   Enable or disable real-time email, push, and dashboard alerts.
                 </p>
               </div>
@@ -821,10 +821,10 @@ export default function AdminSettingsPage() {
                   { key: "emailAlerts", label: "📧 Email Notifications", desc: "Send summary emails to admin address" },
                   { key: "pushAlerts", label: "🔔 Push Notifications", desc: "Send browser desktop push alerts" },
                 ].map((n) => (
-                  <div key={n.key} className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] flex items-center justify-between gap-3">
+                  <div key={n.key} className="p-4 rounded-2xl bg-background border border-border/50 flex items-center justify-between gap-3">
                     <div>
-                      <div className="font-bold text-[#3D2314]">{n.label}</div>
-                      <div className="text-[11px] text-[#7A5A43] mt-0.5">{n.desc}</div>
+                      <div className="font-bold text-foreground">{n.label}</div>
+                      <div className="text-xs text-foreground/80 mt-0.5">{n.desc}</div>
                     </div>
                     <input
                       type="checkbox"
@@ -836,11 +836,11 @@ export default function AdminSettingsPage() {
                 ))}
               </div>
 
-              <div className="flex justify-end pt-4 border-t border-[#E5D5C5]">
+              <div className="flex justify-end pt-4 border-t border-border/50">
                 <button
                   type="button"
                   onClick={() => showToast("Notification preferences updated")}
-                  className="px-6 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-6 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Save className="w-4 h-4" /> Save Notifications
                 </button>
@@ -851,53 +851,53 @@ export default function AdminSettingsPage() {
           {/* SECTION 8: SECURITY & PIN */}
           {activeTab === "security" && (
             <div className="space-y-6">
-              <div className="border-b border-[#E5D5C5] pb-4">
-                <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                  <ShieldCheck className="w-5 h-5 text-[#8C4A21]" /> Security &amp; PIN
+              <div className="border-b border-border/50 pb-4">
+                <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                  <ShieldCheck className="w-5 h-5 text-accent" /> Security &amp; PIN
                 </h2>
-                <p className="text-xs text-[#7A5A43]">
+                <p className="text-xs text-foreground/80">
                   Change admin password, update security PIN, manage active sessions, and review security logs.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Current Password</label>
+                  <label className="font-bold text-foreground">Current Password</label>
                   <input
                     type="password"
                     placeholder="••••••••"
                     value={securityData.currentPassword}
                     onChange={(e) => setSecurityData({ ...securityData, currentPassword: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">New Password</label>
+                  <label className="font-bold text-foreground">New Password</label>
                   <input
                     type="password"
                     placeholder="••••••••"
                     value={securityData.newPassword}
                     onChange={(e) => setSecurityData({ ...securityData, newPassword: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   />
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">4-Digit Admin Quick PIN</label>
+                  <label className="font-bold text-foreground">4-Digit Admin Quick PIN</label>
                   <input
                     type="text"
                     maxLength={4}
                     value={securityData.pin}
                     onChange={(e) => setSecurityData({ ...securityData, pin: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium font-mono tracking-widest text-center"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium font-mono tracking-widest text-center"
                   />
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] flex items-center justify-between">
+                <div className="p-3.5 rounded-2xl bg-background border border-border/50 flex items-center justify-between">
                   <div>
-                    <span className="font-bold text-[#3D2314] block">Two-Factor Auth (2FA)</span>
-                    <span className="text-[10px] text-[#7A5A43]">Require OTP code on login</span>
+                    <span className="font-bold text-foreground block">Two-Factor Auth (2FA)</span>
+                    <span className="text-xs text-foreground/80">Require OTP code on login</span>
                   </div>
                   <input
                     type="checkbox"
@@ -909,34 +909,34 @@ export default function AdminSettingsPage() {
               </div>
 
               {/* Active Sessions */}
-              <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2 text-xs">
-                <div className="flex justify-between items-center font-bold text-[#3D2314]">
+              <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2 text-xs">
+                <div className="flex justify-between items-center font-bold text-foreground">
                   <span>Active Device Sessions</span>
                   <button
                     type="button"
                     onClick={() => showToast("Logged out from all other devices")}
-                    className="text-rose-700 hover:underline text-[11px]"
+                    className="text-rose-700 hover:underline text-xs"
                   >
                     Logout From All Devices
                   </button>
                 </div>
-                <div className="divide-y divide-[#DFCDBE]/60 text-[11px]">
+                <div className="divide-y divide-[#DFCDBE]/60 text-xs">
                   <div className="py-2 flex justify-between">
                     <span>💻 Chrome on macOS • Bangalore, India (Current)</span>
                     <span className="text-emerald-700 font-bold">Active Now</span>
                   </div>
-                  <div className="py-2 flex justify-between text-[#7A5A43]">
+                  <div className="py-2 flex justify-between text-foreground/80">
                     <span>📱 iPhone 15 Pro • Mobile App Session</span>
                     <span>2 hours ago</span>
                   </div>
                 </div>
               </div>
 
-              <div className="flex justify-end pt-4 border-t border-[#E5D5C5]">
+              <div className="flex justify-end pt-4 border-t border-border/50">
                 <button
                   type="button"
                   onClick={() => showToast("Security settings updated successfully")}
-                  className="px-6 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-6 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Save className="w-4 h-4" /> Save Security Rules
                 </button>
@@ -947,22 +947,22 @@ export default function AdminSettingsPage() {
           {/* SECTION 9: APPEARANCE */}
           {activeTab === "appearance" && (
             <div className="space-y-6">
-              <div className="border-b border-[#E5D5C5] pb-4">
-                <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                  <Palette className="w-5 h-5 text-[#8C4A21]" /> Appearance
+              <div className="border-b border-border/50 pb-4">
+                <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                  <Palette className="w-5 h-5 text-accent" /> Appearance
                 </h2>
-                <p className="text-xs text-[#7A5A43]">
+                <p className="text-xs text-foreground/80">
                   Customize your dashboard theme, layout density, accent colors, and display language.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Dashboard Theme</label>
+                  <label className="font-bold text-foreground">Dashboard Theme</label>
                   <select
                     value={appearance.theme}
                     onChange={(e) => setAppearance({ ...appearance, theme: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   >
                     <option value="light">Light Cream (Default)</option>
                     <option value="dark">Dark Espresso</option>
@@ -971,11 +971,11 @@ export default function AdminSettingsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Layout Density</label>
+                  <label className="font-bold text-foreground">Layout Density</label>
                   <select
                     value={appearance.density}
                     onChange={(e) => setAppearance({ ...appearance, density: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   >
                     <option value="comfortable">Comfortable (Default)</option>
                     <option value="compact">Compact Data Density</option>
@@ -983,11 +983,11 @@ export default function AdminSettingsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Accent Color Theme</label>
+                  <label className="font-bold text-foreground">Accent Color Theme</label>
                   <select
                     value={appearance.accentColor}
                     onChange={(e) => setAppearance({ ...appearance, accentColor: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   >
                     <option value="Coffee Gold">Coffee Gold (Royal)</option>
                     <option value="Warm Amber">Warm Amber</option>
@@ -996,11 +996,11 @@ export default function AdminSettingsPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-bold text-[#3D2314]">Display Language</label>
+                  <label className="font-bold text-foreground">Display Language</label>
                   <select
                     value={appearance.language}
                     onChange={(e) => setAppearance({ ...appearance, language: e.target.value })}
-                    className="w-full p-3 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-[#3D2314] font-medium"
+                    className="w-full p-3 bg-background border border-border/50 rounded-xl text-foreground font-medium"
                   >
                     <option value="English (US)">English (US)</option>
                     <option value="Hindi">Hindi (हिंदी)</option>
@@ -1009,11 +1009,11 @@ export default function AdminSettingsPage() {
                 </div>
               </div>
 
-              <div className="flex justify-end pt-4 border-t border-[#E5D5C5]">
+              <div className="flex justify-end pt-4 border-t border-border/50">
                 <button
                   type="button"
                   onClick={() => showToast("Appearance settings updated")}
-                  className="px-6 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
+                  className="px-6 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-1.5 cursor-pointer"
                 >
                   <Save className="w-4 h-4" /> Apply Theme
                 </button>
@@ -1024,67 +1024,67 @@ export default function AdminSettingsPage() {
           {/* SECTION 10: DATA & REPORTS */}
           {activeTab === "reports" && (
             <div className="space-y-6">
-              <div className="border-b border-[#E5D5C5] pb-4">
-                <h2 className="text-xl font-bold font-serif text-[#3D2314] flex items-center gap-2">
-                  <FileSpreadsheet className="w-5 h-5 text-[#8C4A21]" /> Data &amp; Reports
+              <div className="border-b border-border/50 pb-4">
+                <h2 className="text-xl font-bold font-serif text-foreground flex items-center gap-2">
+                  <FileSpreadsheet className="w-5 h-5 text-accent" /> Data &amp; Reports
                 </h2>
-                <p className="text-xs text-[#7A5A43]">
+                <p className="text-xs text-foreground/80">
                   Export system records, download audit logs, and trigger full database backups.
                 </p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                <div className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] space-y-2">
-                  <div className="font-bold text-[#3D2314] flex items-center gap-2">
-                    <User className="w-4 h-4 text-[#8C4A21]" /> Customer Data Export
+                <div className="p-4 rounded-2xl bg-background border border-border/50 space-y-2">
+                  <div className="font-bold text-foreground flex items-center gap-2">
+                    <User className="w-4 h-4 text-accent" /> Customer Data Export
                   </div>
-                  <p className="text-[11px] text-[#7A5A43]">Export verified customer list, contact details &amp; membership info.</p>
+                  <p className="text-xs text-foreground/80">Export verified customer list, contact details &amp; membership info.</p>
                   <button
                     type="button"
                     onClick={() => showToast("📥 Exporting Customers CSV...")}
-                    className="w-full py-2.5 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white border border-[#E5D5C5] font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                    className="w-full py-2.5 rounded-xl bg-surface hover:bg-accent hover:text-primary border border-border/50 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
                   >
                     <Download className="w-3.5 h-3.5" /> Export Customers CSV
                   </button>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] space-y-2">
-                  <div className="font-bold text-[#3D2314] flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-[#8C4A21]" /> Reservations History Export
+                <div className="p-4 rounded-2xl bg-background border border-border/50 space-y-2">
+                  <div className="font-bold text-foreground flex items-center gap-2">
+                    <Calendar className="w-4 h-4 text-accent" /> Reservations History Export
                   </div>
-                  <p className="text-[11px] text-[#7A5A43]">Export complete desk booking logs, check-ins, and durations.</p>
+                  <p className="text-xs text-foreground/80">Export complete desk booking logs, check-ins, and durations.</p>
                   <button
                     type="button"
                     onClick={() => showToast("📥 Exporting Bookings CSV...")}
-                    className="w-full py-2.5 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white border border-[#E5D5C5] font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                    className="w-full py-2.5 rounded-xl bg-surface hover:bg-accent hover:text-primary border border-border/50 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
                   >
                     <Download className="w-3.5 h-3.5" /> Export Bookings CSV
                   </button>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] space-y-2">
-                  <div className="font-bold text-[#3D2314] flex items-center gap-2">
-                    <CreditCard className="w-4 h-4 text-[#8C4A21]" /> Payment &amp; Revenue Reports
+                <div className="p-4 rounded-2xl bg-background border border-border/50 space-y-2">
+                  <div className="font-bold text-foreground flex items-center gap-2">
+                    <CreditCard className="w-4 h-4 text-accent" /> Payment &amp; Revenue Reports
                   </div>
-                  <p className="text-[11px] text-[#7A5A43]">Export transaction ledger, GST tax summaries, and refunds.</p>
+                  <p className="text-xs text-foreground/80">Export transaction ledger, GST tax summaries, and refunds.</p>
                   <button
                     type="button"
                     onClick={() => showToast("📥 Exporting Financial Ledger...")}
-                    className="w-full py-2.5 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white border border-[#E5D5C5] font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                    className="w-full py-2.5 rounded-xl bg-surface hover:bg-accent hover:text-primary border border-border/50 font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
                   >
                     <Download className="w-3.5 h-3.5" /> Export Financial Ledger
                   </button>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#FAF4ED] border border-[#DFCDBE] space-y-2">
-                  <div className="font-bold text-[#3D2314] flex items-center gap-2">
-                    <ShieldCheck className="w-4 h-4 text-[#8C4A21]" /> System Audit &amp; Backup
+                <div className="p-4 rounded-2xl bg-background border border-border/50 space-y-2">
+                  <div className="font-bold text-foreground flex items-center gap-2">
+                    <ShieldCheck className="w-4 h-4 text-accent" /> System Audit &amp; Backup
                   </div>
-                  <p className="text-[11px] text-[#7A5A43]">Generate full JSON system backup &amp; download security logs.</p>
+                  <p className="text-xs text-foreground/80">Generate full JSON system backup &amp; download security logs.</p>
                   <button
                     type="button"
                     onClick={() => showToast("📦 System Backup JSON generated")}
-                    className="w-full py-2.5 rounded-xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
+                    className="w-full py-2.5 rounded-xl bg-accent hover:bg-accent text-primary font-bold text-xs transition-all cursor-pointer flex items-center justify-center gap-1.5"
                   >
                     <Download className="w-3.5 h-3.5" /> Download Full System Backup
                   </button>

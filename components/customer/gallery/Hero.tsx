@@ -41,14 +41,14 @@ export default function Hero() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
           <button
             onClick={() => handleScrollTo("gallery")}
-            className="w-full sm:w-auto px-8 py-3.5 border border-transparent text-sm font-bold rounded-full text-white bg-primary hover:bg-primary/95 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+            className="w-full sm:w-auto px-8 py-3.5 border border-transparent text-sm font-bold rounded-full text-background bg-primary hover:bg-primary/95 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
           >
             Explore Gallery
           </button>
           
           <button
             onClick={() => handleScrollTo("contact-form")}
-            className="w-full sm:w-auto px-8 py-3.5 border border-primary/20 text-sm font-bold rounded-full text-primary bg-white hover:bg-foreground/5 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+            className="w-full sm:w-auto px-8 py-3.5 border border-primary/20 text-sm font-bold rounded-full text-primary bg-surface hover:bg-foreground/5 transition-all shadow-md hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
           >
             Contact Us
           </button>

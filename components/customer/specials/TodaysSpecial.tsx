@@ -10,7 +10,7 @@ export default function TodaysSpecial() {
         
         {/* Section Heading matching Figma */}
         <div className="mb-8">
-          <h2 className="text-3xl sm:text-4xl font-bold font-serif text-[#5A2E0C] leading-tight">
+          <h2 className="text-3xl sm:text-4xl font-bold font-serif text-primary leading-tight">
             Today&apos;s Specials
           </h2>
         </div>
@@ -19,7 +19,7 @@ export default function TodaysSpecial() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-10 items-stretch">
           
           {/* Left Card: Daily Special (Artisan Flat White & Pastry) - 7 cols */}
-          <div className="lg:col-span-7 bg-white rounded-[24px] overflow-hidden card-shadow border border-primary/5 flex flex-col md:flex-row items-stretch">
+          <div className="lg:col-span-7 bg-surface rounded-[24px] overflow-hidden card-shadow border border-primary/5 flex flex-col md:flex-row items-stretch">
             
             {/* Cover Image (Left half) */}
             <div className="relative w-full md:w-1/2 min-h-[240px] md:min-h-full">
@@ -36,10 +36,10 @@ export default function TodaysSpecial() {
             <div className="p-6 sm:p-8 w-full md:w-1/2 flex flex-col justify-between text-left relative">
               <div>
                 <div className="flex justify-between items-center mb-3">
-                  <span className="text-[10px] font-bold text-accent uppercase tracking-widest block">
+                  <span className="text-xs font-bold text-accent uppercase tracking-widest block">
                     Daily Special
                   </span>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-[#EA5A0C] text-white text-[9px] font-extrabold uppercase tracking-wider">
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-accent text-primary text-[9px] font-extrabold uppercase tracking-wider">
                     20% OFF
                   </span>
                 </div>
@@ -55,12 +55,12 @@ export default function TodaysSpecial() {
               {/* Price and Trigger */}
               <div>
                 <div className="flex items-baseline gap-2 mb-4">
-                  <span className="text-2xl font-bold font-serif text-[#EA5A0C]">₹220</span>
-                  <span className="text-xs font-semibold text-foreground/40 line-through">₹280</span>
+                  <span className="text-2xl font-bold font-serif text-accent font-extrabold">₹220</span>
+                  <span className="text-xs font-semibold text-foreground/80 line-through font-extrabold">₹280</span>
                 </div>
                 <button
                   onClick={() => alert("Daily Special claimed!")}
-                  className="w-full py-3 px-5 border border-transparent text-xs font-bold rounded-full text-white bg-[#2A1506] hover:bg-[#2A1506]/90 transition-all shadow-md cursor-pointer uppercase tracking-wider text-center"
+                  className="w-full py-3 px-5 border border-transparent text-xs font-bold rounded-full text-background bg-primary hover:bg-primary/90 transition-all shadow-md cursor-pointer uppercase tracking-wider text-center"
                 >
                   Claim Special
                 </button>
@@ -70,7 +70,7 @@ export default function TodaysSpecial() {
           </div>
 
           {/* Right Card: Spiced Pumpkin Latte - 5 cols */}
-          <div className="lg:col-span-5 bg-white rounded-[24px] overflow-hidden card-shadow border border-primary/5 flex flex-col justify-between">
+          <div className="lg:col-span-5 bg-surface rounded-[24px] overflow-hidden card-shadow border border-primary/5 flex flex-col justify-between">
             {/* Top Cover Image with badge overlay */}
             <div className="relative h-[200px] w-full">
               <Image
@@ -80,7 +80,7 @@ export default function TodaysSpecial() {
                 className="object-cover object-center"
                 sizes="(max-w-768px) 100vw, 30vw"
               />
-              <div className="absolute top-4 left-4 inline-flex items-center gap-1 px-2.5 py-1 bg-white/90 backdrop-blur-sm border border-primary/10 rounded-full text-primary text-[9px] font-bold uppercase tracking-wider shadow-sm">
+              <div className="absolute top-4 left-4 inline-flex items-center gap-1 px-2.5 py-1 bg-surface/90 backdrop-blur-sm border border-primary/10 rounded-full text-primary text-[9px] font-bold uppercase tracking-wider shadow-sm">
                 <Coffee className="h-3 w-3 fill-primary/10 text-primary" />
                 <span>Seasonal</span>
               </div>
@@ -99,10 +99,10 @@ export default function TodaysSpecial() {
 
               {/* Price row */}
               <div className="flex items-center justify-between pt-4 border-t border-primary/5">
-                <span className="text-xl font-bold font-serif text-primary">₹180</span>
+                <span className="text-xl font-bold font-serif text-primary font-extrabold">₹180</span>
                 <button
                   onClick={() => alert("Spiced Pumpkin Latte claimed!")}
-                  className="px-5 py-2 rounded-full bg-[#2A1506] hover:bg-[#2A1506]/90 text-white text-xs font-bold transition-all cursor-pointer uppercase tracking-wider"
+                  className="px-5 py-2 rounded-full bg-primary hover:bg-primary/90 text-background text-xs font-bold transition-all cursor-pointer uppercase tracking-wider"
                 >
                   Claim Offer
                 </button>
@@ -113,13 +113,13 @@ export default function TodaysSpecial() {
         </div>
 
         {/* Off-Peak Happy Hour Banner matching Figma */}
-        <div className="w-full bg-[#FAF6F0] border border-primary/5 rounded-[24px] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 card-shadow mb-12">
+        <div className="w-full bg-surface border border-primary/5 rounded-[24px] p-6 sm:p-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-6 card-shadow mb-12">
           <div className="flex-1 text-left">
             <div className="flex flex-wrap gap-2 mb-3">
               {["HAPPY HOUR", "LIMITED OFFER", "20% OFF"].map((badge, idx) => (
                 <span
                   key={idx}
-                  className="px-2.5 py-0.5 bg-white border border-primary/10 rounded text-[9px] font-bold tracking-wider text-primary/70 uppercase"
+                  className="px-2.5 py-0.5 bg-surface border border-primary/10 rounded text-[9px] font-bold tracking-wider text-primary/70 uppercase"
                 >
                   {badge}
                 </span>
@@ -137,7 +137,7 @@ export default function TodaysSpecial() {
           {/* Action button */}
           <button
             onClick={() => alert("Happy Hour Pass activated!")}
-            className="w-full md:w-auto px-8 py-3.5 border border-transparent text-xs font-bold rounded-full text-white bg-[#2A1506] hover:bg-[#2A1506]/90 transition-all shadow-md cursor-pointer uppercase tracking-wider whitespace-nowrap"
+            className="w-full md:w-auto px-8 py-3.5 border border-transparent text-xs font-bold rounded-full text-background bg-primary hover:bg-primary/90 transition-all shadow-md cursor-pointer uppercase tracking-wider whitespace-nowrap"
           >
             Get Happy Hour Pass
           </button>

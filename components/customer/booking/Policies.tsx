@@ -40,7 +40,7 @@ export default function Policies() {
           {policies.map((item, idx) => {
             const isOpen = openIndex === idx;
             return (
-              <div key={idx} className="bg-white rounded-2xl border border-primary/5 card-shadow overflow-hidden">
+              <div key={idx} className="bg-surface rounded-2xl border border-primary/5 card-shadow overflow-hidden">
                 <button
                   onClick={() => togglePolicy(idx)}
                   className="w-full p-5 flex justify-between items-center text-left font-serif font-bold text-primary text-base cursor-pointer"
@@ -49,7 +49,7 @@ export default function Policies() {
                     <ShieldCheck className="h-4 w-4 text-accent" />
                     {item.title}
                   </span>
-                  <ChevronDown className={`h-4 w-4 text-primary/60 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+                  <ChevronDown className={`h-4 w-4 text-primary/80 transition-transform ${isOpen ? "rotate-180" : ""}`} />
                 </button>
                 {isOpen && (
                   <div className="p-5 pt-0 text-xs text-foreground/75 border-t border-primary/5 font-sans leading-relaxed">

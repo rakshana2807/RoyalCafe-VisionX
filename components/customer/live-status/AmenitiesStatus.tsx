@@ -44,7 +44,7 @@ export default function AmenitiesStatus() {
             return (
               <div
                 key={idx}
-                className="bg-white p-6 rounded-2xl border border-primary/5 flex flex-col items-center justify-center text-center card-shadow card-shadow-hover"
+                className="bg-surface p-6 rounded-2xl border border-primary/5 flex flex-col items-center justify-center text-center card-shadow card-shadow-hover"
               >
                 {/* Rounded Icon circle */}
                 <div className="h-14 w-14 rounded-full bg-primary/5 flex items-center justify-center mb-4 border border-primary/10">

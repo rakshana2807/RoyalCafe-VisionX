@@ -33,7 +33,7 @@ export default function SocialLinks() {
       handle: "@royalcafeconnect",
       stats: "15.1k Followers",
       icon: MessageSquare,
-      color: "hover:text-zinc-900",
+      color: "hover:text-background/80",
       link: "https://twitter.com",
     },
   ];
@@ -59,7 +59,7 @@ export default function SocialLinks() {
             return (
               <div
                 key={idx}
-                className="bg-white p-6 rounded-3xl border border-primary/5 flex flex-col justify-between items-center text-center card-shadow card-shadow-hover h-full"
+                className="bg-surface p-6 rounded-3xl border border-primary/5 flex flex-col justify-between items-center text-center card-shadow card-shadow-hover h-full"
               >
                 <div>
                   {/* Icon */}
@@ -74,7 +74,7 @@ export default function SocialLinks() {
                   <span className="text-xs font-bold text-accent block mb-1">
                     {social.handle}
                   </span>
-                  <span className="text-[10px] text-foreground/50 font-semibold block mb-6 uppercase tracking-wider">
+                  <span className="text-xs text-foreground/80 font-semibold block mb-6 uppercase tracking-wider">
                     {social.stats}
                   </span>
                 </div>

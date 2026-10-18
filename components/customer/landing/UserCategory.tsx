@@ -27,7 +27,7 @@ export default function UserCategory() {
   ];
 
   return (
-    <section id="work-study" className="py-20 bg-background">
+    <section id="work-study" className="py-10 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -47,10 +47,10 @@ export default function UserCategory() {
             return (
               <div
                 key={index}
-                className="bg-white p-8 rounded-2xl border border-primary/5 text-center flex flex-col items-center card-shadow card-shadow-hover"
+                className="bg-surface p-8 rounded-2xl border border-primary/5 text-center flex flex-col items-center card-shadow card-shadow-hover"
               >
                 {/* Circular Icon Container */}
-                <div className="h-16 w-16 rounded-full bg-[#FAF6F0] border border-primary/5 flex items-center justify-center mb-6">
+                <div className="h-16 w-16 rounded-full bg-surface border border-primary/5 flex items-center justify-center mb-6">
                   <Icon className="h-7 w-7 text-primary stroke-[1.75]" />
                 </div>
                 

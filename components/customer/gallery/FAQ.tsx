@@ -67,7 +67,7 @@ export default function FAQ() {
             return (
               <div
                 key={idx}
-                className="bg-white rounded-2xl border border-primary/5 card-shadow overflow-hidden transition-all duration-300"
+                className="bg-surface rounded-2xl border border-primary/5 card-shadow overflow-hidden transition-all duration-300"
               >
                 {/* Header/Question Trigger button */}
                 <button
@@ -79,7 +79,7 @@ export default function FAQ() {
                     {faq.question}
                   </span>
                   <ChevronDown
-                    className={`h-5 w-5 text-primary/60 transition-transform duration-300 ${
+                    className={`h-5 w-5 text-primary/80 transition-transform duration-300 ${
                       isOpen ? "transform rotate-180" : ""
                     }`}
                   />

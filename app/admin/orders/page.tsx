@@ -418,7 +418,7 @@ export default function AdminOrdersPage() {
   };
 
   return (
-    <div className="space-y-6 text-[#3D2314]">
+    <div className="space-y-6 text-foreground">
       {/* Toast Alert */}
       <AnimatePresence>
         {toast && (
@@ -426,7 +426,7 @@ export default function AdminOrdersPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-6 right-6 z-50 bg-[#3D2314] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
+            className="fixed top-6 right-6 z-50 bg-accent text-primary px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
           >
             <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
             <span className="text-xs font-bold font-sans">{toast}</span>
@@ -438,18 +438,18 @@ export default function AdminOrdersPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <ShoppingBag className="w-7 h-7 text-[#8C4A21]" />
-            <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#3D2314] tracking-tight">
+            <ShoppingBag className="w-7 h-7 text-accent" />
+            <h1 className="text-2xl sm:text-3xl font-black font-serif text-foreground tracking-tight">
               Order Management
             </h1>
           </div>
-          <p className="text-xs text-[#7A5A43] mt-1">
+          <p className="text-xs text-foreground/80 mt-1">
             Manage all food and beverage orders efficiently.
           </p>
         </div>
 
         <div className="flex items-center gap-3 self-start sm:self-auto">
-          <span className="text-xs font-mono font-bold text-[#8C4A21] bg-[#F8F1EA] px-4 py-2 rounded-full border border-[#E5D5C5] shadow-xs flex items-center gap-1.5">
+          <span className="text-xs font-mono font-bold text-accent bg-surface px-4 py-2 rounded-full border border-border/50 shadow-xs flex items-center gap-1.5">
             <Sparkles className="w-3.5 h-3.5 text-amber-600" />
             {stats.totalOrders} Orders Today
           </span>
@@ -459,104 +459,104 @@ export default function AdminOrdersPage() {
       {/* Top 6 Summary KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3.5">
         {/* Total Orders */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-[#7A5A43] uppercase tracking-wider">Total Orders</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Total Orders</span>
             <div className="p-2 rounded-xl bg-amber-500/10 text-amber-800">
               <ShoppingBag className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-2xl font-bold font-mono text-[#3D2314]">{stats.totalOrders}</span>
-            <span className="text-[10px] text-emerald-700 font-bold flex items-center gap-0.5">
+            <span className="text-2xl font-bold font-mono text-foreground">{stats.totalOrders}</span>
+            <span className="text-xs text-emerald-700 font-bold flex items-center gap-0.5">
               <TrendingUp className="w-3 h-3" /> +12%
             </span>
           </div>
         </div>
 
         {/* Preparing */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-[#7A5A43] uppercase tracking-wider">Preparing</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Preparing</span>
             <div className="p-2 rounded-xl bg-amber-500/15 text-amber-800">
               <ChefHat className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline justify-between">
             <span className="text-2xl font-bold font-mono text-amber-800">{stats.preparingCount}</span>
-            <span className="text-[10px] text-amber-700 font-semibold animate-pulse">In Kitchen</span>
+            <span className="text-xs text-amber-700 font-semibold animate-pulse">In Kitchen</span>
           </div>
         </div>
 
         {/* Ready to Serve */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-[#7A5A43] uppercase tracking-wider">Ready</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Ready</span>
             <div className="p-2 rounded-xl bg-blue-500/15 text-blue-800">
               <BellRing className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline justify-between">
             <span className="text-2xl font-bold font-mono text-blue-800">{stats.readyCount}</span>
-            <span className="text-[10px] text-blue-700 font-semibold">Pickup Ready</span>
+            <span className="text-xs text-blue-700 font-semibold">Pickup Ready</span>
           </div>
         </div>
 
         {/* Completed */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-[#7A5A43] uppercase tracking-wider">Completed</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Completed</span>
             <div className="p-2 rounded-xl bg-emerald-500/15 text-emerald-800">
               <CheckCircle2 className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline justify-between">
             <span className="text-2xl font-bold font-mono text-emerald-800">{stats.completedCount}</span>
-            <span className="text-[10px] text-emerald-700 font-semibold">Fulfilled</span>
+            <span className="text-xs text-emerald-700 font-semibold">Fulfilled</span>
           </div>
         </div>
 
         {/* Cancelled */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-[#7A5A43] uppercase tracking-wider">Cancelled</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Cancelled</span>
             <div className="p-2 rounded-xl bg-rose-500/15 text-rose-800">
               <XCircle className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline justify-between">
             <span className="text-2xl font-bold font-mono text-rose-800">{stats.cancelledCount}</span>
-            <span className="text-[10px] text-rose-700 font-semibold">Voided</span>
+            <span className="text-xs text-rose-700 font-semibold">Voided</span>
           </div>
         </div>
 
         {/* Total Revenue Today */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-4 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[11px] font-bold text-[#7A5A43] uppercase tracking-wider">Revenue</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Revenue</span>
             <div className="p-2 rounded-xl bg-emerald-500/15 text-emerald-800">
               <TrendingUp className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-2 flex items-baseline justify-between">
-            <span className="text-xl font-bold font-mono text-[#3D2314]">₹{stats.totalRevenue.toLocaleString("en-IN")}</span>
-            <span className="text-[10px] text-emerald-700 font-bold">Today</span>
+            <span className="text-xl font-bold font-mono text-foreground">₹{stats.totalRevenue.toLocaleString("en-IN")}</span>
+            <span className="text-xs text-emerald-700 font-bold">Today</span>
           </div>
         </div>
       </div>
 
       {/* Toolbar / Search & Filters */}
-      <div className="bg-[#FFFDF9] p-5 rounded-[20px] border border-[#E5D5C5] shadow-sm space-y-4">
+      <div className="bg-surface p-5 rounded-[20px] border border-border/50 shadow-sm space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Search Order ID / Customer / Desk ID */}
           <div className="relative lg:col-span-2">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7A5A43]" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-foreground/80" />
             <input
               type="text"
               placeholder="Search Order ID, Customer, Desk ID (e.g. T-01)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 placeholder-[#7A5A43]/60 transition-all font-medium"
+              className="w-full pl-10 pr-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 placeholder:text-foreground/80 transition-all font-medium"
             />
           </div>
 
@@ -565,7 +565,7 @@ export default function AdminOrdersPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="All">Order Status (All)</option>
               <option value="preparing">Preparing</option>
@@ -580,7 +580,7 @@ export default function AdminOrdersPage() {
             <select
               value={paymentFilter}
               onChange={(e) => setPaymentFilter(e.target.value)}
-              className="w-full px-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="All">Payment Status (All)</option>
               <option value="paid">Paid</option>
@@ -595,7 +595,7 @@ export default function AdminOrdersPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="default">Status Priority (Default)</option>
               <option value="latest">Latest First</option>
@@ -608,11 +608,11 @@ export default function AdminOrdersPage() {
       </div>
 
       {/* Main Full-Width Table Card */}
-      <div className="bg-[#FFFDF9] rounded-[20px] border border-[#E5D5C5] shadow-sm overflow-hidden space-y-4">
+      <div className="bg-surface rounded-[20px] border border-border/50 shadow-sm overflow-hidden space-y-4">
         {/* Desktop Table View */}
         <div className="hidden md:block overflow-x-auto max-h-[680px] overflow-y-auto">
-          <table className="w-full text-left text-xs text-[#3D2314] border-collapse">
-            <thead className="bg-[#F8F1EA] sticky top-0 z-10 uppercase text-[11px] font-extrabold tracking-wider text-[#7A5A43] border-b border-[#E5D5C5] shadow-2xs">
+          <table className="w-full text-left text-xs text-foreground border-collapse">
+            <thead className="bg-surface sticky top-0 z-10 uppercase text-xs font-extrabold tracking-wider text-foreground/80 border-b border-border/50 shadow-2xs">
               <tr>
                 <th className="py-4 px-4 font-bold">Order ID</th>
                 <th className="py-4 px-4 font-bold">Customer Name</th>
@@ -626,7 +626,7 @@ export default function AdminOrdersPage() {
                 <th className="py-4 px-4 font-bold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E5D5C5]/60">
+            <tbody className="divide-y divide-border/50">
               {filteredAndSortedOrders.length > 0 ? (
                 filteredAndSortedOrders.map((ord, idx) => {
                   const isOdd = idx % 2 !== 0;
@@ -640,32 +640,32 @@ export default function AdminOrdersPage() {
                         isRecentlyUpdated
                           ? "bg-emerald-100/70 transition-all duration-500"
                           : isOdd
-                          ? "bg-[#FBF7F1]/60"
-                          : "bg-[#FFFDF9]"
-                      } hover:bg-[#F3E9DD] transition-colors`}
+                          ? "bg-background"
+                          : "bg-surface"
+                      } hover:bg-background transition-colors`}
                     >
                       {/* 1. Order ID */}
-                      <td className="py-4 px-4 font-bold font-mono text-sm text-[#8C4A21] whitespace-nowrap">
+                      <td className="py-4 px-4 font-bold font-mono text-sm text-accent whitespace-nowrap">
                         {ord.orderNumber}
                       </td>
 
                       {/* 2. Customer Name */}
                       <td className="py-4 px-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#3D2314] to-[#8C4A21] text-amber-200 flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs ring-2 ring-[#E5D5C5]/40">
+                          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-accent to-accent-light text-amber-200 flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs ring-2 ring-border/50">
                             {ord.customerName.charAt(0)}
                           </div>
                           <div>
-                            <div className="font-bold text-sm text-[#3D2314]">{ord.customerName}</div>
-                            <div className="text-[11px] text-[#7A5A43]">{ord.customerEmail}</div>
+                            <div className="font-bold text-sm text-foreground">{ord.customerName}</div>
+                            <div className="text-xs text-foreground/80">{ord.customerEmail}</div>
                           </div>
                         </div>
                       </td>
 
                       {/* 3. DESK ID */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <span className="font-extrabold font-mono text-xs text-[#8C4A21] bg-[#F8F1EA] px-3 py-1 rounded-full border border-[#E5D5C5] shadow-2xs flex items-center gap-1.5 w-fit">
-                          <MapPin className="w-3 h-3 text-[#8C4A21]" />
+                        <span className="font-extrabold font-mono text-xs text-accent bg-surface px-3 py-1 rounded-full border border-border/50 shadow-2xs flex items-center gap-1.5 w-fit">
+                          <MapPin className="w-3 h-3 text-accent" />
                           {ord.deskId}
                         </span>
                       </td>
@@ -676,12 +676,12 @@ export default function AdminOrdersPage() {
                           {ord.items.slice(0, 2).map((item, i) => (
                             <div key={i} className="flex items-center gap-1.5 text-xs">
                               <span className="text-sm">{item.categoryIcon || "☕"}</span>
-                              <span className="font-semibold text-[#3D2314] truncate">{item.name}</span>
-                              <span className="font-mono text-[#7A5A43] font-bold text-[11px]">×{item.quantity}</span>
+                              <span className="font-semibold text-foreground truncate">{item.name}</span>
+                              <span className="font-mono text-foreground/80 font-bold text-xs">×{item.quantity}</span>
                             </div>
                           ))}
                           {ord.items.length > 2 && (
-                            <div className="text-[10px] font-bold text-[#8C4A21]">
+                            <div className="text-xs font-bold text-accent">
                               +{ord.items.length - 2} more item(s)
                             </div>
                           )}
@@ -689,19 +689,19 @@ export default function AdminOrdersPage() {
                       </td>
 
                       {/* 5. Quantity */}
-                      <td className="py-4 px-4 font-extrabold font-mono text-xs text-[#3D2314] whitespace-nowrap">
+                      <td className="py-4 px-4 font-extrabold font-mono text-xs text-foreground whitespace-nowrap">
                         {totalQty} {totalQty === 1 ? "item" : "items"}
                       </td>
 
                       {/* 6. Order Amount */}
-                      <td className="py-4 px-4 font-bold text-xs text-[#3D2314] whitespace-nowrap">
+                      <td className="py-4 px-4 font-bold text-xs text-foreground whitespace-nowrap">
                         ₹{ord.totalAmount}
                       </td>
 
                       {/* 7. Order Time */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <div className="flex items-center gap-1.5 text-xs font-medium text-[#7A5A43]">
-                          <Clock className="w-3.5 h-3.5 text-[#8C4A21] shrink-0" />
+                        <div className="flex items-center gap-1.5 text-xs font-medium text-foreground/80">
+                          <Clock className="w-3.5 h-3.5 text-accent shrink-0" />
                           <span>{ord.orderTime}</span>
                         </div>
                       </td>
@@ -709,7 +709,7 @@ export default function AdminOrdersPage() {
                       {/* 8. Payment Status */}
                       <td className="py-4 px-4 whitespace-nowrap">
                         <span
-                          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[11px] font-extrabold border uppercase tracking-wider shadow-2xs ${getPaymentStatusBadge(
+                          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-extrabold border uppercase tracking-wider shadow-2xs ${getPaymentStatusBadge(
                             ord.paymentStatus
                           )}`}
                         >
@@ -720,7 +720,7 @@ export default function AdminOrdersPage() {
                       {/* 9. Order Status */}
                       <td className="py-4 px-4 whitespace-nowrap">
                         <span
-                          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[11px] font-extrabold border uppercase tracking-wider shadow-2xs ${getOrderStatusBadge(
+                          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-extrabold border uppercase tracking-wider shadow-2xs ${getOrderStatusBadge(
                             ord.status
                           )}`}
                         >
@@ -737,7 +737,7 @@ export default function AdminOrdersPage() {
                               <button
                                 type="button"
                                 onClick={() => updateOrderStatus(ord.id, "ready")}
-                                className="px-3 py-1.5 rounded-xl bg-blue-700 hover:bg-blue-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
+                                className="px-3 py-1.5 rounded-xl bg-blue-700 hover:bg-blue-800 active:scale-95 text-primary font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1"
                                 title="Mark Ready to Serve"
                               >
                                 <BellRing className="w-3.5 h-3.5" />
@@ -760,7 +760,7 @@ export default function AdminOrdersPage() {
                               <button
                                 type="button"
                                 onClick={() => updateOrderStatus(ord.id, "served")}
-                                className="px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-white font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1.5"
+                                className="px-3.5 py-1.5 rounded-xl bg-emerald-700 hover:bg-emerald-800 active:scale-95 text-primary font-bold text-xs shadow-xs transition-all cursor-pointer flex items-center gap-1.5"
                                 title="Mark as Served (Automatically Completes Order)"
                               >
                                 <Utensils className="w-3.5 h-3.5" />
@@ -797,7 +797,7 @@ export default function AdminOrdersPage() {
                           <button
                             type="button"
                             onClick={() => setActiveDrawerOrder(ord)}
-                            className="p-1.5 rounded-xl bg-[#F8F1EA] hover:bg-[#3D2314] hover:text-white text-[#3D2314] transition-all cursor-pointer flex items-center justify-center border border-[#E5D5C5]"
+                            className="p-1.5 rounded-xl bg-surface hover:bg-accent hover:text-primary text-foreground transition-all cursor-pointer flex items-center justify-center border border-border/50"
                             title="View Order Details Drawer"
                           >
                             <Eye className="w-4 h-4" />
@@ -809,7 +809,7 @@ export default function AdminOrdersPage() {
                 })
               ) : (
                 <tr>
-                  <td colSpan={10} className="py-12 text-center text-xs text-[#7A5A43]">
+                  <td colSpan={10} className="py-12 text-center text-xs text-foreground/80">
                     No orders found matching your search and filter criteria.
                   </td>
                 </tr>
@@ -827,20 +827,20 @@ export default function AdminOrdersPage() {
               return (
                 <div
                   key={ord.id}
-                  className="bg-[#FFFDF9] rounded-2xl border border-[#E5D5C5] p-4 shadow-xs space-y-3"
+                  className="bg-surface rounded-2xl border border-border/50 p-4 shadow-xs space-y-3"
                 >
-                  <div className="flex items-center justify-between border-b border-[#E5D5C5]/50 pb-2.5">
+                  <div className="flex items-center justify-between border-b border-border/50/50 pb-2.5">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold font-mono text-sm text-[#8C4A21]">
+                      <span className="font-bold font-mono text-sm text-accent">
                         {ord.orderNumber}
                       </span>
-                      <span className="font-extrabold font-mono text-xs text-[#8C4A21] bg-[#F8F1EA] px-2.5 py-0.5 rounded-full border border-[#E5D5C5] flex items-center gap-1">
-                        <MapPin className="w-3 h-3 text-[#8C4A21]" />
+                      <span className="font-extrabold font-mono text-xs text-accent bg-surface px-2.5 py-0.5 rounded-full border border-border/50 flex items-center gap-1">
+                        <MapPin className="w-3 h-3 text-accent" />
                         {ord.deskId}
                       </span>
                     </div>
                     <span
-                      className={`inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border uppercase tracking-wider ${getOrderStatusBadge(
+                      className={`inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-extrabold border uppercase tracking-wider ${getOrderStatusBadge(
                         ord.status
                       )}`}
                     >
@@ -850,16 +850,16 @@ export default function AdminOrdersPage() {
 
                   <div className="flex items-start justify-between gap-3">
                     <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#3D2314] to-[#8C4A21] text-amber-200 flex items-center justify-center font-bold text-sm shrink-0 shadow-2xs">
+                      <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-accent to-accent-light text-amber-200 flex items-center justify-center font-bold text-sm shrink-0 shadow-2xs">
                         {ord.customerName.charAt(0)}
                       </div>
                       <div>
-                        <div className="font-bold text-sm text-[#3D2314]">{ord.customerName}</div>
-                        <div className="text-xs text-[#7A5A43]">{ord.customerEmail}</div>
+                        <div className="font-bold text-sm text-foreground">{ord.customerName}</div>
+                        <div className="text-xs text-foreground/80">{ord.customerEmail}</div>
                       </div>
                     </div>
                     <span
-                      className={`inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-[10px] font-extrabold border uppercase ${getPaymentStatusBadge(
+                      className={`inline-flex items-center justify-center px-2.5 py-0.5 rounded-full text-xs font-extrabold border uppercase ${getPaymentStatusBadge(
                         ord.paymentStatus
                       )}`}
                     >
@@ -868,18 +868,18 @@ export default function AdminOrdersPage() {
                   </div>
 
                   {/* Items summary */}
-                  <div className="bg-[#F8F1EA]/60 p-3 rounded-xl border border-[#E5D5C5]/40 space-y-1.5 text-xs">
+                  <div className="bg-surface/60 p-3 rounded-xl border border-border/50/40 space-y-1.5 text-xs">
                     {ord.items.map((item, idx) => (
                       <div key={idx} className="flex justify-between items-center font-medium">
                         <span>
                           {item.categoryIcon || "☕"} {item.name} ×{item.quantity}
                         </span>
-                        <span className="font-mono text-[#3D2314] font-bold">₹{item.price * item.quantity}</span>
+                        <span className="font-mono text-foreground font-bold">₹{item.price * item.quantity}</span>
                       </div>
                     ))}
-                    <div className="pt-1.5 border-t border-[#E5D5C5]/40 flex justify-between font-bold text-xs text-[#3D2314]">
+                    <div className="pt-1.5 border-t border-border/50/40 flex justify-between font-bold text-xs text-foreground">
                       <span>Total ({totalQty} items)</span>
-                      <span className="text-[#8C4A21]">₹{ord.totalAmount}</span>
+                      <span className="text-accent">₹{ord.totalAmount}</span>
                     </div>
                   </div>
 
@@ -890,7 +890,7 @@ export default function AdminOrdersPage() {
                         <button
                           type="button"
                           onClick={() => updateOrderStatus(ord.id, "ready")}
-                          className="flex-1 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1"
+                          className="flex-1 py-2 rounded-xl bg-blue-700 hover:bg-blue-800 text-primary font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1"
                         >
                           <BellRing className="w-3.5 h-3.5" />
                           Mark Ready
@@ -911,7 +911,7 @@ export default function AdminOrdersPage() {
                         <button
                           type="button"
                           onClick={() => updateOrderStatus(ord.id, "served")}
-                          className="flex-1 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1.5"
+                          className="flex-1 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-800 text-primary font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-1.5"
                         >
                           <Utensils className="w-3.5 h-3.5" />
                           Mark as Served
@@ -944,7 +944,7 @@ export default function AdminOrdersPage() {
                     <button
                       type="button"
                       onClick={() => setActiveDrawerOrder(ord)}
-                      className="p-2 rounded-xl bg-[#F8F1EA] hover:bg-[#3D2314] hover:text-white text-[#3D2314] transition-colors border border-[#E5D5C5]"
+                      className="p-2 rounded-xl bg-surface hover:bg-accent hover:text-primary text-foreground transition-colors border border-border/50"
                       title="View Details Drawer"
                     >
                       <Eye className="w-4 h-4" />
@@ -954,7 +954,7 @@ export default function AdminOrdersPage() {
               );
             })
           ) : (
-            <div className="py-8 text-center text-xs text-[#7A5A43] bg-[#F8F1EA]/50 rounded-xl">
+            <div className="py-8 text-center text-xs text-foreground/80 bg-surface/50 rounded-xl">
               No orders found matching your search and filter criteria.
             </div>
           )}
@@ -971,7 +971,7 @@ export default function AdminOrdersPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveDrawerOrder(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-background/60 backdrop-blur-xs"
             />
 
             {/* Right Side Drawer */}
@@ -981,18 +981,18 @@ export default function AdminOrdersPage() {
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="w-screen max-w-md bg-[#FFFDF9] border-l border-[#E5D5C5] shadow-2xl flex flex-col justify-between"
+                className="w-screen max-w-md bg-surface border-l border-border/50 shadow-2xl flex flex-col justify-between"
               >
                 {/* Drawer Header */}
-                <div className="p-6 border-b border-[#E5D5C5] bg-[#F8F1EA] flex items-center justify-between">
+                <div className="p-6 border-b border-border/50 bg-surface flex items-center justify-between">
                   <div>
                     <div className="flex items-center gap-2">
-                      <ShoppingBag className="w-5 h-5 text-[#8C4A21]" />
-                      <h3 className="text-lg font-bold font-serif text-[#3D2314]">
+                      <ShoppingBag className="w-5 h-5 text-accent" />
+                      <h3 className="text-lg font-bold font-serif text-foreground">
                         Order Details
                       </h3>
                     </div>
-                    <span className="text-xs font-mono font-bold text-[#8C4A21]">
+                    <span className="text-xs font-mono font-bold text-accent">
                       {activeDrawerOrder.orderNumber}
                     </span>
                   </div>
@@ -1000,7 +1000,7 @@ export default function AdminOrdersPage() {
                   <button
                     type="button"
                     onClick={() => setActiveDrawerOrder(null)}
-                    className="p-2 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white text-[#3D2314] border border-[#E5D5C5] transition-colors cursor-pointer"
+                    className="p-2 rounded-xl bg-surface hover:bg-accent hover:text-primary text-foreground border border-border/50 transition-colors cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -1009,47 +1009,47 @@ export default function AdminOrdersPage() {
                 {/* Drawer Content */}
                 <div className="p-6 overflow-y-auto space-y-5 text-xs flex-1">
                   {/* Customer & Location */}
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Customer &amp; Table Info
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Customer Name:</span>
-                      <span className="font-bold text-[#3D2314]">{activeDrawerOrder.customerName}</span>
+                      <span className="text-foreground/80 font-bold">Customer Name:</span>
+                      <span className="font-bold text-foreground">{activeDrawerOrder.customerName}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Phone Number:</span>
+                      <span className="text-foreground/80 font-bold">Phone Number:</span>
                       <span>{activeDrawerOrder.customerPhone}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Email Address:</span>
+                      <span className="text-foreground/80 font-bold">Email Address:</span>
                       <span>{activeDrawerOrder.customerEmail}</span>
                     </div>
-                    <div className="flex justify-between pt-1 border-t border-[#DFCDBE]/50">
-                      <span className="text-[#7A5A43] font-bold">Desk ID / Table:</span>
-                      <span className="font-extrabold font-mono text-[#8C4A21] bg-[#FFFDF9] px-2.5 py-0.5 rounded-full border border-[#E5D5C5]">
+                    <div className="flex justify-between pt-1 border-t border-border/50/50">
+                      <span className="text-foreground/80 font-bold">Desk ID / Table:</span>
+                      <span className="font-extrabold font-mono text-accent bg-surface px-2.5 py-0.5 rounded-full border border-border/50">
                         {activeDrawerOrder.deskId} ({activeDrawerOrder.workspaceType})
                       </span>
                     </div>
                   </div>
 
                   {/* Items Ordered List */}
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-3">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-3">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Items Ordered
                     </div>
                     <div className="divide-y divide-[#DFCDBE]/60 space-y-2">
                       {activeDrawerOrder.items.map((item, idx) => (
                         <div key={idx} className="pt-2 flex items-center justify-between">
                           <div>
-                            <div className="font-bold text-[#3D2314]">
+                            <div className="font-bold text-foreground">
                               {item.categoryIcon || "☕"} {item.name}
                             </div>
-                            <div className="text-[11px] text-[#7A5A43]">
+                            <div className="text-xs text-foreground/80">
                               ₹{item.price} × {item.quantity}
                             </div>
                           </div>
-                          <span className="font-bold font-mono text-[#3D2314]">
+                          <span className="font-bold font-mono text-foreground">
                             ₹{item.price * item.quantity}
                           </span>
                         </div>
@@ -1058,30 +1058,30 @@ export default function AdminOrdersPage() {
                   </div>
 
                   {/* Financial Breakdown */}
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Payment &amp; Invoice
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43]">Subtotal:</span>
+                      <span className="text-foreground/80">Subtotal:</span>
                       <span className="font-semibold">₹{activeDrawerOrder.totalAmount}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43]">Tax (5% GST):</span>
+                      <span className="text-foreground/80">Tax (5% GST):</span>
                       <span className="font-semibold">₹{(activeDrawerOrder.totalAmount * 0.05).toFixed(0)}</span>
                     </div>
-                    <div className="flex justify-between pt-1 border-t border-[#DFCDBE]/60 font-bold text-sm text-[#3D2314]">
+                    <div className="flex justify-between pt-1 border-t border-border/50/60 font-bold text-sm text-foreground">
                       <span>Grand Total:</span>
-                      <span className="text-[#8C4A21]">₹{(activeDrawerOrder.totalAmount * 1.05).toFixed(0)}</span>
+                      <span className="text-accent">₹{(activeDrawerOrder.totalAmount * 1.05).toFixed(0)}</span>
                     </div>
                     <div className="flex justify-between pt-2">
-                      <span className="text-[#7A5A43] font-bold">Payment Method:</span>
+                      <span className="text-foreground/80 font-bold">Payment Method:</span>
                       <span className="font-bold">{activeDrawerOrder.paymentMethod}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Payment Status:</span>
+                      <span className="text-foreground/80 font-bold">Payment Status:</span>
                       <span
-                        className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${getPaymentStatusBadge(
+                        className={`inline-block px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase ${getPaymentStatusBadge(
                           activeDrawerOrder.paymentStatus
                         )}`}
                       >
@@ -1093,7 +1093,7 @@ export default function AdminOrdersPage() {
                   {/* Special Instructions */}
                   {activeDrawerOrder.specialInstructions && (
                     <div className="bg-amber-500/10 p-3.5 rounded-2xl border border-amber-500/20 text-xs text-amber-900 space-y-1">
-                      <div className="font-bold text-[10px] uppercase tracking-wider">
+                      <div className="font-bold text-xs uppercase tracking-wider">
                         Special Instructions:
                       </div>
                       <p className="leading-relaxed font-medium">
@@ -1103,18 +1103,18 @@ export default function AdminOrdersPage() {
                   )}
 
                   {/* Order Progress Flow */}
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-3">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-3">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Order Progress Flow
                     </div>
                     <div className="grid grid-cols-3 gap-2 text-center text-xs font-bold">
-                      <div className={`p-2 rounded-xl border ${activeDrawerOrder.status === "preparing" ? "bg-amber-500 text-white shadow-xs" : "bg-[#FFFDF9] text-[#7A5A43]"}`}>
+                      <div className={`p-2 rounded-xl border ${activeDrawerOrder.status === "preparing" ? "bg-amber-500 text-primary shadow-xs" : "bg-surface text-foreground/80"}`}>
                         Preparing
                       </div>
-                      <div className={`p-2 rounded-xl border ${activeDrawerOrder.status === "ready" ? "bg-blue-600 text-white shadow-xs" : "bg-[#FFFDF9] text-[#7A5A43]"}`}>
+                      <div className={`p-2 rounded-xl border ${activeDrawerOrder.status === "ready" ? "bg-blue-600 text-primary shadow-xs" : "bg-surface text-foreground/80"}`}>
                         Ready
                       </div>
-                      <div className={`p-2 rounded-xl border ${activeDrawerOrder.status === "completed" ? "bg-emerald-600 text-white shadow-xs" : "bg-[#FFFDF9] text-[#7A5A43]"}`}>
+                      <div className={`p-2 rounded-xl border ${activeDrawerOrder.status === "completed" ? "bg-emerald-600 text-primary shadow-xs" : "bg-surface text-foreground/80"}`}>
                         Completed
                       </div>
                     </div>
@@ -1122,12 +1122,12 @@ export default function AdminOrdersPage() {
                 </div>
 
                 {/* Drawer Footer Actions */}
-                <div className="p-6 border-t border-[#E5D5C5] bg-[#F8F1EA] space-y-2">
+                <div className="p-6 border-t border-border/50 bg-surface space-y-2">
                   {activeDrawerOrder.status === "preparing" && (
                     <button
                       type="button"
                       onClick={() => updateOrderStatus(activeDrawerOrder.id, "ready")}
-                      className="w-full py-3 rounded-2xl bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full py-3 rounded-2xl bg-blue-700 hover:bg-blue-800 text-primary font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                       <BellRing className="w-4 h-4" /> Mark Order Ready
                     </button>
@@ -1137,7 +1137,7 @@ export default function AdminOrdersPage() {
                     <button
                       type="button"
                       onClick={() => updateOrderStatus(activeDrawerOrder.id, "served")}
-                      className="w-full py-3 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+                      className="w-full py-3 rounded-2xl bg-emerald-700 hover:bg-emerald-800 text-primary font-bold text-xs shadow-md transition-all flex items-center justify-center gap-1.5 cursor-pointer"
                     >
                       <Utensils className="w-4 h-4" /> Mark as Served (Complete Order)
                     </button>
@@ -1152,7 +1152,7 @@ export default function AdminOrdersPage() {
                   <button
                     type="button"
                     onClick={() => setActiveDrawerOrder(null)}
-                    className="w-full py-2.5 rounded-2xl bg-[#FFFDF9] text-[#3D2314] border border-[#E5D5C5] font-bold text-xs hover:bg-[#3D2314] hover:text-white transition-all cursor-pointer"
+                    className="w-full py-2.5 rounded-2xl bg-surface text-foreground border border-border/50 font-bold text-xs hover:bg-accent hover:text-primary transition-all cursor-pointer"
                   >
                     Close Drawer
                   </button>

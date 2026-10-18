@@ -59,7 +59,7 @@ export default function UserCategories() {
             return (
               <div
                 key={idx}
-                className="bg-white p-8 rounded-3xl border border-primary/5 flex flex-col justify-between card-shadow card-shadow-hover h-full"
+                className="bg-surface p-8 rounded-3xl border border-primary/5 flex flex-col justify-between card-shadow card-shadow-hover h-full"
               >
                 <div>
                   {/* Icon + Rating Badge */}
@@ -77,7 +77,7 @@ export default function UserCategories() {
                   <h3 className="text-xl font-bold font-serif text-primary mb-1">
                     {cat.title}
                   </h3>
-                  <span className="text-[10px] font-bold text-foreground/45 uppercase tracking-wider block mb-4">
+                  <span className="text-xs font-bold text-foreground/45 uppercase tracking-wider block mb-4">
                     {cat.reviewsCount}
                   </span>
 

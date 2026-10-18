@@ -57,7 +57,7 @@ export default function ForgotPasswordPage() {
           initial={{ opacity: 0, y: 20, scale: 0.98 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5 }}
-          className="w-full max-w-md bg-white/90 backdrop-blur-xl rounded-3xl border border-primary/10 shadow-2xl p-8 sm:p-10 text-center relative z-10"
+          className="w-full max-w-md bg-surface/90 backdrop-blur-xl rounded-3xl border border-primary/10 shadow-2xl p-8 sm:p-10 text-center relative z-10"
         >
           {/* Header Icon */}
           <div className="w-16 h-16 rounded-2xl bg-[#F8F1EA] border border-primary/15 flex items-center justify-center mx-auto mb-6 shadow-sm">
@@ -90,7 +90,7 @@ export default function ForgotPasswordPage() {
                 <div className="pt-2 space-y-3">
                   <Link
                     href="/auth"
-                    className="w-full py-3.5 px-6 rounded-full text-white font-semibold text-sm bg-gradient-to-r from-[#5A2E0C] via-[#6F3A0E] to-[#3D1E07] hover:from-[#472309] hover:to-[#2B1404] shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2"
+                    className="w-full py-3.5 px-6 rounded-full text-primary font-semibold text-sm bg-gradient-to-r from-[#5A2E0C] via-[#6F3A0E] to-[#3D1E07] hover:from-[#472309] hover:to-[#2B1404] shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2"
                   >
                     Return to Sign In
                   </Link>
@@ -120,13 +120,13 @@ export default function ForgotPasswordPage() {
                     Email Address
                   </label>
                   <div className="relative">
-                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                    <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                     <input
                       type="email"
                       placeholder="yourname@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      className={`w-full pl-11 pr-4 py-3 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
+                      className={`w-full pl-11 pr-4 py-3 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
                         error ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
                       }`}
                     />
@@ -144,7 +144,7 @@ export default function ForgotPasswordPage() {
                   whileTap={{ scale: 0.985 }}
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 px-6 rounded-full text-white font-semibold text-sm bg-gradient-to-r from-[#5A2E0C] via-[#6F3A0E] to-[#3D1E07] hover:from-[#472309] hover:to-[#2B1404] shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+                  className="w-full py-3.5 px-6 rounded-full text-primary font-semibold text-sm bg-gradient-to-r from-[#5A2E0C] via-[#6F3A0E] to-[#3D1E07] hover:from-[#472309] hover:to-[#2B1404] shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
                 >
                   {isSubmitting ? (
                     <>

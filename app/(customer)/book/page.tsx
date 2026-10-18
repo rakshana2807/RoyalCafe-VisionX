@@ -23,12 +23,12 @@ export default function BookPage() {
 
   if (isCheckingAuth) {
     return (
-      <div className="min-h-screen flex flex-col bg-[#FAF4ED]">
+      <div className="min-h-screen flex flex-col bg-background">
         <Navbar />
         <main className="grow flex items-center justify-center p-8">
           <div className="text-center space-y-3">
-            <div className="w-10 h-10 border-4 border-[#8C4A21] border-t-transparent rounded-full animate-spin mx-auto" />
-            <p className="text-xs font-bold text-[#3D2314]">Verifying authentication state...</p>
+            <div className="w-10 h-10 border-4 border-accent border-t-transparent rounded-full animate-spin mx-auto" />
+            <p className="text-xs font-bold text-foreground">Verifying authentication state...</p>
           </div>
         </main>
         <Footer />

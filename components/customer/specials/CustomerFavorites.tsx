@@ -90,7 +90,7 @@ export default function CustomerFavorites() {
         
         {/* Section Header */}
         <div className="text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#5A2E0C]">
+          <h2 className="text-2xl sm:text-3xl font-bold font-serif text-primary">
             Customer Favorites
           </h2>
         </div>
@@ -100,7 +100,7 @@ export default function CustomerFavorites() {
           {favorites.map((item, idx) => (
             <div
               key={idx}
-              className="bg-white rounded-[24px] overflow-hidden card-shadow border border-primary/5 flex flex-col justify-between text-left h-full"
+              className="bg-surface rounded-[24px] overflow-hidden card-shadow border border-primary/5 flex flex-col justify-between text-left h-full"
             >
               {/* Image Cover */}
               <div className="relative h-[200px] w-full">
@@ -116,9 +116,9 @@ export default function CustomerFavorites() {
               {/* Card Details */}
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>
-                  <div className="flex justify-between items-center text-xs font-semibold text-foreground/50 mb-1">
+                  <div className="flex justify-between items-center text-xs font-semibold text-foreground/80 mb-1">
                     <span>#{idx + 1}</span>
-                    <span className="font-bold font-serif text-[#5A2E0C] text-base">{item.priceFormatted}</span>
+                    <span className="font-bold font-serif text-primary text-base">{item.priceFormatted}</span>
                   </div>
 
                   <h3 className="text-base font-bold font-serif text-primary mb-4">
@@ -128,8 +128,8 @@ export default function CustomerFavorites() {
 
                 <button
                   onClick={() => handleAdd(item)}
-                  className={`w-full py-2.5 px-4 border border-transparent text-xs font-bold rounded-full text-white transition-all shadow-md cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
-                    isAlreadyInBooking(item) ? "bg-[#8C4A21] hover:bg-[#3D2314]" : "bg-[#2A1506] hover:bg-[#2A1506]/90"
+                  className={`w-full py-2.5 px-4 border border-transparent text-xs font-bold rounded-full text-primary transition-all shadow-md cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
+                    isAlreadyInBooking(item) ? "bg-accent hover:bg-primary/90" : "bg-primary hover:bg-primary/90"
                   }`}
                 >
                   {isAlreadyInBooking(item) ? (

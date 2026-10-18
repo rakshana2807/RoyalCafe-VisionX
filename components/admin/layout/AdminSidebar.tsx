@@ -60,19 +60,19 @@ export default function AdminSidebar({
   };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-[#EFE4D6] text-[#3D2314] border-r border-[#DFCDBE] shadow-lg relative">
+    <div className="flex flex-col h-full bg-background text-primary/90 border-r border-border shadow-lg relative">
       {/* Brand Header */}
-      <div className="h-20 flex items-center justify-between px-4 border-b border-[#DFCDBE] shrink-0">
+      <div className="h-20 flex items-center justify-between px-4 border-b border-border shrink-0">
         <Link href="/admin/dashboard" onClick={onCloseMobile} className="flex items-center gap-3 overflow-hidden">
-          <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#8C4A21] to-[#5C2E13] flex items-center justify-center text-white shadow-md shrink-0">
+          <div className="w-10 h-10 rounded-2xl bg-primary flex items-center justify-center text-background shadow-md shrink-0">
             <Coffee className="h-5 w-5" />
           </div>
           {(!collapsed || mobileOpen) && (
             <div className="flex flex-col">
-              <span className="font-serif font-black text-lg text-[#3D2314] leading-tight tracking-wide">
+              <span className="font-serif font-black text-lg text-primary leading-tight tracking-wide">
                 RoyalCafe
               </span>
-              <span className="text-[10px] uppercase font-bold text-[#A65B28] tracking-widest flex items-center gap-1">
+              <span className="text-xs uppercase font-bold text-accent tracking-widest flex items-center gap-1">
                 <ShieldCheck className="h-3 w-3" /> Admin Hub
               </span>
             </div>
@@ -84,7 +84,7 @@ export default function AdminSidebar({
           <button
             type="button"
             onClick={onToggleCollapse}
-            className="hidden lg:flex p-1.5 rounded-xl bg-[#E5D6C4] hover:bg-[#8C4A21] hover:text-white text-[#5C3A21] transition-all cursor-pointer"
+            className="hidden lg:flex p-1.5 rounded-xl bg-surface hover:bg-primary hover:text-background text-primary transition-all cursor-pointer border border-border"
             title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
           >
             {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
@@ -96,7 +96,7 @@ export default function AdminSidebar({
           <button
             type="button"
             onClick={onCloseMobile}
-            className="lg:hidden p-2 rounded-xl bg-[#E5D6C4] hover:bg-[#8C4A21] hover:text-white text-[#5C3A21] transition-all cursor-pointer"
+            className="lg:hidden p-2 rounded-xl bg-surface hover:bg-primary hover:text-background text-primary transition-all cursor-pointer border border-border"
             title="Close Drawer"
           >
             <X className="h-5 w-5" />
@@ -115,14 +115,14 @@ export default function AdminSidebar({
               key={item.name}
               href={item.href}
               onClick={onCloseMobile}
-              className={`flex items-center gap-3.5 px-3.5 py-3 rounded-2xl text-xs font-bold transition-all min-h-[44px] ${
+              className={`flex items-center gap-3.5 px-3.5 py-3 rounded-2xl text-xs font-semibold transition-all min-h-[44px] ${
                 isActive
-                  ? "bg-gradient-to-r from-[#4A2B18] to-[#3D2314] text-white shadow-md shadow-[#4A2B18]/20 scale-[1.01]"
-                  : "text-[#5C3A21] hover:bg-[#E5D6C4] hover:text-[#3D2314]"
+                  ? "bg-primary text-background shadow-sm"
+                  : "text-primary/70 hover:bg-surface hover:text-primary"
               } ${collapsed && !mobileOpen ? "justify-center px-0" : ""}`}
               title={collapsed && !mobileOpen ? item.name : undefined}
             >
-              <Icon className={`h-5 w-5 shrink-0 ${isActive ? "text-amber-300" : "text-[#7A5A43]"}`} />
+              <Icon className={`h-5 w-5 shrink-0 ${isActive ? "text-accent" : "text-primary/80"}`} />
               {(!collapsed || mobileOpen) && <span>{item.name}</span>}
             </Link>
           );
@@ -130,7 +130,7 @@ export default function AdminSidebar({
       </nav>
 
       {/* Footer / Logout */}
-      <div className="p-3 border-t border-[#DFCDBE] shrink-0">
+      <div className="p-3 border-t border-border shrink-0">
         <button
           type="button"
           onClick={() => {
@@ -169,7 +169,7 @@ export default function AdminSidebar({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={onCloseMobile}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-background/60 backdrop-blur-xs"
             />
             <motion.div
               initial={{ x: "-100%" }}

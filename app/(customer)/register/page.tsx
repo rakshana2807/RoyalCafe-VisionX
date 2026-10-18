@@ -96,21 +96,21 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F8F1EA]">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
 
-      <main className="flex-grow pt-24 pb-16 flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
+      <main className="flex-grow pt-32 pb-24 flex items-center justify-center relative overflow-hidden px-4 sm:px-6 lg:px-8">
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 -right-32 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl pointer-events-none" />
 
-        <div className="w-full max-w-lg bg-white/90 backdrop-blur-xl rounded-3xl border border-primary/10 shadow-2xl p-8 sm:p-10 relative z-10">
+        <div className="w-full max-w-lg bg-surface/90 backdrop-blur-xl rounded-3xl border border-border shadow-[0_8px_30px_rgba(10,5,3,0.08)] p-8 sm:p-12 relative z-10">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="w-14 h-14 rounded-2xl bg-[#F8F1EA] border border-primary/15 flex items-center justify-center mx-auto mb-4 shadow-sm">
+          <div className="text-center mb-10">
+            <div className="w-14 h-14 rounded-2xl bg-background border border-border flex items-center justify-center mx-auto mb-5 shadow-sm">
               <Coffee className="w-7 h-7 text-primary" />
             </div>
             <h1 className="text-2xl sm:text-3xl font-bold font-serif text-primary">Create an Account</h1>
-            <p className="text-xs text-foreground/70 mt-1">
+            <p className="text-xs text-foreground/80 font-medium mt-2">
               Join RoyalCafe Connect for seamless workspace bookings and exclusive perks.
             </p>
           </div>
@@ -128,21 +128,21 @@ export default function RegisterPage() {
           )}
 
           {/* Form */}
-          <form onSubmit={handleRegister} className="space-y-4 text-left">
+          <form onSubmit={handleRegister} className="space-y-5 text-left">
             {/* Full Name */}
-            <div className="space-y-1">
-              <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
                 Full Name
               </label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                 <input
                   type="text"
                   placeholder="Alex Morgan"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className={`w-full pl-11 pr-4 py-2.5 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
-                    errors.fullName ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
+                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${
+                    errors.fullName ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
                   }`}
                 />
               </div>
@@ -155,26 +155,26 @@ export default function RegisterPage() {
             </div>
 
             {/* Email & Phone */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Email */}
-              <div className="space-y-1">
-                <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
+              <div className="space-y-2">
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
                   Email Address
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                   <input
                     type="email"
                     placeholder="alex@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-10 pr-3 py-2.5 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
-                      errors.email ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
+                    className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${
+                      errors.email ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
                     }`}
                   />
                 </div>
                 {errors.email && (
-                  <p className="text-[11px] text-red-600 font-medium flex items-center gap-1">
+                  <p className="text-xs text-red-600 font-medium flex items-center gap-1">
                     <AlertCircle className="w-3 h-3 shrink-0" />
                     {errors.email}
                   </p>
@@ -182,24 +182,24 @@ export default function RegisterPage() {
               </div>
 
               {/* Phone */}
-              <div className="space-y-1">
-                <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
+              <div className="space-y-2">
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
                   Phone Number
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                   <input
                     type="tel"
                     placeholder="+1 234 567 8900"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className={`w-full pl-10 pr-3 py-2.5 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
-                      errors.phone ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
+                    className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${
+                      errors.phone ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
                     }`}
                   />
                 </div>
                 {errors.phone && (
-                  <p className="text-[11px] text-red-600 font-medium flex items-center gap-1">
+                  <p className="text-xs text-red-600 font-medium flex items-center gap-1">
                     <AlertCircle className="w-3 h-3 shrink-0" />
                     {errors.phone}
                   </p>
@@ -208,25 +208,25 @@ export default function RegisterPage() {
             </div>
 
             {/* Password */}
-            <div className="space-y-1">
-              <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`w-full pl-11 pr-11 py-2.5 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
-                    errors.password ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
+                  className={`w-full pl-11 pr-11 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${
+                    errors.password ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
                   }`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-primary transition-colors cursor-pointer"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/80 hover:text-primary transition-colors cursor-pointer"
                   aria-label="Toggle password visibility"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -241,25 +241,25 @@ export default function RegisterPage() {
             </div>
 
             {/* Confirm Password */}
-            <div className="space-y-1">
-              <label className="block text-xs font-bold uppercase tracking-wider text-foreground/80">
+            <div className="space-y-2">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
                 Confirm Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/40" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Re-enter password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className={`w-full pl-11 pr-11 py-2.5 rounded-2xl bg-[#F8F1EA]/60 border text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:ring-2 focus:ring-primary/30 transition-all ${
-                    errors.confirmPassword ? "border-red-500 bg-red-50/30" : "border-primary/15 focus:border-primary"
+                  className={`w-full pl-11 pr-11 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${
+                    errors.confirmPassword ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
                   }`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/40 hover:text-primary transition-colors cursor-pointer"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/80 hover:text-primary transition-colors cursor-pointer"
                   aria-label="Toggle confirm password visibility"
                 >
                   {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -274,12 +274,10 @@ export default function RegisterPage() {
             </div>
 
             {/* Register Button */}
-            <motion.button
-              whileHover={{ scale: 1.015 }}
-              whileTap={{ scale: 0.985 }}
+            <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 px-6 rounded-full text-white font-semibold text-sm bg-gradient-to-r from-[#5A2E0C] via-[#6F3A0E] to-[#3D1E07] hover:from-[#472309] hover:to-[#2B1404] shadow-lg shadow-primary/20 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-2"
+              className="w-full py-4 px-6 rounded-full text-background font-semibold text-xs uppercase tracking-[0.15em] bg-primary hover:bg-primary/95 shadow-[0_8px_30px_rgba(10,5,3,0.15)] hover:shadow-[0_12px_40px_rgba(10,5,3,0.25)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
             >
               {isSubmitting ? (
                 <>
@@ -289,7 +287,7 @@ export default function RegisterPage() {
               ) : (
                 "Register"
               )}
-            </motion.button>
+            </button>
           </form>
 
           {/* Switch to Login */}
@@ -310,7 +308,7 @@ export default function RegisterPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: 10 }}
-                className="absolute -bottom-16 left-0 right-0 p-3.5 bg-emerald-700 text-white text-xs font-semibold rounded-2xl shadow-xl flex items-center justify-center gap-2"
+                className="absolute -bottom-16 left-0 right-0 p-3.5 bg-emerald-700 text-primary text-xs font-semibold rounded-2xl shadow-xl flex items-center justify-center gap-2"
               >
                 <CheckCircle2 className="w-4 h-4 text-emerald-300" />
                 <span>{toastMessage}</span>

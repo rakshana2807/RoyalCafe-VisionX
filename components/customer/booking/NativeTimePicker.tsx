@@ -71,7 +71,7 @@ export default function NativeTimePicker({ value, onChange }: NativeTimePickerPr
 
   return (
     <div className="relative font-sans text-left">
-      <label className="block text-[10px] font-bold text-foreground/50 uppercase mb-1">
+      <label className="block text-xs font-bold text-foreground/80 uppercase mb-1">
         Arrival Time * (Native Time Picker)
       </label>
 
@@ -86,13 +86,13 @@ export default function NativeTimePicker({ value, onChange }: NativeTimePickerPr
           required
           value={time24Value}
           onChange={handleNativeChange}
-          className="w-full pl-3.5 pr-10 py-3 rounded-[14px] border border-primary/15 text-xs bg-[#FAF6F0]/60 hover:bg-white focus:bg-white text-[#2A1506] font-semibold outline-none focus:border-[#EA5A0C] focus:ring-2 focus:ring-[#EA5A0C]/10 transition-all cursor-pointer shadow-xs [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
+          className="w-full pl-3.5 pr-10 py-3 rounded-[14px] border border-primary/15 text-xs bg-surface/60 hover:bg-surface focus:bg-surface text-primary font-semibold outline-none focus:border-accent focus:ring-2 focus:ring-[#EA5A0C]/10 transition-all cursor-pointer shadow-xs [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
         />
 
         {/* 12-Hour Formatted Display Tag (e.g. 09:30 AM) */}
         {value && (
-          <div className="absolute left-3 pointer-events-none flex items-center gap-1.5 bg-[#FAF6F0] px-2 py-0.5 rounded-lg border border-primary/10 shadow-2xs">
-            <span className="text-xs font-extrabold text-[#EA5A0C]">
+          <div className="absolute left-3 pointer-events-none flex items-center gap-1.5 bg-surface px-2 py-0.5 rounded-lg border border-primary/10 shadow-2xs">
+            <span className="text-xs font-extrabold text-accent">
               {value}
             </span>
           </div>
@@ -104,7 +104,7 @@ export default function NativeTimePicker({ value, onChange }: NativeTimePickerPr
             e.stopPropagation();
             triggerPicker();
           }}
-          className="h-4 w-4 text-[#EA5A0C] absolute right-3.5 top-3.5 cursor-pointer hover:scale-110 active:scale-95 transition-transform"
+          className="h-4 w-4 text-accent absolute right-3.5 top-3.5 cursor-pointer hover:scale-110 active:scale-95 transition-transform"
         />
       </div>
     </div>

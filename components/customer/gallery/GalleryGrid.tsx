@@ -85,8 +85,8 @@ export default function GalleryGrid() {
                 onClick={() => setActiveCategory(cat)}
                 className={`px-5 py-2 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer ${
                   isActive
-                    ? "bg-primary text-white shadow-sm"
-                    : "bg-[#EAE0D5]/60 text-primary hover:bg-[#EAE0D5] border border-primary/5"
+                    ? "bg-primary text-background shadow-sm"
+                    : "bg-surface/60 text-primary hover:bg-surface border border-primary/5"
                 }`}
               >
                 {cat}
@@ -112,12 +112,12 @@ export default function GalleryGrid() {
               />
 
               {/* Hover Dark Overlay with Title & Icon */}
-              <div className="absolute inset-0 bg-black/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 text-white z-10">
-                <Eye className="h-8 w-8 text-white mb-2 stroke-[1.5] animate-bounce" />
+              <div className="absolute inset-0 bg-background/45 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 text-primary z-10">
+                <Eye className="h-8 w-8 text-primary mb-2 stroke-[1.5] animate-bounce" />
                 <h3 className="text-lg font-bold font-serif mb-1">
                   {item.title}
                 </h3>
-                <span className="text-[10px] font-bold uppercase tracking-widest text-accent">
+                <span className="text-xs font-bold uppercase tracking-widest text-accent">
                   {item.category}
                 </span>
               </div>
@@ -129,12 +129,12 @@ export default function GalleryGrid() {
 
       {/* Lightbox Modal Preview */}
       {selectedImage && (
-        <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in">
-          <div className="relative max-w-4xl w-full bg-white rounded-3xl overflow-hidden card-shadow border border-white/20">
+        <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in">
+          <div className="relative max-w-4xl w-full bg-surface rounded-3xl overflow-hidden card-shadow border border-primary/20">
             {/* Close Button */}
             <button
               onClick={() => setSelectedImage(null)}
-              className="absolute top-4 right-4 h-10 w-10 rounded-full bg-black/60 text-white hover:bg-black flex items-center justify-center transition-colors z-20 cursor-pointer"
+              className="absolute top-4 right-4 h-10 w-10 rounded-full bg-background/60 text-primary hover:bg-background flex items-center justify-center transition-colors z-20 cursor-pointer"
             >
               <X className="h-5 w-5" />
             </button>
@@ -150,9 +150,9 @@ export default function GalleryGrid() {
             </div>
 
             {/* Modal Footer Caption */}
-            <div className="p-6 bg-white text-left flex items-center justify-between">
+            <div className="p-6 bg-surface text-left flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-bold text-accent uppercase tracking-widest block mb-1">
+                <span className="text-xs font-bold text-accent uppercase tracking-widest block mb-1">
                   {selectedImage.category}
                 </span>
                 <h3 className="text-xl font-bold font-serif text-primary">

@@ -461,7 +461,7 @@ export default function AdminPaymentsPage() {
       case "Refunded":
         return "bg-blue-500/15 text-blue-800 border-blue-500/30";
       case "Cancelled":
-        return "bg-slate-500/15 text-slate-700 border-slate-500/30";
+        return "bg-primary/10 text-primary/70 border-primary/20";
     }
   };
 
@@ -481,7 +481,7 @@ export default function AdminPaymentsPage() {
   };
 
   return (
-    <div className="space-y-6 text-[#3D2314]">
+    <div className="space-y-6 text-foreground">
       {/* Toast Alert */}
       <AnimatePresence>
         {toast && (
@@ -489,7 +489,7 @@ export default function AdminPaymentsPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="fixed top-6 right-6 z-50 bg-[#3D2314] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
+            className="fixed top-6 right-6 z-50 bg-accent text-primary px-5 py-3.5 rounded-2xl shadow-2xl border border-amber-500/30 flex items-center gap-3"
           >
             <CheckCircle2 className="h-5 w-5 text-emerald-400 shrink-0" />
             <span className="text-xs font-bold font-sans">{toast}</span>
@@ -501,12 +501,12 @@ export default function AdminPaymentsPage() {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2.5">
-            <CreditCard className="w-7 h-7 text-[#8C4A21]" />
-            <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#3D2314] tracking-tight">
+            <CreditCard className="w-7 h-7 text-accent" />
+            <h1 className="text-2xl sm:text-3xl font-black font-serif text-foreground tracking-tight">
               Payment Management
             </h1>
           </div>
-          <p className="text-xs text-[#7A5A43] mt-1">
+          <p className="text-xs text-foreground/80 mt-1">
             Monitor transactions, revenue, refunds, and payment activity.
           </p>
         </div>
@@ -516,7 +516,7 @@ export default function AdminPaymentsPage() {
           <select
             value={dateFilter}
             onChange={(e) => setDateFilter(e.target.value)}
-            className="px-3.5 py-2.5 bg-[#FFFDF9] border border-[#E5D5C5] rounded-2xl text-xs text-[#3D2314] font-bold focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer shadow-xs"
+            className="px-3.5 py-2.5 bg-surface border border-border/50 rounded-2xl text-xs text-foreground font-bold focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer shadow-xs"
           >
             <option value="All">Date Range: All</option>
             <option value="Today">Today</option>
@@ -528,7 +528,7 @@ export default function AdminPaymentsPage() {
           <button
             type="button"
             onClick={() => showToast("📥 Financial report exported to CSV successfully.")}
-            className="px-4 py-2.5 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-xs transition-all flex items-center gap-2 cursor-pointer"
+            className="px-4 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-xs transition-all flex items-center gap-2 cursor-pointer"
           >
             <Download className="w-3.5 h-3.5" />
             Export Report
@@ -539,116 +539,116 @@ export default function AdminPaymentsPage() {
       {/* Top 8 Rich KPI Summary Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
         {/* Today's Revenue */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Today's Revenue</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Today's Revenue</span>
             <div className="p-1.5 rounded-lg bg-emerald-500/10 text-emerald-800">
               <DollarSign className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
-            <div className="text-xl font-bold font-mono text-[#3D2314]">₹{stats.todayRevenue.toLocaleString("en-IN")}</div>
-            <div className="text-[10px] text-emerald-700 font-bold flex items-center gap-0.5 mt-0.5">
+            <div className="text-xl font-bold font-mono text-foreground">₹{stats.todayRevenue.toLocaleString("en-IN")}</div>
+            <div className="text-xs text-emerald-700 font-bold flex items-center gap-0.5 mt-0.5">
               <TrendingUp className="w-3 h-3" /> +18.4%
             </div>
           </div>
         </div>
 
         {/* Total Transactions */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Transactions</span>
-            <div className="p-1.5 rounded-lg bg-[#8C4A21]/10 text-[#8C4A21]">
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Transactions</span>
+            <div className="p-1.5 rounded-lg bg-accent/10 text-accent">
               <CreditCard className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
-            <div className="text-xl font-bold font-mono text-[#3D2314]">{stats.totalTransactions}</div>
-            <div className="text-[10px] text-[#7A5A43] font-medium mt-0.5">Total Volume</div>
+            <div className="text-xl font-bold font-mono text-foreground">{stats.totalTransactions}</div>
+            <div className="text-xs text-foreground/80 font-medium mt-0.5">Total Volume</div>
           </div>
         </div>
 
         {/* Successful Payments */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Successful</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Successful</span>
             <div className="p-1.5 rounded-lg bg-emerald-500/15 text-emerald-800">
               <CheckCircle2 className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-emerald-800">{stats.successfulCount}</div>
-            <div className="text-[10px] text-emerald-700 font-bold mt-0.5">90.1% Success Rate</div>
+            <div className="text-xs text-emerald-700 font-bold mt-0.5">90.1% Success Rate</div>
           </div>
         </div>
 
         {/* Pending Payments */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Pending</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Pending</span>
             <div className="p-1.5 rounded-lg bg-amber-500/15 text-amber-800">
               <Clock className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-amber-800">{stats.pendingCount}</div>
-            <div className="text-[10px] text-amber-700 font-semibold mt-0.5">Awaiting Gateway</div>
+            <div className="text-xs text-amber-700 font-semibold mt-0.5">Awaiting Gateway</div>
           </div>
         </div>
 
         {/* Failed Payments */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Failed</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Failed</span>
             <div className="p-1.5 rounded-lg bg-rose-500/15 text-rose-800">
               <XCircle className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-rose-800">{stats.failedCount}</div>
-            <div className="text-[10px] text-rose-700 font-semibold mt-0.5">Gateway Error</div>
+            <div className="text-xs text-rose-700 font-semibold mt-0.5">Gateway Error</div>
           </div>
         </div>
 
         {/* Refund Amount */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Refunds</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Refunds</span>
             <div className="p-1.5 rounded-lg bg-blue-500/15 text-blue-800">
               <RotateCcw className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-blue-800">₹{stats.totalRefundAmount}</div>
-            <div className="text-[10px] text-blue-700 font-medium mt-0.5">Processed Today</div>
+            <div className="text-xs text-blue-700 font-medium mt-0.5">Processed Today</div>
           </div>
         </div>
 
         {/* Avg Transaction Value */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Avg Order</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Avg Order</span>
             <div className="p-1.5 rounded-lg bg-purple-500/10 text-purple-800">
               <Sparkles className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-purple-800">₹{stats.avgTransactionValue}</div>
-            <div className="text-[10px] text-purple-700 font-medium mt-0.5">Per Ticket</div>
+            <div className="text-xs text-purple-700 font-medium mt-0.5">Per Ticket</div>
           </div>
         </div>
 
         {/* Online Payment Users */}
-        <div className="bg-[#FFFDF9] rounded-2xl p-3.5 border border-[#E5D5C5] shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+        <div className="bg-surface rounded-2xl p-3.5 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
           <div className="flex items-center justify-between">
-            <span className="text-[10px] font-bold text-[#7A5A43] uppercase tracking-wider">Online Users</span>
+            <span className="text-xs font-bold text-foreground/80 uppercase tracking-wider">Online Users</span>
             <div className="p-1.5 rounded-lg bg-cyan-500/10 text-cyan-800">
               <Smartphone className="w-3.5 h-3.5" />
             </div>
           </div>
           <div className="mt-2">
             <div className="text-xl font-bold font-mono text-cyan-800">{stats.onlinePercentage}</div>
-            <div className="text-[10px] text-cyan-700 font-medium mt-0.5">UPI / Cards</div>
+            <div className="text-xs text-cyan-700 font-medium mt-0.5">UPI / Cards</div>
           </div>
         </div>
       </div>
@@ -656,26 +656,26 @@ export default function AdminPaymentsPage() {
       {/* Payment Analytics Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Left: Revenue Overview Chart */}
-        <div className="bg-[#FFFDF9] rounded-3xl p-6 border border-[#E5D5C5] shadow-sm space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#E5D5C5]/60 pb-3">
+        <div className="bg-surface rounded-3xl p-6 border border-border/50 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-border/50/60 pb-3">
             <div>
-              <h3 className="text-base font-bold font-serif text-[#3D2314]">
+              <h3 className="text-base font-bold font-serif text-foreground">
                 📊 Revenue Overview
               </h3>
-              <p className="text-xs text-[#7A5A43]">
+              <p className="text-xs text-foreground/80">
                 Daily, weekly, and monthly payment collections breakdown
               </p>
             </div>
             {/* Timeframe Toggle */}
-            <div className="flex gap-1 bg-[#F8F1EA] p-1 rounded-xl border border-[#E5D5C5] text-xs font-bold self-start sm:self-auto">
+            <div className="flex gap-1 bg-surface p-1 rounded-xl border border-border/50 text-xs font-bold self-start sm:self-auto">
               {(["daily", "weekly", "monthly"] as const).map((tf) => (
                 <button
                   key={tf}
                   onClick={() => setRevenueTimeframe(tf)}
                   className={`px-3 py-1 rounded-lg capitalize transition-all cursor-pointer ${
                     revenueTimeframe === tf
-                      ? "bg-[#3D2314] text-white shadow-2xs"
-                      : "text-[#7A5A43] hover:text-[#3D2314]"
+                      ? "bg-accent text-primary shadow-2xs"
+                      : "text-foreground/80 hover:text-foreground"
                   }`}
                 >
                   {tf}
@@ -685,14 +685,14 @@ export default function AdminPaymentsPage() {
           </div>
 
           {/* Revenue Bar Chart Visual */}
-          <div className="h-44 flex items-end justify-between gap-2.5 pt-4 border-b border-[#E5D5C5]">
+          <div className="h-44 flex items-end justify-between gap-2.5 pt-4 border-b border-border/50">
             {[14, 28, 45, 32, 78, 92, 64].map((val, idx) => (
               <div key={idx} className="flex-1 flex flex-col items-center gap-1.5 group">
                 <div
-                  className="w-full bg-[#8C4A21] rounded-t-md group-hover:bg-[#3D2314] transition-all duration-200"
+                  className="w-full bg-accent rounded-t-md group-hover:bg-accent transition-all duration-200"
                   style={{ height: `${val}%` }}
                 />
-                <span className="text-[10px] font-mono font-bold text-[#7A5A43]">
+                <span className="text-xs font-mono font-bold text-foreground/80">
                   {revenueTimeframe === "daily"
                     ? `${8 + idx * 2}:00`
                     : revenueTimeframe === "weekly"
@@ -703,19 +703,19 @@ export default function AdminPaymentsPage() {
             ))}
           </div>
 
-          <div className="flex justify-between items-center text-xs font-semibold text-[#7A5A43]">
-            <span>Peak Collection Hour: <strong className="text-[#3D2314]">02:00 PM - 03:00 PM</strong></span>
+          <div className="flex justify-between items-center text-xs font-semibold text-foreground/80">
+            <span>Peak Collection Hour: <strong className="text-foreground">02:00 PM - 03:00 PM</strong></span>
             <span className="text-emerald-700 font-bold">↑ +14.2% Growth</span>
           </div>
         </div>
 
         {/* Right: Payment Methods Distribution */}
-        <div className="bg-[#FFFDF9] rounded-3xl p-6 border border-[#E5D5C5] shadow-sm space-y-4">
-          <div className="border-b border-[#E5D5C5]/60 pb-3">
-            <h3 className="text-base font-bold font-serif text-[#3D2314]">
+        <div className="bg-surface rounded-3xl p-6 border border-border/50 shadow-sm space-y-4">
+          <div className="border-b border-border/50/60 pb-3">
+            <h3 className="text-base font-bold font-serif text-foreground">
               💳 Payment Methods Distribution
             </h3>
-            <p className="text-xs text-[#7A5A43]">
+            <p className="text-xs text-foreground/80">
               Share of transactions processed by payment type
             </p>
           </div>
@@ -723,55 +723,55 @@ export default function AdminPaymentsPage() {
           <div className="space-y-3.5 my-2 text-xs">
             {/* UPI */}
             <div>
-              <div className="flex justify-between font-bold text-[#3D2314] mb-1">
+              <div className="flex justify-between font-bold text-foreground mb-1">
                 <span className="flex items-center gap-1.5"><Smartphone className="w-3.5 h-3.5 text-emerald-700" /> UPI (GPay / PhonePe / Paytm)</span>
                 <span>58% (₹14,410)</span>
               </div>
-              <div className="w-full h-2.5 bg-[#E5D5C5] rounded-full overflow-hidden">
+              <div className="w-full h-2.5 bg-border/50 rounded-full overflow-hidden">
                 <div className="h-full bg-emerald-600 rounded-full" style={{ width: "58%" }} />
               </div>
             </div>
 
             {/* Credit Card */}
             <div>
-              <div className="flex justify-between font-bold text-[#3D2314] mb-1">
+              <div className="flex justify-between font-bold text-foreground mb-1">
                 <span className="flex items-center gap-1.5"><CreditCard className="w-3.5 h-3.5 text-blue-700" /> Credit Card</span>
                 <span>24% (₹5,960)</span>
               </div>
-              <div className="w-full h-2.5 bg-[#E5D5C5] rounded-full overflow-hidden">
+              <div className="w-full h-2.5 bg-border/50 rounded-full overflow-hidden">
                 <div className="h-full bg-blue-600 rounded-full" style={{ width: "24%" }} />
               </div>
             </div>
 
             {/* Debit Card */}
             <div>
-              <div className="flex justify-between font-bold text-[#3D2314] mb-1">
+              <div className="flex justify-between font-bold text-foreground mb-1">
                 <span className="flex items-center gap-1.5"><CreditCard className="w-3.5 h-3.5 text-purple-700" /> Debit Card</span>
                 <span>10% (₹2,485)</span>
               </div>
-              <div className="w-full h-2.5 bg-[#E5D5C5] rounded-full overflow-hidden">
+              <div className="w-full h-2.5 bg-border/50 rounded-full overflow-hidden">
                 <div className="h-full bg-purple-600 rounded-full" style={{ width: "10%" }} />
               </div>
             </div>
 
             {/* Wallet */}
             <div>
-              <div className="flex justify-between font-bold text-[#3D2314] mb-1">
+              <div className="flex justify-between font-bold text-foreground mb-1">
                 <span className="flex items-center gap-1.5"><Wallet className="w-3.5 h-3.5 text-amber-700" /> Digital Wallet (Apple / Amazon Pay)</span>
                 <span>5% (₹1,240)</span>
               </div>
-              <div className="w-full h-2.5 bg-[#E5D5C5] rounded-full overflow-hidden">
+              <div className="w-full h-2.5 bg-border/50 rounded-full overflow-hidden">
                 <div className="h-full bg-amber-600 rounded-full" style={{ width: "5%" }} />
               </div>
             </div>
 
             {/* Cash */}
             <div>
-              <div className="flex justify-between font-bold text-[#3D2314] mb-1">
+              <div className="flex justify-between font-bold text-foreground mb-1">
                 <span className="flex items-center gap-1.5"><Coins className="w-3.5 h-3.5 text-amber-800" /> Cash POS</span>
                 <span>3% (₹755)</span>
               </div>
-              <div className="w-full h-2.5 bg-[#E5D5C5] rounded-full overflow-hidden">
+              <div className="w-full h-2.5 bg-border/50 rounded-full overflow-hidden">
                 <div className="h-full bg-amber-800 rounded-full" style={{ width: "3%" }} />
               </div>
             </div>
@@ -780,17 +780,17 @@ export default function AdminPaymentsPage() {
       </div>
 
       {/* Toolbar Search & Multi-Filters */}
-      <div className="bg-[#FFFDF9] p-4 rounded-2xl border border-[#E5D5C5] shadow-sm space-y-3">
+      <div className="bg-surface p-4 rounded-2xl border border-border/50 shadow-sm space-y-3">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
           {/* Search Bar */}
           <div className="relative lg:col-span-2">
-            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#7A5A43]" />
+            <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-foreground/80" />
             <input
               type="text"
               placeholder="Search Transaction ID, User, Booking ID, Desk..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-10 pr-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 placeholder-[#7A5A43]/60 transition-all font-medium"
+              className="w-full pl-10 pr-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground focus:outline-none focus:ring-2 focus:ring-accent/30 placeholder:text-foreground/80 transition-all font-medium"
             />
           </div>
 
@@ -799,7 +799,7 @@ export default function AdminPaymentsPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value)}
-              className="w-full px-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="All">Payment Status (All)</option>
               <option value="Successful">Successful</option>
@@ -815,7 +815,7 @@ export default function AdminPaymentsPage() {
             <select
               value={methodFilter}
               onChange={(e) => setMethodFilter(e.target.value)}
-              className="w-full px-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="All">Payment Method (All)</option>
               <option value="UPI">UPI</option>
@@ -831,7 +831,7 @@ export default function AdminPaymentsPage() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="w-full px-3 py-2.5 bg-[#FAF4ED] border border-[#DFCDBE] rounded-xl text-xs text-[#3D2314] font-medium focus:outline-none focus:ring-2 focus:ring-[#8C4A21]/30 transition-all cursor-pointer"
+              className="w-full px-3 py-2.5 bg-background border border-border/50 rounded-xl text-xs text-foreground font-medium focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all cursor-pointer"
             >
               <option value="default">Latest Transactions First</option>
               <option value="amount-high">Highest Amount</option>
@@ -844,11 +844,11 @@ export default function AdminPaymentsPage() {
       </div>
 
       {/* Main Full-Width Transaction Table */}
-      <div className="bg-[#FFFDF9] rounded-2xl border border-[#E5D5C5] shadow-sm overflow-hidden space-y-4">
+      <div className="bg-surface rounded-2xl border border-border/50 shadow-sm overflow-hidden space-y-4">
         {/* Desktop View Table */}
         <div className="hidden md:block overflow-x-auto max-h-[660px] overflow-y-auto">
-          <table className="w-full text-left text-xs text-[#3D2314] border-collapse">
-            <thead className="bg-[#F8F1EA] sticky top-0 z-10 uppercase text-[11px] font-extrabold tracking-wider text-[#7A5A43] border-b border-[#E5D5C5]">
+          <table className="w-full text-left text-xs text-foreground border-collapse">
+            <thead className="bg-surface sticky top-0 z-10 uppercase text-xs font-extrabold tracking-wider text-foreground/80 border-b border-border/50">
               <tr>
                 <th className="py-4 px-4 font-bold">Transaction ID</th>
                 <th className="py-4 px-4 font-bold">Booking ID</th>
@@ -862,7 +862,7 @@ export default function AdminPaymentsPage() {
                 <th className="py-4 px-4 font-bold text-right">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E5D5C5]/60">
+            <tbody className="divide-y divide-border/50">
               {filteredAndSortedPayments.length > 0 ? (
                 filteredAndSortedPayments.map((p, idx) => {
                   const isOdd = idx % 2 !== 0;
@@ -871,17 +871,17 @@ export default function AdminPaymentsPage() {
                     <tr
                       key={p.id}
                       className={`${
-                        isOdd ? "bg-[#FBF7F1]/60" : "bg-[#FFFDF9]"
-                      } hover:bg-[#F3E9DD] transition-colors`}
+                        isOdd ? "bg-background" : "bg-surface"
+                      } hover:bg-background transition-colors`}
                     >
                       {/* 1. Transaction ID */}
-                      <td className="py-4 px-4 font-bold font-mono text-sm text-[#8C4A21] whitespace-nowrap">
+                      <td className="py-4 px-4 font-bold font-mono text-sm text-accent whitespace-nowrap">
                         {p.transactionId}
                       </td>
 
                       {/* 2. Booking ID */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <span className="font-extrabold font-mono text-xs text-[#8C4A21] bg-[#F8F1EA] px-2.5 py-1 rounded-full border border-[#E5D5C5]">
+                        <span className="font-extrabold font-mono text-xs text-accent bg-surface px-2.5 py-1 rounded-full border border-border/50">
                           {p.bookingId}
                         </span>
                       </td>
@@ -889,48 +889,48 @@ export default function AdminPaymentsPage() {
                       {/* 3. User Name (Avatar + Name + Email) */}
                       <td className="py-4 px-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
-                          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#3D2314] to-[#8C4A21] text-amber-200 flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs ring-2 ring-[#E5D5C5]/40">
+                          <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-accent to-accent-light text-amber-200 flex items-center justify-center font-bold text-xs shrink-0 shadow-2xs ring-2 ring-border/50">
                             {p.userName.charAt(0)}
                           </div>
                           <div>
-                            <div className="font-bold text-sm text-[#3D2314]">{p.userName}</div>
-                            <div className="text-[11px] text-[#7A5A43]">{p.userEmail}</div>
+                            <div className="font-bold text-sm text-foreground">{p.userName}</div>
+                            <div className="text-xs text-foreground/80">{p.userEmail}</div>
                           </div>
                         </div>
                       </td>
 
                       {/* 4. Desk ID */}
-                      <td className="py-4 px-4 font-bold font-mono text-xs text-[#3D2314] whitespace-nowrap">
+                      <td className="py-4 px-4 font-bold font-mono text-xs text-foreground whitespace-nowrap">
                         {p.deskId}
                       </td>
 
                       {/* 5. Workspace Type */}
-                      <td className="py-4 px-4 text-xs font-semibold text-[#7A5A43] whitespace-nowrap">
+                      <td className="py-4 px-4 text-xs font-semibold text-foreground/80 whitespace-nowrap">
                         {p.workspaceType}
                       </td>
 
                       {/* 6. Payment Date */}
-                      <td className="py-4 px-4 text-xs font-medium text-[#7A5A43] whitespace-nowrap">
+                      <td className="py-4 px-4 text-xs font-medium text-foreground/80 whitespace-nowrap">
                         {p.paymentDate}
                       </td>
 
                       {/* 7. Payment Method */}
                       <td className="py-4 px-4 whitespace-nowrap">
-                        <span className="inline-flex items-center gap-1.5 font-bold text-xs text-[#3D2314]">
+                        <span className="inline-flex items-center gap-1.5 font-bold text-xs text-foreground">
                           {getMethodIcon(p.paymentMethod)}
                           {p.paymentMethod}
                         </span>
                       </td>
 
                       {/* 8. Amount */}
-                      <td className="py-4 px-4 font-bold font-mono text-sm text-[#3D2314] whitespace-nowrap">
+                      <td className="py-4 px-4 font-bold font-mono text-sm text-foreground whitespace-nowrap">
                         ₹{p.amount}
                       </td>
 
                       {/* 9. Payment Status */}
                       <td className="py-4 px-4 whitespace-nowrap">
                         <span
-                          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-[11px] font-extrabold border uppercase tracking-wider ${getStatusBadge(
+                          className={`inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-extrabold border uppercase tracking-wider ${getStatusBadge(
                             p.status
                           )}`}
                         >
@@ -945,7 +945,7 @@ export default function AdminPaymentsPage() {
                           <button
                             type="button"
                             onClick={() => showToast(`📄 Receipt for ${p.transactionId} downloaded.`)}
-                            className="p-1.5 rounded-xl bg-[#FAF4ED] hover:bg-[#3D2314] hover:text-white text-[#3D2314] border border-[#DFCDBE] transition-all cursor-pointer"
+                            className="p-1.5 rounded-xl bg-background hover:bg-accent hover:text-primary text-foreground border border-border/50 transition-all cursor-pointer"
                             title="Download Receipt PDF"
                           >
                             <FileText className="w-4 h-4" />
@@ -968,7 +968,7 @@ export default function AdminPaymentsPage() {
                           <button
                             type="button"
                             onClick={() => setActiveDrawerPayment(p)}
-                            className="p-1.5 rounded-xl bg-[#F8F1EA] hover:bg-[#3D2314] hover:text-white text-[#3D2314] border border-[#E5D5C5] transition-all cursor-pointer"
+                            className="p-1.5 rounded-xl bg-surface hover:bg-accent hover:text-primary text-foreground border border-border/50 transition-all cursor-pointer"
                             title="View Payment Details"
                           >
                             <Eye className="w-4 h-4" />
@@ -980,7 +980,7 @@ export default function AdminPaymentsPage() {
                 })
               ) : (
                 <tr>
-                  <td colSpan={10} className="py-12 text-center text-xs text-[#7A5A43]">
+                  <td colSpan={10} className="py-12 text-center text-xs text-foreground/80">
                     No payment transactions found matching your search and filter criteria.
                   </td>
                 </tr>
@@ -993,52 +993,52 @@ export default function AdminPaymentsPage() {
         <div className="block md:hidden p-4 space-y-4">
           {filteredAndSortedPayments.length > 0 ? (
             filteredAndSortedPayments.map((p) => (
-              <div key={p.id} className="bg-[#FFFDF9] rounded-2xl border border-[#E5D5C5] p-4 space-y-3 text-xs">
-                <div className="flex justify-between items-center border-b border-[#E5D5C5]/50 pb-2.5">
+              <div key={p.id} className="bg-surface rounded-2xl border border-border/50 p-4 space-y-3 text-xs">
+                <div className="flex justify-between items-center border-b border-border/50/50 pb-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono font-bold text-sm text-[#8C4A21]">{p.transactionId}</span>
-                    <span className="font-mono font-extrabold text-xs text-[#8C4A21] bg-[#F8F1EA] px-2.5 py-0.5 rounded-full border border-[#E5D5C5]">
+                    <span className="font-mono font-bold text-sm text-accent">{p.transactionId}</span>
+                    <span className="font-mono font-extrabold text-xs text-accent bg-surface px-2.5 py-0.5 rounded-full border border-border/50">
                       {p.bookingId}
                     </span>
                   </div>
-                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${getStatusBadge(p.status)}`}>
+                  <span className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase ${getStatusBadge(p.status)}`}>
                     {p.status}
                   </span>
                 </div>
 
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-[#3D2314] to-[#8C4A21] text-amber-200 flex items-center justify-center font-bold text-sm shrink-0 shadow-2xs">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-accent to-accent-light text-amber-200 flex items-center justify-center font-bold text-sm shrink-0 shadow-2xs">
                       {p.userName.charAt(0)}
                     </div>
                     <div>
-                      <div className="font-bold text-sm text-[#3D2314]">{p.userName}</div>
-                      <div className="text-xs text-[#7A5A43]">{p.userEmail}</div>
+                      <div className="font-bold text-sm text-foreground">{p.userName}</div>
+                      <div className="text-xs text-foreground/80">{p.userEmail}</div>
                     </div>
                   </div>
-                  <span className="font-mono font-bold text-base text-[#3D2314]">₹{p.amount}</span>
+                  <span className="font-mono font-bold text-base text-foreground">₹{p.amount}</span>
                 </div>
 
-                <div className="bg-[#F8F1EA]/60 p-3 rounded-xl border border-[#E5D5C5]/40 space-y-1.5 text-xs">
+                <div className="bg-surface/60 p-3 rounded-xl border border-border/50/40 space-y-1.5 text-xs">
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-semibold">Location / Workspace:</span>
-                    <span className="font-bold text-[#3D2314]">{p.deskId} ({p.workspaceType})</span>
+                    <span className="text-foreground/80 font-semibold">Location / Workspace:</span>
+                    <span className="font-bold text-foreground">{p.deskId} ({p.workspaceType})</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-semibold">Payment Method:</span>
-                    <span className="font-bold text-[#3D2314] flex items-center gap-1">{getMethodIcon(p.paymentMethod)} {p.paymentMethod}</span>
+                    <span className="text-foreground/80 font-semibold">Payment Method:</span>
+                    <span className="font-bold text-foreground flex items-center gap-1">{getMethodIcon(p.paymentMethod)} {p.paymentMethod}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-[#7A5A43] font-semibold">Date &amp; Time:</span>
-                    <span className="font-mono text-[#7A5A43]">{p.paymentDate}</span>
+                    <span className="text-foreground/80 font-semibold">Date &amp; Time:</span>
+                    <span className="font-mono text-foreground/80">{p.paymentDate}</span>
                   </div>
                 </div>
 
-                <div className="pt-2 flex justify-end gap-2 border-t border-[#E5D5C5]/50">
+                <div className="pt-2 flex justify-end gap-2 border-t border-border/50/50">
                   <button
                     type="button"
                     onClick={() => showToast(`📄 Receipt for ${p.transactionId} downloaded.`)}
-                    className="p-2 rounded-xl bg-[#FAF4ED] text-[#3D2314] border border-[#DFCDBE]"
+                    className="p-2 rounded-xl bg-background text-foreground border border-border/50"
                   >
                     <FileText className="w-4 h-4" />
                   </button>
@@ -1056,7 +1056,7 @@ export default function AdminPaymentsPage() {
                   <button
                     type="button"
                     onClick={() => setActiveDrawerPayment(p)}
-                    className="p-2 rounded-xl bg-[#F8F1EA] text-[#3D2314] border border-[#E5D5C5]"
+                    className="p-2 rounded-xl bg-surface text-foreground border border-border/50"
                   >
                     <Eye className="w-4 h-4" />
                   </button>
@@ -1064,7 +1064,7 @@ export default function AdminPaymentsPage() {
               </div>
             ))
           ) : (
-            <div className="py-8 text-center text-xs text-[#7A5A43] bg-[#F8F1EA]/50 rounded-xl">
+            <div className="py-8 text-center text-xs text-foreground/80 bg-surface/50 rounded-xl">
               No payment transactions found matching your search and filter criteria.
             </div>
           )}
@@ -1080,7 +1080,7 @@ export default function AdminPaymentsPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setActiveDrawerPayment(null)}
-              className="absolute inset-0 bg-black/60 backdrop-blur-xs"
+              className="absolute inset-0 bg-background/60 backdrop-blur-xs"
             />
             <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
               <motion.div
@@ -1088,25 +1088,25 @@ export default function AdminPaymentsPage() {
                 animate={{ x: 0 }}
                 exit={{ x: "100%" }}
                 transition={{ type: "spring", damping: 25, stiffness: 200 }}
-                className="w-screen max-w-md bg-[#FFFDF9] border-l border-[#E5D5C5] shadow-2xl flex flex-col justify-between"
+                className="w-screen max-w-md bg-surface border-l border-border/50 shadow-2xl flex flex-col justify-between"
               >
                 {/* Drawer Header */}
-                <div className="p-6 border-b border-[#E5D5C5] bg-[#F8F1EA] flex items-center justify-between">
+                <div className="p-6 border-b border-border/50 bg-surface flex items-center justify-between">
                   <div>
                     <div className="flex items-center gap-2">
-                      <CreditCard className="w-5 h-5 text-[#8C4A21]" />
-                      <h3 className="text-lg font-bold font-serif text-[#3D2314]">
+                      <CreditCard className="w-5 h-5 text-accent" />
+                      <h3 className="text-lg font-bold font-serif text-foreground">
                         Payment Details
                       </h3>
                     </div>
-                    <span className="text-xs font-mono font-bold text-[#8C4A21]">
+                    <span className="text-xs font-mono font-bold text-accent">
                       {activeDrawerPayment.transactionId}
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => setActiveDrawerPayment(null)}
-                    className="p-2 rounded-xl bg-[#FFFDF9] hover:bg-[#3D2314] hover:text-white text-[#3D2314] border border-[#E5D5C5] transition-colors cursor-pointer"
+                    className="p-2 rounded-xl bg-surface hover:bg-accent hover:text-primary text-foreground border border-border/50 transition-colors cursor-pointer"
                   >
                     <X className="w-4 h-4" />
                   </button>
@@ -1115,90 +1115,90 @@ export default function AdminPaymentsPage() {
                 {/* Drawer Content */}
                 <div className="p-6 overflow-y-auto space-y-4 text-xs flex-1">
                   {/* Customer Information */}
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Customer Information
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Customer Name:</span>
-                      <span className="font-bold text-[#3D2314]">{activeDrawerPayment.userName}</span>
+                      <span className="text-foreground/80 font-bold">Customer Name:</span>
+                      <span className="font-bold text-foreground">{activeDrawerPayment.userName}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Email Address:</span>
+                      <span className="text-foreground/80 font-bold">Email Address:</span>
                       <span>{activeDrawerPayment.userEmail}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Phone Number:</span>
+                      <span className="text-foreground/80 font-bold">Phone Number:</span>
                       <span>{activeDrawerPayment.userPhone}</span>
                     </div>
                   </div>
 
                   {/* Connected Booking Information */}
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Connected Booking Information
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Booking ID:</span>
-                      <span className="font-mono font-bold text-[#8C4A21]">{activeDrawerPayment.bookingId}</span>
+                      <span className="text-foreground/80 font-bold">Booking ID:</span>
+                      <span className="font-mono font-bold text-accent">{activeDrawerPayment.bookingId}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Desk ID &amp; Type:</span>
+                      <span className="text-foreground/80 font-bold">Desk ID &amp; Type:</span>
                       <span className="font-bold">{activeDrawerPayment.deskId} ({activeDrawerPayment.workspaceType})</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Reservation Date:</span>
+                      <span className="text-foreground/80 font-bold">Reservation Date:</span>
                       <span>{activeDrawerPayment.reservationDate}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Duration:</span>
+                      <span className="text-foreground/80 font-bold">Duration:</span>
                       <span>{activeDrawerPayment.duration}</span>
                     </div>
                   </div>
 
                   {/* Amount Breakdown */}
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-2">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-2">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Amount Breakdown &amp; Method
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43]">Subtotal:</span>
+                      <span className="text-foreground/80">Subtotal:</span>
                       <span className="font-semibold font-mono">₹{activeDrawerPayment.subtotal}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43]">Tax (5% GST):</span>
+                      <span className="text-foreground/80">Tax (5% GST):</span>
                       <span className="font-semibold font-mono">₹{activeDrawerPayment.tax}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43]">Discount / Promo:</span>
+                      <span className="text-foreground/80">Discount / Promo:</span>
                       <span className="font-semibold font-mono">₹{activeDrawerPayment.discount}</span>
                     </div>
-                    <div className="flex justify-between pt-1 border-t border-[#DFCDBE]/60 font-bold text-sm text-[#3D2314]">
+                    <div className="flex justify-between pt-1 border-t border-border/50/60 font-bold text-sm text-foreground">
                       <span>Final Amount Paid:</span>
-                      <span className="text-[#8C4A21] font-mono">₹{activeDrawerPayment.amount}</span>
+                      <span className="text-accent font-mono">₹{activeDrawerPayment.amount}</span>
                     </div>
                     <div className="flex justify-between pt-2">
-                      <span className="text-[#7A5A43] font-bold">Payment Method:</span>
+                      <span className="text-foreground/80 font-bold">Payment Method:</span>
                       <span className="font-bold flex items-center gap-1">{getMethodIcon(activeDrawerPayment.paymentMethod)} {activeDrawerPayment.paymentMethod}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Gateway Reference:</span>
-                      <span className="font-mono text-[11px] text-[#7A5A43]">{activeDrawerPayment.gatewayRef || "REF-109283"}</span>
+                      <span className="text-foreground/80 font-bold">Gateway Reference:</span>
+                      <span className="font-mono text-xs text-foreground/80">{activeDrawerPayment.gatewayRef || "REF-109283"}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#7A5A43] font-bold">Payment Status:</span>
-                      <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${getStatusBadge(activeDrawerPayment.status)}`}>
+                      <span className="text-foreground/80 font-bold">Payment Status:</span>
+                      <span className={`px-2.5 py-0.5 rounded-full text-xs font-extrabold uppercase ${getStatusBadge(activeDrawerPayment.status)}`}>
                         {activeDrawerPayment.status}
                       </span>
                     </div>
                   </div>
 
                   {/* Payment Timeline */}
-                  <div className="bg-[#FAF4ED] p-4 rounded-2xl border border-[#DFCDBE] space-y-3">
-                    <div className="text-[10px] font-extrabold uppercase tracking-wider text-[#7A5A43]">
+                  <div className="bg-background p-4 rounded-2xl border border-border/50 space-y-3">
+                    <div className="text-xs font-extrabold uppercase tracking-wider text-foreground/80">
                       Payment Timeline
                     </div>
-                    <div className="space-y-2 text-[11px]">
+                    <div className="space-y-2 text-xs">
                       <div className="flex items-center gap-2 text-emerald-800">
                         <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
                         <span>Order Placed &amp; Checkout Initiated</span>
@@ -1216,11 +1216,11 @@ export default function AdminPaymentsPage() {
                 </div>
 
                 {/* Footer Actions */}
-                <div className="p-6 border-t border-[#E5D5C5] bg-[#F8F1EA] space-y-2">
+                <div className="p-6 border-t border-border/50 bg-surface space-y-2">
                   <button
                     type="button"
                     onClick={() => showToast(`📄 Digital invoice for ${activeDrawerPayment.transactionId} downloaded.`)}
-                    className="w-full py-3 rounded-2xl bg-[#8C4A21] hover:bg-[#3D2314] text-white font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                    className="w-full py-3 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
                   >
                     <Download className="w-4 h-4" /> Download Official Receipt (PDF)
                   </button>
@@ -1238,7 +1238,7 @@ export default function AdminPaymentsPage() {
                   <button
                     type="button"
                     onClick={() => setActiveDrawerPayment(null)}
-                    className="w-full py-2.5 rounded-2xl bg-[#FFFDF9] text-[#3D2314] border border-[#E5D5C5] font-bold text-xs hover:bg-[#3D2314] hover:text-white transition-all cursor-pointer"
+                    className="w-full py-2.5 rounded-2xl bg-surface text-foreground border border-border/50 font-bold text-xs hover:bg-accent hover:text-primary transition-all cursor-pointer"
                   >
                     Close Drawer
                   </button>
