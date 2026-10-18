@@ -72,25 +72,24 @@ export default function BookingSummary({
 
   return (
     <div className="space-y-5 text-left font-sans">
-
       {/* Main Glassmorphic Summary Card */}
-      <div className="bg-surface/95 backdrop-blur-md p-6 sm:p-8 rounded-3xl border border-border shadow-[0_8px_30px_rgba(10,5,3,0.04)] space-y-6">
+      <div className="bg-[#561C24] text-[#FFF8E6] p-6 sm:p-8 rounded-3xl border border-[rgba(244,221,165,0.25)] shadow-xl space-y-6">
 
         {/* Card Header */}
-        <div className="flex items-center justify-between border-b border-border pb-4">
+        <div className="flex items-center justify-between border-b border-[rgba(244,221,165,0.2)] pb-4">
           <div>
-            <h3 className="text-xl sm:text-2xl font-bold font-serif text-primary flex items-center gap-2">
-              <ShoppingBag className="h-6 w-6 text-accent" />
+            <h3 className="text-xl sm:text-2xl font-bold font-serif text-[#FFF8E6] flex items-center gap-2">
+              <ShoppingBag className="h-6 w-6 text-[#F4DDA5]" />
               Booking Summary
             </h3>
-            <p className="text-xs text-foreground/80 font-medium mt-1">
+            <p className="text-xs text-[#FFF8E6]/75 font-medium mt-1">
               Everything updates automatically
             </p>
           </div>
           <button
             type="button"
             onClick={handleClearBooking}
-            className="text-xs font-extrabold px-2.5 py-1 bg-rose-50 text-rose-600 border border-rose-200 hover:bg-rose-600 hover:text-primary rounded-full transition-all cursor-pointer flex items-center gap-1 uppercase tracking-wider shadow-2xs"
+            className="text-xs font-extrabold px-3 py-1 bg-rose-500/20 text-rose-300 border border-rose-500/30 hover:bg-rose-600 hover:text-white rounded-full transition-all cursor-pointer flex items-center gap-1 uppercase tracking-wider"
             title="Clear all booking data"
           >
             <Trash2 className="h-3 w-3" /> Clear Booking
@@ -378,49 +377,49 @@ export default function BookingSummary({
             Payment Summary
           </span>
 
-          <div className="space-y-2 text-xs font-bold text-foreground/75">
+          <div className="space-y-2 text-xs font-bold text-[#FFF8E6]/80">
             <div className="flex justify-between">
               <span>Food &amp; Drinks Total</span>
-              <span className="font-bold text-primary">₹{foodTotal}</span>
+              <span className="font-bold text-[#FFF8E6]">₹{foodTotal}</span>
             </div>
 
             <div className="flex justify-between">
               <span>WiFi Pass</span>
-              <span className="font-bold text-primary">₹{wifiTotal}</span>
+              <span className="font-bold text-[#FFF8E6]">₹{wifiTotal}</span>
             </div>
 
-            <div className="flex justify-between text-accent font-bold">
+            <div className="flex justify-between text-[#F4DDA5] font-bold">
               <span>Reservation Fee</span>
               <span>₹{bookingFee}</span>
             </div>
             
             <div className="flex justify-between">
               <span>GST (2%)</span>
-              <span className="font-bold text-primary">₹{gst}</span>
+              <span className="font-bold text-[#FFF8E6]">₹{gst}</span>
             </div>
           </div>
 
           {/* NEW PREMIUM PAYMENT SUMMARY CARD */}
-          <div className="bg-background p-6 rounded-3xl border border-border shadow-[0_4px_20px_rgba(10,5,3,0.03)] mt-6 space-y-4 animate-in fade-in duration-300">
+          <div className="bg-[#3D1118] p-6 rounded-3xl border border-[rgba(244,221,165,0.25)] shadow-md mt-6 space-y-4 animate-in fade-in duration-300">
             {/* Top Row: Label + Large Amount */}
             <div className="flex justify-between items-start gap-4">
               <div>
-                <span className="text-xs font-semibold text-primary uppercase tracking-[0.1em] block">
+                <span className="text-xs font-semibold text-[#F4DDA5] uppercase tracking-[0.1em] block">
                   Total Amount Due
                 </span>
-                <span className="text-xs font-medium text-foreground/80 mt-1 block">
+                <span className="text-xs font-medium text-[#FFF8E6]/75 mt-1 block">
                   Inclusive of taxes
                 </span>
               </div>
-              <span className="text-3xl sm:text-4xl font-bold font-serif text-primary tracking-tight shrink-0 transition-all duration-300">
+              <span className="text-3xl sm:text-4xl font-bold font-serif text-[#F4DDA5] tracking-tight shrink-0 transition-all duration-300">
                 ₹{grandTotal}
               </span>
             </div>
 
             {/* Bottom Row: Security Badge */}
-            <div className="border-t border-primary/10 pt-3 flex items-center justify-between text-emerald-700 text-xs font-extrabold">
+            <div className="border-t border-[rgba(244,221,165,0.15)] pt-3 flex items-center justify-between text-emerald-400 text-xs font-extrabold">
               <div className="flex items-center gap-1.5">
-                <Lock className="h-3.5 w-3.5 text-emerald-600 shrink-0" />
+                <Lock className="h-3.5 w-3.5 text-emerald-400 shrink-0" />
                 <span>Secure Payment &bull; 100% Safe Checkout</span>
               </div>
             </div>
@@ -432,11 +431,11 @@ export default function BookingSummary({
           type="button"
           onClick={onConfirmBooking}
           disabled={!isFormValid || isSubmitting}
-          className="w-full py-4 px-6 rounded-full font-semibold text-xs sm:text-sm uppercase tracking-[0.15em] text-background shadow-[0_8px_30px_rgba(10,5,3,0.15)] transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 bg-primary hover:bg-primary/90 hover:shadow-[0_12px_40px_rgba(10,5,3,0.25)] hover:-translate-y-0.5 disabled:opacity-80 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:shadow-none"
+          className="w-full py-4 px-6 rounded-full font-bold text-xs sm:text-sm uppercase tracking-[0.15em] text-[#561C24] bg-[#F4DDA5] hover:bg-[#FFF8E6] shadow-lg transition-all duration-300 cursor-pointer flex items-center justify-center gap-2 hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0"
         >
           {isSubmitting ? (
             <>
-              <Loader2 className="h-4 w-4 animate-spin" />
+              <Loader2 className="h-4 w-4 animate-spin text-[#561C24]" />
               <span>Confirming Reservation...</span>
             </>
           ) : (

@@ -103,14 +103,14 @@ export default function RegisterPage() {
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 -right-32 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl pointer-events-none" />
 
-        <div className="w-full max-w-lg bg-surface/90 backdrop-blur-xl rounded-3xl border border-border shadow-[0_8px_30px_rgba(10,5,3,0.08)] p-8 sm:p-12 relative z-10">
+        <div className="w-full max-w-lg bg-[#561C24] text-[#FFF8E6] rounded-3xl border border-[rgba(244,221,165,0.25)] shadow-2xl p-8 sm:p-12 relative z-10">
           {/* Header */}
           <div className="text-center mb-10">
-            <div className="w-14 h-14 rounded-2xl bg-background border border-border flex items-center justify-center mx-auto mb-5 shadow-sm">
-              <Coffee className="w-7 h-7 text-primary" />
+            <div className="w-14 h-14 rounded-2xl bg-[rgba(244,221,165,0.12)] border border-[rgba(244,221,165,0.25)] flex items-center justify-center mx-auto mb-5 shadow-sm">
+              <Coffee className="w-7 h-7 text-[#F4DDA5]" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold font-serif text-primary">Create an Account</h1>
-            <p className="text-xs text-foreground/80 font-medium mt-2">
+            <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#FFF8E6]">Create an Account</h1>
+            <p className="text-xs text-[#FFF8E6]/75 font-medium mt-2">
               Join RoyalCafe Connect for seamless workspace bookings and exclusive perks.
             </p>
           </div>
@@ -120,9 +120,9 @@ export default function RegisterPage() {
             <motion.div
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="mb-6 p-4 rounded-2xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-start gap-3"
+              className="mb-6 p-4 rounded-2xl bg-red-950/40 border border-red-500/40 text-red-200 text-xs flex items-start gap-3"
             >
-              <AlertCircle className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+              <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
               <span>{errors.form}</span>
             </motion.div>
           )}
@@ -131,23 +131,23 @@ export default function RegisterPage() {
           <form onSubmit={handleRegister} className="space-y-5 text-left">
             {/* Full Name */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
                 Full Name
               </label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
                 <input
                   type="text"
                   placeholder="Alex Morgan"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${
-                    errors.fullName ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
+                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
+                    errors.fullName ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
                   }`}
                 />
               </div>
               {errors.fullName && (
-                <p className="text-xs text-red-600 font-medium flex items-center gap-1">
+                <p className="text-xs text-red-300 font-medium flex items-center gap-1">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                   {errors.fullName}
                 </p>
@@ -158,23 +158,23 @@ export default function RegisterPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Email */}
               <div className="space-y-2">
-                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
                   Email Address
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
                   <input
                     type="email"
                     placeholder="alex@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${
-                      errors.email ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
+                    className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
+                      errors.email ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
                     }`}
                   />
                 </div>
                 {errors.email && (
-                  <p className="text-xs text-red-600 font-medium flex items-center gap-1">
+                  <p className="text-xs text-red-300 font-medium flex items-center gap-1">
                     <AlertCircle className="w-3 h-3 shrink-0" />
                     {errors.email}
                   </p>
@@ -183,24 +183,24 @@ export default function RegisterPage() {
 
               {/* Phone */}
               <div className="space-y-2">
-                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
                   Phone Number
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
                   <input
                     type="tel"
                     placeholder="+1 234 567 8900"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${
-                      errors.phone ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
+                    className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
+                      errors.phone ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
                     }`}
                   />
                 </div>
                 {errors.phone && (
-                  <p className="text-xs text-red-600 font-medium flex items-center gap-1">
-                    <AlertCircle className="w-3 h-3 shrink-0" />
+                  <p className="text-xs text-red-300 font-medium flex items-center gap-1">
+                    <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                     {errors.phone}
                   </p>
                 )}
@@ -209,31 +209,31 @@ export default function RegisterPage() {
 
             {/* Password */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`w-full pl-11 pr-11 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${
-                    errors.password ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
+                  className={`w-full pl-11 pr-11 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
+                    errors.password ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
                   }`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/80 hover:text-primary transition-colors cursor-pointer"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#F4DDA5] hover:text-[#FFF8E6] transition-colors cursor-pointer"
                   aria-label="Toggle password visibility"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
               {errors.password && (
-                <p className="text-xs text-red-600 font-medium flex items-center gap-1">
+                <p className="text-xs text-red-300 font-medium flex items-center gap-1">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                   {errors.password}
                 </p>
@@ -242,31 +242,31 @@ export default function RegisterPage() {
 
             {/* Confirm Password */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-primary">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
                 Confirm Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-foreground/80" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Re-enter password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className={`w-full pl-11 pr-11 py-3.5 rounded-2xl bg-background border text-xs text-foreground placeholder:text-foreground/80 focus:outline-none focus:ring-1 focus:ring-accent/30 transition-all ${
-                    errors.confirmPassword ? "border-red-500 bg-red-50/30" : "border-border focus:border-accent"
+                  className={`w-full pl-11 pr-11 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
+                    errors.confirmPassword ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
                   }`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-foreground/80 hover:text-primary transition-colors cursor-pointer"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#F4DDA5] hover:text-[#FFF8E6] transition-colors cursor-pointer"
                   aria-label="Toggle confirm password visibility"
                 >
                   {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
               </div>
               {errors.confirmPassword && (
-                <p className="text-xs text-red-600 font-medium flex items-center gap-1">
+                <p className="text-xs text-red-300 font-medium flex items-center gap-1">
                   <AlertCircle className="w-3.5 h-3.5 shrink-0" />
                   {errors.confirmPassword}
                 </p>
@@ -277,11 +277,11 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 px-6 rounded-full text-background font-semibold text-xs uppercase tracking-[0.15em] bg-primary hover:bg-primary/95 shadow-[0_8px_30px_rgba(10,5,3,0.15)] hover:shadow-[0_12px_40px_rgba(10,5,3,0.25)] hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
+              className="w-full py-4 px-6 rounded-full text-[#561C24] font-bold text-xs uppercase tracking-[0.15em] bg-[#F4DDA5] hover:bg-[#FFF8E6] shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <Loader2 className="w-4 h-4 animate-spin text-[#561C24]" />
                   Creating Account...
                 </>
               ) : (
@@ -291,11 +291,11 @@ export default function RegisterPage() {
           </form>
 
           {/* Switch to Login */}
-          <p className="text-center text-xs text-foreground/70 pt-6">
+          <p className="text-center text-xs text-[#FFF8E6]/75 pt-6">
             Already have an account?{" "}
             <Link
               href="/login"
-              className="font-bold text-accent hover:text-primary transition-colors hover:underline"
+              className="font-bold text-[#F4DDA5] hover:text-[#FFF8E6] transition-colors hover:underline"
             >
               Login
             </Link>

@@ -252,13 +252,13 @@ export default function UserProfilePage() {
       {/* Main Profile Body with Proper Top Spacing from Navbar */}
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-20 sm:pt-22 lg:pt-24 pb-12 space-y-8">
         {/* PROFILE HEADER HERO */}
-        <div className="bg-surface rounded-3xl p-6 sm:p-8 border border-border/50 shadow-sm relative overflow-hidden space-y-6">
+        <div className="bg-[#561C24] text-[#FFF8E6] rounded-3xl p-6 sm:p-8 border border-[rgba(244,221,165,0.25)] shadow-xl relative overflow-hidden space-y-6">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
             {/* Avatar + User Info */}
             <div className="flex flex-col sm:flex-row items-center sm:items-start md:items-center gap-5 text-center sm:text-left">
               {/* Profile Avatar with Camera Trigger */}
               <div className="relative group">
-                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-accent text-primary text-amber-200 flex items-center justify-center font-bold text-3xl shadow-md ring-4 ring-accent/20 overflow-hidden">
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-[rgba(244,221,165,0.15)] text-[#F4DDA5] border border-[rgba(244,221,165,0.3)] flex items-center justify-center font-bold text-3xl shadow-md ring-4 ring-[#F4DDA5]/20 overflow-hidden">
                   {userInfo.avatarUrl ? (
                     <img src={userInfo.avatarUrl} alt={userInfo.name} className="w-full h-full object-cover" />
                   ) : (
@@ -268,7 +268,7 @@ export default function UserProfilePage() {
                 <button
                   type="button"
                   onClick={() => showToast("📷 Profile avatar updated")}
-                  className="absolute bottom-0 right-0 p-2 rounded-xl bg-accent hover:bg-accent text-primary shadow-md transition-all cursor-pointer"
+                  className="absolute bottom-0 right-0 p-2 rounded-xl bg-[#F4DDA5] hover:bg-[#FFF8E6] text-[#561C24] shadow-md transition-all cursor-pointer"
                   title="Upload / Change Avatar"
                 >
                   <Camera className="w-4 h-4" />
@@ -278,23 +278,23 @@ export default function UserProfilePage() {
               {/* Text Info */}
               <div className="space-y-1.5">
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
-                  <h1 className="text-2xl sm:text-3xl font-black font-serif text-foreground">
+                  <h1 className="text-2xl sm:text-3xl font-black font-serif text-[#FFF8E6]">
                     {userInfo.name}
                   </h1>
-                  <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-500/15 text-amber-900 border border-amber-500/30 flex items-center gap-1">
-                    <Crown className="w-3.5 h-3.5 text-amber-700" /> {userInfo.membershipPlan}
+                  <span className="px-3 py-1 rounded-full text-xs font-extrabold bg-[#F4DDA5]/20 text-[#F4DDA5] border border-[#F4DDA5]/30 flex items-center gap-1">
+                    <Crown className="w-3.5 h-3.5 text-[#F4DDA5]" /> {userInfo.membershipPlan}
                   </span>
                 </div>
-                <p className="text-xs text-foreground/80 font-medium flex flex-wrap items-center justify-center sm:justify-start gap-3">
-                  <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-accent" /> {userInfo.email}</span>
-                  <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5 text-accent" /> {userInfo.phone}</span>
+                <p className="text-xs text-[#FFF8E6]/80 font-medium flex flex-wrap items-center justify-center sm:justify-start gap-3">
+                  <span className="flex items-center gap-1"><Mail className="w-3.5 h-3.5 text-[#F4DDA5]" /> {userInfo.email}</span>
+                  <span className="flex items-center gap-1"><Phone className="w-3.5 h-3.5 text-[#F4DDA5]" /> {userInfo.phone}</span>
                 </p>
                 <div className="flex flex-wrap items-center justify-center sm:justify-start gap-4 pt-1 text-xs">
-                  <span className="text-foreground/80 font-semibold">
-                    Member Since: <strong className="text-foreground">{userInfo.memberSince}</strong>
+                  <span className="text-[#FFF8E6]/75 font-semibold">
+                    Member Since: <strong className="text-[#FFF8E6]">{userInfo.memberSince}</strong>
                   </span>
-                  <span className="text-accent font-bold bg-surface px-3 py-1 rounded-full border border-border/50 flex items-center gap-1">
-                    <Sparkles className="w-3.5 h-3.5" /> {userInfo.loyaltyPoints} Loyalty Points
+                  <span className="text-[#F4DDA5] font-bold bg-[#3D1118] px-3 py-1 rounded-full border border-[rgba(244,221,165,0.25)] flex items-center gap-1">
+                    <Sparkles className="w-3.5 h-3.5 text-[#F4DDA5]" /> {userInfo.loyaltyPoints} Loyalty Points
                   </span>
                 </div>
               </div>
@@ -305,7 +305,7 @@ export default function UserProfilePage() {
               <button
                 type="button"
                 onClick={() => setActiveTab("profile")}
-                className="px-5 py-2.5 rounded-2xl bg-accent hover:bg-accent text-primary font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer"
+                className="px-5 py-2.5 rounded-2xl bg-[#F4DDA5] hover:bg-[#FFF8E6] text-[#561C24] font-bold text-xs shadow-md transition-all flex items-center gap-2 cursor-pointer"
               >
                 <Edit className="w-4 h-4" /> Edit Profile
               </button>
@@ -315,36 +315,36 @@ export default function UserProfilePage() {
 
         {/* QUICK STATS CARDS (6 Responsive KPI Cards) */}
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-          <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+          <div className="bg-[#561C24] text-[#FFF8E6] rounded-2xl p-4 border border-[rgba(244,221,165,0.25)] shadow-md hover:-translate-y-1 hover:border-[#F4DDA5] transition-all duration-200">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-extrabold text-foreground/80 uppercase tracking-wider">Upcoming</span>
-              <Calendar className="w-4 h-4 text-accent" />
+              <span className="text-xs font-extrabold text-[#FFF8E6]/75 uppercase tracking-wider">Upcoming</span>
+              <Calendar className="w-4 h-4 text-[#F4DDA5]" />
             </div>
             <div className="mt-2">
-              <div className="text-xl font-bold font-mono text-foreground">{upcomingBookingsList.length}</div>
-              <div className="text-xs text-emerald-700 font-bold mt-0.5">Active Bookings</div>
+              <div className="text-xl font-bold font-mono text-[#FFF8E6]">{upcomingBookingsList.length}</div>
+              <div className="text-xs text-emerald-400 font-bold mt-0.5">Active Bookings</div>
             </div>
           </div>
 
-          <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+          <div className="bg-[#561C24] text-[#FFF8E6] rounded-2xl p-4 border border-[rgba(244,221,165,0.25)] shadow-md hover:-translate-y-1 hover:border-[#F4DDA5] transition-all duration-200">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-extrabold text-foreground/80 uppercase tracking-wider">Completed</span>
-              <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+              <span className="text-xs font-extrabold text-[#FFF8E6]/75 uppercase tracking-wider">Completed</span>
+              <CheckCircle2 className="w-4 h-4 text-emerald-400" />
             </div>
             <div className="mt-2">
-              <div className="text-xl font-bold font-mono text-emerald-800">12</div>
-              <div className="text-xs text-foreground/80 font-medium mt-0.5">Past Visits</div>
+              <div className="text-xl font-bold font-mono text-[#FFF8E6]">12</div>
+              <div className="text-xs text-[#FFF8E6]/75 font-medium mt-0.5">Past Visits</div>
             </div>
           </div>
 
-          <div className="bg-surface rounded-2xl p-4 border border-border/50 shadow-xs hover:-translate-y-1 hover:shadow-md transition-all duration-200">
+          <div className="bg-[#561C24] text-[#FFF8E6] rounded-2xl p-4 border border-[rgba(244,221,165,0.25)] shadow-md hover:-translate-y-1 hover:border-[#F4DDA5] transition-all duration-200">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-extrabold text-foreground/80 uppercase tracking-wider">Cancelled</span>
-              <XCircle className="w-4 h-4 text-rose-700" />
+              <span className="text-xs font-extrabold text-[#FFF8E6]/75 uppercase tracking-wider">Cancelled</span>
+              <XCircle className="w-4 h-4 text-rose-400" />
             </div>
             <div className="mt-2">
-              <div className="text-xl font-bold font-mono text-primary/70">1</div>
-              <div className="text-xs text-primary/80 font-medium mt-0.5">Cancelled Booking</div>
+              <div className="text-xl font-bold font-mono text-[#FFF8E6]">1</div>
+              <div className="text-xs text-[#FFF8E6]/75 font-medium mt-0.5">Cancelled Booking</div>
             </div>
           </div>
 

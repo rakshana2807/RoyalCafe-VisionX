@@ -3,13 +3,13 @@
 
 
 @theme {
-  --color-background: #2B1B17;
-  --color-foreground: #EECCA4;
-  --color-primary: #EECCA4;
-  --color-surface: #EECCA4;
-  --color-surface-secondary: rgba(43, 27, 23, 0.85);
-  --color-accent: #e5b382;
-  --color-border: rgba(238, 204, 164, 0.15);
+  --color-background: #E5CB90;
+  --color-foreground: #561C24;
+  --color-primary: #561C24;
+  --color-surface: #561C24;
+  --color-surface-secondary: #3D1118;
+  --color-accent: #F4DDA5;
+  --color-border: rgba(86, 28, 36, 0.15);
   --radius: 0.5rem;
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -18,27 +18,61 @@
 @layer utilities {
   /* =========================================
      VARIABLE-BASED CONTEXT INVERSION
-     Automatically swaps text/bg colors based on the container
-     to guarantee unbreakable contrast rules.
+     Primary / Cards: Deep Burgundy (#561C24)
+     Main Background: Warm Golden Beige (#E5CB90)
+     Light Glass: rgba(255, 248, 230, 0.16)
+     Glass Borders: rgba(255, 248, 230, 0.30)
+     Text on Burgundy: Warm Cream (#FFF8E6)
+     Text on Light: Deep Burgundy (#561C24)
+     Hover Accent: Light Champagne (#F4DDA5)
      ========================================= */
 
   .bg-surface {
-    /* Inside a Caramel card, default text and borders become Dark */
-    --color-primary: #2B1B17;
-    --color-foreground: #2B1B17;
-    --color-accent: #2B1B17;
-    /* References to background color become Caramel */
-    --color-background: #EECCA4; 
-    --color-border: rgba(43, 27, 23, 0.15);
+    /* Inside a Deep Burgundy (#561C24) card, text and icons become Warm Cream (#FFF8E6) */
+    --color-primary: #FFF8E6;
+    --color-foreground: #FFF8E6;
+    --color-accent: #F4DDA5;
+    --color-background: #561C24; 
+    --color-border: rgba(255, 248, 230, 0.22);
+    color: #FFF8E6;
   }
 
   .bg-background {
-    /* Inside a Dark container, restore original theme variables */
-    --color-primary: #EECCA4;
-    --color-foreground: #EECCA4;
-    --color-accent: #e5b382;
-    --color-background: #2B1B17;
-    --color-border: rgba(238, 204, 164, 0.15);
+    /* Inside the Golden Beige (#E5CB90) page background */
+    --color-primary: #561C24;
+    --color-foreground: #561C24;
+    --color-accent: #3D1118;
+    --color-background: #E5CB90;
+    --color-border: rgba(86, 28, 36, 0.16);
+    color: #561C24;
+  }
+
+  /* Glass Card utility according to official specifications */
+  .glass-card {
+    background: rgba(255, 248, 230, 0.16);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 248, 230, 0.30);
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(86, 28, 36, 0.12);
+  }
+
+  .glass-card-burgundy {
+    background: rgba(86, 28, 36, 0.88);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(244, 221, 165, 0.32);
+    border-radius: 20px;
+    box-shadow: 0 12px 36px rgba(61, 17, 24, 0.28), inset 0 1px 0 rgba(255, 248, 230, 0.15);
+    color: #FFF8E6;
+  }
+
+  .glass-navbar {
+    background: rgba(86, 28, 36, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(244, 221, 165, 0.22);
+    box-shadow: 0 8px 32px rgba(61, 17, 24, 0.25);
   }
 }
 

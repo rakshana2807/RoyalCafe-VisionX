@@ -51,19 +51,19 @@ export default function Filters({
         </div>        
       </div>
 
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-background p-4 rounded-[24px] border border-primary/20 shadow-md">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-[#561C24] p-3.5 sm:p-4 rounded-[24px] border border-[rgba(244,221,165,0.25)] shadow-md">
         {/* Quick Access Filter Pills */}
-        <div className="w-full overflow-x-auto pb-1 sm:pb-0 flex gap-3 scrollbar-hide">
+        <div className="w-full overflow-x-auto pb-1 sm:pb-0 flex gap-2.5 scrollbar-hide">
           {categories.map((cat) => {
             const isActive = activeZone === cat.value;
             return (
               <button
                 key={cat.value}
                 onClick={() => onSelectZone(cat.value)}
-                className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer whitespace-nowrap uppercase tracking-widest border ${
+                className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer whitespace-nowrap uppercase tracking-wider border ${
                   isActive
-                    ? "bg-primary text-background border-primary shadow-md scale-105"
-                    : "bg-background text-primary border-transparent hover:border-primary/30 hover:bg-primary/10"
+                    ? "bg-[#F4DDA5] text-[#561C24] border-[#F4DDA5] shadow-md scale-105"
+                    : "bg-transparent text-[#FFF8E6]/85 border-[rgba(255,248,230,0.2)] hover:border-[#F4DDA5] hover:text-[#F4DDA5]"
                 }`}
               >
                 {cat.label}
@@ -71,7 +71,6 @@ export default function Filters({
             );
           })}
         </div>
-
       </div>
 
       <style jsx global>{`

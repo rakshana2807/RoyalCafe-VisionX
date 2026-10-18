@@ -31,14 +31,14 @@ export default function AdminNavbar({ onOpenMobileMenu, onToggleTabletCollapse }
   }, []);
 
   return (
-    <header className="h-20 bg-surface border-b border-border px-4 sm:px-6 flex items-center justify-between shadow-xs z-20 transition-colors shrink-0">
+    <header className="h-20 bg-[#561C24] border-b border-[rgba(244,221,165,0.2)] px-4 sm:px-6 flex items-center justify-between shadow-md z-20 transition-colors shrink-0 text-[#FFF8E6]">
       {/* Mobile Hamburger & Logo Header */}
       <div className="flex items-center gap-3">
         {/* Mobile Menu Button */}
         <button
           type="button"
           onClick={onOpenMobileMenu}
-          className="lg:hidden p-2 rounded-xl bg-background hover:bg-primary hover:text-background text-primary transition-all cursor-pointer border border-border"
+          className="lg:hidden p-2 rounded-xl bg-[rgba(244,221,165,0.12)] hover:bg-[#F4DDA5] hover:text-[#561C24] text-[#F4DDA5] transition-all cursor-pointer border border-[rgba(244,221,165,0.25)]"
           title="Open Navigation Menu"
         >
           <Menu className="h-5 w-5" />
@@ -46,10 +46,10 @@ export default function AdminNavbar({ onOpenMobileMenu, onToggleTabletCollapse }
 
         {/* Mobile Brand Logo */}
         <Link href="/admin/dashboard" className="flex items-center gap-2 lg:hidden">
-          <div className="w-9 h-9 rounded-xl bg-primary flex items-center justify-center text-background shadow-xs">
+          <div className="w-9 h-9 rounded-xl bg-[rgba(244,221,165,0.15)] flex items-center justify-center text-[#F4DDA5] border border-[rgba(244,221,165,0.3)] shadow-xs">
             <Coffee className="h-4 w-4" />
           </div>
-          <span className="font-serif font-black text-base text-primary/90">
+          <span className="font-serif font-black text-base text-[#FFF8E6]">
             RoyalCafe
           </span>
         </Link>
@@ -58,13 +58,13 @@ export default function AdminNavbar({ onOpenMobileMenu, onToggleTabletCollapse }
       {/* Search Bar */}
       <div className="hidden sm:flex items-center gap-3 flex-1 max-w-md mx-4">
         <div className="relative w-full">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-foreground/80" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[#F4DDA5]" />
           <input
             type="text"
             placeholder="Search reservations, customers, menu, payments..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-border text-xs bg-background text-primary placeholder-foreground/40 focus:outline-none focus:border-accent transition-all font-medium"
+            className="w-full pl-10 pr-4 py-2.5 rounded-2xl border border-[rgba(244,221,165,0.25)] text-xs bg-[rgba(255,248,230,0.08)] text-[#FFF8E6] placeholder-[#FFF8E6]/40 focus:outline-none focus:border-[#F4DDA5] transition-all font-medium"
           />
         </div>
       </div>
