@@ -1,6 +1,7 @@
 import { SeatDetails } from "@/components/customer/live-status/SeatMap";
 import { supabase } from "@/lib/supabase";
 import { calculateWorkspacePrice } from "@/lib/reservation";
+import { SEAT_INVENTORY } from "@/data/seatsData";
 
 export interface WorkspaceCardData extends Omit<SeatDetails, 'capacity'> {
   name: string;
@@ -14,12 +15,21 @@ export interface WorkspaceCardData extends Omit<SeatDetails, 'capacity'> {
 }
 
 export async function fetchAllWorkspaces(): Promise<WorkspaceCardData[]> {
-  const { data: seatsData, error: seatsError } = await supabase.from('seats').select('*');
-  if (seatsError) {
-    console.error("Error fetching seats:", seatsError);
-    return [];
+  let seats: any[] = [];
+  try {
+    const { data: seatsData, error: seatsError } = await supabase.from('seats').select('*');
+    if (seatsError || !seatsData || seatsData.length === 0) {
+      if (seatsError) {
+        console.error("Error fetching seats from Supabase, falling back to local SEAT_INVENTORY:", seatsError);
+      }
+      seats = SEAT_INVENTORY;
+    } else {
+      seats = seatsData;
+    }
+  } catch (err) {
+    console.error("Exception fetching seats, using fallback:", err);
+    seats = SEAT_INVENTORY;
   }
-  const seats = seatsData || [];
   
   const today = new Date().toISOString().split("T")[0];
   
@@ -58,21 +68,24 @@ export async function fetchAllWorkspaces(): Promise<WorkspaceCardData[]> {
     } else if (zoneStr === "Private Booths" || zoneStr === "Lounges" || zoneStr === "Elder Friendly") {
       image = "/seats/cafe_lounge_seat.png";
     } else {
-      // Default to window seat or corner seat based on ID parity as a fallback for variety
-      image = (seat.id % 2 === 0) ? "/seats/cafe_window_seat.png" : "/seats/cafe_corner_seat.png";
+      // Default to window seat or corner seat based on char code parity as a fallback for variety
+      const charCodeSum = String(seat.id || "").split("").reduce((acc, c) => acc + c.charCodeAt(0), 0);
+      image = (charCodeSum % 2 === 0) ? "/seats/cafe_window_seat.png" : "/seats/cafe_corner_seat.png";
     }
 
     const categories: string[] = ["All Seats"];
     
     // Map DB zone to UI category
-    if (zoneStr === "Work & Study") { categories.push("Work & Study"); }
+    if (zoneStr === "Work & Study" || zoneStr === "Quite Zone" || zoneStr === "Quiet Zone") { 
+      categories.push("Work & Study"); 
+    }
     else if (zoneStr === "Outdoor") { categories.push("Outdoor"); }
-    else if (zoneStr === "Social Area") { categories.push("Social Area"); }
+    else if (zoneStr === "Social Area" || zoneStr === "Social Zone") { categories.push("Social Area"); }
     else if (zoneStr === "Private Booths") { categories.push("Private Booths", "Work & Study"); }
     else if (zoneStr === "Kids Zone") { categories.push("Kids Zone"); }
     else if (zoneStr === "Family Zone") { categories.push("Family Zone"); }
     else if (zoneStr === "Elder Friendly") { categories.push("Elder Friendly"); }
-    else if (zoneStr === "Lounges") { categories.push("Lounges", "Social Area"); }
+    else if (zoneStr === "Lounges" || zoneStr === "Lounge") { categories.push("Lounges", "Social Area"); }
 
     const friendlyName = seat.seat_name || desc;
     const zone = zoneStr;

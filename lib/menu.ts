@@ -1,4 +1,4 @@
-import { MenuItem } from "@/data/menuData";
+import { MenuItem, MENU_ITEMS } from "@/data/menuData";
 import { supabase } from "@/lib/supabase";
 
 export async function getMenuItems(): Promise<MenuItem[]> {
@@ -8,9 +8,11 @@ export async function getMenuItems(): Promise<MenuItem[]> {
     .eq('is_available', true)
     .order('name', { ascending: true });
 
-  if (error || !data) {
-    console.error("Error fetching menu items:", error);
-    return [];
+  if (error || !data || data.length === 0) {
+    if (error) {
+      console.error("Error fetching menu items from Supabase, falling back to static menu:", error);
+    }
+    return MENU_ITEMS;
   }
 
   return data.map((item: any) => ({
