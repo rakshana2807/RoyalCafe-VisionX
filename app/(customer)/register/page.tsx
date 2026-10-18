@@ -103,14 +103,14 @@ export default function RegisterPage() {
         <div className="absolute top-1/4 -left-32 w-96 h-96 bg-accent/10 rounded-full filter blur-3xl pointer-events-none" />
         <div className="absolute bottom-10 -right-32 w-96 h-96 bg-primary/10 rounded-full filter blur-3xl pointer-events-none" />
 
-        <div className="w-full max-w-lg bg-[#561C24] text-[#FFF8E6] rounded-3xl border border-[rgba(244,221,165,0.25)] shadow-2xl p-8 sm:p-12 relative z-10">
+        <div className="w-full max-w-lg bg-[#320000] text-[#F5DAA7] rounded-3xl border border-[rgba(244,221,165,0.25)] shadow-2xl p-8 sm:p-12 relative z-10">
           {/* Header */}
           <div className="text-center mb-10">
             <div className="w-14 h-14 rounded-2xl bg-[rgba(244,221,165,0.12)] border border-[rgba(244,221,165,0.25)] flex items-center justify-center mx-auto mb-5 shadow-sm">
-              <Coffee className="w-7 h-7 text-[#F4DDA5]" />
+              <Coffee className="w-7 h-7 text-[#F5DAA7]" />
             </div>
-            <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#FFF8E6]">Create an Account</h1>
-            <p className="text-xs text-[#FFF8E6]/75 font-medium mt-2">
+            <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#F5DAA7]">Create an Account</h1>
+            <p className="text-xs text-[#F5DAA7]/75 font-medium mt-2">
               Join RoyalCafe Connect for seamless workspace bookings and exclusive perks.
             </p>
           </div>
@@ -131,18 +131,18 @@ export default function RegisterPage() {
           <form onSubmit={handleRegister} className="space-y-5 text-left">
             {/* Full Name */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F5DAA7]">
                 Full Name
               </label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F5DAA7]" />
                 <input
                   type="text"
                   placeholder="Alex Morgan"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
-                    errors.fullName ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
+                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#F5DAA7] placeholder:text-[#F5DAA7]/50 focus:outline-none focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all ${
+                    errors.fullName ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F5DAA7]"
                   }`}
                 />
               </div>
@@ -158,18 +158,18 @@ export default function RegisterPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Email */}
               <div className="space-y-2">
-                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F5DAA7]">
                   Email Address
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F5DAA7]" />
                   <input
                     type="email"
                     placeholder="alex@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
-                      errors.email ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
+                    className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#F5DAA7] placeholder:text-[#F5DAA7]/50 focus:outline-none focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all ${
+                      errors.email ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F5DAA7]"
                     }`}
                   />
                 </div>
@@ -183,18 +183,18 @@ export default function RegisterPage() {
 
               {/* Phone */}
               <div className="space-y-2">
-                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
+                <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F5DAA7]">
                   Phone Number
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
+                  <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F5DAA7]" />
                   <input
                     type="tel"
                     placeholder="+1 234 567 8900"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
-                      errors.phone ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
+                    className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#F5DAA7] placeholder:text-[#F5DAA7]/50 focus:outline-none focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all ${
+                      errors.phone ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F5DAA7]"
                     }`}
                   />
                 </div>
@@ -209,24 +209,24 @@ export default function RegisterPage() {
 
             {/* Password */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F5DAA7]">
                 Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F5DAA7]" />
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className={`w-full pl-11 pr-11 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
-                    errors.password ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
+                  className={`w-full pl-11 pr-11 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#F5DAA7] placeholder:text-[#F5DAA7]/50 focus:outline-none focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all ${
+                    errors.password ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F5DAA7]"
                   }`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#F4DDA5] hover:text-[#FFF8E6] transition-colors cursor-pointer"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#F5DAA7] hover:text-[#F5DAA7] transition-colors cursor-pointer"
                   aria-label="Toggle password visibility"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -242,24 +242,24 @@ export default function RegisterPage() {
 
             {/* Confirm Password */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F5DAA7]">
                 Confirm Password
               </label>
               <div className="relative">
-                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
+                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F5DAA7]" />
                 <input
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Re-enter password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className={`w-full pl-11 pr-11 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
-                    errors.confirmPassword ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
+                  className={`w-full pl-11 pr-11 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#F5DAA7] placeholder:text-[#F5DAA7]/50 focus:outline-none focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all ${
+                    errors.confirmPassword ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F5DAA7]"
                   }`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#F4DDA5] hover:text-[#FFF8E6] transition-colors cursor-pointer"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-[#F5DAA7] hover:text-[#F5DAA7] transition-colors cursor-pointer"
                   aria-label="Toggle confirm password visibility"
                 >
                   {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -277,11 +277,11 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 px-6 rounded-full text-[#561C24] font-bold text-xs uppercase tracking-[0.15em] bg-[#F4DDA5] hover:bg-[#FFF8E6] shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
+              className="w-full py-4 px-6 rounded-full text-[#320000] font-bold text-xs uppercase tracking-[0.15em] bg-[#F5DAA7] hover:bg-[#F5DAA7] shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-[#561C24]" />
+                  <Loader2 className="w-4 h-4 animate-spin text-[#320000]" />
                   Creating Account...
                 </>
               ) : (
@@ -291,11 +291,11 @@ export default function RegisterPage() {
           </form>
 
           {/* Switch to Login */}
-          <p className="text-center text-xs text-[#FFF8E6]/75 pt-6">
+          <p className="text-center text-xs text-[#F5DAA7]/75 pt-6">
             Already have an account?{" "}
             <Link
               href="/login"
-              className="font-bold text-[#F4DDA5] hover:text-[#FFF8E6] transition-colors hover:underline"
+              className="font-bold text-[#F5DAA7] hover:text-[#F5DAA7] transition-colors hover:underline"
             >
               Login
             </Link>

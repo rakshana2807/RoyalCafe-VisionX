@@ -43,10 +43,10 @@ export default function FeaturedItems() {
 
         {/* Section Header */}
         <div className="flex justify-between items-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold font-serif text-[#E5CB90]">
+          <h2 className="text-3xl sm:text-4xl font-bold font-serif text-[#F5DAA7]">
             Today&apos;s Recommendation
           </h2>
-          <Sparkles className="h-6 w-6 text-[#E5CB90] animate-pulse" />
+          <Sparkles className="h-6 w-6 text-[#F5DAA7] animate-pulse" />
         </div>
 
         {/* Large Featured Horizontal Card - Editorial Layout */}
@@ -61,7 +61,7 @@ export default function FeaturedItems() {
               className="object-cover object-center"
               sizes="(max-w-1024px) 100vw, 40vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(61,17,24,0.7)] via-transparent to-transparent pointer-events-none lg:bg-gradient-to-r lg:from-transparent lg:to-[rgba(61,17,24,0.5)]" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[rgba(50,0,0,0.7)] via-transparent to-transparent pointer-events-none lg:bg-gradient-to-r lg:from-transparent lg:to-[rgba(50,0,0,0.5)]" />
           </div>
 
           {/* Right Side: Product Details (7 cols) */}
@@ -71,46 +71,46 @@ export default function FeaturedItems() {
               {/* Badges Row */}
               <div className="flex flex-wrap gap-2.5 mb-6">
                 {/* Rating Badge */}
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#E5CB90] text-[#561C24] shadow-sm">
-                  <Star className="h-3.5 w-3.5 fill-[#561C24] text-[#561C24]" />
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#F5DAA7] text-[#320000] shadow-sm">
+                  <Star className="h-3.5 w-3.5 fill-[#320000] text-[#320000]" />
                   <span className="text-[10px] uppercase tracking-widest font-bold">4.9 Rating</span>
                 </div>
                 {/* Attribute Badge */}
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[rgba(61,17,24,0.75)] border border-[rgba(229,203,144,0.3)] shadow-sm">
-                  <span className="text-[10px] uppercase tracking-widest font-bold text-[#E5CB90]">Best for ⚡ Focus</span>
+                <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[rgba(50,0,0,0.75)] border border-[rgba(245,218,167,0.3)] shadow-sm">
+                  <span className="text-[10px] uppercase tracking-widest font-bold text-[#F5DAA7]">Best for ⚡ Focus</span>
                 </div>
               </div>
 
               {/* Title */}
-              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif text-[#FFF8E9] mb-4 leading-tight tracking-tight">
+              <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold font-serif text-[#F5DAA7] mb-4 leading-tight tracking-tight">
                 Signature Pistachio Cream Cold Brew
               </h3>
 
               {/* Description */}
-              <p className="text-sm sm:text-base text-[#FFF8E9]/80 font-normal leading-relaxed mb-8 max-w-xl">
+              <p className="text-sm sm:text-base text-[#F5DAA7]/80 font-normal leading-relaxed mb-8 max-w-xl">
                 Our slow-steeped cold brew topped with silky pistachio cream cold foam and a strike of salted brown butter sprinkles. Designed to provide a smooth, long-lasting energy boost for deep focus sessions.
               </p>
             </div>
 
             {/* Price, Prep Time and Button Footer */}
-            <div className="pt-6 border-t border-[rgba(229,203,144,0.2)]">
+            <div className="pt-6 border-t border-[rgba(245,218,167,0.2)]">
               <div className="grid grid-cols-2 gap-8 mb-8">
                 {/* Price column */}
                 <div>
-                  <span className="text-[10px] font-bold text-[#E5CB90] uppercase tracking-widest block mb-1">
+                  <span className="text-[10px] font-bold text-[#F5DAA7] uppercase tracking-widest block mb-1">
                     Price
                   </span>
-                  <span className="text-3xl sm:text-4xl font-extrabold font-serif text-[#E5CB90]">
+                  <span className="text-3xl sm:text-4xl font-extrabold font-serif text-[#F5DAA7]">
                     ₹175
                   </span>
                 </div>
                 {/* Prep time column */}
                 <div>
-                  <span className="text-[10px] font-bold text-[#E5CB90] uppercase tracking-widest block mb-1">
+                  <span className="text-[10px] font-bold text-[#F5DAA7] uppercase tracking-widest block mb-1">
                     Prep Time
                   </span>
-                  <span className="text-lg sm:text-xl font-bold font-serif text-[#FFF8E9] flex items-center gap-2 mt-1">
-                    <Clock className="h-4 w-4 text-[#E5CB90] stroke-[2]" />
+                  <span className="text-lg sm:text-xl font-bold font-serif text-[#F5DAA7] flex items-center gap-2 mt-1">
+                    <Clock className="h-4 w-4 text-[#F5DAA7] stroke-[2]" />
                     ~ 4 mins
                   </span>
                 </div>
@@ -121,8 +121,8 @@ export default function FeaturedItems() {
                 onClick={handleAddFeatured}
                 className={`w-full inline-flex items-center justify-center gap-2 px-8 py-4 border text-xs font-bold rounded-full shadow-lg hover:-translate-y-0.5 active:scale-[0.99] transition-all duration-300 cursor-pointer uppercase tracking-widest ${
                   isAlreadyInBooking 
-                    ? "bg-[#FFF8E9] text-[#561C24] border-[#FFF8E9] hover:bg-white" 
-                    : "bg-[#E5CB90] text-[#561C24] border-[#E5CB90] hover:bg-[#edd8a4] shadow-[0_4px_20px_rgba(229,203,144,0.35)]"
+                    ? "bg-[#F5DAA7] text-[#320000] border-[#F5DAA7] hover:bg-white" 
+                    : "bg-[#F5DAA7] text-[#320000] border-[#F5DAA7] hover:bg-[#edd8a4] shadow-[0_4px_20px_rgba(245,218,167,0.35)]"
                 }`}
               >
                 {isAlreadyInBooking ? (

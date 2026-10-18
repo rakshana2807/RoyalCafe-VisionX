@@ -197,11 +197,11 @@ if (loading) {
             {/* Header Row */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 border-b border-[rgba(229,203,144,0.2)] pb-4 gap-4">
               <div>
-                <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#E5CB90] flex items-center gap-2">
-                  <UtensilsCrossed className="h-6 w-6 text-[#E5CB90]" />
+                <h2 className="text-2xl sm:text-3xl font-bold font-serif text-[#F5DAA7] flex items-center gap-2">
+                  <UtensilsCrossed className="h-6 w-6 text-[#F5DAA7]" />
                   {activeCategory === "All" ? "Full Café Selection" : `${activeCategory} Menu`}
                 </h2>
-                <p className="text-sm text-[#FFF8E9]/75 font-medium mt-1">
+                <p className="text-sm text-[#F5DAA7]/75 font-medium mt-1">
                   Showing {filteredItems.length} handcrafted items
                 </p>
               </div>
@@ -209,7 +209,7 @@ if (loading) {
               {(activeCategory !== "All" || searchTerm !== "" || sortOption !== "Recommended") && (
                 <button
                   onClick={handleResetFilters}
-                  className="inline-flex items-center text-sm font-bold text-[#E5CB90] hover:text-[#FFF8E9] transition-colors cursor-pointer group"
+                  className="inline-flex items-center text-sm font-bold text-[#F5DAA7] hover:text-[#F5DAA7] transition-colors cursor-pointer group"
                 >
                   Clear Filters
                   <ArrowRight className="ml-1.5 h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
@@ -228,14 +228,14 @@ if (loading) {
               </div>
             ) : (
               <div className="py-20 text-center royal-glass-card rounded-[32px] max-w-xl mx-auto p-10 animate-fade-in">
-                <Coffee className="h-12 w-12 text-[#E5CB90]/80 mx-auto mb-6 animate-bounce" />
-                <h3 className="text-2xl font-bold font-serif text-[#FFF8E9] mb-3">No Menu Items Found</h3>
-                <p className="text-base text-[#FFF8E9]/75 font-medium mb-8">
+                <Coffee className="h-12 w-12 text-[#F5DAA7]/80 mx-auto mb-6 animate-bounce" />
+                <h3 className="text-2xl font-bold font-serif text-[#F5DAA7] mb-3">No Menu Items Found</h3>
+                <p className="text-base text-[#F5DAA7]/75 font-medium mb-8">
                   We couldn&apos;t find any items matching &ldquo;{searchTerm}&rdquo; in the {activeCategory} category.
                 </p>
                 <button
                   onClick={handleResetFilters}
-                  className="px-8 py-3.5 bg-[#E5CB90] text-[#561C24] text-xs font-bold rounded-full uppercase tracking-widest hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(229,203,144,0.4)] transition-all duration-300 cursor-pointer"
+                  className="px-8 py-3.5 bg-[#F5DAA7] text-[#320000] text-xs font-bold rounded-full uppercase tracking-widest hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(229,203,144,0.4)] transition-all duration-300 cursor-pointer"
                 >
                   View All Menu Items
                 </button>

@@ -3,13 +3,15 @@
 
 
 @theme {
-  --color-background: #E5CB90;
-  --color-foreground: #561C24;
-  --color-primary: #561C24;
-  --color-surface: #561C24;
-  --color-surface-secondary: #3D1118;
-  --color-accent: #F4DDA5;
-  --color-border: rgba(86, 28, 36, 0.15);
+  --color-background: #320000;
+  --color-foreground: #F5DAA7;
+  --color-primary: #F5DAA7;
+  --color-primary-foreground: #320000;
+  --color-surface: #F5DAA7;
+  --color-surface-secondary: rgba(245, 218, 167, 0.08);
+  --color-accent: #F5DAA7;
+  --color-border: rgba(245, 218, 167, 0.24);
+  --color-muted: #D6BC91;
   --radius: 0.5rem;
   --font-serif: 'Playfair Display', Georgia, serif;
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -17,69 +19,71 @@
 
 @layer utilities {
   /* =========================================
-     VARIABLE-BASED CONTEXT INVERSION
-     Primary / Cards: Deep Burgundy (#561C24)
-     Main Background: Warm Golden Beige (#E5CB90)
-     Light Glass: rgba(255, 248, 230, 0.16)
-     Glass Borders: rgba(255, 248, 230, 0.30)
-     Text on Burgundy: Warm Cream (#FFF8E6)
-     Text on Light: Deep Burgundy (#561C24)
-     Hover Accent: Light Champagne (#F4DDA5)
+     OFFICIAL ROYALCAFE COLOR THEME
+     Primary Background: Deep Burgundy (#320000)
+     Primary Text: Warm Champagne-Gold (#F5DAA7)
+     Card Background: #F5DAA7
+     Card Text: #320000
+     Border: rgba(245, 218, 167, 0.24)
+     Glass Background: rgba(245, 218, 167, 0.08)
+     Muted Text: #D6BC91
      ========================================= */
 
-  .bg-surface {
-    /* Inside a Deep Burgundy (#561C24) card, text and icons become Warm Cream (#FFF8E6) */
-    --color-primary: #FFF8E6;
-    --color-foreground: #FFF8E6;
-    --color-accent: #F4DDA5;
-    --color-background: #561C24; 
-    --color-border: rgba(255, 248, 230, 0.22);
-    color: #FFF8E6;
-  }
-
+  /* Default Page Body Background */
   .bg-background {
-    /* Inside the Golden Beige (#E5CB90) page background */
-    --color-primary: #561C24;
-    --color-foreground: #561C24;
-    --color-accent: #3D1118;
-    --color-background: #E5CB90;
-    --color-border: rgba(86, 28, 36, 0.16);
-    color: #561C24;
+    --color-primary: #F5DAA7;
+    --color-foreground: #F5DAA7;
+    --color-border: rgba(245, 218, 167, 0.24);
+    background-color: #320000;
+    color: #F5DAA7;
   }
 
-  /* Glass Card utility according to official specifications */
+  /* Inverse Standard Card Combination: Background #F5DAA7 with Text #320000 */
+  .bg-surface,
+  .royal-card {
+    --color-primary: #320000;
+    --color-foreground: #320000;
+    --color-accent: #320000;
+    --color-border: rgba(50, 0, 0, 0.18);
+    background-color: #F5DAA7;
+    color: #320000;
+  }
+
+  /* Glass Panels: Translucent Burgundy / Champagne highlights */
+  .glass-panel,
   .glass-card {
-    background: rgba(255, 248, 230, 0.16);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 248, 230, 0.30);
+    background: rgba(245, 218, 167, 0.08);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(245, 218, 167, 0.22);
     border-radius: 18px;
-    box-shadow: 0 8px 32px rgba(86, 28, 36, 0.12);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    color: #F5DAA7;
   }
 
   .glass-card-burgundy {
-    background: rgba(86, 28, 36, 0.88);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(244, 221, 165, 0.32);
+    background: rgba(50, 0, 0, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(245, 218, 167, 0.24);
     border-radius: 20px;
-    box-shadow: 0 12px 36px rgba(61, 17, 24, 0.28), inset 0 1px 0 rgba(255, 248, 230, 0.15);
-    color: #FFF8E6;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
+    color: #F5DAA7;
   }
 
   .glass-navbar {
-    background: rgba(86, 28, 36, 0.92);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(244, 221, 165, 0.22);
-    box-shadow: 0 8px 32px rgba(61, 17, 24, 0.25);
+    background: rgba(50, 0, 0, 0.88);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(245, 218, 167, 0.22);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
   }
 }
 
 /* Base resets & layout */
 body {
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: #320000;
+  color: #F5DAA7;
   font-family: var(--font-sans);
   min-height: 100vh;
 }
@@ -171,31 +175,31 @@ body {
   box-shadow: 0 16px 40px rgba(10, 5, 3, 0.6), 0 8px 16px rgba(10, 5, 3, 0.3);
 }
 
-/* Secondary dark cards with subtle caramel border */
+/* Secondary dark panels */
 .bg-surface-secondary {
-  background-color: #38241e; /* Slightly lighter than #2b1b17 */
-  border: 1px solid rgba(238, 204, 164, 0.18);
+  background-color: rgba(245, 218, 167, 0.08);
+  border: 1px solid rgba(245, 218, 167, 0.22);
   color: var(--color-foreground);
 }
 
 /* =========================================
-   ROYAL GLASSMORPHISM MENU CARD STYLES
-   Palette:
-   - Burgundy: #561C24
-   - Champagne Gold: #E5CB90
-   - Deep Burgundy: #3D1118
-   - Light Cream: #FFF8E9
+   ROYAL GLASSMORPHISM CARD STYLES
+   Official Palette:
+   - Primary Background: #320000
+   - Primary Text: #F5DAA7
+   - Card Background: #F5DAA7
+   - Card Text: #320000
    ========================================= */
 
 .royal-glass-card {
-  background: rgba(61, 17, 24, 0.72);
+  background: rgba(50, 0, 0, 0.85);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(229, 203, 144, 0.28);
-  border-radius: 20px;
+  border: 1px solid rgba(245, 218, 167, 0.24);
+  border-radius: 24px;
   box-shadow:
-    0 8px 28px rgba(30, 8, 12, 0.22),
-    inset 0 1px 0 rgba(255, 248, 233, 0.12);
+    0 8px 32px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(245, 218, 167, 0.12);
   transition:
     transform 300ms ease-out,
     border-color 300ms ease-out,
@@ -204,11 +208,11 @@ body {
 
 .royal-glass-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(229, 203, 144, 0.65);
+  border-color: rgba(245, 218, 167, 0.6);
   box-shadow:
-    0 16px 36px rgba(30, 8, 12, 0.32),
-    0 0 20px rgba(229, 203, 144, 0.15),
-    inset 0 1px 0 rgba(255, 248, 233, 0.18);
+    0 16px 40px rgba(0, 0, 0, 0.35),
+    0 0 20px rgba(245, 218, 167, 0.18),
+    inset 0 1px 0 rgba(245, 218, 167, 0.2);
 }
 
 .royal-glass-card img {

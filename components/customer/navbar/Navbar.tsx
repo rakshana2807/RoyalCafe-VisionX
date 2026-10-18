@@ -170,21 +170,21 @@ export default function Navbar() {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         isScrolled
-          ? "bg-[rgba(86,28,36,0.92)] backdrop-blur-xl shadow-[0_8px_32px_rgba(61,17,24,0.35)] py-3 border-b border-[rgba(244,221,165,0.22)]"
-          : "bg-[rgba(86,28,36,0.85)] backdrop-blur-md py-4 border-b border-[rgba(244,221,165,0.15)] shadow-md"
+          ? "bg-[rgba(50,0,0,0.92)] backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] py-3 border-b border-[rgba(245,218,167,0.22)]"
+          : "bg-[rgba(50,0,0,0.85)] backdrop-blur-md py-4 border-b border-[rgba(245,218,167,0.18)] shadow-md"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-12">
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center gap-2">
-            <Coffee className="h-7 w-7 text-[#F4DDA5] stroke-[1.5]" />
+            <Coffee className="h-7 w-7 text-[#F5DAA7] stroke-[1.5]" />
             <Link
               href="/"
               onClick={(e) => handleNavClick(e, "/", "home")}
-              className="text-2xl font-bold font-serif tracking-tight text-[#FFF8E6] flex items-center"
+              className="text-2xl font-bold font-serif tracking-tight text-[#F5DAA7] flex items-center"
             >
-              RoyalCafe<span className="text-[#F4DDA5] ml-1 font-medium">Connect</span>
+              RoyalCafe<span className="text-[#D6BC91] ml-1 font-medium">Connect</span>
             </Link>
           </div>
 
@@ -197,8 +197,8 @@ export default function Navbar() {
                 onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
                 className={`text-[12px] uppercase tracking-widest font-semibold transition-all duration-300 ${
                   pathname === link.href
-                    ? "text-[#F4DDA5] border-b-2 border-[#F4DDA5] pb-1"
-                    : "text-[#FFF8E6]/80 hover:text-[#F4DDA5] hover:border-b hover:border-[#F4DDA5]/40 pb-1"
+                    ? "text-[#F5DAA7] border-b-2 border-[#F5DAA7] pb-1"
+                    : "text-[#D6BC91] hover:text-[#F5DAA7] hover:border-b hover:border-[#F5DAA7]/40 pb-1"
                 }`}
               >
                 {link.name}
@@ -213,7 +213,7 @@ export default function Navbar() {
                 {currentUser.role === "admin" && (
                   <Link
                     href="/admin"
-                    className="text-xs font-bold text-[#F4DDA5] hover:text-[#FFF8E6] bg-[rgba(244,221,165,0.15)] px-3 py-1.5 rounded-lg border border-[#F4DDA5]/30 flex items-center gap-1.5 transition-all"
+                    className="text-xs font-bold text-[#F5DAA7] hover:text-[#320000] hover:bg-[#F5DAA7] bg-[rgba(245,218,167,0.15)] px-3 py-1.5 rounded-lg border border-[#F5DAA7]/30 flex items-center gap-1.5 transition-all"
                   >
                     <ShieldCheck className="w-3.5 h-3.5" /> Admin
                   </Link>
@@ -221,17 +221,17 @@ export default function Navbar() {
 
                 <Link
                   href="/profile"
-                  className="flex items-center gap-2 px-3 py-1.5 bg-[rgba(255,248,230,0.12)] hover:bg-[rgba(255,248,230,0.2)] rounded-lg text-[#FFF8E6] text-xs font-bold transition-all border border-[rgba(255,248,230,0.15)]"
+                  className="flex items-center gap-2 px-3 py-1.5 bg-[rgba(245,218,167,0.12)] hover:bg-[rgba(245,218,167,0.22)] rounded-lg text-[#F5DAA7] text-xs font-bold transition-all border border-[rgba(245,218,167,0.22)]"
                   title="View User Profile"
                 >
-                  <User className="w-4 h-4 text-[#F4DDA5]" />
+                  <User className="w-4 h-4 text-[#F5DAA7]" />
                   <span>{currentUser.name}</span>
                 </Link>
 
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="p-2 rounded-lg text-[#FFF8E6]/80 hover:text-red-300 hover:bg-red-950/40 transition-all cursor-pointer flex items-center gap-1"
+                  className="p-2 rounded-lg text-[#F5DAA7]/80 hover:text-red-300 hover:bg-red-950/40 transition-all cursor-pointer flex items-center gap-1"
                   title="Logout"
                 >
                   <LogOut className="w-4 h-4" />
@@ -240,7 +240,7 @@ export default function Navbar() {
                 <Link
                   href="/book"
                   onClick={handleBookDeskClick}
-                  className="inline-flex items-center justify-center px-5 py-2 border border-[#F4DDA5] text-xs uppercase tracking-wider font-bold rounded-full text-[#561C24] bg-[#F4DDA5] hover:bg-[#FFF8E6] shadow-[0_4px_16px_rgba(244,221,165,0.3)] transition-all duration-300 hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center px-5 py-2 border border-[#F5DAA7] text-xs uppercase tracking-wider font-bold rounded-full text-[#320000] bg-[#F5DAA7] hover:bg-white shadow-[0_4px_16px_rgba(245,218,167,0.35)] transition-all duration-300 hover:-translate-y-0.5"
                 >
                   Book Desk
                 </Link>
@@ -251,22 +251,22 @@ export default function Navbar() {
                   href="/login"
                   className={`text-xs font-semibold transition-colors px-3 py-2 rounded-lg ${
                     pathname === "/login"
-                      ? "text-[#F4DDA5] font-bold bg-[rgba(244,221,165,0.18)]"
-                      : "text-[#FFF8E6]/85 hover:text-[#F4DDA5] hover:bg-[rgba(255,248,230,0.08)]"
+                      ? "text-[#320000] font-bold bg-[#F5DAA7]"
+                      : "text-[#F5DAA7] hover:bg-[rgba(245,218,167,0.12)]"
                   }`}
                 >
                   Login
                 </Link>
                 <Link
                   href="/register"
-                  className="text-xs font-semibold px-3.5 py-2 rounded-lg text-[#FFF8E6] border border-[#F4DDA5]/40 hover:bg-[#F4DDA5]/10 hover:border-[#F4DDA5] transition-all"
+                  className="text-xs font-semibold px-3.5 py-2 rounded-lg text-[#F5DAA7] border border-[#F5DAA7]/40 hover:bg-[#F5DAA7]/15 hover:border-[#F5DAA7] transition-all"
                 >
                   Register
                 </Link>
                 <Link
                   href="/book"
                   onClick={handleBookDeskClick}
-                  className="inline-flex items-center justify-center px-5 py-2 border border-[#F4DDA5] text-xs uppercase tracking-wider font-bold rounded-full text-[#561C24] bg-[#F4DDA5] hover:bg-[#FFF8E6] shadow-[0_4px_16px_rgba(244,221,165,0.3)] transition-all duration-300 hover:-translate-y-0.5"
+                  className="inline-flex items-center justify-center px-5 py-2 border border-[#F5DAA7] text-xs uppercase tracking-wider font-bold rounded-full text-[#320000] bg-[#F5DAA7] hover:bg-white shadow-[0_4px_16px_rgba(245,218,167,0.35)] transition-all duration-300 hover:-translate-y-0.5"
                 >
                   Book Desk
                 </Link>
@@ -278,7 +278,7 @@ export default function Navbar() {
           <div className="lg:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-lg text-[#F4DDA5] hover:bg-white/10 focus:outline-none transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center p-2 rounded-lg text-[#F5DAA7] hover:bg-white/10 focus:outline-none transition-colors cursor-pointer"
               aria-label="Toggle navigation menu"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}

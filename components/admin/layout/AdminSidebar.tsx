@@ -60,19 +60,19 @@ export default function AdminSidebar({
   };
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-[#561C24] text-[#FFF8E6] border-r border-[rgba(244,221,165,0.2)] shadow-xl relative">
+    <div className="flex flex-col h-full bg-[#320000] text-[#F5DAA7] border-r border-[rgba(244,221,165,0.2)] shadow-xl relative">
       {/* Brand Header */}
       <div className="h-20 flex items-center justify-between px-4 border-b border-[rgba(244,221,165,0.2)] shrink-0">
         <Link href="/admin/dashboard" onClick={onCloseMobile} className="flex items-center gap-3 overflow-hidden">
-          <div className="w-10 h-10 rounded-2xl bg-[rgba(244,221,165,0.15)] border border-[rgba(244,221,165,0.3)] flex items-center justify-center text-[#F4DDA5] shadow-md shrink-0">
+          <div className="w-10 h-10 rounded-2xl bg-[rgba(244,221,165,0.15)] border border-[rgba(244,221,165,0.3)] flex items-center justify-center text-[#F5DAA7] shadow-md shrink-0">
             <Coffee className="h-5 w-5" />
           </div>
           {(!collapsed || mobileOpen) && (
             <div className="flex flex-col">
-              <span className="font-serif font-black text-lg text-[#FFF8E6] leading-tight tracking-wide">
+              <span className="font-serif font-black text-lg text-[#F5DAA7] leading-tight tracking-wide">
                 RoyalCafe
               </span>
-              <span className="text-xs uppercase font-bold text-[#F4DDA5] tracking-widest flex items-center gap-1">
+              <span className="text-xs uppercase font-bold text-[#F5DAA7] tracking-widest flex items-center gap-1">
                 <ShieldCheck className="h-3 w-3" /> Admin Hub
               </span>
             </div>
@@ -84,7 +84,7 @@ export default function AdminSidebar({
           <button
             type="button"
             onClick={onToggleCollapse}
-            className="hidden lg:flex p-1.5 rounded-xl bg-[rgba(244,221,165,0.1)] hover:bg-[#F4DDA5] hover:text-[#561C24] text-[#FFF8E6] transition-all cursor-pointer border border-[rgba(244,221,165,0.2)]"
+            className="hidden lg:flex p-1.5 rounded-xl bg-[rgba(244,221,165,0.1)] hover:bg-[#F5DAA7] hover:text-[#320000] text-[#F5DAA7] transition-all cursor-pointer border border-[rgba(244,221,165,0.2)]"
             title={collapsed ? "Expand Sidebar" : "Collapse Sidebar"}
           >
             {collapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
@@ -96,7 +96,7 @@ export default function AdminSidebar({
           <button
             type="button"
             onClick={onCloseMobile}
-            className="lg:hidden p-2 rounded-xl bg-[rgba(244,221,165,0.1)] hover:bg-[#F4DDA5] hover:text-[#561C24] text-[#FFF8E6] transition-all cursor-pointer border border-[rgba(244,221,165,0.2)]"
+            className="lg:hidden p-2 rounded-xl bg-[rgba(244,221,165,0.1)] hover:bg-[#F5DAA7] hover:text-[#320000] text-[#F5DAA7] transition-all cursor-pointer border border-[rgba(244,221,165,0.2)]"
             title="Close Drawer"
           >
             <X className="h-5 w-5" />
@@ -117,12 +117,12 @@ export default function AdminSidebar({
               onClick={onCloseMobile}
               className={`flex items-center gap-3.5 px-3.5 py-3 rounded-2xl text-xs font-semibold transition-all min-h-[44px] ${
                 isActive
-                  ? "bg-[#F4DDA5] text-[#561C24] font-bold shadow-md"
-                  : "text-[#FFF8E6]/80 hover:bg-[#3D1118] hover:text-[#F4DDA5]"
+                  ? "bg-[#F5DAA7] text-[#320000] font-bold shadow-md"
+                  : "text-[#F5DAA7]/80 hover:bg-[#200000] hover:text-[#F5DAA7]"
               } ${collapsed && !mobileOpen ? "justify-center px-0" : ""}`}
               title={collapsed && !mobileOpen ? item.name : undefined}
             >
-              <Icon className={`h-5 w-5 shrink-0 ${isActive ? "text-[#561C24]" : "text-[#F4DDA5]"}`} />
+              <Icon className={`h-5 w-5 shrink-0 ${isActive ? "text-[#320000]" : "text-[#F5DAA7]"}`} />
               {(!collapsed || mobileOpen) && <span>{item.name}</span>}
             </Link>
           );

@@ -325,18 +325,18 @@ export default function WorkspaceSelector() {
           </div>
 
           {/* RIGHT COLUMN: Booking Form */}
-          <div className="bg-[#561C24] p-8 sm:p-10 rounded-3xl border border-[rgba(244,221,165,0.25)] shadow-xl space-y-8 text-[#FFF8E6]">
+          <div className="bg-[#320000] p-8 sm:p-10 rounded-3xl border border-[rgba(244,221,165,0.25)] shadow-xl space-y-8 text-[#F5DAA7]">
             
             <div className="border-b border-[rgba(244,221,165,0.2)] pb-6 text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(244,221,165,0.12)] text-[#F4DDA5] text-xs font-semibold uppercase tracking-[0.2em] mb-4 border border-[rgba(244,221,165,0.25)]">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[rgba(244,221,165,0.12)] text-[#F5DAA7] text-xs font-semibold uppercase tracking-[0.2em] mb-4 border border-[rgba(244,221,165,0.25)]">
                 <Calendar className="h-3.5 w-3.5" /> Seat Reservation Configuration
               </div>
               {/* Header */}
               <div className="flex flex-col mb-2">
-                <h3 className="text-2xl sm:text-3xl font-bold font-serif text-[#FFF8E6]">
+                <h3 className="text-2xl sm:text-3xl font-bold font-serif text-[#F5DAA7]">
                   Select Your Cafe Space
                 </h3>
-                <p className="text-sm text-[#FFF8E6]/75 mt-2 font-medium">
+                <p className="text-sm text-[#F5DAA7]/75 mt-2 font-medium">
                   Choose from available seating areas, booths, and tables.
                 </p>
               </div>
@@ -352,51 +352,51 @@ export default function WorkspaceSelector() {
               {/* Booking Configuration Fields */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 text-left border-b border-[rgba(244,221,165,0.2)] pb-8">
                 <div>
-                  <label className="block text-xs font-semibold text-[#F4DDA5] uppercase tracking-[0.1em] mb-2">Select Date *</label>
+                  <label className="block text-xs font-semibold text-[#F5DAA7] uppercase tracking-[0.1em] mb-2">Select Date *</label>
                   <div className="relative">
-                    <Calendar className="h-4 w-4 text-[#F4DDA5] absolute left-4 top-3.5 pointer-events-none" />
+                    <Calendar className="h-4 w-4 text-[#F5DAA7] absolute left-4 top-3.5 pointer-events-none" />
                     <input
                       type="date"
                       min={todayStr}
                       value={reservationDetails.resDate}
                       onChange={(e) => handleInputChange("resDate", e.target.value)}
-                      className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-[rgba(244,221,165,0.3)] text-xs bg-[rgba(255,248,230,0.08)] text-[#FFF8E6] font-medium outline-none focus:border-[#F4DDA5] focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all cursor-pointer"
+                      className="w-full pl-11 pr-4 py-3.5 rounded-2xl border border-[rgba(244,221,165,0.3)] text-xs bg-[rgba(255,248,230,0.08)] text-[#F5DAA7] font-medium outline-none focus:border-[#F5DAA7] focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all cursor-pointer"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#F4DDA5] uppercase tracking-[0.1em] mb-2">Select Start Time *</label>
+                  <label className="block text-xs font-semibold text-[#F5DAA7] uppercase tracking-[0.1em] mb-2">Select Start Time *</label>
                   <select
                     value={reservationDetails.arrivalTime}
                     onChange={(e) => handleInputChange("arrivalTime", e.target.value)}
-                    className="w-full px-4 py-3.5 rounded-2xl border border-[rgba(244,221,165,0.3)] text-xs bg-[#3D1118] text-[#FFF8E6] font-medium outline-none focus:border-[#F4DDA5] focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all cursor-pointer"
+                    className="w-full px-4 py-3.5 rounded-2xl border border-[rgba(244,221,165,0.3)] text-xs bg-[#200000] text-[#F5DAA7] font-medium outline-none focus:border-[#F5DAA7] focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all cursor-pointer"
                   >
                     {["08:00 AM", "09:00 AM", "10:00 AM", "11:00 AM", "12:00 PM", "01:00 PM", "02:00 PM", "03:00 PM", "04:00 PM", "05:00 PM", "06:00 PM", "07:00 PM", "08:00 PM"].map((t) => (
-                      <option key={t} value={t} className="bg-[#3D1118] text-[#FFF8E6]">{t}</option>
+                      <option key={t} value={t} className="bg-[#200000] text-[#F5DAA7]">{t}</option>
                     ))}
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#F4DDA5] uppercase tracking-[0.1em] mb-2">Select Duration *</label>
+                  <label className="block text-xs font-semibold text-[#F5DAA7] uppercase tracking-[0.1em] mb-2">Select Duration *</label>
                   <select
                     value={reservationDetails.duration}
                     onChange={(e) => handleInputChange("duration", e.target.value)}
-                    className="w-full px-4 py-3.5 rounded-2xl border border-[rgba(244,221,165,0.3)] text-xs bg-[#3D1118] text-[#FFF8E6] font-medium outline-none focus:border-[#F4DDA5] focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all cursor-pointer"
+                    className="w-full px-4 py-3.5 rounded-2xl border border-[rgba(244,221,165,0.3)] text-xs bg-[#200000] text-[#F5DAA7] font-medium outline-none focus:border-[#F5DAA7] focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all cursor-pointer"
                   >
-                    <option value="1 Hour" className="bg-[#3D1118] text-[#FFF8E6]">1 Hour</option>
-                    <option value="2 Hours" className="bg-[#3D1118] text-[#FFF8E6]">2 Hours</option>
-                    <option value="3 Hours" className="bg-[#3D1118] text-[#FFF8E6]">3 Hours</option>
-                    <option value="4 Hours" className="bg-[#3D1118] text-[#FFF8E6]">4 Hours</option>
-                    <option value="Half Day" className="bg-[#3D1118] text-[#FFF8E6]">Half Day (4 Hours)</option>
-                    <option value="Full Day" className="bg-[#3D1118] text-[#FFF8E6]">Full Day (8 Hours)</option>
+                    <option value="1 Hour" className="bg-[#200000] text-[#F5DAA7]">1 Hour</option>
+                    <option value="2 Hours" className="bg-[#200000] text-[#F5DAA7]">2 Hours</option>
+                    <option value="3 Hours" className="bg-[#200000] text-[#F5DAA7]">3 Hours</option>
+                    <option value="4 Hours" className="bg-[#200000] text-[#F5DAA7]">4 Hours</option>
+                    <option value="Half Day" className="bg-[#200000] text-[#F5DAA7]">Half Day (4 Hours)</option>
+                    <option value="Full Day" className="bg-[#200000] text-[#F5DAA7]">Full Day (8 Hours)</option>
                   </select>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-[#F4DDA5] uppercase tracking-[0.1em] mb-2">Calculated Time Range</label>
-                  <div className="w-full px-4 py-3.5 rounded-2xl border border-[rgba(244,221,165,0.3)] bg-[rgba(255,248,230,0.08)] text-[#FFF8E6] text-xs font-semibold flex items-center justify-center">
+                  <label className="block text-xs font-semibold text-[#F5DAA7] uppercase tracking-[0.1em] mb-2">Calculated Time Range</label>
+                  <div className="w-full px-4 py-3.5 rounded-2xl border border-[rgba(244,221,165,0.3)] bg-[rgba(255,248,230,0.08)] text-[#F5DAA7] text-xs font-semibold flex items-center justify-center">
                     {reservationDetails.arrivalTime} — {calculatedEndTime} ({reservationDetails.duration})
                   </div>
                 </div>

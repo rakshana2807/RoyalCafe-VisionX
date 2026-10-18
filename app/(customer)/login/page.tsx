@@ -135,16 +135,16 @@ function LoginFormContent() {
   };
 
   return (
-    <div className="w-full max-w-md bg-[#561C24] text-[#FFF8E6] rounded-3xl border border-[rgba(244,221,165,0.25)] shadow-2xl p-8 sm:p-10 relative z-10">
+    <div className="w-full max-w-md bg-[#320000] text-[#F5DAA7] rounded-3xl border border-[rgba(244,221,165,0.25)] shadow-2xl p-8 sm:p-10 relative z-10">
       {/* Notice Banner when redirecting from booking */}
       {(customNoticeMessage || redirectTarget === "/book") && (
-        <div className="mb-8 p-4 rounded-2xl bg-[rgba(244,221,165,0.15)] border border-[rgba(244,221,165,0.3)] text-[#F4DDA5] text-xs font-medium flex items-start gap-3 shadow-sm">
-          <AlertCircle className="w-5 h-5 text-[#F4DDA5] shrink-0 mt-0.5" />
+        <div className="mb-8 p-4 rounded-2xl bg-[rgba(244,221,165,0.15)] border border-[rgba(244,221,165,0.3)] text-[#F5DAA7] text-xs font-medium flex items-start gap-3 shadow-sm">
+          <AlertCircle className="w-5 h-5 text-[#F5DAA7] shrink-0 mt-0.5" />
           <div>
-            <p className="font-bold text-[#FFF8E6]">
+            <p className="font-bold text-[#F5DAA7]">
               {customNoticeMessage || "Please login to your RoyalCafeConnect account to book a workspace."}
             </p>
-            <p className="text-xs text-[#FFF8E6]/80 mt-0.5">
+            <p className="text-xs text-[#F5DAA7]/80 mt-0.5">
               Login is required to make and manage workspace reservations.
             </p>
           </div>
@@ -154,14 +154,14 @@ function LoginFormContent() {
       {/* Header */}
       <div className="text-center mb-8">
         <div className="w-14 h-14 rounded-2xl bg-[rgba(244,221,165,0.12)] border border-[rgba(244,221,165,0.25)] flex items-center justify-center mx-auto mb-4 shadow-sm">
-          <Coffee className="w-7 h-7 text-[#F4DDA5]" />
+          <Coffee className="w-7 h-7 text-[#F5DAA7]" />
         </div>
-        <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#FFF8E6]">RoyalCafe Connect</h1>
-        <p className="text-xs text-[#FFF8E6]/75 font-medium mt-2">Select your portal to sign in to your workspace account.</p>
+        <h1 className="text-2xl sm:text-3xl font-bold font-serif text-[#F5DAA7]">RoyalCafe Connect</h1>
+        <p className="text-xs text-[#F5DAA7]/75 font-medium mt-2">Select your portal to sign in to your workspace account.</p>
       </div>
 
       {/* Mode Switcher Tabs */}
-      <div className="bg-[#3D1118] p-1.5 rounded-2xl border border-[rgba(244,221,165,0.2)] flex items-center relative mb-8 shadow-inner">
+      <div className="bg-[#200000] p-1.5 rounded-2xl border border-[rgba(244,221,165,0.2)] flex items-center relative mb-8 shadow-inner">
         <button
           type="button"
           onClick={() => {
@@ -169,7 +169,7 @@ function LoginFormContent() {
             setErrors({});
           }}
           className={`flex-1 py-3 text-xs font-semibold rounded-xl transition-all duration-300 relative z-10 cursor-pointer flex items-center justify-center gap-2 uppercase tracking-[0.1em] ${
-            activeMode === "user" ? "text-[#561C24] font-bold" : "text-[#FFF8E6]/70 hover:text-[#FFF8E6]"
+            activeMode === "user" ? "text-[#320000] font-bold" : "text-[#F5DAA7]/70 hover:text-[#F5DAA7]"
           }`}
         >
           <User className="w-3.5 h-3.5" />
@@ -182,7 +182,7 @@ function LoginFormContent() {
             setErrors({});
           }}
           className={`flex-1 py-3 text-xs font-semibold rounded-xl transition-all duration-300 relative z-10 cursor-pointer flex items-center justify-center gap-2 uppercase tracking-[0.1em] ${
-            activeMode === "admin" ? "text-[#561C24] font-bold" : "text-[#FFF8E6]/70 hover:text-[#FFF8E6]"
+            activeMode === "admin" ? "text-[#320000] font-bold" : "text-[#F5DAA7]/70 hover:text-[#F5DAA7]"
           }`}
         >
           <ShieldCheck className="w-3.5 h-3.5" />
@@ -190,7 +190,7 @@ function LoginFormContent() {
         </button>
 
         <motion.div
-          className="absolute top-1.5 bottom-1.5 rounded-xl bg-[#F4DDA5] shadow-md z-0"
+          className="absolute top-1.5 bottom-1.5 rounded-xl bg-[#F5DAA7] shadow-md z-0"
           initial={false}
           animate={{
             left: activeMode === "user" ? "6px" : "calc(50% + 3px)",
@@ -225,25 +225,25 @@ function LoginFormContent() {
             onSubmit={handleUserLogin}
             className="space-y-5 text-left"
           >
-            <div className="p-3.5 rounded-2xl bg-[rgba(244,221,165,0.12)] border border-[rgba(244,221,165,0.25)] text-xs text-[#FFF8E6]/85">
-              <span className="font-bold text-[#F4DDA5] block mb-0.5">User Seating Portal</span>
+            <div className="p-3.5 rounded-2xl bg-[rgba(244,221,165,0.12)] border border-[rgba(244,221,165,0.25)] text-xs text-[#F5DAA7]/85">
+              <span className="font-bold text-[#F5DAA7] block mb-0.5">User Seating Portal</span>
               Enter your email address to log in. No password required.
             </div>
 
             {/* Email Address */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F5DAA7]">
                 Email Address
               </label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F5DAA7]" />
                 <input
                   type="email"
                   placeholder="user@email.com"
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
-                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
-                    errors.userEmail ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
+                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#F5DAA7] placeholder:text-[#F5DAA7]/50 focus:outline-none focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all ${
+                    errors.userEmail ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F5DAA7]"
                   }`}
                 />
               </div>
@@ -259,11 +259,11 @@ function LoginFormContent() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 px-6 rounded-full text-[#561C24] font-bold text-xs uppercase tracking-[0.15em] bg-[#F4DDA5] hover:bg-[#FFF8E6] shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
+              className="w-full py-4 px-6 rounded-full text-[#320000] font-bold text-xs uppercase tracking-[0.15em] bg-[#F5DAA7] hover:bg-[#F5DAA7] shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-[#561C24]" />
+                  <Loader2 className="w-4 h-4 animate-spin text-[#320000]" />
                   Logging in as User...
                 </>
               ) : (
@@ -282,25 +282,25 @@ function LoginFormContent() {
             onSubmit={handleAdminLogin}
             className="space-y-5 text-left"
           >
-            <div className="p-3.5 rounded-2xl bg-[rgba(244,221,165,0.12)] border border-[rgba(244,221,165,0.25)] text-xs text-[#FFF8E6]/85">
-              <span className="font-bold text-[#F4DDA5] block mb-0.5">Admin Security Portal</span>
+            <div className="p-3.5 rounded-2xl bg-[rgba(244,221,165,0.12)] border border-[rgba(244,221,165,0.25)] text-xs text-[#F5DAA7]/85">
+              <span className="font-bold text-[#F5DAA7] block mb-0.5">Admin Security Portal</span>
               Requires authorized admin email and secret PIN.
             </div>
 
             {/* Admin Email */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F5DAA7]">
                 Admin Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
+                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F5DAA7]" />
                 <input
                   type="email"
                   placeholder="admin@email.com"
                   value={adminEmail}
                   onChange={(e) => setAdminEmail(e.target.value)}
-                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
-                    errors.adminEmail ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
+                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#F5DAA7] placeholder:text-[#F5DAA7]/50 focus:outline-none focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all ${
+                    errors.adminEmail ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F5DAA7]"
                   }`}
                 />
               </div>
@@ -314,18 +314,18 @@ function LoginFormContent() {
 
             {/* Secret PIN */}
             <div className="space-y-2">
-              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F4DDA5]">
+              <label className="block text-xs font-semibold uppercase tracking-[0.15em] text-[#F5DAA7]">
                 Secret PIN
               </label>
               <div className="relative">
-                <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F4DDA5]" />
+                <KeyRound className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#F5DAA7]" />
                 <input
                   type="password"
                   placeholder="Enter Secret PIN(845291)"
                   value={adminPin}
                   onChange={(e) => setAdminPin(e.target.value)}
-                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#FFF8E6] placeholder:text-[#FFF8E6]/50 focus:outline-none focus:ring-1 focus:ring-[#F4DDA5]/30 transition-all ${
-                    errors.adminPin ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F4DDA5]"
+                  className={`w-full pl-11 pr-4 py-3.5 rounded-2xl bg-[rgba(255,248,230,0.08)] border text-xs text-[#F5DAA7] placeholder:text-[#F5DAA7]/50 focus:outline-none focus:ring-1 focus:ring-[#F5DAA7]/30 transition-all ${
+                    errors.adminPin ? "border-red-400 bg-red-950/20" : "border-[rgba(244,221,165,0.3)] focus:border-[#F5DAA7]"
                   }`}
                 />
               </div>
@@ -341,11 +341,11 @@ function LoginFormContent() {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-4 px-6 rounded-full text-[#561C24] font-bold text-xs uppercase tracking-[0.15em] bg-[#F4DDA5] hover:bg-[#FFF8E6] shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
+              className="w-full py-4 px-6 rounded-full text-[#320000] font-bold text-xs uppercase tracking-[0.15em] bg-[#F5DAA7] hover:bg-[#F5DAA7] shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-6"
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-[#561C24]" />
+                  <Loader2 className="w-4 h-4 animate-spin text-[#320000]" />
                   Authenticating Admin...
                 </>
               ) : (
@@ -357,11 +357,11 @@ function LoginFormContent() {
       </AnimatePresence>
 
       {/* Bottom link to Register */}
-      <p className="text-center text-xs text-[#FFF8E6]/75 pt-6">
+      <p className="text-center text-xs text-[#F5DAA7]/75 pt-6">
         Don&apos;t have an account?{" "}
         <Link
           href="/register"
-          className="font-bold text-[#F4DDA5] hover:text-[#FFF8E6] transition-colors hover:underline"
+          className="font-bold text-[#F5DAA7] hover:text-[#F5DAA7] transition-colors hover:underline"
         >
           Register
         </Link>
