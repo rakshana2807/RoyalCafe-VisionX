@@ -20,9 +20,10 @@ export default function CategoryTabs({
             <button
               key={category}
               onClick={() => onSelectCategory(category)}
-className={`px-3 py-2 rounded-full text-xs font-semibold transition-all duration-300 cursor-pointer whitespace-nowrap uppercase tracking-widest ${                isActive
-                   ? "bg-primary text-background shadow-sm"
-                  : "bg-background text-primary/70 hover:bg-surface hover:text-primary border border-border"
+              className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-300 cursor-pointer whitespace-nowrap uppercase tracking-widest ${
+                isActive
+                  ? "bg-[#E5CB90] text-[#561C24] shadow-[0_4px_16px_rgba(229,203,144,0.35)] border border-[#E5CB90] scale-105"
+                  : "bg-[rgba(61,17,24,0.6)] backdrop-blur-md text-[#FFF8E9]/85 hover:text-[#E5CB90] border border-[rgba(229,203,144,0.25)] hover:border-[rgba(229,203,144,0.55)] hover:bg-[rgba(61,17,24,0.85)] shadow-sm"
               }`}
             >
               {category}

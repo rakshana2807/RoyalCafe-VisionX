@@ -29,12 +29,12 @@ export default function MenuHero({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full flex flex-col items-center">
 
         {/* Header Title */}
-        <h1 className="text-[34px] sm:text-[42px] md:text-[52px] lg:text-[64px] leading-tight font-bold font-serif text-primary mb-4 animate-fade-in">
+        <h1 className="text-[34px] sm:text-[42px] md:text-[52px] lg:text-[64px] leading-tight font-bold font-serif text-[#E5CB90] mb-4 animate-fade-in tracking-tight">
           Royal Cafe Menu
         </h1>
 
         {/* Subtitle */}
-        <p className="text-sm sm:text-base text-primary/80 leading-relaxed max-w-2xl mx-auto mb-12 animate-fade-in delay-100 font-medium">
+        <p className="text-sm sm:text-base text-[#FFF8E9]/80 leading-relaxed max-w-2xl mx-auto mb-12 animate-fade-in delay-100 font-medium">
           Explore our complete artisanal selection of handcrafted coffees, loose-leaf teas, fresh juices, hot savories, stone-baked pizzas, and delicate baked pastries.
         </p>
 
@@ -44,14 +44,14 @@ export default function MenuHero({
           {/* Search Input */}
           <div className="relative flex-1 w-full">
             <div className="absolute inset-y-0 left-5 flex items-center pointer-events-none">
-              <Search className="h-5 w-5 text-primary" />
+              <Search className="h-5 w-5 text-[#E5CB90]" />
             </div>
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => onSearchChange(e.target.value)}
               placeholder="Search by menu item name or category..."
-              className="w-full pl-13 pr-6 py-4 bg-background text-sm sm:text-base rounded-full border border-primary/30 outline-none shadow-sm transition-all duration-300 text-primary placeholder:text-primary/65 font-medium focus:border-primary focus:ring-1 focus:ring-primary/20"
+              className="w-full pl-13 pr-6 py-4 bg-[rgba(61,17,24,0.6)] backdrop-blur-md text-sm sm:text-base rounded-full border border-[rgba(229,203,144,0.28)] outline-none shadow-md transition-all duration-300 text-[#FFF8E9] placeholder:text-[#FFF8E9]/60 font-medium focus:border-[#E5CB90] focus:ring-1 focus:ring-[#E5CB90]/30"
             />
           </div>
 
@@ -59,15 +59,15 @@ export default function MenuHero({
           <div className="flex items-center gap-2 w-full sm:w-auto shrink-0">
             <div className="relative w-full sm:w-auto">
               <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none">
-                <ArrowUpDown className="h-4 w-4 text-primary" />
+                <ArrowUpDown className="h-4 w-4 text-[#E5CB90]" />
               </div>
               <select
                 value={sortOption}
                 onChange={(e) => onSelectSort(e.target.value)}
-                className="w-full sm:w-auto appearance-none pl-11 pr-10 py-4 bg-background text-sm font-semibold text-primary rounded-full border border-primary/30 outline-none shadow-sm transition-all duration-300 focus:border-primary cursor-pointer hover:bg-primary/5"
+                className="w-full sm:w-auto appearance-none pl-11 pr-10 py-4 bg-[rgba(61,17,24,0.6)] backdrop-blur-md text-sm font-semibold text-[#FFF8E9] rounded-full border border-[rgba(229,203,144,0.28)] outline-none shadow-md transition-all duration-300 focus:border-[#E5CB90] cursor-pointer hover:bg-[rgba(61,17,24,0.8)]"
               >
                 {sortOptions.map((opt) => (
-                  <option key={opt} value={opt} className="bg-background text-primary">
+                  <option key={opt} value={opt} className="bg-[#3D1118] text-[#FFF8E9]">
                     Sort by: {opt}
                   </option>
                 ))}

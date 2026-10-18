@@ -41,32 +41,35 @@ export default function MenuCard({ item }: MenuCardProps) {
   };
 
   return (
-    <div className="bg-surface rounded-[24px] overflow-hidden card-shadow border border-primary/20 flex flex-col justify-between text-left h-full relative group transition-all duration-400 hover:-translate-y-2 hover:shadow-2xl">
+    <div className="royal-glass-card overflow-hidden flex flex-col justify-between text-left h-full relative group">
       
       {/* Top Image Area */}
-      <div className="relative h-[200px] w-full overflow-hidden">
+      <div className="relative h-[210px] w-full overflow-hidden rounded-t-[19px]">
         <Image
           src={item.image}
           alt={item.name}
           fill
-          className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          className="object-cover"
           sizes="(max-w-768px) 100vw, (max-w-1024px) 50vw, 25vw"
         />
         
+        {/* Subtle glass gradient overlay over the image base */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[rgba(61,17,24,0.7)] via-transparent to-black/20 pointer-events-none" />
+
         {/* Top Badges (Best Seller, New, Chef's Special) */}
-        <div className="absolute top-4 left-4 flex flex-wrap gap-2 z-10">
+        <div className="absolute top-3.5 left-3.5 flex flex-wrap gap-1.5 z-10">
           {item.isBestSeller && (
-            <span className="bg-primary text-background text-[9px] font-semibold px-3 py-1 rounded-full uppercase tracking-widest shadow-sm">
+            <span className="bg-[#E5CB90] text-[#561C24] text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest shadow-md">
               Best Seller
             </span>
           )}
           {item.isNew && (
-            <span className="bg-accent text-primary text-[9px] font-semibold px-3 py-1 rounded-full uppercase tracking-widest shadow-sm">
+            <span className="bg-[#FFF8E9] text-[#561C24] text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest shadow-md">
               New
             </span>
           )}
           {item.isChefsSpecial && (
-            <span className="bg-primary text-background text-[9px] font-semibold px-3 py-1 rounded-full uppercase tracking-widest shadow-sm">
+            <span className="bg-[rgba(61,17,24,0.85)] text-[#E5CB90] border border-[#E5CB90]/40 text-[9px] font-bold px-2.5 py-1 rounded-full uppercase tracking-widest shadow-md backdrop-blur-sm">
               Chef&apos;s Special
             </span>
           )}
@@ -75,49 +78,54 @@ export default function MenuCard({ item }: MenuCardProps) {
         {/* Floating Like Heart Button */}
         <button
           onClick={() => setIsLiked(!isLiked)}
-          className="absolute top-4 right-4 h-9 w-9 rounded-full bg-surface/90 hover:bg-surface flex items-center justify-center shadow-sm cursor-pointer hover:scale-110 active:scale-95 transition-all z-10"
+          className="absolute top-3.5 right-3.5 h-8 w-8 rounded-full bg-[rgba(61,17,24,0.65)] hover:bg-[rgba(61,17,24,0.9)] backdrop-blur-md border border-[rgba(229,203,144,0.3)] flex items-center justify-center shadow-md cursor-pointer hover:scale-110 active:scale-95 transition-all z-10"
           aria-label={isLiked ? "Unlike item" : "Like item"}
         >
           <Heart
             className={`h-4 w-4 transition-colors ${
-              isLiked ? "fill-primary text-primary" : "text-primary"
+              isLiked ? "fill-[#E5CB90] text-[#E5CB90]" : "text-[#FFF8E9]/80 hover:text-[#E5CB90]"
             }`}
           />
         </button>
 
         {/* Veg / Non-Veg Indicator Dot Overlay */}
-        <div className="absolute bottom-4 left-4 bg-surface/95 backdrop-blur-sm px-2.5 py-1.5 rounded-full flex items-center gap-1.5 shadow-sm text-[9px] font-semibold tracking-wider text-primary">
+        <div className="absolute bottom-3 left-3.5 bg-[rgba(61,17,24,0.75)] backdrop-blur-md px-2.5 py-1 rounded-full flex items-center gap-1.5 shadow-sm text-[9px] font-bold tracking-wider text-[#FFF8E9] border border-[rgba(229,203,144,0.2)]">
           <span
-            className={`h-2.5 w-2.5 rounded-full flex items-center justify-center ${
-              item.isVeg ? "bg-emerald-600" : "bg-rose-600"
+            className={`h-2 w-2 rounded-full ${
+              item.isVeg ? "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.6)]" : "bg-rose-500 shadow-[0_0_8px_rgba(244,63,94,0.6)]"
             }`}
           />
-          <span>{item.isVeg ? "VEG" : "NON-VEG"}</span>
+          <span className="text-[9px] tracking-widest font-semibold">{item.isVeg ? "VEG" : "NON-VEG"}</span>
         </div>
 
         {item.spiceLevel && (
-          <div className="absolute bottom-4 right-4 bg-background/95 backdrop-blur-sm text-primary px-3 py-1.5 rounded-full flex items-center gap-1.5 text-[9px] font-bold tracking-widest uppercase shadow-sm">
-            <Flame className="h-3 w-3 text-primary fill-primary" />
+          <div className="absolute bottom-3 right-3.5 bg-[rgba(61,17,24,0.75)] backdrop-blur-md text-[#E5CB90] px-2.5 py-1 rounded-full flex items-center gap-1.5 text-[9px] font-bold tracking-widest uppercase shadow-sm border border-[rgba(229,203,144,0.2)]">
+            <Flame className="h-3 w-3 text-[#E5CB90] fill-[#E5CB90]" />
             <span>{item.spiceLevel}</span>
           </div>
         )}
       </div>
 
       {/* Details Area */}
-      <div className="p-6 flex flex-col flex-1 justify-between">
+      <div className="p-5 sm:p-6 flex flex-col flex-1 justify-between">
         <div>
+          {/* Category label */}
+          <div className="text-[10px] uppercase tracking-[0.2em] font-bold text-[#E5CB90] mb-1.5">
+            {item.category}
+          </div>
+
           {/* Header Row: Title & Price */}
-          <div className="flex justify-between items-start gap-4 mb-3">
-            <h3 className="text-xl sm:text-[22px] font-bold font-serif text-foreground leading-tight">
+          <div className="flex justify-between items-start gap-3 mb-2.5">
+            <h3 className="text-lg sm:text-xl font-bold font-serif text-[#FFF8E9] leading-snug tracking-tight">
               {item.name}
             </h3>
-            <span className="text-xl font-extrabold text-foreground shrink-0 mt-0.5">
+            <span className="text-lg sm:text-xl font-extrabold text-[#E5CB90] shrink-0 mt-0.5 tracking-tight">
               {item.priceFormatted}
             </span>
           </div>
 
           {/* Description */}
-          <p className="text-sm text-foreground/80 font-medium leading-relaxed mb-6 line-clamp-2">
+          <p className="text-xs sm:text-sm text-[#FFF8E9]/75 font-normal leading-relaxed mb-5 line-clamp-2">
             {item.description}
           </p>
         </div>
@@ -125,25 +133,25 @@ export default function MenuCard({ item }: MenuCardProps) {
         {/* Card Footer: Metadata and Action Button */}
         <div>
           {/* Metadata Row: Prep time and Rating */}
-          <div className="flex justify-between items-center text-xs text-foreground/90 font-bold mb-6 pt-5 border-t border-primary/20">
-            <span className="flex items-center gap-1.5 text-[11px] uppercase tracking-widest">
-              <Clock className="h-4 w-4 text-foreground stroke-[2]" />
+          <div className="flex justify-between items-center text-xs text-[#FFF8E9]/80 font-medium mb-5 pt-4 border-t border-[rgba(229,203,144,0.18)]">
+            <span className="flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-[#FFF8E9]/70">
+              <Clock className="h-3.5 w-3.5 text-[#E5CB90]" />
               {item.prepTime}
             </span>
-            <span className="flex items-center gap-1 text-[11px] tracking-wider">
-              <Star className="h-4 w-4 fill-foreground text-foreground" />
-              <span className="text-foreground">{item.rating}</span>
-              <span className="text-foreground/70">({item.reviewsCount})</span>
+            <span className="flex items-center gap-1 text-[11px] tracking-wider text-[#FFF8E9]/85">
+              <Star className="h-3.5 w-3.5 fill-[#E5CB90] text-[#E5CB90]" />
+              <span className="font-bold text-[#FFF8E9]">{item.rating}</span>
+              <span className="text-[#FFF8E9]/60">({item.reviewsCount})</span>
             </span>
           </div>
 
           {/* Action Button */}
           <button
             onClick={handleClick}
-            className={`w-full py-3.5 px-4 text-xs font-bold rounded-full transition-all duration-300 shadow-md cursor-pointer uppercase tracking-widest text-center flex items-center justify-center gap-2 group-hover:-translate-y-1 ${
+            className={`w-full py-3 px-4 text-xs font-bold rounded-full transition-all duration-300 shadow-md cursor-pointer uppercase tracking-widest text-center flex items-center justify-center gap-2 hover:-translate-y-0.5 active:scale-[0.99] ${
               isAlreadyInBooking
-                ? "bg-foreground text-background border border-foreground hover:bg-foreground/90"
-                : "bg-primary text-background border border-primary hover:bg-background hover:text-primary hover:border-primary"
+                ? "bg-[#FFF8E9] text-[#561C24] border border-[#FFF8E9] hover:bg-white shadow-[0_4px_16px_rgba(255,248,233,0.2)]"
+                : "bg-[#E5CB90] text-[#561C24] hover:bg-[#edd8a4] border border-[#E5CB90] shadow-[0_4px_16px_rgba(229,203,144,0.3)] hover:shadow-[0_6px_20px_rgba(229,203,144,0.45)]"
             }`}
           >
             {isAlreadyInBooking ? (

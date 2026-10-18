@@ -143,3 +143,57 @@ body {
   border: 1px solid rgba(238, 204, 164, 0.18);
   color: var(--color-foreground);
 }
+
+/* =========================================
+   ROYAL GLASSMORPHISM MENU CARD STYLES
+   Palette:
+   - Burgundy: #561C24
+   - Champagne Gold: #E5CB90
+   - Deep Burgundy: #3D1118
+   - Light Cream: #FFF8E9
+   ========================================= */
+
+.royal-glass-card {
+  background: rgba(61, 17, 24, 0.72);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(229, 203, 144, 0.28);
+  border-radius: 20px;
+  box-shadow:
+    0 8px 28px rgba(30, 8, 12, 0.22),
+    inset 0 1px 0 rgba(255, 248, 233, 0.12);
+  transition:
+    transform 300ms ease-out,
+    border-color 300ms ease-out,
+    box-shadow 300ms ease-out;
+}
+
+.royal-glass-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(229, 203, 144, 0.65);
+  box-shadow:
+    0 16px 36px rgba(30, 8, 12, 0.32),
+    0 0 20px rgba(229, 203, 144, 0.15),
+    inset 0 1px 0 rgba(255, 248, 233, 0.18);
+}
+
+.royal-glass-card img {
+  transition: transform 300ms ease-out;
+}
+
+.royal-glass-card:hover img {
+  transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .royal-glass-card,
+  .royal-glass-card img {
+    transition: none !important;
+  }
+
+  .royal-glass-card:hover,
+  .royal-glass-card:hover img {
+    transform: none !important;
+  }
+}
+
