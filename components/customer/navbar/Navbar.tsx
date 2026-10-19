@@ -195,10 +195,10 @@ export default function Navbar() {
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href, link.sectionId)}
-                className={`text-[12px] uppercase tracking-widest font-bold transition-all duration-300 ${
+                className={`text-[12px] uppercase tracking-widest font-medium transition-all duration-300 ${
                   pathname === link.href
-                    ? "text-[#F5DAA7] border-b-2 border-[#F5DAA7] pb-1"
-                    : "text-[#F5DAA7]/75 hover:text-[#F5DAA7] hover:border-b hover:border-[#F5DAA7]/50 pb-1"
+                    ? "text-primary border-b border-primary pb-1"
+                    : "text-foreground/70 hover:text-primary hover:border-b hover:border-primary/30 pb-1"
                 }`}
               >
                 {link.name}
