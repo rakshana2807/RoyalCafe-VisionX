@@ -60,7 +60,7 @@ export default function TodaysSpecial() {
                 </div>
                 <button
                   onClick={() => alert("Daily Special claimed!")}
-                  className="w-full py-3 px-5 border border-transparent text-xs font-bold rounded-full text-background bg-primary hover:bg-primary/90 transition-all shadow-md cursor-pointer uppercase tracking-wider text-center"
+                  className="w-full py-3 px-5 border border-transparent text-xs font-bold rounded-full text-[#F5DAA7] bg-[#410013] hover:bg-[#561C24] transition-all shadow-md cursor-pointer uppercase tracking-wider text-center"
                 >
                   Claim Special
                 </button>
@@ -102,7 +102,7 @@ export default function TodaysSpecial() {
                 <span className="text-xl font-bold font-serif text-primary font-extrabold">₹180</span>
                 <button
                   onClick={() => alert("Spiced Pumpkin Latte claimed!")}
-                  className="px-5 py-2 rounded-full bg-primary hover:bg-primary/90 text-background text-xs font-bold transition-all cursor-pointer uppercase tracking-wider"
+                  className="px-5 py-2 rounded-full bg-[#410013] hover:bg-[#561C24] text-[#F5DAA7] text-xs font-bold transition-all cursor-pointer uppercase tracking-wider"
                 >
                   Claim Offer
                 </button>
@@ -137,7 +137,7 @@ export default function TodaysSpecial() {
           {/* Action button */}
           <button
             onClick={() => alert("Happy Hour Pass activated!")}
-            className="w-full md:w-auto px-8 py-3.5 border border-transparent text-xs font-bold rounded-full text-background bg-primary hover:bg-primary/90 transition-all shadow-md cursor-pointer uppercase tracking-wider whitespace-nowrap"
+            className="w-full md:w-auto px-8 py-3.5 border border-transparent text-xs font-bold rounded-full text-[#F5DAA7] bg-[#410013] hover:bg-[#561C24] transition-all shadow-md cursor-pointer uppercase tracking-wider whitespace-nowrap"
           >
             Get Happy Hour Pass
           </button>

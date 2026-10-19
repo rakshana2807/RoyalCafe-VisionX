@@ -128,8 +128,8 @@ export default function CustomerFavorites() {
 
                 <button
                   onClick={() => handleAdd(item)}
-                  className={`w-full py-2.5 px-4 border border-transparent text-xs font-bold rounded-full text-primary transition-all shadow-md cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
-                    isAlreadyInBooking(item) ? "bg-accent hover:bg-primary/90" : "bg-primary hover:bg-primary/90"
+                  className={`w-full py-2.5 px-4 border border-transparent text-xs font-bold rounded-full text-[#F5DAA7] transition-all shadow-md cursor-pointer uppercase tracking-wider text-center flex items-center justify-center gap-1.5 ${
+                    isAlreadyInBooking(item) ? "bg-[#561C24] hover:bg-[#410013]" : "bg-[#410013] hover:bg-[#561C24]"
                   }`}
                 >
                   {isAlreadyInBooking(item) ? (

@@ -223,12 +223,29 @@ export default function SeatMap({
   return (
     <div className="w-full overflow-x-auto bg-background rounded-[32px] p-5 sm:p-8 border border-primary/10 shadow-lg text-left font-sans space-y-4">
       {/* Blueprint Status Legend Bar */}
-      
-
-      {/* Scroll Hint for Mobile */}
-      <span className="text-xs font-extrabold text-foreground/80 uppercase block text-center mb-4 lg:hidden">
-        ← Scroll horizontally to view full floor plan blueprint →
-      </span>
+      <div className="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-primary/15 text-xs font-bold">
+        <span className="text-primary uppercase tracking-[0.2em] font-extrabold text-[11px]">
+          Floor Map Legend
+        </span>
+        <div className="flex items-center gap-4 sm:gap-6 flex-wrap">
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-primary border border-primary/50 shadow-sm" />
+            <span className="text-primary font-semibold">Available</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-primary ring-2 ring-primary/80 ring-offset-1 ring-offset-background" />
+            <span className="text-primary font-semibold">Selected</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-surface-secondary border border-primary/30" />
+            <span className="text-primary/75 font-semibold">Reserved</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-3 rounded-full bg-background/90 border border-primary/20" />
+            <span className="text-primary/50 font-semibold">Occupied</span>
+          </div>
+        </div>
+      </div>
 
       {/* Main Floor Blueprint Container (UNTOUCHED BLUEPRINT LAYOUT & STRUCTURE) */}
       <div className="min-w-[1150px] flex items-stretch gap-4 sm:gap-6">

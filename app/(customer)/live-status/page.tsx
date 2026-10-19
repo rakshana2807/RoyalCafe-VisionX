@@ -283,8 +283,8 @@ export default function LiveStatusPage() {
                         onClick={() => handleSelectSeat(ws as unknown as SeatDetails)}
                         className={`w-full mt-4 py-3.5 px-4 font-bold text-sm rounded-full transition-all duration-300 shadow-md flex items-center justify-center gap-2 uppercase tracking-widest group-hover:-translate-y-0.5 ${
                           ws.realTimeStatus === "FULLY BOOKED" 
-                            ? "bg-foreground/10 text-foreground/50 cursor-not-allowed border border-foreground/20" 
-                            : "bg-primary text-background hover:bg-background hover:text-primary hover:border hover:border-primary border border-transparent cursor-pointer"
+                            ? "bg-[#410013]/20 text-[#410013]/50 cursor-not-allowed border border-[#410013]/30" 
+                            : "bg-[#410013] text-[#F5DAA7] hover:bg-[#561C24] hover:shadow-lg border border-transparent cursor-pointer"
                         }`}
                       >
                         {ws.realTimeStatus === "FULLY BOOKED" ? "FULLY RESERVED" : "Reserve Seat"} 
