@@ -59,7 +59,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex h-screen bg-[#320000] text-[#F5DAA7] overflow-hidden">
+    <div className="flex h-screen bg-[#F7F0E6] text-primary/90 overflow-hidden">
       {/* Left Sidebar (Desktop, Tablet & Mobile Drawer) */}
       <AdminSidebar
         collapsed={sidebarCollapsed}

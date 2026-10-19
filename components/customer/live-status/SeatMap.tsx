@@ -33,22 +33,22 @@ function getSeatStyle(
   isSelected: boolean
 ) {
   if (isSelected) {
-    return "bg-[#320000] text-[#F5DAA7] shadow-[0_0_18px_rgba(244,221,165,0.7)] ring-2 ring-[#F5DAA7] scale-110 cursor-pointer z-10 transition-all duration-200";
+    return "bg-primary text-background font-black shadow-[0_0_18px_rgba(245,218,167,0.5)] ring-2 ring-primary scale-105 cursor-pointer z-10 animate-pulse transition-all duration-300";
   }
   switch (status) {
     case "selected":
-      return "bg-[#320000] text-[#F5DAA7] shadow-[0_0_18px_rgba(244,221,165,0.7)] ring-2 ring-[#F5DAA7] scale-110 cursor-pointer z-10 transition-all duration-200";
+      return "bg-primary text-background font-black shadow-[0_0_18px_rgba(245,218,167,0.5)] ring-2 ring-primary scale-105 cursor-pointer z-10 animate-pulse transition-all duration-300";
     case "available":
-      return "bg-[rgba(255,248,230,0.65)] text-[#320000] border border-[#320000]/30 hover:bg-[#320000] hover:text-[#F5DAA7] hover:border-[#320000] cursor-pointer hover:scale-105 transition-all shadow-xs";
+      return "bg-primary text-background font-black border border-primary/60 hover:bg-primary/90 hover:scale-105 cursor-pointer transition-all shadow-sm";
     case "reserved":
-      return "bg-[#320000]/20 text-[#320000]/70 border border-[#320000]/20 cursor-not-allowed shadow-xs";
+      return "bg-surface-secondary/90 text-primary/75 border border-primary/25 cursor-not-allowed shadow-sm";
     case "occupied":
-      return "bg-[#320000] text-[#F5DAA7]/60 border border-[#320000] cursor-not-allowed shadow-xs opacity-90";
+      return "bg-background/80 text-primary/50 border border-primary/15 cursor-not-allowed shadow-sm";
     case "maintenance":
     case "disabled":
-      return "bg-[#320000]/10 text-[#320000]/50 border border-[#320000]/20 cursor-not-allowed opacity-60 shadow-xs";
+      return "bg-background text-primary/40 border border-primary/10 cursor-not-allowed opacity-60 shadow-sm";
     default:
-      return "bg-[rgba(255,248,230,0.5)] border border-[#320000]/30 text-[#320000]";
+      return "bg-surface-secondary text-primary border border-primary/20";
   }
 }
 
@@ -221,34 +221,12 @@ export default function SeatMap({
   };
 
   return (
-    <div className="w-full overflow-x-auto bg-[#320000] rounded-[32px] p-5 sm:p-8 border border-[#320000]/20 shadow-xl text-left font-sans space-y-4">
+    <div className="w-full overflow-x-auto bg-background rounded-[32px] p-5 sm:p-8 border border-primary/10 shadow-lg text-left font-sans space-y-4">
       {/* Blueprint Status Legend Bar */}
-      <div className="flex flex-wrap items-center justify-between gap-3 bg-[#320000] p-3 sm:px-6 rounded-2xl border border-[rgba(244,221,165,0.25)] text-[#F5DAA7] text-xs font-bold">
-        <span className="uppercase tracking-widest text-[#F5DAA7] text-[11px] font-black">
-          Floor Map Legend
-        </span>
-        <div className="flex flex-wrap items-center gap-4 text-[11px]">
-          <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded bg-[rgba(255,248,230,0.7)] border border-[#320000]/40 inline-block" />
-            <span>Available</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded bg-[#320000] border-2 border-[#F5DAA7] inline-block" />
-            <span className="text-[#F5DAA7]">Selected</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded bg-[#320000]/30 border border-[#320000]/30 inline-block" />
-            <span>Reserved</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="w-3.5 h-3.5 rounded bg-[#320000] border border-[#320000] inline-block opacity-90" />
-            <span>Occupied</span>
-          </div>
-        </div>
-      </div>
+      
 
       {/* Scroll Hint for Mobile */}
-      <span className="text-xs font-extrabold text-[#320000]/80 uppercase block text-center mb-4 lg:hidden">
+      <span className="text-xs font-extrabold text-foreground/80 uppercase block text-center mb-4 lg:hidden">
         ← Scroll horizontally to view full floor plan blueprint →
       </span>
 
@@ -259,8 +237,8 @@ export default function SeatMap({
         <div className="w-[280px] shrink-0 flex flex-col justify-between gap-4">
           
           {/* Card 1: SINGLE SEATER TABLES */}
-          <div className="bg-[#320000] p-4 rounded-2xl border border-[rgba(244,221,165,0.25)] space-y-3 shadow-md">
-            <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider block">
+          <div className="bg-border/50 p-4 rounded-2xl border border-primary/10 space-y-3 shadow-2xs">
+            <span className="text-xs font-black text-accent uppercase tracking-wider block">
               SINGLE SEATER TABLES
             </span>
             <div className="flex items-center justify-between">
@@ -272,8 +250,8 @@ export default function SeatMap({
           </div>
 
           {/* Card 2: 2-SEATER TABLES */}
-          <div className="bg-[#320000] p-4 rounded-2xl border border-[rgba(244,221,165,0.25)] space-y-3 shadow-md">
-            <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider block">
+          <div className="bg-border/50 p-4 rounded-2xl border border-primary/10 space-y-3 shadow-2xs">
+            <span className="text-xs font-black text-accent uppercase tracking-wider block">
               2-SEATER TABLES
             </span>
             <div className="flex items-center justify-between">
@@ -291,16 +269,16 @@ export default function SeatMap({
           </div>
 
           {/* Card 3: OUTDOOR SEATING */}
-          <div className="bg-[#320000] p-4 rounded-2xl border border-[rgba(244,221,165,0.25)] space-y-3 shadow-md">
-            <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider block text-center">
+          <div className="bg-border/50 p-4 rounded-2xl border border-primary/10 space-y-3 shadow-2xs">
+            <span className="text-xs font-black text-accent uppercase tracking-wider block text-center">
               OUTDOOR SEATING
             </span>
             
-            <div className="relative p-6 rounded-2xl bg-[#200000] border border-[rgba(244,221,165,0.2)] flex flex-col items-center justify-center min-h-[160px]">
-              <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-widest text-center">
+            <div className="relative p-6 rounded-2xl bg-border/50 border border-primary/10 flex flex-col items-center justify-center min-h-[160px]">
+              <span className="text-xs font-black text-accent uppercase tracking-widest text-center">
                 OUTDOOR<br />PARTY AREA
               </span>
-              <span className="text-[9px] font-extrabold text-[#F5DAA7]/60 uppercase tracking-widest mt-1">
+              <span className="text-[9px] font-extrabold text-accent/70 uppercase tracking-widest mt-1">
                 ORB VIEWING DECK
               </span>
 
@@ -321,10 +299,10 @@ export default function SeatMap({
           </div>
 
           {/* Card 4: SOCIAL LOUNGE WITH INTERACTIVE LOUNGE SEATS */}
-          <div className="bg-[#320000] p-4 rounded-2xl border border-[rgba(244,221,165,0.25)] flex flex-col items-center justify-center text-center space-y-2 min-h-[130px] shadow-md">
+          <div className="bg-border/50 p-4 rounded-2xl border border-primary/10 flex flex-col items-center justify-center text-center space-y-2 min-h-[130px] shadow-2xs">
             <div className="flex items-center gap-1.5">
-              <Trees className="h-4 w-4 text-[#F5DAA7] stroke-[1.5]" />
-              <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-widest">
+              <Trees className="h-4 w-4 text-accent/70 stroke-[1.5]" />
+              <span className="text-xs font-black text-accent uppercase tracking-widest">
                 SOCIAL LOUNGE
               </span>
             </div>
@@ -336,21 +314,21 @@ export default function SeatMap({
         </div>
 
         {/* --- DARK VERTICAL DIVIDER LINE --- */}
-        <div className="w-1.5 bg-[#320000]/20 rounded-full shrink-0 self-stretch my-1" />
+        <div className="w-1.5 bg-primary/20 rounded-full shrink-0 self-stretch my-1" />
 
         {/* --- CENTER AREA --- */}
         <div className="flex-1 flex flex-col justify-between gap-5 min-w-[660px]">
           
-          {/* Top Row: 3 Equal Cards (ONLY WORK & STUDY ZONE) */}
+          {/* Top Row: 3 Equal Luxury Glass Cards (WORK & STUDY ZONE) */}
           <div className="grid grid-cols-3 gap-4">
             
             {/* 1. SINGLE SEATER TABLES (WORK & STUDY ZONE ONLY) */}
-            <div className="bg-[#320000] p-4 rounded-2xl border border-[rgba(244,221,165,0.3)] space-y-3 shadow-md">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider">
+            <div className="bg-surface-secondary/70 backdrop-blur-md p-4 rounded-2xl border border-primary/25 space-y-3 shadow-md hover:border-primary/50 transition-all">
+              <div className="flex justify-between items-center border-b border-primary/15 pb-2">
+                <span className="text-xs font-black text-primary uppercase tracking-wider">
                   SINGLE SEATER TABLES
                 </span>
-                <span className="text-[9px] font-extrabold bg-[#F5DAA7]/20 text-[#F5DAA7] px-2 py-0.5 rounded-full border border-[#F5DAA7]/30">
+                <span className="text-[9px] font-extrabold bg-primary/15 text-primary px-2 py-0.5 rounded-full border border-primary/20">
                   8 Seats
                 </span>
               </div>
@@ -363,7 +341,7 @@ export default function SeatMap({
                 {renderSeat("T-SS-4", "4", "Single Seater Tables", "Work & Study", "Single Seater", "available", "circle")}
               </div>
               {/* Row 2: 5, 6, 7, 8 */}
-              <div className="flex items-center justify-around pt-1 border-t border-[rgba(244,221,165,0.15)]">
+              <div className="flex items-center justify-around pt-1 border-t border-primary/10">
                 {renderSeat("T-SS-5", "5", "Single Seater Tables", "Work & Study", "Single Seater", "available", "circle")}
                 {renderSeat("T-SS-6", "6", "Single Seater Tables", "Work & Study", "Single Seater", "available", "circle")}
                 {renderSeat("T-SS-7", "7", "Single Seater Tables", "Work & Study", "Single Seater", "reserved", "circle")}
@@ -372,12 +350,12 @@ export default function SeatMap({
             </div>
 
             {/* 2. 2-SEATER TABLES (WORK & STUDY ZONE ONLY) */}
-            <div className="bg-[#320000] p-4 rounded-2xl border border-[rgba(244,221,165,0.3)] space-y-3 shadow-md">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider">
+            <div className="bg-surface-secondary/70 backdrop-blur-md p-4 rounded-2xl border border-primary/25 space-y-3 shadow-md hover:border-primary/50 transition-all">
+              <div className="flex justify-between items-center border-b border-primary/15 pb-2">
+                <span className="text-xs font-black text-primary uppercase tracking-wider">
                   2-SEATER TABLES
                 </span>
-                <span className="text-[9px] font-extrabold bg-[#F5DAA7]/20 text-[#F5DAA7] px-2 py-0.5 rounded-full border border-[#F5DAA7]/30">
+                <span className="text-[9px] font-extrabold bg-primary/15 text-primary px-2 py-0.5 rounded-full border border-primary/20">
                   8 Seats
                 </span>
               </div>
@@ -390,7 +368,7 @@ export default function SeatMap({
                 {renderSeat("T-2S-4", "4", "2-Seater Tables", "Work & Study", "2 Seater", "available", "square")}
               </div>
               {/* Row 2: 5, 6, 7, 8 */}
-              <div className="flex items-center justify-around pt-1 border-t border-[rgba(244,221,165,0.15)]">
+              <div className="flex items-center justify-around pt-1 border-t border-primary/10">
                 {renderSeat("T-2S-5", "5", "2-Seater Tables", "Work & Study", "2 Seater", "available", "square")}
                 {renderSeat("T-2S-6", "6", "2-Seater Tables", "Work & Study", "2 Seater", "available", "square")}
                 {renderSeat("T-2S-7", "7", "2-Seater Tables", "Work & Study", "2 Seater", "reserved", "square")}
@@ -399,10 +377,13 @@ export default function SeatMap({
             </div>
 
             {/* 3. 6 SEAT – PRIVATE BOOTH (WORK & STUDY ZONE ONLY) */}
-            <div className="bg-[#320000] p-4 rounded-2xl border border-[rgba(244,221,165,0.3)] flex flex-col justify-between min-h-[160px] shadow-md">
-              <div className="flex justify-between items-center">
-                <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider">
+            <div className="bg-surface-secondary/70 backdrop-blur-md p-4 rounded-2xl border border-primary/25 flex flex-col justify-between min-h-[160px] shadow-md hover:border-primary/50 transition-all">
+              <div className="flex justify-between items-center border-b border-primary/15 pb-2">
+                <span className="text-xs font-black text-primary uppercase tracking-wider">
                   6 SEAT – PRIVATE BOOTH
+                </span>
+                <span className="text-[9px] font-extrabold bg-primary/15 text-primary px-2 py-0.5 rounded-full border border-primary/20">
+                  Quiet
                 </span>
               </div>
               <div className="flex items-center justify-around py-2">
@@ -418,12 +399,12 @@ export default function SeatMap({
           <div className="grid grid-cols-12 gap-4">
             
             {/* 10 SEAT – PRIVATE BOOTH (FAMILY ZONE) */}
-            <div className="col-span-6 bg-[#320000] p-5 rounded-2xl border border-[rgba(244,221,165,0.25)] flex flex-col justify-between min-h-[200px] shadow-md space-y-3">
-              <div className="flex justify-between items-center border-b border-[rgba(244,221,165,0.2)] pb-2">
-                <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider">
+            <div className="col-span-6 bg-border/50 p-5 rounded-2xl border border-primary/10 flex flex-col justify-between min-h-[200px] shadow-2xs space-y-3">
+              <div className="flex justify-between items-center border-b border-accent/10 pb-2">
+                <span className="text-xs font-black text-accent uppercase tracking-wider">
                   10 SEAT — PRIVATE BOOTH
                 </span>
-                <span className="text-[9px] font-extrabold bg-[#F5DAA7]/20 text-[#F5DAA7] px-2 py-0.5 rounded-full">
+                <span className="text-[9px] font-extrabold bg-background/10 text-accent px-2 py-0.5 rounded-full">
                   10 Seats
                 </span>
               </div>
@@ -441,12 +422,12 @@ export default function SeatMap({
             </div>
 
             {/* 4-SEATER TABLES (SOCIAL AREA) */}
-            <div className="col-span-6 bg-[#320000] p-5 rounded-2xl border border-[rgba(244,221,165,0.25)] flex flex-col justify-between min-h-[200px] shadow-md space-y-3">
-              <div className="flex justify-between items-center border-b border-[rgba(244,221,165,0.2)] pb-2">
-                <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider">
+            <div className="col-span-6 bg-border/50 p-5 rounded-2xl border border-primary/10 flex flex-col justify-between min-h-[200px] shadow-2xs space-y-3">
+              <div className="flex justify-between items-center border-b border-accent/10 pb-2">
+                <span className="text-xs font-black text-accent uppercase tracking-wider">
                   4-SEATER TABLES
                 </span>
-                <span className="text-[9px] font-extrabold bg-[#F5DAA7]/20 text-[#F5DAA7] px-2 py-0.5 rounded-full">
+                <span className="text-[9px] font-extrabold bg-background/10 text-accent px-2 py-0.5 rounded-full">
                   Spacious
                 </span>
               </div>
@@ -461,12 +442,12 @@ export default function SeatMap({
           </div>
 
           {/* ADDITIONAL SINGLE SEATER TABLES (SOCIAL AREA) */}
-          <div className="bg-[#320000] p-4 rounded-2xl border border-[rgba(244,221,165,0.25)] space-y-2.5 shadow-md">
+          <div className="bg-border/50 p-4 rounded-2xl border border-primary/10 space-y-2.5 shadow-2xs">
             <div className="flex justify-between items-center">
-              <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider">
+              <span className="text-xs font-black text-accent uppercase tracking-wider">
                 ADDITIONAL SEATING &bull; SINGLE SEATER TABLES (SINGLE 9 TO 16)
               </span>
-              <span className="text-[9px] font-extrabold bg-[#F5DAA7]/20 text-[#F5DAA7] px-2 py-0.5 rounded-full">
+              <span className="text-[9px] font-extrabold bg-background/10 text-accent px-2 py-0.5 rounded-full">
                 Extra Seating
               </span>
             </div>
@@ -485,10 +466,10 @@ export default function SeatMap({
           {/* Third Row */}
           <div className="grid grid-cols-12 gap-4 items-stretch">
             {/* Bottom Left: Large SOCIAL LOUNGE Card WITH INTERACTIVE LOUNGE SEATS */}
-            <div className="col-span-5 bg-[#320000] p-5 rounded-2xl border border-[rgba(244,221,165,0.25)] flex flex-col items-center justify-center text-center space-y-3 min-h-[190px] shadow-md">
+            <div className="col-span-5 bg-border/50 p-5 rounded-2xl border border-primary/10 flex flex-col items-center justify-center text-center space-y-3 min-h-[190px] shadow-2xs">
               <div className="flex items-center gap-2">
-                <Trees className="h-6 w-6 text-[#F5DAA7] stroke-[1.5]" />
-                <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-widest">
+                <Trees className="h-6 w-6 text-accent/70 stroke-[1.5]" />
+                <span className="text-xs font-black text-accent uppercase tracking-widest">
                   SOCIAL LOUNGE
                 </span>
               </div>
@@ -502,10 +483,10 @@ export default function SeatMap({
             {/* Bottom Right: KIDS ZONE & ELDER FRIENDLY */}
             <div className="col-span-7 grid grid-cols-2 gap-4">
               {/* KIDS ZONE (2x3 Grid) */}
-              <div className="bg-[#320000] p-4 rounded-2xl border border-[rgba(244,221,165,0.25)] space-y-2.5 shadow-md">
+              <div className="bg-border/50 p-4 rounded-2xl border border-primary/10 space-y-2.5 shadow-2xs">
                 <div className="flex items-center gap-1.5">
-                  <Baby className="h-4 w-4 text-[#F5DAA7]" />
-                  <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider">
+                  <Baby className="h-4 w-4 text-accent" />
+                  <span className="text-xs font-black text-accent uppercase tracking-wider">
                     KIDS
                   </span>
                 </div>
@@ -520,10 +501,10 @@ export default function SeatMap({
               </div>
 
               {/* ELDER FRIENDLY */}
-              <div className="bg-[#320000] p-4 rounded-2xl border border-[rgba(244,221,165,0.25)] space-y-2.5 shadow-md">
+              <div className="bg-border/50 p-4 rounded-2xl border border-primary/10 space-y-2.5 shadow-2xs">
                 <div className="flex items-center gap-1.5">
-                  <Accessibility className="h-4 w-4 text-[#F5DAA7]" />
-                  <span className="text-xs font-black text-[#F5DAA7] uppercase tracking-wider">
+                  <Accessibility className="h-4 w-4 text-accent" />
+                  <span className="text-xs font-black text-accent uppercase tracking-wider">
                     ELDER FRIENDLY
                   </span>
                 </div>
@@ -551,10 +532,10 @@ export default function SeatMap({
         <div className="w-[150px] shrink-0 flex flex-col justify-between gap-4">
           
           {/* ORDERING COUNTER (Tall Rounded Card with Vertical Text) */}
-          <div className="flex-1 bg-[#320000] rounded-3xl border border-[rgba(244,221,165,0.25)] p-4 flex flex-col items-center justify-center text-center shadow-md min-h-[440px] relative">
-            <div className="h-full w-14 rounded-full bg-[#200000] border border-[#F5DAA7]/30 flex items-center justify-center p-2 shadow-inner">
+          <div className="flex-1 bg-border/50 rounded-3xl border border-primary/10 p-4 flex flex-col items-center justify-center text-center shadow-2xs min-h-[440px] relative">
+            <div className="h-full w-14 rounded-full bg-border/80 border border-accent/20 flex items-center justify-center p-2 shadow-inner">
               <span
-                className="text-xs font-black uppercase tracking-[0.25em] text-[#F5DAA7]"
+                className="text-xs font-black uppercase tracking-[0.25em] text-accent"
                 style={{ writingMode: "vertical-lr", textOrientation: "mixed" }}
               >
                 ORDERING COUNTER
@@ -563,7 +544,7 @@ export default function SeatMap({
           </div>
 
           {/* ENTRANCE BUTTON */}
-          <div className="bg-[#320000] text-[#F5DAA7] py-4 px-4 rounded-2xl text-center font-black text-xs sm:text-sm uppercase tracking-widest shadow-md border border-[#F5DAA7]/30 cursor-default">
+          <div className="bg-border text-accent py-4 px-4 rounded-2xl text-center font-black text-xs sm:text-sm uppercase tracking-widest shadow-sm border border-accent/25 cursor-default">
             ENTRANCE
           </div>
 

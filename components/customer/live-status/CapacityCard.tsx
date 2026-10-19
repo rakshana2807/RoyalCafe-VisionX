@@ -42,16 +42,16 @@ export default function CapacityCard() {
             return (
               <div
                 key={idx}
-                className="bg-[#F5DAA7] text-[#320000] p-6 rounded-2xl border border-[rgba(245,218,167,0.4)] shadow-xl text-left flex flex-col justify-between h-[130px] transition-all hover:-translate-y-1 hover:shadow-2xl duration-300"
+                className="bg-surface p-6 rounded-2xl border border-primary/5 card-shadow text-left flex flex-col justify-between h-[120px] transition-all hover:translate-y-[-2px] duration-300"
               >
                 {/* Top Row: Icon + Badge */}
                 <div className="flex items-center justify-between">
-                  <div className="h-9 w-9 rounded-xl bg-[#320000]/10 flex items-center justify-center border border-[#320000]/15">
-                    <Icon className="h-5 w-5 text-[#320000] stroke-[2]" />
+                  <div className="h-9 w-9 rounded-lg bg-primary/5 flex items-center justify-center border border-primary/10">
+                    <Icon className="h-5 w-5 text-primary stroke-[1.75]" />
                   </div>
                   {card.badge && (
                     <span
-                      className="px-2.5 py-0.5 rounded-full text-[10px] font-black tracking-wider uppercase bg-[#320000]/10 text-[#320000] border border-[#320000]/20"
+                      className={`px-2 py-0.5 rounded text-xs font-bold border tracking-wide uppercase ${card.badgeColor}`}
                     >
                       {card.badge}
                     </span>
@@ -60,10 +60,10 @@ export default function CapacityCard() {
 
                 {/* Bottom Row: Text content */}
                 <div>
-                  <span className="text-[11px] font-extrabold text-[#320000]/70 uppercase tracking-wider block mb-0.5">
+                  <span className="text-xs font-bold text-foreground/45 uppercase tracking-wider block mb-1">
                     {card.title}
                   </span>
-                  <span className="text-2xl font-black font-serif text-[#320000]">
+                  <span className="text-xl font-bold font-serif text-primary">
                     {card.value}
                   </span>
                 </div>
